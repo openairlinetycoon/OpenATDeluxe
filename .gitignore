@@ -259,9 +259,14 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/EncryptTest
-/IDATest
-/OpenATDmainOld - Kopie
-/OpenATDmainOld
-/OpenATD - Kopie
-/OpenATDeluxe
+EncryptTest/
+IDATest/
+OpenATDmainOld - Kopie/
+OpenATDmainOld/
+OpenATD - Kopie/
+OpenATDeluxe/
+ATD - Kopie/
+ATD/
+SDL*/
+source_code_win/
+
