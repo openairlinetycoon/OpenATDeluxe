@@ -12,4 +12,5 @@ You need the following dependecies:
 - SDL2
 - SDL2_mixer
 - Mono
-For everything else take a look atat thethe wiki.
+
+For everything else take a look at the wiki.
