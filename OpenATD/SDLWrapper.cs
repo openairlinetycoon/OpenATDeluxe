@@ -11,7 +11,10 @@ namespace OpenATD.SDL
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		public static extern Drawable AddDrawable(string file);
 
-		[MethodImpl(MethodImplOptions.InternalCall)]
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        public static extern Drawable AddDrawableLib(string file, string gfxName);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
 		public static extern float GetFPS();
 
         [MethodImpl(MethodImplOptions.InternalCall)]
@@ -19,9 +22,12 @@ namespace OpenATD.SDL
         [MethodImpl(MethodImplOptions.InternalCall)]
         public static extern int GetMouseY();
 
-        public static void GetMousePos() {
-
+        public static Vector GetMousePos()
+        {
+            return new Vector(GetMouseX(), GetMouseY());
         }
+
+        public static string GliPath = @"G:\GOG Games\Airline Tycoon Deluxe\gli\";
 
         /* This makes a kinda functional headerfile from a "dumpbin.exe /LINENUMBERS ***.lib | findstr /c:"public:"" with that regex: @"\(public\:(.*\ ([^<>\n]*(<(.*)>)?)\:\:.*)\)"
 foreach (Match m in reg) {

@@ -11,14 +11,20 @@ namespace OpenATD.SDL {
 
 		string file;
 
-		public int x, y;
+        //public int x, y;
+        public Vector position;
+
+        public Drawable()
+        {
+            position = new Vector(0, 0);
+        }
 
 		public void Setup(string file, int x = 0, int y = 0)
 		{
 			this.file = file;
 
-			this.x = x;
-			this.y = x;
+            position.x = x;
+            position.y = x;
 
 			Console.WriteLine("Setup! " + x + "," + y + " file" + file);
 			drawers.Add(this);

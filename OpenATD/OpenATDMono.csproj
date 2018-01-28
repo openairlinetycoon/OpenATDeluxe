@@ -13,21 +13,21 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Debug\Net</OutputPath>
+    <OutputPath>..\Build\x64\Net</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="&quot;C:\Program Files\Mono\bin\pdb2mdb.bat&quot; &quot;P:\Projekte\Major Games\OpenATD\Debug\Net\OpenATD.dll&quot;" />
+        <Command type="AfterBuild" command="&quot;C:\Program Files\Mono\bin\pdb2mdb.bat&quot; &quot;P:\Projekte\Major Games\OpenATD\Build\x64\Net\OpenATD.dll&quot;" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Debug\Net</OutputPath>
+    <OutputPath>..\Build\x64\Net</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -42,6 +42,7 @@
     <Compile Include="Drawable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SDLWrapper.cs" />
+    <Compile Include="Vector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

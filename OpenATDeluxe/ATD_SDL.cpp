@@ -2,7 +2,7 @@
 #include "ATD_SDL.h"
 
 
-std::list<Drawable>* ATD_SDL::drawables;
+list<Drawable>* ATD_SDL::drawables;
 SDL_Renderer *ATD_SDL::renderer;
 ATD_SDL *ATD_SDL::instance;
 
@@ -15,13 +15,27 @@ ATD_SDL::~ATD_SDL(){
 }
 
 void ATD_SDL::AddDrawable(std::string *file) {
-	drawables->push_back(*new Drawable(file));
+	drawables->push_back(*new Drawable(file, NULL));
 
 }
 MonoObject *ATD_SDL::AddDrawableM(MonoString *file) {
 	char *s = mono_string_to_utf8(file);
 
-	Drawable *d = new Drawable(new std::string(s));
+	Drawable *d = new Drawable(new std::string(s), NULL);
+
+	drawables->push_back(*d);
+	mono_free(s);
+
+	return d->object;
+}
+
+MonoObject *ATD_SDL::AddDrawableLib(MonoString *file, MonoString *name) {
+	char *s = mono_string_to_utf8(file);
+	char *gfxName = mono_string_to_utf8(name);
+
+	GFXLib l = GFXLib(s);
+
+	Drawable *d = new Drawable(new std::string(gfxName), &l);
 
 	drawables->push_back(*d);
 	mono_free(s);
@@ -58,6 +72,7 @@ bool ATD_SDL::OnInit() {
 	MonoObject *sdlWrapper;
 	sdlWrapper = MonoHelper::create_object("SDLWrapper", "OpenATD.SDL");
 	MonoHelper::add_method(sdlWrapper, "AddDrawable", AddDrawableM);
+	MonoHelper::add_method(sdlWrapper, "AddDrawableLib", AddDrawableLib);
 	MonoHelper::add_method(sdlWrapper, "GetFPS", GetFPS);
 	MonoHelper::add_method(sdlWrapper, "GetMouseX", GetMouseX);
 	MonoHelper::add_method(sdlWrapper, "GetMouseY", GetMouseY);

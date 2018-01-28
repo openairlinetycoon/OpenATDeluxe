@@ -8,10 +8,10 @@ namespace OpenATD.SDL
 {
     public struct Vector
     {
-        public float x;
-        public float y;
+        public int x;
+		public int y;
 
-        public Vector(float x, float y)
+		public Vector(int x, int y)
         {
             this.x = x;
             this.y = y;

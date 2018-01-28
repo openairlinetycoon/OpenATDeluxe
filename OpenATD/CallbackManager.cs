@@ -15,16 +15,16 @@ namespace OpenATD {
 
         public CallbackManager()
         {
-            c = new Cursor(SDLWrapper.AddDrawable("CURSOR.bmp"));
+            c = new Cursor(SDLWrapper.AddDrawableLib(SDLWrapper.GliPath + "glbasis.gli", "CURSOR"));
         }
 
 		public void InputCallback(string keyName){
 			Console.WriteLine("Input recieved!# Input "+ keyName);
-			//Console.WriteLine(Gimme() + "+ data");
-			if(keyName == "Up")
-				SDLWrapper.AddDrawable("test.bmp");
-			if (keyName == "Down")
-				Drawable.drawers[new Random().Next(0, Drawable.drawers.Count)].x +=2;
+            //Console.WriteLine(Gimme() + "+ data");
+            if (keyName == "Up")
+                SDLWrapper.AddDrawableLib(SDLWrapper.GliPath + "glbasis.gli", "CURSORL");
+            if (keyName == "Down")
+				Drawable.drawers[new Random().Next(0, Drawable.drawers.Count)].position.x +=2;
 			if (keyName == "Left")
 				Console.WriteLine("FPS: " + SDLWrapper.GetFPS());
 		}

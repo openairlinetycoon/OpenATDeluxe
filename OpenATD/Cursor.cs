@@ -16,8 +16,7 @@ namespace OpenATD.SDL
 
         public void Update()
         {
-            image.x = SDLWrapper.GetMouseX();
-            image.y = SDLWrapper.GetMouseY();
+            image.position = SDLWrapper.GetMousePos();
         }
     }
 }

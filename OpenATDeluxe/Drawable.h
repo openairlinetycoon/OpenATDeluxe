@@ -16,7 +16,7 @@ public:
 
 	MonoObject *object;
 
-	Drawable(std::string *file);
+	Drawable(std::string *file, GFXLib *lib);
 
 	void updatePos();
 

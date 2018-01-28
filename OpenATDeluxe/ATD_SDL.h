@@ -14,6 +14,7 @@ private:
 	float avgFPS;
 
 	static std::list<Drawable> *drawables;
+	static map<string, GFXFile> files;
 public:
 	static ATD_SDL *instance;
 	static SDL_Renderer *renderer;
@@ -23,6 +24,7 @@ public:
 
 	void AddDrawable(std::string *file);
 	static MonoObject *AddDrawableM(MonoString *file);
+	static MonoObject *AddDrawableLib(MonoString * file, MonoString *name);
 	static float GetFPS();
 
 	static int GetMouseX();

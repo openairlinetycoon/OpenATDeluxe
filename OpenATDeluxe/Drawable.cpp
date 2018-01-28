@@ -2,10 +2,13 @@
 #include "Drawable.h"
 
 
-Drawable::Drawable(std::string *file) {
+Drawable::Drawable(std::string *file, GFXLib *lib) { //POINTER MEMORY LEAK
 	this->file = file;
 
-	prepareDraw(*file);
+	if (lib == NULL)
+		prepareDraw(*file);
+	else
+		texture = lib->GetTexture(*file);
 	
 	object = MonoHelper::create_object("Drawable", "OpenATD.SDL");
 
@@ -24,11 +27,10 @@ Drawable::Drawable(std::string *file) {
 }
 
 void Drawable::updatePos() {
-	MonoObject *v = MonoHelper::get_value(id, "x", id);
-	x = *(int*)mono_object_unbox(v);
+	MonoObject *v = MonoHelper::get_value(id, "position", id);
 
-	v = MonoHelper::get_value(id, "y", id);
-	y = *(int*)mono_object_unbox(v);
+	x = *(int*)mono_object_unbox(MonoHelper::get_value(v, "x"));
+	y = *(int*)mono_object_unbox(MonoHelper::get_value(v, "y"));
 }
 
 void Drawable::draw() {

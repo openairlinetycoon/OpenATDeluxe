@@ -9,14 +9,14 @@ namespace MonoHelper {
 	void prepareDomain() {
 		mono_set_dirs("C:\\Program Files\\Mono\\lib", "C:\\Program Files\\Mono\\etc");
 
-
-
+#ifndef NO_DEBUGGER //The programm will crash when no debugger is listening on that port!
 		const char* options[] = {
-			"--debugger-agent=transport=dt_socket,address=127.0.0.1:10000"
+			"--debugger-agent=transport=dt_socket,address=127.0.0.1:10001"
 		};
 		mono_jit_parse_options(1, (char**)options);
-
 		mono_debug_init(MONO_DEBUG_FORMAT_MONO);
+#endif // NO_DEBUGGER
+
 		domain = mono_jit_init(file.c_str());
 	}
 	void prepareImage() {
@@ -130,7 +130,7 @@ namespace MonoHelper {
 		//call_method(object);
 	}
 
-	MonoObject* get_value(MonoObject *klass, const char* name, int debugID = -1) {
+	MonoObject* get_value(MonoObject *klass, const char* name, int debugID) {
 		MonoClass *k;
 		MonoClassField *field;
 
@@ -140,7 +140,7 @@ namespace MonoHelper {
 
 		return mono_field_get_value_object(domain, field, klass);
 	}
-	MonoObject* get_value(uint32_t id, const char* name, int debugID = -1) {
+	MonoObject* get_value(uint32_t id, const char* name, int debugID) {
 		MonoClass *k;
 		MonoClassField *field;
 		MonoObject *klass = get_object_from_handle(id);
