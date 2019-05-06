@@ -268,4 +268,6 @@ ATD - Kopie/
 ATD/
 SDL*/
 source_code_win/
-
+BASE/
+.import/
+.mono/
