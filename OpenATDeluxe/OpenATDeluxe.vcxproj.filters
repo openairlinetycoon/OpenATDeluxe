@@ -36,6 +36,9 @@
     <ClInclude Include="GFXLib.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="TextLib.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,6 +63,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="GFXLib.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TextLib.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

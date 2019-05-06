@@ -1,6 +1,5 @@
 #pragma once
 
-#include "stdafx.h"
 using namespace std;
 
 struct GFXFile {
@@ -18,6 +17,9 @@ private:
 	void readData();
 public:
 	GFXLib(string fileName);
+
+	static MonoObject* Create(MonoString* str);
+	static MonoArray* GetAllImageNames(MonoObject* obj);
 
 	SDL_Texture *GetTexture(string gfxName);
 

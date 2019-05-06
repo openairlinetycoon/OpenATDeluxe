@@ -7,6 +7,8 @@
 class ATD_SDL
 {
 private:
+
+
 	SDL_Window * window;
 	uint32_t callbackManager;
 	bool isRunning;
@@ -15,6 +17,8 @@ private:
 
 	static std::list<Drawable> *drawables;
 	static map<string, GFXFile> files;
+
+
 public:
 	static ATD_SDL *instance;
 	static SDL_Renderer *renderer;
@@ -29,6 +33,9 @@ public:
 
 	static int GetMouseX();
 	static int GetMouseY();
+
+
+	static void PrepareMonoMethods();
 
 	int OnExecute();
 

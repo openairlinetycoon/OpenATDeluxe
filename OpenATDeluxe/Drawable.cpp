@@ -27,10 +27,13 @@ Drawable::Drawable(std::string *file, GFXLib *lib) { //POINTER MEMORY LEAK
 }
 
 void Drawable::updatePos() {
-	MonoObject *v = MonoHelper::get_value(id, "position", id);
+	MonoObject *v = MonoHelper::get_valueObject(id, "position", id);
 
-	x = *(int*)mono_object_unbox(MonoHelper::get_value(v, "x"));
-	y = *(int*)mono_object_unbox(MonoHelper::get_value(v, "y"));
+	x = *(int*)mono_object_unbox(MonoHelper::get_valueObject(v, "x"));
+	y = *(int*)mono_object_unbox(MonoHelper::get_valueObject(v, "y"));
+
+	//x = (int)MonoHelper::get_value(v, "x", 0);
+	//y = (int)MonoHelper::get_value(v, "y", 0);
 }
 
 void Drawable::draw() {

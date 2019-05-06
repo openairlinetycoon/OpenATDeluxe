@@ -12,6 +12,7 @@ namespace OpenATD {
 		public extern static string Gimme();
 
         Cursor c;
+        GFXLib a;
 
         public CallbackManager()
         {
@@ -27,6 +28,13 @@ namespace OpenATD {
 				Drawable.drawers[new Random().Next(0, Drawable.drawers.Count)].position.x +=2;
 			if (keyName == "Left")
 				Console.WriteLine("FPS: " + SDLWrapper.GetFPS());
+			if (keyName == "Right") {
+				a = GFXLib.Create(SDLWrapper.GliPath + "glbasis.gli");
+
+				Console.WriteLine(a.pointer);
+			}
+            if (keyName == "D")
+                Console.WriteLine(a.GetAllImageNames()[0]);
 		}
 
         public void OnEvent() {

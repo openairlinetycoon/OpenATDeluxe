@@ -53,6 +53,7 @@
     <Compile Include="CallbackManager.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="Drawable.cs" />
+    <Compile Include="GFXLib.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SDLWrapper.cs" />
     <Compile Include="Vector.cs" />

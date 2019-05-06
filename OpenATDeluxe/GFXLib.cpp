@@ -7,6 +7,47 @@ GFXLib::GFXLib(string fileName){
 	readData();
 }
 
+MonoObject *GFXLib::Create(MonoString* str)
+{
+	MonoObject *e = MonoHelper::create_object("GFXLib", "OpenATD.SDL");
+
+
+	//MonoHelper::add_method(e, "GetAllImageNames", GFXLib::GetAllImageNames);
+
+	void *number;// = mono_object_unbox( MonoHelper::get_valueObject(e, "pointer", 0));
+	number = new GFXLib(mono_string_to_utf8(str));
+	mono_field_set_value(e, mono_class_get_field_from_name(mono_object_get_class(e), "pointer"), number);
+
+	mono_field_set_value(e, mono_class_get_field_from_name(mono_object_get_class(e), "fileName"), mono_string_new(MonoHelper::domain, ((GFXFile*)number)->name.c_str()));
+	//string name = mono_string_to_utf8(mono_object_to_string(e, NULL));
+
+	//string file = mono_string_to_utf8((MonoString*)mono_object_unbox(MonoHelper::get_value(gfxLib, "fileName")));
+	
+	return e;
+}
+
+MonoArray* GFXLib::GetAllImageNames(MonoObject* obj)
+{	//TBF
+	GFXLib* lib = NULL;//(IntPtr*)mono_object_unbox(obj);
+	map<string, GFXFile>::iterator it;
+
+	cout << lib->fileName;
+
+	MonoArray *array = mono_array_new(MonoHelper::domain, mono_get_string_class(), lib->files.size());
+
+	int i = 0;
+	for (it = lib->files.begin(); it != lib->files.end(); it++)
+	{
+		std::cout << it->first
+			<< std::endl;
+		
+		mono_array_setref(array, i, mono_string_new(MonoHelper::domain, it->first.c_str()));
+
+		i++;
+	}
+	return array;
+}
+
 BYTE* ConvertRGBToBMPBuffer(BYTE* Buffer, int width, int height, long* newsize);
 BYTE *appendBMPHeader(BYTE *pixels, int width, int height, long bufferSize, long *finalSize);
 void saveGfxToFile(string filename, BYTE *pixels, int width, int height, long pixelSize);

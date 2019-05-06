@@ -30,15 +30,17 @@ MonoObject *ATD_SDL::AddDrawableM(MonoString *file) {
 }
 
 MonoObject *ATD_SDL::AddDrawableLib(MonoString *file, MonoString *name) {
-	char *s = mono_string_to_utf8(file);
+	char *fileName = mono_string_to_utf8(file);
 	char *gfxName = mono_string_to_utf8(name);
 
-	GFXLib l = GFXLib(s);
+	GFXLib l = GFXLib(fileName);
 
 	Drawable *d = new Drawable(new std::string(gfxName), &l);
 
 	drawables->push_back(*d);
-	mono_free(s);
+
+	mono_free(fileName);
+	mono_free(gfxName);
 
 	return d->object;
 }
@@ -58,6 +60,23 @@ int ATD_SDL::GetMouseY() {
 	SDL_GetMouseState(NULL, &y);
 	return y;
 }
+void hello();
+
+void ATD_SDL::PrepareMonoMethods()
+{
+	MonoObject *intermediate;
+	intermediate = MonoHelper::create_object("SDLWrapper", "OpenATD.SDL");
+	MonoHelper::add_method(intermediate, "AddDrawable", AddDrawableM);
+	MonoHelper::add_method(intermediate, "AddDrawableLib", AddDrawableLib);
+	MonoHelper::add_method(intermediate, "GetFPS", GetFPS);
+	MonoHelper::add_method(intermediate, "GetMouseX", GetMouseX);
+	MonoHelper::add_method(intermediate, "GetMouseY", GetMouseY);
+
+
+	intermediate = MonoHelper::create_object("GFXLib", "OpenATD.SDL", false);
+	MonoHelper::add_method(intermediate, "Create", GFXLib::Create);
+	MonoHelper::add_method(intermediate,"_GetAllImageNames", GFXLib::GetAllImageNames);
+}
 
 
 
@@ -69,13 +88,8 @@ bool ATD_SDL::OnInit() {
 	MonoHelper::prepareDomain();
 	MonoHelper::prepareImage();
 
-	MonoObject *sdlWrapper;
-	sdlWrapper = MonoHelper::create_object("SDLWrapper", "OpenATD.SDL");
-	MonoHelper::add_method(sdlWrapper, "AddDrawable", AddDrawableM);
-	MonoHelper::add_method(sdlWrapper, "AddDrawableLib", AddDrawableLib);
-	MonoHelper::add_method(sdlWrapper, "GetFPS", GetFPS);
-	MonoHelper::add_method(sdlWrapper, "GetMouseX", GetMouseX);
-	MonoHelper::add_method(sdlWrapper, "GetMouseY", GetMouseY);
+	PrepareMonoMethods();
+
 	drawables = new std::list<Drawable>();
 
 
@@ -92,7 +106,15 @@ bool ATD_SDL::OnInit() {
 		SDL_Quit();
 		return false;
 	}
-
+	/*
+	int error = 0;
+	error = Sound_Init();
+	if (error != 0) {
+		std::cout << "Sound_Init Error: " << Sound_GetError() << std::endl;
+		SDL_Quit();
+		return false;
+	}
+	*/
 	callbackManager = MonoHelper::disable_gc(MonoHelper::create_object("CallbackManager", "OpenATD"));
 
 	isRunning = true;
@@ -111,6 +133,12 @@ int ATD_SDL::OnExecute() {
 
 	SDL_Event Event;
 
+	#define FPS_INTERVAL 1.0 //seconds.
+
+	Uint32 fps_lasttime = SDL_GetTicks(); //the last recorded time.
+	Uint32 fps_current; //the current FPS.
+	Uint32 fps_frames = 0; //frames passed since the last recorded fps.
+
 	while (isRunning) {
 		while (SDL_PollEvent(&Event)) {
 			OnEvent(&Event);
@@ -119,11 +147,12 @@ int ATD_SDL::OnExecute() {
 		//OnLoop();
 		OnRender();
 
-		countedFrames++;
-
-		avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
-		if (avgFPS > 2000000) {
-			avgFPS = 0;
+		fps_frames++;
+		if (fps_lasttime < SDL_GetTicks() - FPS_INTERVAL * 1000)
+		{
+			fps_lasttime = SDL_GetTicks();
+			avgFPS = fps_frames;
+			fps_frames = 0;
 		}
 	}
 

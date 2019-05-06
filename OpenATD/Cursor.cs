@@ -12,6 +12,7 @@ namespace OpenATD.SDL
 
         public Cursor(Drawable image) {
             this.image = image;
+            Drawable.drawers.Remove(this.image);
         }
 
         public void Update()
