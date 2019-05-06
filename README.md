@@ -1,16 +1,16 @@
 # OpenATDeluxe
 This is the repository of the Open Source remake of Airline Tycoon Deluxe.
-It adds support for a Full HD resolution, and a possibility for all SDL supported platforms.
+It will add support for Full HD resolution, and native support for platforms like Windows (10), Linux and OSx.
 
 # Progress
-The main Engine is currenty in progress. Around 90% of files can be read, including *.gli .raw .csv*
+- Sprite extractor for the base game is feature finished
 
-The game is written in a mix between C++ and C#. All time crucial parts like SDL or reading or writing to files is written in C++ and the main game logic is inside a Mono C# instance run from the C++ side.
+#Todo
+- Alpha channel check has to be refined
+- System to check all images and work with them inside of godot is needed (Texture dummy loader maybe?)
 
-# How to compile
-You need the following dependecies:
-- SDL2
-- SDL2_mixer
-- Mono
+# How to compile the Godot branch
 
-For everything else take a look at the wiki.
+- Download Godot 3.1 Mono or later
+- Install Airline Tycoon Deluxe
+- Set the ATD Path variable in the BaseGameController from the base scene
