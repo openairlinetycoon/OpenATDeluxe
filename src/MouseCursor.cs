@@ -12,8 +12,7 @@ public class MouseCursor : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-    	lib = new GFXLibrary();
-        lib.pathToGFXFile = System.IO.Path.Combine(pathToAirlineTycoonD, "gli", "glbasis.gli");
+    	lib = new GFXLibrary(System.IO.Path.Combine(pathToAirlineTycoonD, "gli", "glbasis.gli"));
         lib.GetFilesInLibrary();
 
         s = new Sprite();
