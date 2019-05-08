@@ -18,9 +18,9 @@ public class MouseCursor : Node
         s = new Sprite();
         this.AddChild(s);
 
-        
-    
-        s.SetTexture(lib.CreateTextureFromFile(lib.files[0]));
+        if (lib.files.Count > 0) {
+            s.SetTexture (lib.CreateTextureFromFile (lib.files[0]));
+        }
     }
 
     int currentTexture = 0;
@@ -29,12 +29,12 @@ public class MouseCursor : Node
         if(e is InputEventMouseButton){
             InputEventMouseButton mouse = e as InputEventMouseButton;
 
-            if(mouse.IsPressed()){ 
-                currentTexture++;
-                if(currentTexture >= lib.filesInLibrary)
+            if (mouse.IsPressed ()) {
+                if (currentTexture < lib.filesInLibrary) {
+                    s.SetTexture (lib.CreateTextureFromFile (lib.files[currentTexture++]));
+                } else {
                     currentTexture = 0;
-
-                s.SetTexture(lib.CreateTextureFromFile(lib.files[currentTexture]));
+                }
             }
         }
     }

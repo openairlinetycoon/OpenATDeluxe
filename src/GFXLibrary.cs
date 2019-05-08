@@ -48,7 +48,9 @@ public class GFXLibrary {
 
         ReadFileHeaders(f);
 
-        CreateTextureFromFile( files[0]);
+        if (files.Count > 0) {
+            CreateTextureFromFile (files[0]);
+        }
     }
 
     public Texture CreateTextureFromFile(GFXFile file){
@@ -138,8 +140,11 @@ public class GFXLibrary {
         archiveSize = f.Get32();
         f.Seek(f.GetPosition() + 20); //Skip unkown values
 
-        filesInLibrary = f.Get32() - 1; //There is always one less file than written
- 
+        filesInLibrary = f.Get32 () - 1; //There is always one less file than written
+        if (filesInLibrary == -1) {
+            filesInLibrary = 0;
+            // in which cases is this possible ?
+        }
 
         f.Seek(f.GetPosition() + 29);//Skip unkown values
 
