@@ -1,7 +1,30 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/MouseCursor.cs" type="Script" id=1]
+[ext_resource path="res://Images/gli/buero_a/BUERO.tres" type="Texture" id=2]
+[ext_resource path="res://Images/gli/buero_a/LETTERS.tres" type="Texture" id=3]
+[ext_resource path="res://Images/gli/buero_a/NOSABO.tres" type="Texture" id=4]
 
-[node name="BaseGameController" type="Node2D"]
+[node name="Game" type="Node2D"]
+
+[node name="MOUSE" type="Sprite" parent="."]
+position = Vector2( 494.348, 30.5995 )
+
+[node name="Mouse" type="Sprite" parent="."]
+position = Vector2( 366.758, 207.202 )
+z_index = 999
+centered = false
 script = ExtResource( 1 )
-pathToAirlineTycoonD = "..\\BASE\\ATD"
+
+[node name="buero" type="Sprite" parent="."]
+position = Vector2( 965.744, 539.596 )
+scale = Vector2( 2.44196, 2.44196 )
+texture = ExtResource( 2 )
+
+[node name="letters" type="Sprite" parent="buero"]
+position = Vector2( 69.4884, 176.542 )
+texture = ExtResource( 3 )
+
+[node name="nosabo" type="Sprite" parent="buero"]
+position = Vector2( 107.3, 110.007 )
+texture = ExtResource( 4 )

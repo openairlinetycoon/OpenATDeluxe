@@ -12,7 +12,12 @@ It will add support for Full HD resolution, and native support for platforms lik
 ## How to compile the Godot branch
 - Download Godot 3.1 Mono or later
 - Install Airline Tycoon Deluxe
-- Set the ATD Path variable in the BaseGameController from the base scene
+- Run the project in godot for the first time WITHOUT opening any scenes, point it to the directory of the at.exe and let it extract the game files.
+(The game images can't be posted on github due to copyright reasons. Thats why there are files missing inside the project. Opening scenes let's godot know that there are files missing and it will delete all references to those files. If we run the project before godot checks for files, all missing files will be added!)
+
+
+## How to build the project
+- TODO: Add the texture cleaner programm...
 
 ## WIP Pictures
 All images are work and progress and do not represent any gameplay at the moment. All are still images taken from the game files

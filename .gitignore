@@ -269,5 +269,7 @@ ATD/
 SDL*/
 source_code_win/
 BASE/
+BUILDS/
 .import/
 .mono/
+Images/
