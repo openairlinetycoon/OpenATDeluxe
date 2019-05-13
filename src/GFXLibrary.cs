@@ -1,10 +1,13 @@
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Godot;
 
 public class GFXLibrary {
+    // path in which to save decoded GLI files
+    public static string GFX_SAVE_PATH = "data";
+
     public class GFXFile {
         //The name of the file given from the ATD file
         public string name;
@@ -16,129 +19,136 @@ public class GFXLibrary {
 
         //The position offset of the file in the original GFX file
         public int libraryOffset;
+
+        public string pathSafeName () {
+            byte[] str_arr = Encoding.UTF8.GetBytes (name);
+            int i = str_arr.Length - 1;
+            while (str_arr[i] == 0) --i;
+            byte[] res = new byte[i + 1];
+            Array.Copy (str_arr, res, i + 1);
+            return Encoding.UTF8.GetString (res);
+        }
+
+        public Image toImage (String libPath) {
+            Image image = new Image ();
+
+            File f = new File ();
+            f.Open (libPath, (int) File.ModeFlags.Read);
+
+            f.Seek (libraryOffset); // Go to the position of the gfx file in the library file
+
+            int a = f.Get32 (); //skip unused data - 76 in glbasis.gli
+            int fileSize = f.Get32 (); //size of file in bytes
+
+            int width = f.Get32 (); //Get image width in pixel
+            int height = f.Get32 (); //Get image height in pixel
+
+            byte[] colors = new byte[fileSize / 2 * 4];
+
+            f.Seek (libraryOffset + 76); //Skip unneeded values
+
+            int c = 0;
+            for (int i = 0; i < fileSize / 2; i++) {
+                int color = f.Get16 (); //Get a RGB565 color value
+
+                //Convert it to a RGB888 value
+                int r = ((color >> 11) & 0x1F);
+                int g = ((color >> 5) & 0x3F);
+                int b = (color & 0x1F);
+
+                r = ((((color >> 11) & 0x1F) * 527) + 23) >> 6;
+                g = ((((color >> 5) & 0x3F) * 259) + 33) >> 6;
+                b = (((color & 0x1F) * 527) + 23) >> 6;
+
+                colors[c] = (byte) r; //save
+                colors[c + 1] = (byte) g; //save
+                colors[c + 2] = (byte) b; //save
+
+                colors[c + 3] = 255;
+
+                if (r == 0 && g == 0 && b == 0) //TODO Better transparency check needed!
+                    colors[c + 3] = 0;
+                //save
+                c += 4;
+            }
+
+            image.CreateFromData (width, height, false, Image.Format.Rgba8, colors);
+            return image;
+        }
+
+        public void save (string pathToGFXFile, string savePath) {
+            toImage (pathToGFXFile).SavePng (System.IO.Path.Combine (
+                savePath, pathSafeName () + ".png"
+            ));
+        }
     }
 
     public string name; //Name of the GFXFile from ATD
-	public long archiveSize; //How big is the GFXLibrary size
-	public long filesInLibrary; //How many files are in this GFXLibrary
+    public long archiveSize; //How big is the GFXLibrary size
+    public long filesInLibrary; //How many files are in this GFXLibrary
     public long dataSize; // I dunno
 
-    public List<GFXFile> files = new List<GFXFile>(); //A list with all GFX files inside the given GFX Library file
+    public List<GFXFile> files = new List<GFXFile> (); //A list with all GFX files inside the given GFX Library file
     string pathToGFXFile;
 
-
-
-    
     public const int GFXHeaderSize = 67; //Bytes - Size of the GFXLibrary file Header
     public const int FileHeaderSize = 17; //Bytes - Size of an individual File Header
 
-
-    public GFXLibrary(string _pathToGFXFile) //Load a gl***.gli file from the GLI folder in ATD - specify the full path to the file (relative or absolute)!
+    public GFXLibrary (string _pathToGFXFile) //Load a gl***.gli file from the GLI folder in ATD - specify the full path to the file (relative or absolute)!
     {
         pathToGFXFile = _pathToGFXFile;
     }
 
+    public void read () {
+        File f = new File ();
+        f.Open (pathToGFXFile, (int) File.ModeFlags.Read);
 
-    public void GetFilesInLibrary()
-    {
-        File f = new File();
-        f.Open(pathToGFXFile, (int)File.ModeFlags.Read);
+        ReadHeader (f);
+        ReadFileHeaders (f);
+    }
 
-        ReadHeader(f);
+    public void save () {
+        string savePath = "/home/xerxes/Downloads/ATD/" + GFX_SAVE_PATH;
+        System.IO.Directory.CreateDirectory (savePath);
 
-        ReadFileHeaders(f);
-
-        if (files.Count > 0) {
-            CreateTextureFromFile (files[0]);
+        foreach (GFXFile gfx in files) {
+            gfx.save (pathToGFXFile, savePath);
         }
     }
 
-    public Texture CreateTextureFromFile(GFXFile file){
-        Image image = new Image();
-
-        File f = new File();
-        f.Open(pathToGFXFile, (int)File.ModeFlags.Read);
-
-        f.Seek(file.libraryOffset); // Go to the position of the gfx file in the library file
-
-        int a = f.Get32(); //skip unused data - 76 in glbasis.gli
-        int fileSize = f.Get32(); //size of file in bytes
-
-        int width = f.Get32(); //Get image width in pixel
-        int height = f.Get32(); //Get image height in pixel
-
-        byte[] colors = new byte[fileSize/2 * 4];
-
-        f.Seek(file.libraryOffset + 76); //Skip unneeded values
-
-        int c = 0;
-        for(int i = 0; i < fileSize/2; i++){
-            int color = f.Get16(); //Get a RGB565 color value
-
-
-            //Convert it to a RGB888 value
-            int r = ((color >> 11) & 0x1F);
-            int g = ((color >> 5) & 0x3F);
-            int b = (color & 0x1F);
-
-            r = ((((color >> 11) & 0x1F) * 527) + 23) >> 6;
-            g = ((((color >> 5) & 0x3F) * 259) + 33) >> 6;
-            b = (((color & 0x1F) * 527) + 23) >> 6;
-
-            
-
-            colors[c] = (byte)r; //save
-            colors[c+1] = (byte)g; //save
-            colors[c+2] = (byte)b; //save
-            
-            colors[c+3] = 255;
-
-            if(r == 0 && g == 0 && b == 0) //TODO Better transparency check needed! 
-                colors[c+3] = 0;
-             //save
-            c += 4;
-        }
-
-        image.CreateFromData(width, height, false, Image.Format.Rgba8, colors);
-
-        ImageTexture texture = new ImageTexture();
-        texture.CreateFromImage(image);
-
+    public Texture CreateTextureFromFile (GFXFile file) {
+        ImageTexture texture = new ImageTexture ();
+        texture.CreateFromImage (file.toImage (pathToGFXFile));
         return texture;
     }
 
-    private void ReadFileHeaders(File f)
-    {
-        for (int i = 0; i < filesInLibrary; i++)
-        {
-            f.Seek(GFXHeaderSize + i * FileHeaderSize); //Go to the current file header position
+    private void ReadFileHeaders (File f) {
+        for (int i = 0; i < filesInLibrary; i++) {
+            f.Seek (GFXHeaderSize + i * FileHeaderSize); //Go to the current file header position
 
-            GFXFile gfx = new GFXFile();
+            GFXFile gfx = new GFXFile ();
 
-            gfx.typeID = f.Get32();
-            gfx.isGFX = f.Get8();
+            gfx.typeID = f.Get32 ();
+            gfx.isGFX = f.Get8 ();
 
             if (gfx.isGFX == 0) //Is the file declared as GFX file? There can be text stored
                 continue;
 
-            gfx.name = Encoding.UTF8.GetString(f.GetBuffer(8)); //Read the file name;
-            gfx.libraryOffset = f.Get32();
+            gfx.name = Encoding.UTF8.GetString (f.GetBuffer (8)); //Read the file name;
+            gfx.libraryOffset = f.Get32 ();
 
-
-
-            files.Add(gfx);
+            files.Add (gfx);
         }
     }
 
-    private void ReadHeader(File f)
-    {
+    private void ReadHeader (File f) {
 
-        name = Encoding.UTF8.GetString(f.GetBuffer(5)); //Read the header name;
+        name = Encoding.UTF8.GetString (f.GetBuffer (5)); //Read the header name;
 
-        f.Seek(f.GetPosition() + 5); //Skip unkown values
+        f.Seek (f.GetPosition () + 5); //Skip unkown values
 
-        archiveSize = f.Get32();
-        f.Seek(f.GetPosition() + 20); //Skip unkown values
+        archiveSize = f.Get32 ();
+        f.Seek (f.GetPosition () + 20); //Skip unkown values
 
         filesInLibrary = f.Get32 () - 1; //There is always one less file than written
         if (filesInLibrary == -1) {
@@ -146,9 +156,9 @@ public class GFXLibrary {
             // in which cases is this possible ?
         }
 
-        f.Seek(f.GetPosition() + 29);//Skip unkown values
+        f.Seek (f.GetPosition () + 29); //Skip unkown values
 
-        dataSize = f.Get32();
+        dataSize = f.Get32 ();
     }
 
     /*
