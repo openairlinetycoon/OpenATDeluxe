@@ -31,3 +31,8 @@ The briefing menu
 
 The marketing office
 ![Imgur](https://i.imgur.com/FCU4qJg.png)
+
+
+V2
+
+![Imgur](https://i.imgur.com/56e3Unf.gif)
