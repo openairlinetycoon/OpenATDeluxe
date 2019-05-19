@@ -1,3 +1,4 @@
+# OBSOLETE! Please visit the godot branch!
 # OpenATDeluxe
 This is the repository of the Open Source remake of Airline Tycoon Deluxe.
 It adds support for a Full HD resolution, and a possibility for all SDL supported platforms.
