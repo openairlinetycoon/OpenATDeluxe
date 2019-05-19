@@ -14,6 +14,8 @@ public class RoomManager : Node {
 	}
 
 	public static void ChangeRoom(string newRoomName, bool isAirport) {
+		if (isAirport)
+			newRoomName = "RoomAirport";
 		string fullPath = "res://scenes/rooms/" + newRoomName + ".tscn";
 		File f = new File();
 		Debug.Assert(f.FileExists(fullPath), "Room not found! Room: " + fullPath);

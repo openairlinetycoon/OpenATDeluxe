@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/CameraController.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
@@ -18,8 +18,7 @@
 [ext_resource path="res://scenes/rooms/secur1101.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Images/gli/glbrick/FLOOR_E.tres" type="Texture" id=17]
 [ext_resource path="res://Images/gli/glbrick/FLOOR_D.tres" type="Texture" id=18]
-[ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=19]
-[ext_resource path="res://src/MouseAreaRoom.cs" type="Script" id=20]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=19]
 
 [node name="RoomAirport" type="Node2D"]
 
@@ -461,8 +460,9 @@ texture = ExtResource( 18 )
 z_index = 999
 z_as_relative = false
 
-[node name="Marketing" parent="Interactables" instance=ExtResource( 19 )]
-position = Vector2( 3719.25, 220.943 )
-scale = Vector2( 4.48173, 7.17244 )
-script = ExtResource( 20 )
+[node name="Marketing" type="Node2D" parent="Interactables"]
+position = Vector2( 3719.93, 222.181 )
+scale = Vector2( 4.44232, 7.28947 )
+
+[node name="MouseColliderRoom" parent="Interactables/Marketing" instance=ExtResource( 19 )]
 roomSceneName = "RoomMarketing"

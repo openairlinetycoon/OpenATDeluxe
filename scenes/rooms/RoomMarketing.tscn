@@ -33,7 +33,7 @@
 [ext_resource path="res://Images/room/werbung/CAFE14.tres" type="Texture" id=31]
 [ext_resource path="res://Images/room/werbung/CAFE15.tres" type="Texture" id=32]
 [ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=33]
-[ext_resource path="res://src/MouseAreaRoom.cs" type="Script" id=34]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=34]
 
 [sub_resource type="SpriteFrames" id=1]
 resource_local_to_scene = true
@@ -99,14 +99,14 @@ texture = ExtResource( 3 )
 use_parent_material = true
 position = Vector2( 88.1566, -120.766 )
 frames = SubResource( 1 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Arm" type="AnimatedSprite" parent="Base"]
 use_parent_material = true
 position = Vector2( 166, -81 )
 frames = SubResource( 2 )
-frame = 1
+frame = 2
 playing = true
 centered = false
 
@@ -121,7 +121,7 @@ centered = false
 use_parent_material = true
 position = Vector2( -144.019, -145.899 )
 frames = SubResource( 4 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="MouseHover" type="Node2D" parent="Base"]
@@ -136,9 +136,6 @@ position = Vector2( -307.367, -43.1694 )
 rotation = 0.138399
 scale = Vector2( 6.21718, 19.3335 )
 
-[node name="MouseCollider" parent="Base/Exit" instance=ExtResource( 33 )]
-position = Vector2( 0.124134, -0.00555992 )
-gravity = 0.0
-script = ExtResource( 34 )
+[node name="MouseColliderRoom" parent="Base/Exit" instance=ExtResource( 34 )]
 isExitToAirport = true
 roomSceneName = "RoomAirport"
