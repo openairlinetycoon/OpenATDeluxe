@@ -50,9 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\AirportView.cs" />
     <Compile Include="src\ATDGameLoader.cs" />
+    <Compile Include="src\CameraController.cs" />
+    <Compile Include="src\MouseArea.cs" />
+    <Compile Include="src\MouseAreaRoom.cs" />
     <Compile Include="src\MouseCursor.cs" />
     <Compile Include="src\GFXLibrary.cs" />
+    <Compile Include="src\RoomManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

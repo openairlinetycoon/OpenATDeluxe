@@ -1,30 +1,91 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://src/MouseCursor.cs" type="Script" id=1]
-[ext_resource path="res://Images/gli/buero_a/BUERO.tres" type="Texture" id=2]
-[ext_resource path="res://Images/gli/buero_a/LETTERS.tres" type="Texture" id=3]
-[ext_resource path="res://Images/gli/buero_a/NOSABO.tres" type="Texture" id=4]
+[ext_resource path="res://src/RoomManager.cs" type="Script" id=1]
+[ext_resource path="res://scenes/rooms/RoomAirport.tscn" type="PackedScene" id=2]
+[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=3]
+[ext_resource path="res://src/MouseCursor.cs" type="Script" id=4]
+[ext_resource path="res://Images/gli/glbasis/CURSOR.tres" type="Texture" id=5]
+[ext_resource path="res://Images/gli/glbasis/CURSORH.tres" type="Texture" id=6]
+[ext_resource path="res://Images/gli/glbasis/CURSORS.tres" type="Texture" id=7]
+[ext_resource path="res://Images/gli/glbasis/EXIT01.tres" type="Texture" id=8]
+[ext_resource path="res://Images/gli/glbasis/EXIT02.tres" type="Texture" id=9]
+[ext_resource path="res://Images/gli/glbasis/EXIT03.tres" type="Texture" id=10]
+[ext_resource path="res://Images/gli/glbasis/EXIT04.tres" type="Texture" id=11]
+[ext_resource path="res://Images/gli/glbasis/EXIT05.tres" type="Texture" id=12]
+[ext_resource path="res://Images/gli/glbasis/EXIT06.tres" type="Texture" id=13]
+[ext_resource path="res://Images/gli/glbasis/EXIT07.tres" type="Texture" id=14]
+[ext_resource path="res://Images/gli/glbasis/EXIT08.tres" type="Texture" id=15]
+[ext_resource path="res://Images/gli/glbasis/EXIT09.tres" type="Texture" id=16]
+[ext_resource path="res://Images/gli/glbasis/EXIT10.tres" type="Texture" id=17]
+[ext_resource path="res://Images/gli/glbasis/EXIT11.tres" type="Texture" id=18]
+[ext_resource path="res://Images/gli/glbasis/EXIT12.tres" type="Texture" id=19]
+[ext_resource path="res://Images/gli/glbasis/CURSORL.tres" type="Texture" id=20]
+[ext_resource path="res://Images/gli/glbasis/CURSORR.tres" type="Texture" id=21]
+
+[sub_resource type="SpriteFrames" id=1]
+resource_local_to_scene = true
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+resource_local_to_scene = true
+radius = 0.5
 
 [node name="Game" type="Node2D"]
+pause_mode = 1
 
-[node name="MOUSE" type="Sprite" parent="."]
-position = Vector2( 494.348, 30.5995 )
-
-[node name="Mouse" type="Sprite" parent="."]
-position = Vector2( 366.758, 207.202 )
-z_index = 999
-centered = false
+[node name="Scene" type="Node2D" parent="."]
 script = ExtResource( 1 )
 
-[node name="buero" type="Sprite" parent="."]
-position = Vector2( 965.744, 539.596 )
-scale = Vector2( 2.44196, 2.44196 )
-texture = ExtResource( 2 )
+[node name="RoomAirport" parent="Scene" instance=ExtResource( 2 )]
 
-[node name="letters" type="Sprite" parent="buero"]
-position = Vector2( 69.4884, 176.542 )
-texture = ExtResource( 3 )
+[node name="MouseController" type="Node2D" parent="."]
+editor/display_folded = true
+material = ExtResource( 3 )
+position = Vector2( 761.252, 372.714 )
+scale = Vector2( 1.5, 1.5 )
+z_index = 999
+script = ExtResource( 4 )
 
-[node name="nosabo" type="Sprite" parent="buero"]
-position = Vector2( 107.3, 110.007 )
-texture = ExtResource( 4 )
+[node name="Normal" type="Sprite" parent="MouseController"]
+use_parent_material = true
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Hover" type="Sprite" parent="MouseController"]
+use_parent_material = true
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Load" type="Sprite" parent="MouseController"]
+use_parent_material = true
+texture = ExtResource( 7 )
+centered = false
+
+[node name="Exit" type="AnimatedSprite" parent="MouseController"]
+use_parent_material = true
+position = Vector2( -15.5213, -12.6841 )
+frames = SubResource( 1 )
+frame = 5
+playing = true
+centered = false
+
+[node name="MoveLeft" type="Sprite" parent="MouseController"]
+use_parent_material = true
+position = Vector2( 15.9929, 0.0537262 )
+texture = ExtResource( 20 )
+
+[node name="MoveRight" type="Sprite" parent="MouseController"]
+use_parent_material = true
+position = Vector2( -15.5659, 0.0537109 )
+texture = ExtResource( 21 )
+
+[node name="Collision" type="Area2D" parent="MouseController"]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseController/Collision"]
+shape = SubResource( 2 )

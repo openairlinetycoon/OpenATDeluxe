@@ -1,0 +1,1362 @@
+[gd_scene load_steps=56 format=2]
+
+[ext_resource path="res://src/AirportView.cs" type="Script" id=1]
+[ext_resource path="res://Images/gli/glbrick/FENSTER2.tres" type="Texture" id=2]
+[ext_resource path="res://Images/gli/glbrick0/HITECH2.tres" type="Texture" id=3]
+[ext_resource path="res://Images/gli/glbrick/FENSTER1.tres" type="Texture" id=4]
+[ext_resource path="res://Images/gli/glbrick/TREPPE6.tres" type="Texture" id=5]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_C.tres" type="Texture" id=6]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_A.tres" type="Texture" id=7]
+[ext_resource path="res://Images/gli/glbrick/EINGANG4.tres" type="Texture" id=8]
+[ext_resource path="res://Images/gli/glbrick/TREPPE2.tres" type="Texture" id=9]
+[ext_resource path="res://Images/gli/glbrick/EINGANG5.tres" type="Texture" id=10]
+[ext_resource path="res://Images/gli/glbrick/BARR.tres" type="Texture" id=11]
+[ext_resource path="res://Images/gli/glbrick/GLASS.tres" type="Texture" id=12]
+[ext_resource path="res://Images/gli/glbrick/PLANT05.tres" type="Texture" id=13]
+[ext_resource path="res://Images/gli/glbrick/SAEULE0.tres" type="Texture" id=14]
+[ext_resource path="res://Images/gli/glbrick/STUHL05.tres" type="Texture" id=15]
+[ext_resource path="res://Images/gli/glbrick/STUHL03.tres" type="Texture" id=16]
+[ext_resource path="res://Images/gli/glbrick/TISCH.tres" type="Texture" id=17]
+[ext_resource path="res://Images/gli/glbrick/STUHL01.tres" type="Texture" id=18]
+[ext_resource path="res://Images/gli/glbrick/TREPPE3.tres" type="Texture" id=19]
+[ext_resource path="res://Images/gli/glbrick/STUHL04.tres" type="Texture" id=20]
+[ext_resource path="res://Images/gli/glbrick/STUHL02.tres" type="Texture" id=21]
+[ext_resource path="res://Images/gli/glbrick/BAR.tres" type="Texture" id=22]
+[ext_resource path="res://Images/gli/glbrick/HOCKER.tres" type="Texture" id=23]
+[ext_resource path="res://Images/gli/glbrick/MANTLZIE.tres" type="Texture" id=24]
+[ext_resource path="res://Images/gli/glbrick/COFFRZIE.tres" type="Texture" id=25]
+[ext_resource path="res://Images/gli/glbrick/EINGANG2.tres" type="Texture" id=26]
+[ext_resource path="res://Images/gli/glbrick/EINGANG7.tres" type="Texture" id=27]
+[ext_resource path="res://Images/gli/glbrick/EINGANG8.tres" type="Texture" id=28]
+[ext_resource path="res://Images/gli/glbrick/RELING.tres" type="Texture" id=29]
+[ext_resource path="res://Images/gli/glbrick/EINGANG3.tres" type="Texture" id=30]
+[ext_resource path="res://Images/gli/glbrick/EINGANG1.tres" type="Texture" id=31]
+[ext_resource path="res://Images/gli/glbrick/UPFLOOR0.tres" type="Texture" id=32]
+[ext_resource path="res://Images/gli/glbrick/UPFLOOR1.tres" type="Texture" id=33]
+[ext_resource path="res://Images/gli/glbrick/UPFLOOR2.tres" type="Texture" id=34]
+[ext_resource path="res://Images/gli/glbrick/TREPPE1.tres" type="Texture" id=35]
+[ext_resource path="res://Images/gli/glbrick/PLANT07.tres" type="Texture" id=36]
+[ext_resource path="res://Images/gli/glbrick/RAIL1.tres" type="Texture" id=37]
+[ext_resource path="res://Images/gli/glbrick/RAIL4.tres" type="Texture" id=38]
+[ext_resource path="res://Images/gli/glbrick0/HITECH1B.tres" type="Texture" id=39]
+[ext_resource path="res://Images/gli/glbrick/TREPPE4.tres" type="Texture" id=40]
+[ext_resource path="res://Images/gli/glbrick/RAIL5.tres" type="Texture" id=41]
+[ext_resource path="res://Images/gli/glbrick/RAIL6.tres" type="Texture" id=42]
+[ext_resource path="res://Images/gli/glbrick/RAIL2.tres" type="Texture" id=43]
+[ext_resource path="res://Images/gli/glbrick/RAIL8.tres" type="Texture" id=44]
+[ext_resource path="res://Images/gli/glbrick/RAIL7.tres" type="Texture" id=45]
+[ext_resource path="res://Images/gli/glbrick/ZSCREEN.tres" type="Texture" id=46]
+[ext_resource path="res://Images/gli/glbrick0/HITECH1A.tres" type="Texture" id=47]
+[ext_resource path="res://Images/gli/glbrick/TREPPE5.tres" type="Texture" id=48]
+[ext_resource path="res://Images/gli/glbrick/UPFLOOR3.tres" type="Texture" id=49]
+[ext_resource path="res://Images/gli/glbrick/PLANT03.tres" type="Texture" id=50]
+[ext_resource path="res://Images/gli/glbrick/RAIL11.tres" type="Texture" id=51]
+[ext_resource path="res://Images/gli/glbrick/ECKE01.tres" type="Texture" id=52]
+[ext_resource path="res://Images/gli/glbrick/RAIL3.tres" type="Texture" id=53]
+[ext_resource path="res://Images/gli/glbrick/RAIL9.tres" type="Texture" id=54]
+[ext_resource path="res://Images/gli/glbrick/EINGANG6.tres" type="Texture" id=55]
+
+[node name="cafe4101" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="FENSTER2" type="Sprite" parent="."]
+position = Vector2( 1441, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@382" type="Sprite" parent="."]
+position = Vector2( 1485, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@384" type="Sprite" parent="."]
+position = Vector2( 1529, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@386" type="Sprite" parent="."]
+position = Vector2( 1573, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@388" type="Sprite" parent="."]
+position = Vector2( 1617, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@390" type="Sprite" parent="."]
+position = Vector2( 1617, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@392" type="Sprite" parent="."]
+position = Vector2( 1661, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@394" type="Sprite" parent="."]
+position = Vector2( 1705, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@396" type="Sprite" parent="."]
+position = Vector2( 1749, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@FENSTER2@398" type="Sprite" parent="."]
+position = Vector2( 1793, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="HITECH2" type="Sprite" parent="."]
+position = Vector2( 2051, 68 )
+z_index = 6
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FENSTER1" type="Sprite" parent="."]
+position = Vector2( 1221, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@402" type="Sprite" parent="."]
+position = Vector2( 1265, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@404" type="Sprite" parent="."]
+position = Vector2( 1309, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@406" type="Sprite" parent="."]
+position = Vector2( 1353, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@408" type="Sprite" parent="."]
+position = Vector2( 1397, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@410" type="Sprite" parent="."]
+position = Vector2( 1441, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@412" type="Sprite" parent="."]
+position = Vector2( 1485, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@414" type="Sprite" parent="."]
+position = Vector2( 1529, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@416" type="Sprite" parent="."]
+position = Vector2( 1573, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@418" type="Sprite" parent="."]
+position = Vector2( 1617, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@420" type="Sprite" parent="."]
+position = Vector2( 1661, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@422" type="Sprite" parent="."]
+position = Vector2( 1705, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@424" type="Sprite" parent="."]
+position = Vector2( 1749, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="TREPPE6" type="Sprite" parent="."]
+position = Vector2( 1838, 97 )
+z_index = 6
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_C" type="Sprite" parent="."]
+position = Vector2( 1144, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@428" type="Sprite" parent="."]
+position = Vector2( 1232, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@430" type="Sprite" parent="."]
+position = Vector2( 1232, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@432" type="Sprite" parent="."]
+position = Vector2( 1320, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@434" type="Sprite" parent="."]
+position = Vector2( 1408, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@436" type="Sprite" parent="."]
+position = Vector2( 1496, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@438" type="Sprite" parent="."]
+position = Vector2( 1584, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@440" type="Sprite" parent="."]
+position = Vector2( 1672, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@442" type="Sprite" parent="."]
+position = Vector2( 1760, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="FLOOR_A" type="Sprite" parent="."]
+position = Vector2( 1144, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@445" type="Sprite" parent="."]
+position = Vector2( 1232, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@447" type="Sprite" parent="."]
+position = Vector2( 1320, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@449" type="Sprite" parent="."]
+position = Vector2( 1408, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@451" type="Sprite" parent="."]
+position = Vector2( 1496, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@453" type="Sprite" parent="."]
+position = Vector2( 1584, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@455" type="Sprite" parent="."]
+position = Vector2( 1672, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@457" type="Sprite" parent="."]
+position = Vector2( 1760, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="EINGANG4" type="Sprite" parent="."]
+position = Vector2( 1559, 416 )
+z_index = 12
+texture = ExtResource( 8 )
+centered = false
+
+[node name="@EINGANG4@460" type="Sprite" parent="."]
+position = Vector2( 1648, 416 )
+z_index = 12
+texture = ExtResource( 8 )
+centered = false
+
+[node name="TREPPE2" type="Sprite" parent="."]
+position = Vector2( 1779, 189 )
+z_index = 19
+texture = ExtResource( 9 )
+centered = false
+
+[node name="EINGANG5" type="Sprite" parent="."]
+position = Vector2( 1595, 428 )
+z_index = 19
+texture = ExtResource( 10 )
+centered = false
+
+[node name="BARR" type="Sprite" parent="."]
+position = Vector2( 1287, 167 )
+z_index = 20
+texture = ExtResource( 11 )
+centered = false
+
+[node name="GLASS" type="Sprite" parent="."]
+position = Vector2( 1290, 191 )
+z_index = 20
+texture = ExtResource( 12 )
+centered = false
+
+[node name="PLANT05" type="Sprite" parent="."]
+position = Vector2( 1479, 159 )
+z_index = 20
+texture = ExtResource( 13 )
+centered = false
+
+[node name="SAEULE0" type="Sprite" parent="."]
+position = Vector2( 1548, 127 )
+z_index = 20
+texture = ExtResource( 14 )
+centered = false
+
+[node name="STUHL05" type="Sprite" parent="."]
+position = Vector2( 1455, 187 )
+z_index = 20
+texture = ExtResource( 15 )
+centered = false
+
+[node name="STUHL03" type="Sprite" parent="."]
+position = Vector2( 1637, 193 )
+z_index = 20
+texture = ExtResource( 16 )
+centered = false
+
+[node name="TISCH" type="Sprite" parent="."]
+position = Vector2( 1620, 217 )
+z_index = 20
+texture = ExtResource( 17 )
+centered = false
+
+[node name="STUHL01" type="Sprite" parent="."]
+position = Vector2( 1586, 205 )
+z_index = 20
+texture = ExtResource( 18 )
+centered = false
+
+[node name="TREPPE3" type="Sprite" parent="."]
+position = Vector2( 1766, 134 )
+z_index = 20
+texture = ExtResource( 19 )
+centered = false
+
+[node name="@TISCH@473" type="Sprite" parent="."]
+position = Vector2( 1445, 225 )
+z_index = 20
+texture = ExtResource( 17 )
+centered = false
+
+[node name="STUHL04" type="Sprite" parent="."]
+position = Vector2( 1420, 234 )
+z_index = 20
+texture = ExtResource( 20 )
+centered = false
+
+[node name="STUHL02" type="Sprite" parent="."]
+position = Vector2( 1483, 232 )
+z_index = 20
+texture = ExtResource( 21 )
+centered = false
+
+[node name="@STUHL02@477" type="Sprite" parent="."]
+position = Vector2( 1647, 233 )
+z_index = 20
+texture = ExtResource( 21 )
+centered = false
+
+[node name="BAR" type="Sprite" parent="."]
+position = Vector2( 1132, 167 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false
+
+[node name="HOCKER" type="Sprite" parent="."]
+position = Vector2( 1313, 241 )
+z_index = 20
+texture = ExtResource( 23 )
+centered = false
+
+[node name="@SAEULE0@481" type="Sprite" parent="."]
+position = Vector2( 1995, 168 )
+z_index = 20
+texture = ExtResource( 14 )
+centered = false
+
+[node name="@HOCKER@483" type="Sprite" parent="."]
+position = Vector2( 1148, 257 )
+z_index = 20
+texture = ExtResource( 23 )
+centered = false
+
+[node name="@HOCKER@485" type="Sprite" parent="."]
+position = Vector2( 1192, 257 )
+z_index = 20
+texture = ExtResource( 23 )
+centered = false
+
+[node name="@HOCKER@487" type="Sprite" parent="."]
+position = Vector2( 1236, 257 )
+z_index = 20
+texture = ExtResource( 23 )
+centered = false
+
+[node name="@STUHL03@489" type="Sprite" parent="."]
+position = Vector2( 1364, 253 )
+z_index = 20
+texture = ExtResource( 16 )
+centered = false
+
+[node name="@TISCH@491" type="Sprite" parent="."]
+position = Vector2( 1342, 277 )
+z_index = 20
+texture = ExtResource( 17 )
+centered = false
+
+[node name="@STUHL01@493" type="Sprite" parent="."]
+position = Vector2( 1297, 267 )
+z_index = 20
+texture = ExtResource( 18 )
+centered = false
+
+[node name="MANTLZIE" type="Sprite" parent="."]
+position = Vector2( 1292, 260 )
+z_index = 20
+texture = ExtResource( 24 )
+centered = false
+
+[node name="COFFRZIE" type="Sprite" parent="."]
+position = Vector2( 1304, 308 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="@STUHL02@497" type="Sprite" parent="."]
+position = Vector2( 1349, 298 )
+z_index = 20
+texture = ExtResource( 21 )
+centered = false
+
+[node name="EINGANG2" type="Sprite" parent="."]
+position = Vector2( 1598, 387 )
+z_index = 20
+texture = ExtResource( 26 )
+centered = false
+
+[node name="EINGANG7" type="Sprite" parent="."]
+position = Vector2( 1524, 383 )
+z_index = 20
+texture = ExtResource( 27 )
+centered = false
+
+[node name="EINGANG8" type="Sprite" parent="."]
+position = Vector2( 1685, 382 )
+z_index = 20
+texture = ExtResource( 28 )
+centered = false
+
+[node name="RELING" type="Sprite" parent="."]
+position = Vector2( 1143, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="@RELING@503" type="Sprite" parent="."]
+position = Vector2( 1231, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="@RELING@505" type="Sprite" parent="."]
+position = Vector2( 1319, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="@RELING@507" type="Sprite" parent="."]
+position = Vector2( 1407, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="EINGANG3" type="Sprite" parent="."]
+position = Vector2( 1480, 380 )
+z_index = 20
+texture = ExtResource( 30 )
+centered = false
+
+[node name="EINGANG1" type="Sprite" parent="."]
+position = Vector2( 1712, 380 )
+z_index = 20
+texture = ExtResource( 31 )
+centered = false
+
+[node name="@RELING@511" type="Sprite" parent="."]
+position = Vector2( 1733, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="@RELING@513" type="Sprite" parent="."]
+position = Vector2( 1759, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="UPFLOOR0" type="Sprite" parent="."]
+position = Vector2( 1431, 93 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@UPFLOOR0@516" type="Sprite" parent="."]
+position = Vector2( 1607, 93 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="UPFLOOR1" type="Sprite" parent="."]
+position = Vector2( 1851, 93 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR0@519" type="Sprite" parent="."]
+position = Vector2( 1864, 93 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@UPFLOOR1@521" type="Sprite" parent="."]
+position = Vector2( 1844, 108 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@523" type="Sprite" parent="."]
+position = Vector2( 1728, 115 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@525" type="Sprite" parent="."]
+position = Vector2( 1818, 115 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@527" type="Sprite" parent="."]
+position = Vector2( 1862, 115 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="UPFLOOR2" type="Sprite" parent="."]
+position = Vector2( 1991, 118 )
+z_index = 50
+texture = ExtResource( 34 )
+centered = false
+
+[node name="@UPFLOOR2@530" type="Sprite" parent="."]
+position = Vector2( 1985, 134 )
+z_index = 50
+texture = ExtResource( 34 )
+centered = false
+
+[node name="@UPFLOOR2@532" type="Sprite" parent="."]
+position = Vector2( 2029, 134 )
+z_index = 50
+texture = ExtResource( 34 )
+centered = false
+
+[node name="@UPFLOOR2@534" type="Sprite" parent="."]
+position = Vector2( 2047, 134 )
+z_index = 50
+texture = ExtResource( 34 )
+centered = false
+
+[node name="@UPFLOOR0@536" type="Sprite" parent="."]
+position = Vector2( 1718, 137 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="TREPPE1" type="Sprite" parent="."]
+position = Vector2( 1779, 67 )
+z_index = 59
+texture = ExtResource( 35 )
+centered = false
+
+[node name="PLANT07" type="Sprite" parent="."]
+position = Vector2( 1844, 24 )
+z_index = 60
+texture = ExtResource( 36 )
+centered = false
+
+[node name="RAIL1" type="Sprite" parent="."]
+position = Vector2( 1478, 73 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@541" type="Sprite" parent="."]
+position = Vector2( 1565, 73 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="RAIL4" type="Sprite" parent="."]
+position = Vector2( 1653, 73 )
+z_index = 60
+texture = ExtResource( 38 )
+centered = false
+
+[node name="@RAIL4@544" type="Sprite" parent="."]
+position = Vector2( 1920, 73 )
+z_index = 60
+texture = ExtResource( 38 )
+centered = false
+
+[node name="HITECH1B" type="Sprite" parent="."]
+position = Vector2( 2037, 21 )
+z_index = 60
+texture = ExtResource( 39 )
+centered = false
+
+[node name="TREPPE4" type="Sprite" parent="."]
+position = Vector2( 1767, -17 )
+z_index = 60
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RAIL5" type="Sprite" parent="."]
+position = Vector2( 1466, 73 )
+z_index = 60
+texture = ExtResource( 41 )
+centered = false
+
+[node name="@RAIL5@549" type="Sprite" parent="."]
+position = Vector2( 1908, 73 )
+z_index = 60
+texture = ExtResource( 41 )
+centered = false
+
+[node name="RAIL6" type="Sprite" parent="."]
+position = Vector2( 1902, 70 )
+z_index = 60
+texture = ExtResource( 42 )
+centered = false
+
+[node name="RAIL2" type="Sprite" parent="."]
+position = Vector2( 1985, 94 )
+z_index = 60
+texture = ExtResource( 43 )
+centered = false
+
+[node name="@RAIL1@553" type="Sprite" parent="."]
+position = Vector2( 1994, 114 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="RAIL8" type="Sprite" parent="."]
+position = Vector2( 2046, 85 )
+z_index = 60
+texture = ExtResource( 44 )
+centered = false
+
+[node name="@RAIL2@556" type="Sprite" parent="."]
+position = Vector2( 1718, 95 )
+z_index = 60
+texture = ExtResource( 43 )
+centered = false
+
+[node name="@RAIL1@558" type="Sprite" parent="."]
+position = Vector2( 1758, 115 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@560" type="Sprite" parent="."]
+position = Vector2( 1776, 115 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="RAIL7" type="Sprite" parent="."]
+position = Vector2( 1860, 95 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="ZSCREEN" type="Sprite" parent="."]
+position = Vector2( 1582, 113 )
+z_index = 65
+texture = ExtResource( 46 )
+centered = false
+
+[node name="HITECH1A" type="Sprite" parent="."]
+position = Vector2( 1932, -10 )
+z_index = 70
+texture = ExtResource( 47 )
+centered = false
+
+[node name="@PLANT05@565" type="Sprite" parent="."]
+position = Vector2( 1962, 212 )
+z_index = 20
+texture = ExtResource( 13 )
+centered = false
+
+[node name="@PLANT05@567" type="Sprite" parent="."]
+position = Vector2( 1984, 168 )
+z_index = 20
+texture = ExtResource( 13 )
+centered = false
+
+[node name="@PLANT05@569" type="Sprite" parent="."]
+position = Vector2( 2017, 190 )
+z_index = 20
+texture = ExtResource( 13 )
+centered = false
+
+[node name="@SAEULE0@571" type="Sprite" parent="."]
+position = Vector2( 2010, 174 )
+z_index = 20
+texture = ExtResource( 14 )
+centered = false
+
+[node name="@SAEULE0@573" type="Sprite" parent="."]
+position = Vector2( 1997, 168 )
+z_index = 65
+texture = ExtResource( 14 )
+centered = false
+
+[node name="@UPFLOOR1@575" type="Sprite" parent="."]
+position = Vector2( 1810, 120 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="TREPPE5" type="Sprite" parent="."]
+position = Vector2( 1767, -18 )
+z_index = 60
+texture = ExtResource( 48 )
+centered = false
+
+[node name="@UPFLOOR2@578" type="Sprite" parent="."]
+position = Vector2( 1994, 115 )
+z_index = 50
+texture = ExtResource( 34 )
+centered = false
+
+[node name="UPFLOOR3" type="Sprite" parent="."]
+position = Vector2( 2028, 136 )
+z_index = 50
+texture = ExtResource( 49 )
+centered = false
+
+[node name="@UPFLOOR1@581" type="Sprite" parent="."]
+position = Vector2( 2047, 136 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR2@583" type="Sprite" parent="."]
+position = Vector2( 1985, 137 )
+z_index = 50
+texture = ExtResource( 34 )
+centered = false
+
+[node name="@RAIL1@585" type="Sprite" parent="."]
+position = Vector2( 1997, 114 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@587" type="Sprite" parent="."]
+position = Vector2( 1999, 114 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@589" type="Sprite" parent="."]
+position = Vector2( 2031, 114 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@591" type="Sprite" parent="."]
+position = Vector2( 1999, 114 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@593" type="Sprite" parent="."]
+position = Vector2( 1989, 114 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@SAEULE0@595" type="Sprite" parent="."]
+position = Vector2( 1993, 154 )
+z_index = 20
+texture = ExtResource( 14 )
+centered = false
+
+[node name="@RAIL1@597" type="Sprite" parent="."]
+position = Vector2( 2012, 114 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@PLANT07@599" type="Sprite" parent="."]
+position = Vector2( 1918, 213 )
+z_index = 60
+texture = ExtResource( 36 )
+centered = false
+
+[node name="@UPFLOOR1@601" type="Sprite" parent="."]
+position = Vector2( 1842, 96 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@PLANT07@603" type="Sprite" parent="."]
+position = Vector2( 1851, 24 )
+z_index = 60
+texture = ExtResource( 36 )
+centered = false
+
+[node name="@UPFLOOR1@605" type="Sprite" parent="."]
+position = Vector2( 1832, 93 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@PLANT07@607" type="Sprite" parent="."]
+position = Vector2( 1863, 20 )
+z_index = 20
+texture = ExtResource( 36 )
+centered = false
+
+[node name="PLANT03" type="Sprite" parent="."]
+position = Vector2( 1873, 63 )
+z_index = 20
+texture = ExtResource( 50 )
+centered = false
+
+[node name="@PLANT03@610" type="Sprite" parent="."]
+position = Vector2( 1854, 68 )
+z_index = 20
+texture = ExtResource( 50 )
+centered = false
+
+[node name="@UPFLOOR1@612" type="Sprite" parent="."]
+position = Vector2( 2027, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR2@614" type="Sprite" parent="."]
+position = Vector2( 2005, 137 )
+z_index = 50
+texture = ExtResource( 34 )
+centered = false
+
+[node name="@RAIL1@616" type="Sprite" parent="."]
+position = Vector2( 2008, 107 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@618" type="Sprite" parent="."]
+position = Vector2( 1983, 117 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@620" type="Sprite" parent="."]
+position = Vector2( 1998, 107 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@622" type="Sprite" parent="."]
+position = Vector2( 1774, 114 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@624" type="Sprite" parent="."]
+position = Vector2( 1774, 95 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL1@626" type="Sprite" parent="."]
+position = Vector2( 1765, 115 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL6@628" type="Sprite" parent="."]
+position = Vector2( 1977, 233 )
+z_index = 60
+texture = ExtResource( 42 )
+centered = false
+
+[node name="@RAIL5@630" type="Sprite" parent="."]
+position = Vector2( 1907, 61 )
+z_index = 60
+texture = ExtResource( 41 )
+centered = false
+
+[node name="RAIL11" type="Sprite" parent="."]
+position = Vector2( 2030, 226 )
+z_index = 60
+texture = ExtResource( 51 )
+centered = false
+
+[node name="@RAIL6@633" type="Sprite" parent="."]
+position = Vector2( 1897, 66 )
+z_index = 60
+texture = ExtResource( 42 )
+centered = false
+
+[node name="@UPFLOOR1@635" type="Sprite" parent="."]
+position = Vector2( 1983, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@RAIL11@637" type="Sprite" parent="."]
+position = Vector2( 1985, 80 )
+z_index = 60
+texture = ExtResource( 51 )
+centered = false
+
+[node name="@RAIL4@639" type="Sprite" parent="."]
+position = Vector2( 1667, 97 )
+z_index = 60
+texture = ExtResource( 38 )
+centered = false
+
+[node name="@RAIL4@641" type="Sprite" parent="."]
+position = Vector2( 1918, 61 )
+z_index = 60
+texture = ExtResource( 38 )
+centered = false
+
+[node name="@RAIL1@643" type="Sprite" parent="."]
+position = Vector2( 2016, 266 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="ECKE01" type="Sprite" parent="."]
+position = Vector2( 1918, 59 )
+z_index = 60
+texture = ExtResource( 52 )
+centered = false
+
+[node name="@RAIL6@646" type="Sprite" parent="."]
+position = Vector2( 1933, 233 )
+z_index = 60
+texture = ExtResource( 42 )
+centered = false
+
+[node name="@RAIL6@648" type="Sprite" parent="."]
+position = Vector2( 1911, 62 )
+z_index = 60
+texture = ExtResource( 42 )
+centered = false
+
+[node name="@RAIL5@650" type="Sprite" parent="."]
+position = Vector2( 1894, 95 )
+z_index = 60
+texture = ExtResource( 41 )
+centered = false
+
+[node name="@RAIL5@652" type="Sprite" parent="."]
+position = Vector2( 1894, 95 )
+z_index = 60
+texture = ExtResource( 41 )
+centered = false
+
+[node name="@RAIL5@654" type="Sprite" parent="."]
+position = Vector2( 1897, 80 )
+z_index = 60
+texture = ExtResource( 41 )
+centered = false
+
+[node name="RAIL3" type="Sprite" parent="."]
+position = Vector2( 1899, 86 )
+z_index = 60
+texture = ExtResource( 53 )
+centered = false
+
+[node name="@UPFLOOR0@657" type="Sprite" parent="."]
+position = Vector2( 1906, 286 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@UPFLOOR1@659" type="Sprite" parent="."]
+position = Vector2( 1873, 93 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@661" type="Sprite" parent="."]
+position = Vector2( 1961, 93 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@663" type="Sprite" parent="."]
+position = Vector2( 1917, 93 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@665" type="Sprite" parent="."]
+position = Vector2( 1950, 115 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@667" type="Sprite" parent="."]
+position = Vector2( 1939, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR0@669" type="Sprite" parent="."]
+position = Vector2( 2005, 264 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@UPFLOOR1@671" type="Sprite" parent="."]
+position = Vector2( 1763, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@673" type="Sprite" parent="."]
+position = Vector2( 1763, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@675" type="Sprite" parent="."]
+position = Vector2( 1719, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@677" type="Sprite" parent="."]
+position = Vector2( 1807, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@679" type="Sprite" parent="."]
+position = Vector2( 1851, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@681" type="Sprite" parent="."]
+position = Vector2( 1961, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR0@683" type="Sprite" parent="."]
+position = Vector2( 1717, 137 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@RAIL1@685" type="Sprite" parent="."]
+position = Vector2( 1853, 115 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@UPFLOOR0@687" type="Sprite" parent="."]
+position = Vector2( 1893, 137 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="RAIL9" type="Sprite" parent="."]
+position = Vector2( 1849, 97 )
+z_index = 60
+texture = ExtResource( 54 )
+centered = false
+
+[node name="@RAIL9@690" type="Sprite" parent="."]
+position = Vector2( 1937, 97 )
+z_index = 60
+texture = ExtResource( 54 )
+centered = false
+
+[node name="@RAIL1@692" type="Sprite" parent="."]
+position = Vector2( 1941, 115 )
+z_index = 60
+texture = ExtResource( 37 )
+centered = false
+
+[node name="@RAIL8@694" type="Sprite" parent="."]
+position = Vector2( 2040, 95 )
+z_index = 60
+texture = ExtResource( 44 )
+centered = false
+
+[node name="@UPFLOOR0@696" type="Sprite" parent="."]
+position = Vector2( 1917, 176 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@UPFLOOR0@698" type="Sprite" parent="."]
+position = Vector2( 1737, 137 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@UPFLOOR0@700" type="Sprite" parent="."]
+position = Vector2( 1741, 137 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@UPFLOOR0@702" type="Sprite" parent="."]
+position = Vector2( 1917, 137 )
+z_index = 50
+texture = ExtResource( 32 )
+centered = false
+
+[node name="@UPFLOOR1@704" type="Sprite" parent="."]
+position = Vector2( 1761, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@UPFLOOR1@706" type="Sprite" parent="."]
+position = Vector2( 1717, 137 )
+z_index = 50
+texture = ExtResource( 33 )
+centered = false
+
+[node name="@RAIL8@708" type="Sprite" parent="."]
+position = Vector2( 1763, 86 )
+z_index = 60
+texture = ExtResource( 44 )
+centered = false
+
+[node name="@TREPPE6@710" type="Sprite" parent="."]
+position = Vector2( 1881, 96 )
+z_index = 6
+texture = ExtResource( 5 )
+centered = false
+
+[node name="@FENSTER1@712" type="Sprite" parent="."]
+position = Vector2( 1881, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@714" type="Sprite" parent="."]
+position = Vector2( 1837, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER1@716" type="Sprite" parent="."]
+position = Vector2( 1705, 93 )
+z_index = 5
+texture = ExtResource( 4 )
+centered = false
+
+[node name="@FENSTER2@718" type="Sprite" parent="."]
+position = Vector2( 1837, -128 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="@TREPPE4@720" type="Sprite" parent="."]
+position = Vector2( 1767, -18 )
+z_index = 60
+texture = ExtResource( 40 )
+centered = false
+
+[node name="@RELING@722" type="Sprite" parent="."]
+position = Vector2( 1759, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="@EINGANG1@724" type="Sprite" parent="."]
+position = Vector2( 1730, 380 )
+z_index = 20
+texture = ExtResource( 31 )
+centered = false
+
+[node name="EINGANG6" type="Sprite" parent="."]
+position = Vector2( 1472, 442 )
+z_index = 17
+texture = ExtResource( 55 )
+centered = false
+
+[node name="@EINGANG2@727" type="Sprite" parent="."]
+position = Vector2( 1598, 399 )
+z_index = 20
+texture = ExtResource( 26 )
+centered = false
+
+[node name="@RELING@729" type="Sprite" parent="."]
+position = Vector2( 1671, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="@RELING@731" type="Sprite" parent="."]
+position = Vector2( 1583, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="@RELING@733" type="Sprite" parent="."]
+position = Vector2( 1495, 417 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="@GLASS@735" type="Sprite" parent="."]
+position = Vector2( 1282, 202 )
+z_index = 20
+texture = ExtResource( 12 )
+centered = false
+
+[node name="@FLOOR_A@737" type="Sprite" parent="."]
+position = Vector2( 1144, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@739" type="Sprite" parent="."]
+position = Vector2( 1144, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@MANTLZIE@741" type="Sprite" parent="."]
+position = Vector2( 1287, 267 )
+z_index = 20
+texture = ExtResource( 24 )
+centered = false
+
+[node name="@FLOOR_A@743" type="Sprite" parent="."]
+position = Vector2( 1144, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@745" type="Sprite" parent="."]
+position = Vector2( 1144, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_C@747" type="Sprite" parent="."]
+position = Vector2( 1320, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@HOCKER@749" type="Sprite" parent="."]
+position = Vector2( 1322, 211 )
+z_index = 20
+texture = ExtResource( 23 )
+centered = false
+
+[node name="@FLOOR_C@751" type="Sprite" parent="."]
+position = Vector2( 880, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@753" type="Sprite" parent="."]
+position = Vector2( 968, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_C@755" type="Sprite" parent="."]
+position = Vector2( 1056, 220 )
+z_index = 10
+texture = ExtResource( 6 )
+centered = false
+
+[node name="@FLOOR_A@757" type="Sprite" parent="."]
+position = Vector2( 264, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false
+
+[node name="@FLOOR_A@759" type="Sprite" parent="."]
+position = Vector2( 352, 274 )
+z_index = 10
+texture = ExtResource( 7 )
+centered = false

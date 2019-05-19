@@ -26,7 +26,7 @@ public class ATDGameLoader : Node {
 
 		isInEditor = Engine.EditorHint;
 
-		if (forceRebuild || (!System.IO.File.Exists("ATDFiles.pck")) || !Directory.Exists(ProjectSettings.GlobalizePath("res://Images"))) {
+		if (forceRebuild || (!System.IO.File.Exists("ATDFiles.pck") && !Directory.Exists(ProjectSettings.GlobalizePath("res://Images/")))) {
 			selectATDPath = GetNode<FileDialog>("FileDialog"); //Get the path to the ATD install
 			selectATDPath.Connect("dir_selected", this, nameof(ChoseFile));
 			selectATDPath.PopupCentered(new Vector2(500, 500));
