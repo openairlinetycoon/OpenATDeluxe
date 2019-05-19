@@ -25,14 +25,14 @@ All images are work and progress and do not represent any gameplay at the moment
 The office of Falcon Airlines
 ![Imgur](https://i.imgur.com/NQxIqSW.png)
 
-The briefing menu
-![Imgur](https://i.imgur.com/5ROK7wd.png)
+The Airport
 
+![Imgur](https://i.imgur.com/zIm9eSq.gif)
+
+The Airport and switching rooms
+
+![Imgur](https://i.imgur.com/C5BUXhE.gif)
 
 The marketing office
-![Imgur](https://i.imgur.com/FCU4qJg.png)
-
-
-V2
 
 ![Imgur](https://i.imgur.com/56e3Unf.gif)
