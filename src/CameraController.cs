@@ -5,11 +5,11 @@ public class CameraController : Camera2D {
 	[Export]
 	public float speed;
 	float width = 1920;
-	Camera2D cam;
+	public static Camera2D airportCamera;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
-		//cam = GetNode<Camera2D>("Camera2D");
+		airportCamera = this;
 
 	}
 

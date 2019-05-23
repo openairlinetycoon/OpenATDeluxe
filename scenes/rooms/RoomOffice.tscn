@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/buero/BUERO.tres" type="Texture" id=2]
+[ext_resource path="res://Images/room/buero_b/BUERO.tres" type="Texture" id=2]
 [ext_resource path="res://Images/room/buero/DOOR_O.tres" type="Texture" id=3]
 [ext_resource path="res://Images/room/buero/DOOR_T.tres" type="Texture" id=4]
-[ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=6]
 
 [node name="RoomOffice" type="Node2D"]
 
@@ -22,46 +23,45 @@ rect_scale = Vector2( 2.5, 2.5 )
 mouse_filter = 1
 
 [node name="roomSprite" type="Sprite" parent="Base"]
-scale = Vector2( 1, 1 )
+position = Vector2( 0, -20 )
+scale = Vector2( 1.2, 0.89 )
 texture = ExtResource( 2 )
 
 [node name="DOOR_O" type="Sprite" parent="Base"]
+visible = false
 use_parent_material = true
 position = Vector2( 260.639, -47.0193 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 
 [node name="DOOR_T" type="Sprite" parent="Base"]
+visible = false
 use_parent_material = true
 position = Vector2( 271.541, -48 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 4 )
 
-[node name="Exit" parent="Base" instance=ExtResource( 5 )]
-visible = false
-position = Vector2( 273.19, -46.5097 )
-scale = Vector2( 5.24311, 11.0574 )
-gravity = 0.0
-isExit = true
+[node name="MouseColliderRoom" parent="Base" instance=ExtResource( 5 )]
+position = Vector2( 325.043, -61.5831 )
+scale = Vector2( 5.31445, 9.63602 )
+isExitToAirport = true
 
-[node name="Globe" parent="Base" instance=ExtResource( 5 )]
-position = Vector2( 20.063, -22.2255 )
+[node name="Globe" parent="Base" instance=ExtResource( 6 )]
+position = Vector2( 16.4454, -39.1077 )
 scale = Vector2( 3.8892, 3.31086 )
 gravity = 0.0
 
-[node name="Petrol" parent="Base" instance=ExtResource( 5 )]
-position = Vector2( 39.7379, -108.541 )
-scale = Vector2( 5.78376, 4.323 )
+[node name="Petrol" parent="Base" instance=ExtResource( 6 )]
+position = Vector2( 43.9585, -115.776 )
+scale = Vector2( 6.79051, 4.0173 )
 gravity = 0.0
 
-[node name="Telefone" parent="Base" instance=ExtResource( 5 )]
-position = Vector2( 53.904, 111.893 )
-rotation = -0.399712
-scale = Vector2( 4.7535, -2.98269 )
+[node name="Telefone" parent="Base" instance=ExtResource( 6 )]
+position = Vector2( 152.786, 46.1729 )
+rotation = 0.251526
+scale = Vector2( -6.89733, -2.26798 )
 gravity = 0.0
 
-[node name="Telefone2" parent="Base" instance=ExtResource( 5 )]
-position = Vector2( 124.149, 135.173 )
-rotation = 0.672016
-scale = Vector2( 1.91729, 1.95694 )
+[node name="Telefone2" parent="Base" instance=ExtResource( 6 )]
+position = Vector2( 72.8993, 84.5262 )
+rotation = 0.267813
+scale = Vector2( -8.3052, 3.16862 )
 gravity = 0.0

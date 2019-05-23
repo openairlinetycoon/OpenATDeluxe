@@ -37,11 +37,6 @@ public class MouseCursor : Node2D {
 		states.Add(GetNode<Node2D>("MoveLeft"));
 		states.Add(GetNode<Node2D>("MoveRight"));
 
-		Area2D collider = GetNode<Area2D>("Collision");
-
-		collider.Connect("area_entered", this, "MouseEnter");
-		collider.Connect("area_exited", this, "MouseLeave");
-
 		ChangeMouseState(MouseState.Normal);
 		// if (lib.files.Count > 0) {
 		//     SetTexture (lib.files[0].GetTexture());
@@ -51,7 +46,7 @@ public class MouseCursor : Node2D {
 
 	public void MouseEnter(Area2D other) {
 		MouseArea area = other as MouseArea;
-		if (area != null && currentHover == null) {
+		if (area != null) {
 			currentHover = area;
 			ChangeMouseState(area.isExitToAirport ? MouseState.Exit : MouseState.Hover);
 		}

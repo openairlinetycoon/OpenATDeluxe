@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Directory = System.IO.Directory;
 using Thread = System.Threading.Thread;
+using System.Diagnostics;
 
 public class ATDGameLoader : Node {
 	public Label loadInfo;
@@ -78,7 +79,7 @@ public class ATDGameLoader : Node {
 			//Load up all GFX files in the directory
 			string[] files = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/" + folderName);
 			foreach (string f in files) {
-				if (f.EndsWith(".gli")) {
+				if (f.ToLower().EndsWith(".gli")) {
 					var lib = new GFXLibrary(GFXLibrary.pathToAirlineTycoonD + "/" + folderName + "/" + System.IO.Path.GetFileName(f));
 					lib.GetFilesInLibrary();
 
@@ -87,10 +88,16 @@ public class ATDGameLoader : Node {
 			}
 		}
 
+		Debug.Assert(GetNode<Sprite>("Title") != null, "Invalid scene structure! Title child node missing!");
+		Debug.Assert(libraryFolders["room"].Find((lib) => lib.name == "titel") != null, "Missing room gli library folder! Check your files for completion! (title.gli)");
+
+		Debug.Assert(
+			libraryFolders["room"].Find((lib) => lib.name == "titel").files.Find((f) => f.name.Trim('\0') == "TITEL") != null,
+			 "Missing TITLE room file in GFXLibrary titel from room!");
 
 		GetNode<Sprite>("Title").SetTexture(
 			libraryFolders["room"]
-				.Find((lib) => lib.name == "titel2").files
+				.Find((lib) => lib.name == "titel").files
 				.Find((f) => f.name.Trim('\0') == "TITEL").GetTexture());
 
 

@@ -11,11 +11,11 @@
 [ext_resource path="res://Images/gli/glbrick/FRACHT01.tres" type="Texture" id=9]
 [ext_resource path="res://Images/gli/glbrick/FRACHT02.tres" type="Texture" id=10]
 [ext_resource path="res://Images/gli/glbrick/WA03.tres" type="Texture" id=11]
-[ext_resource path="res://scenes/rooms/ofice1701.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/rooms/entry4101.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/rooms/shops101.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/rooms/cafe4101.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/rooms/secur1101.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/airportParts/ofice1701.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/airportParts/entry4101.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/airportParts/shops101.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/airportParts/cafe4101.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/airportParts/secur1101.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Images/gli/glbrick/FLOOR_E.tres" type="Texture" id=17]
 [ext_resource path="res://Images/gli/glbrick/FLOOR_D.tres" type="Texture" id=18]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=19]
@@ -23,7 +23,6 @@
 [node name="RoomAirport" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 3900, 0 )
 z_index = 999
 z_as_relative = false
 current = true
@@ -43,7 +42,6 @@ speed = 300.0
 position = Vector2( 3900, 0 )
 
 [node name="Base" type="Node2D" parent="."]
-editor/display_folded = true
 material = ExtResource( 2 )
 position = Vector2( -154, -1151 )
 scale = Vector2( 2, 2 )
@@ -466,3 +464,11 @@ scale = Vector2( 4.44232, 7.28947 )
 
 [node name="MouseColliderRoom" parent="Interactables/Marketing" instance=ExtResource( 19 )]
 roomSceneName = "RoomMarketing"
+
+[node name="FLOffice" type="Node2D" parent="Interactables"]
+editor/display_folded = true
+position = Vector2( 2663.61, 222.181 )
+scale = Vector2( 4.44232, 7.28947 )
+
+[node name="MouseColliderRoom" parent="Interactables/FLOffice" instance=ExtResource( 19 )]
+roomSceneName = "RoomOffice"

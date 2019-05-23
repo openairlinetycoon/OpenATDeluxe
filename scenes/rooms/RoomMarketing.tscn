@@ -106,7 +106,6 @@ playing = true
 use_parent_material = true
 position = Vector2( 166, -81 )
 frames = SubResource( 2 )
-frame = 2
 playing = true
 centered = false
 
@@ -132,6 +131,7 @@ rotation = 0.417069
 gravity = 0.0
 
 [node name="Exit" type="Node2D" parent="Base"]
+editor/display_folded = true
 position = Vector2( -307.367, -43.1694 )
 rotation = 0.138399
 scale = Vector2( 6.21718, 19.3335 )
