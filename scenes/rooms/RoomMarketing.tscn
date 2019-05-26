@@ -138,4 +138,3 @@ scale = Vector2( 6.21718, 19.3335 )
 
 [node name="MouseColliderRoom" parent="Base/Exit" instance=ExtResource( 34 )]
 isExitToAirport = true
-roomSceneName = "RoomAirport"
