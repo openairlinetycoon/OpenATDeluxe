@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/CameraController.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
@@ -19,6 +19,14 @@
 [ext_resource path="res://Images/gli/glbrick/FLOOR_E.tres" type="Texture" id=17]
 [ext_resource path="res://Images/gli/glbrick/FLOOR_D.tres" type="Texture" id=18]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/MouseAreaRoom.cs" type="Script" id=20]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 20.5277, 15.7873 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 130.82, 109.836 )
 
 [node name="RoomAirport" type="Node2D"]
 
@@ -466,9 +474,33 @@ scale = Vector2( 4.44232, 7.28947 )
 roomSceneName = "RoomMarketing"
 
 [node name="FLOffice" type="Node2D" parent="Interactables"]
-editor/display_folded = true
 position = Vector2( 2663.61, 222.181 )
 scale = Vector2( 4.44232, 7.28947 )
 
 [node name="MouseColliderRoom" parent="Interactables/FLOffice" instance=ExtResource( 19 )]
 roomSceneName = "RoomOffice"
+
+[node name="Kiosk" type="Node2D" parent="Interactables"]
+position = Vector2( 6335.19, 498.466 )
+
+[node name="MouseColliderRoom2" parent="Interactables/Kiosk" instance=ExtResource( 19 )]
+position = Vector2( 0.54541, 2.06586 )
+scale = Vector2( 4.44232, 7.28947 )
+roomSceneName = "RoomKiosk"
+
+[node name="CollisionShape2D" parent="Interactables/Kiosk/MouseColliderRoom2" index="0"]
+position = Vector2( -0.375977, -3.20771 )
+shape = SubResource( 1 )
+
+[node name="Bank" type="Node2D" parent="Interactables"]
+position = Vector2( 5892.59, 510.157 )
+
+[node name="MouseCollider" type="Area2D" parent="Interactables/Bank"]
+script = ExtResource( 20 )
+roomSceneName = "RoomBank"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Bank/MouseCollider"]
+position = Vector2( 3.34033, -28.3931 )
+shape = SubResource( 2 )
+
+[editable path="Interactables/Kiosk/MouseColliderRoom2"]
