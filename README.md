@@ -2,6 +2,10 @@
 This is the repository of the Open Source remake of Airline Tycoon Deluxe.
 It will add support for Full HD resolution, and native support for platforms like Windows (10), Linux and OSx.
 
+## Contributing
+
+You can help by getting involved in active development of [things to do](https://github.com/WizzardMaker/OpenATDeluxe/projects/1) or by bug-testing the game in its current state. Thanks in advance !
+
 ## Progress
 - Sprite extractor for the base game is feature finished
 
