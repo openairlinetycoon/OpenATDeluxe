@@ -8,7 +8,7 @@ public class RoomManager : Node2D {
 	public static string currentRoom;
 	public static Node2D currentRoomNode;
 
-	private static Dictionary<string, Vector2> oldVectors;
+	private static Vector2 roomPosition;
 
 	private static Dictionary<string, PackedScene> rooms;
 	// Declare member variables here. Examples:
@@ -18,7 +18,7 @@ public class RoomManager : Node2D {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready () {
 		rooms = new Dictionary<string, PackedScene> ();
-		oldVectors = new Dictionary<string, Vector2> ();
+		roomPosition = Vector2.Zero;
 
 		//Load every Room in preparation
 		Directory d = new Directory();
@@ -34,22 +34,15 @@ public class RoomManager : Node2D {
 		ChangeRoom ("", isAirport : true);
 	}
 
-	public static void ChangeRoom (string newRoomName, bool isAirport) {
-		if (newRoomName != "") {
-			Node room = instance.GetParent ().GetChild (0).GetChild (0);
-			foreach (Node child in room.GetChildren ()) {
-				if (child.Name == "Camera2D") {
-					if (oldVectors.ContainsKey ("camPos")) {
-						oldVectors.Remove ("camPos");
-					}
-					oldVectors.Add ("camPos", (Vector2) child.Call ("_GetPosition"));
-					break;
-				}
-			}
+	public static void ChangeRoom(string newRoomName, bool isAirport) {
+		if (!isAirport) {
+			CameraController cam = GetCameraControllerInCurrentRoom();
+			if (cam != null)
+				roomPosition = cam.GetPosition();
 		}
 
-		bool firstLoad = newRoomName == "";
 		if (isAirport) {
+
 			newRoomName = "RoomAirport";
 		}
 
@@ -66,26 +59,28 @@ public class RoomManager : Node2D {
 			child.QueueFree();
 		}
 
-		Node n = rooms[newRoomName].Instance();
+		Node2D n = (Node2D)rooms[newRoomName].Instance();
 		instance.AddChild(n);
 
 		currentRoom = newRoomName;
+		currentRoomNode = n;
 
-		if (newRoomName == "RoomAirport" && !firstLoad) {
-			foreach (Node node in instance.GetChildren ()) {
-				if (node.Name == "RoomAirport") {
-					foreach (Node node2 in node.GetChildren ()) {
-						if (node2.Name == "Camera2D") {
-							node2.Call ("_SetPosition", (oldVectors["camPos"]));
-							break;
-						}
-					}
-					break;
-				}
-			}
+		if (isAirport) {
+			GetCameraControllerInCurrentRoom()?.SetPosition(roomPosition);
 		}
 
 		//instance.AddChild(n);
+	}
+
+	private static CameraController GetCameraControllerInCurrentRoom() {
+		CameraController cam;
+		foreach (Node child in currentRoomNode.GetChildren()) {
+			cam = child as CameraController;
+			if (cam != null)
+				return cam;
+		}
+
+		return null;
 	}
 
 	//  // Called every frame. 'delta' is the elapsed time since the previous frame.
