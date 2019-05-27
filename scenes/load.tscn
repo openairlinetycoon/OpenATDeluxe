@@ -14,12 +14,12 @@ margin_left = 685.0
 margin_top = 388.863
 margin_right = 1239.0
 margin_bottom = 710.863
-window_title = "Verzeichnis wählen"
+window_title = "Open a Directory"
 dialog_text = "Select Path"
 mode = 2
 access = 2
-current_dir = "P:/Projekte/Major Games/OpenATD"
-current_path = "P:/Projekte/Major Games/OpenATD/"
+current_dir = "/home/xerxes/Documents/coding/OpenATDeluxe"
+current_path = "/home/xerxes/Documents/coding/OpenATDeluxe/"
 
 [node name="DirectoryInvalid" type="AcceptDialog" parent="."]
 anchor_left = 0.5
