@@ -8,8 +8,11 @@ You can help by getting involved in active development of [things to do](https:/
 
 ## Progress
 - Sprite extractor for the base game is feature finished
+- Game rooms are being added [#10](https://github.com/WizzardMaker/OpenATDeluxe/issues/10)
+- Data import is being worked on, still more reverse engineering needed [#5](https://github.com/WizzardMaker/OpenATDeluxe/issues/5)
 
 ## Todo
+- See [board](https://github.com/WizzardMaker/OpenATDeluxe/projects/1)
 - Alpha channel check has to be refined
 - System to check all images and work with them inside of godot is needed (Texture dummy loader maybe?)
 
