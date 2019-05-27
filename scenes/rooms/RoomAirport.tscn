@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://src/CameraController.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
@@ -26,7 +26,34 @@ resource_local_to_scene = true
 extents = Vector2( 20.5277, 15.7873 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 130.82, 109.836 )
+extents = Vector2( 130.82, 109.005 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 133.289, 117.572 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 78.6217, 109.804 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 266.41, 124.383 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 296.842, 115.789 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 123.158, 116.842 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 107.419, 113.418 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 184.629, 111.757 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 182.84, 72.0816 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 38.9468, 107.368 )
 
 [node name="RoomAirport" type="Node2D"]
 
@@ -500,7 +527,112 @@ script = ExtResource( 20 )
 roomSceneName = "RoomBank"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Bank/MouseCollider"]
-position = Vector2( 3.34033, -28.3931 )
+position = Vector2( 0.0322266, -0.387146 )
 shape = SubResource( 2 )
+
+[node name="Museum" type="Node2D" parent="Interactables"]
+position = Vector2( 939.073, 523.047 )
+
+[node name="MouseCollider" type="Area2D" parent="Interactables/Museum"]
+script = ExtResource( 20 )
+roomSceneName = "RoomMuseum"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Museum/MouseCollider"]
+shape = SubResource( 3 )
+
+[node name="Cargo" type="Node2D" parent="Interactables"]
+position = Vector2( 331.615, 544.15 )
+
+[node name="MouseCollider2" type="Area2D" parent="Interactables/Cargo"]
+position = Vector2( -0.36145, 2.38788 )
+script = ExtResource( 20 )
+roomSceneName = "RoomCargo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Cargo/MouseCollider2"]
+position = Vector2( 0, -1.16632 )
+shape = SubResource( 4 )
+
+[node name="LastMinute" type="Node2D" parent="Interactables"]
+position = Vector2( 1529.95, 473.305 )
+
+[node name="MouseCollider3" type="Area2D" parent="Interactables/LastMinute"]
+position = Vector2( -3.20215, 6.7095 )
+script = ExtResource( 20 )
+roomSceneName = "RoomLastMinute"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/LastMinute/MouseCollider3"]
+position = Vector2( -3.15784, 7.36841 )
+shape = SubResource( 5 )
+
+[node name="AirTravel" type="Node2D" parent="Interactables"]
+position = Vector2( 3592.27, 463.981 )
+
+[node name="MouseCollider4" type="Area2D" parent="Interactables/AirTravel"]
+position = Vector2( -1.2334, 0.963043 )
+script = ExtResource( 20 )
+roomSceneName = "RoomAirTravel"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/AirTravel/MouseCollider4"]
+position = Vector2( 41.0525, 12.6316 )
+shape = SubResource( 6 )
+
+[node name="ArabAir" type="Node2D" parent="Interactables"]
+position = Vector2( 5104.97, 471.351 )
+
+[node name="MouseCollider5" type="Area2D" parent="Interactables/ArabAir"]
+position = Vector2( -1.4751, -0.866486 )
+script = ExtResource( 20 )
+roomSceneName = "RoomArabAir"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/ArabAir/MouseCollider5"]
+position = Vector2( 2.10547, 6.3158 )
+shape = SubResource( 7 )
+
+[node name="DutyFree" type="Node2D" parent="Interactables"]
+position = Vector2( 5469.54, 501.871 )
+
+[node name="MouseCollider6" type="Area2D" parent="Interactables/DutyFree"]
+position = Vector2( -0.956055, -0.453552 )
+script = ExtResource( 20 )
+roomSceneName = "RoomDutyFree"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/DutyFree/MouseCollider6"]
+position = Vector2( 4, -22 )
+shape = SubResource( 8 )
+
+[node name="Cafe" type="Node2D" parent="Interactables"]
+position = Vector2( 7052.22, 463.699 )
+
+[node name="MouseCollider7" type="Area2D" parent="Interactables/Cafe"]
+position = Vector2( 0.0302734, -0.566345 )
+script = ExtResource( 20 )
+roomSceneName = "RoomCafe"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Cafe/MouseCollider7"]
+position = Vector2( 12.3804, 9.28534 )
+shape = SubResource( 9 )
+
+[node name="Exit" type="Node2D" parent="Interactables"]
+position = Vector2( 4412.46, 865.976 )
+
+[node name="MouseCollider8" type="Area2D" parent="Interactables/Exit"]
+position = Vector2( -2.26416, 4.18445 )
+script = ExtResource( 20 )
+roomSceneName = "RoomExit"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Exit/MouseCollider8"]
+shape = SubResource( 10 )
+
+[node name="Terrorist" type="Node2D" parent="Interactables"]
+position = Vector2( 5281.61, 466.635 )
+
+[node name="MouseCollider9" type="Area2D" parent="Interactables/Terrorist"]
+position = Vector2( 4.10938, 0.922943 )
+script = ExtResource( 20 )
+roomSceneName = "RoomTerrorist"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Terrorist/MouseCollider9"]
+position = Vector2( -4.92676, 2.10526 )
+shape = SubResource( 11 )
 
 [editable path="Interactables/Kiosk/MouseColliderRoom2"]
