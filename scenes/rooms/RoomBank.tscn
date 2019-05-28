@@ -1,12 +1,25 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
 [ext_resource path="res://Images/room/bank/BANK.tres" type="Texture" id=2]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Images/room/bank/MONI01.tres" type="Texture" id=4]
+[ext_resource path="res://Images/room/bank/MONI02.tres" type="Texture" id=5]
+[ext_resource path="res://Images/room/bank/MONI03.tres" type="Texture" id=6]
+[ext_resource path="res://Images/room/bank/MONI04.tres" type="Texture" id=7]
+[ext_resource path="res://Images/room/bank/MONI05.tres" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
-extents = Vector2( 21.1549, 8.10585 )
+extents = Vector2( 21.9167, 8.34528 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="RoomKiosk" type="Node2D"]
 
@@ -24,7 +37,7 @@ rect_scale = Vector2( 2.5, 2.5 )
 mouse_filter = 1
 
 [node name="roomSprite" type="Sprite" parent="Base"]
-position = Vector2( -65.3351, 2 )
+position = Vector2( -75.529, -2.43213 )
 scale = Vector2( 0.990909, 0.990909 )
 texture = ExtResource( 2 )
 
@@ -35,7 +48,14 @@ z_index = 1
 isExitToAirport = true
 
 [node name="CollisionShape2D" parent="Base/MouseColliderRoom2" index="0"]
-position = Vector2( -1.69886, -7.54218 )
+position = Vector2( -4.56502, -9.05706 )
 shape = SubResource( 1 )
+
+[node name="Screen" type="AnimatedSprite" parent="Base"]
+position = Vector2( -194.358, -7.53902 )
+frames = SubResource( 2 )
+frame = 4
+speed_scale = 0.15
+playing = true
 
 [editable path="Base/MouseColliderRoom2"]
