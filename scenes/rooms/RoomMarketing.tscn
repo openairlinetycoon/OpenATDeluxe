@@ -59,7 +59,7 @@ animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
+"speed": 6.0
 } ]
 
 [sub_resource type="SpriteFrames" id=4]
@@ -99,13 +99,14 @@ texture = ExtResource( 3 )
 use_parent_material = true
 position = Vector2( 88.1566, -120.766 )
 frames = SubResource( 1 )
-frame = 1
+frame = 4
 playing = true
 
 [node name="Arm" type="AnimatedSprite" parent="Base"]
 use_parent_material = true
 position = Vector2( 166, -81 )
 frames = SubResource( 2 )
+frame = 2
 playing = true
 centered = false
 
@@ -113,14 +114,15 @@ centered = false
 use_parent_material = true
 position = Vector2( -33.0332, -143.15 )
 frames = SubResource( 3 )
-frame = 5
+frame = 1
+playing = true
 centered = false
 
 [node name="Coffee" type="AnimatedSprite" parent="Base"]
 use_parent_material = true
 position = Vector2( -144.019, -145.899 )
 frames = SubResource( 4 )
-frame = 3
+frame = 6
 playing = true
 
 [node name="MouseHover" type="Node2D" parent="Base"]
@@ -131,7 +133,6 @@ rotation = 0.417069
 gravity = 0.0
 
 [node name="Exit" type="Node2D" parent="Base"]
-editor/display_folded = true
 position = Vector2( -307.367, -43.1694 )
 rotation = 0.138399
 scale = Vector2( 6.21718, 19.3335 )
