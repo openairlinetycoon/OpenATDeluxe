@@ -18,7 +18,7 @@ public class RoomManager : Node2D {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready () {
 		rooms = new Dictionary<string, PackedScene> ();
-		roomPosition = Vector2.Zero;
+		roomPosition = new Vector2 (4448, 0);
 
 		//Load every Room in preparation
 		Directory d = new Directory();

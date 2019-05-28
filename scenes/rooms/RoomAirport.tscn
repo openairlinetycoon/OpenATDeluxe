@@ -58,6 +58,7 @@ extents = Vector2( 38.9468, 107.368 )
 [node name="RoomAirport" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 4447.56, 335.176 )
 z_index = 999
 z_as_relative = false
 current = true
@@ -74,7 +75,7 @@ script = ExtResource( 1 )
 speed = 300.0
 
 [node name="CameraTarget" type="Node2D" parent="."]
-position = Vector2( 3900, 0 )
+position = Vector2( 4448.56, 336.554 )
 
 [node name="Base" type="Node2D" parent="."]
 material = ExtResource( 2 )
@@ -82,7 +83,6 @@ position = Vector2( -154, -1151 )
 scale = Vector2( 2, 2 )
 
 [node name="Backdrop" type="Node2D" parent="Base"]
-editor/display_folded = true
 
 [node name="BACK_D" type="Sprite" parent="Base/Backdrop"]
 use_parent_material = true
