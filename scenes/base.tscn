@@ -1,35 +1,48 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://src/RoomManager.cs" type="Script" id=1]
-[ext_resource path="res://Images/gli/glstd/STATLIN5.tres" type="Texture" id=2]
-[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=3]
-[ext_resource path="res://Images/gli/glstd/STATLIN6.tres" type="Texture" id=4]
-[ext_resource path="res://Images/gli/glstd/STAT01.tres" type="Texture" id=5]
-[ext_resource path="res://Images/gli/glstd/STATLIN0.tres" type="Texture" id=6]
-[ext_resource path="res://Images/gli/glstd/LOGO1.tres" type="Texture" id=7]
-[ext_resource path="res://src/MouseCursor.cs" type="Script" id=8]
-[ext_resource path="res://Images/gli/glbasis/CURSOR.tres" type="Texture" id=9]
-[ext_resource path="res://Images/gli/glbasis/CURSORH.tres" type="Texture" id=10]
-[ext_resource path="res://Images/gli/glbasis/CURSORS.tres" type="Texture" id=11]
-[ext_resource path="res://Images/gli/glbasis/EXIT01.tres" type="Texture" id=12]
-[ext_resource path="res://Images/gli/glbasis/EXIT02.tres" type="Texture" id=13]
-[ext_resource path="res://Images/gli/glbasis/EXIT03.tres" type="Texture" id=14]
-[ext_resource path="res://Images/gli/glbasis/EXIT04.tres" type="Texture" id=15]
-[ext_resource path="res://Images/gli/glbasis/EXIT05.tres" type="Texture" id=16]
-[ext_resource path="res://Images/gli/glbasis/EXIT06.tres" type="Texture" id=17]
-[ext_resource path="res://Images/gli/glbasis/EXIT07.tres" type="Texture" id=18]
-[ext_resource path="res://Images/gli/glbasis/EXIT08.tres" type="Texture" id=19]
-[ext_resource path="res://Images/gli/glbasis/EXIT09.tres" type="Texture" id=20]
-[ext_resource path="res://Images/gli/glbasis/EXIT10.tres" type="Texture" id=21]
-[ext_resource path="res://Images/gli/glbasis/EXIT11.tres" type="Texture" id=22]
-[ext_resource path="res://Images/gli/glbasis/EXIT12.tres" type="Texture" id=23]
-[ext_resource path="res://Images/gli/glbasis/CURSORL.tres" type="Texture" id=24]
-[ext_resource path="res://Images/gli/glbasis/CURSORR.tres" type="Texture" id=25]
+[ext_resource path="res://scenes/rooms/RoomAirport.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/rooms/RoomAirTravel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/rooms/RoomArabAir.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/rooms/RoomBank.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/rooms/RoomCafe.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/rooms/RoomCargo.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/rooms/RoomDutyFree.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/rooms/RoomKiosk.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/rooms/RoomLastMinute.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/rooms/RoomMarketing.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/rooms/RoomMuseum.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/rooms/RoomOffice.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/rooms/RoomTerrorist.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Images/gli/glstd/STATLIN5.tres" type="Texture" id=15]
+[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=16]
+[ext_resource path="res://Images/gli/glstd/STATLIN6.tres" type="Texture" id=17]
+[ext_resource path="res://Images/gli/glstd/STAT01.tres" type="Texture" id=18]
+[ext_resource path="res://Images/gli/glstd/STATLIN0.tres" type="Texture" id=19]
+[ext_resource path="res://Images/gli/glstd/LOGO1.tres" type="Texture" id=20]
+[ext_resource path="res://src/MouseCursor.cs" type="Script" id=21]
+[ext_resource path="res://Images/gli/glbasis/CURSOR.tres" type="Texture" id=22]
+[ext_resource path="res://Images/gli/glbasis/CURSORH.tres" type="Texture" id=23]
+[ext_resource path="res://Images/gli/glbasis/CURSORS.tres" type="Texture" id=24]
+[ext_resource path="res://Images/gli/glbasis/EXIT01.tres" type="Texture" id=25]
+[ext_resource path="res://Images/gli/glbasis/EXIT02.tres" type="Texture" id=26]
+[ext_resource path="res://Images/gli/glbasis/EXIT03.tres" type="Texture" id=27]
+[ext_resource path="res://Images/gli/glbasis/EXIT04.tres" type="Texture" id=28]
+[ext_resource path="res://Images/gli/glbasis/EXIT05.tres" type="Texture" id=29]
+[ext_resource path="res://Images/gli/glbasis/EXIT06.tres" type="Texture" id=30]
+[ext_resource path="res://Images/gli/glbasis/EXIT07.tres" type="Texture" id=31]
+[ext_resource path="res://Images/gli/glbasis/EXIT08.tres" type="Texture" id=32]
+[ext_resource path="res://Images/gli/glbasis/EXIT09.tres" type="Texture" id=33]
+[ext_resource path="res://Images/gli/glbasis/EXIT10.tres" type="Texture" id=34]
+[ext_resource path="res://Images/gli/glbasis/EXIT11.tres" type="Texture" id=35]
+[ext_resource path="res://Images/gli/glbasis/EXIT12.tres" type="Texture" id=36]
+[ext_resource path="res://Images/gli/glbasis/CURSORL.tres" type="Texture" id=37]
+[ext_resource path="res://Images/gli/glbasis/CURSORR.tres" type="Texture" id=38]
 
 [sub_resource type="SpriteFrames" id=1]
 resource_local_to_scene = true
 animations = [ {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ) ],
 "loop": true,
 "name": "default",
 "speed": 10.0
@@ -40,6 +53,7 @@ pause_mode = 1
 
 [node name="Scene" type="Node2D" parent="."]
 script = ExtResource( 1 )
+_rooms = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -75,7 +89,7 @@ editor/display_folded = true
 
 [node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control"]
 position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 2 )
+texture = ExtResource( 15 )
 
 [node name="Control2" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
 editor/display_folded = true
@@ -84,7 +98,7 @@ margin_right = 60.0
 
 [node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control2"]
 position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 2 )
+texture = ExtResource( 15 )
 
 [node name="Control3" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
 editor/display_folded = true
@@ -93,7 +107,7 @@ margin_right = 120.0
 
 [node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control3"]
 position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 2 )
+texture = ExtResource( 15 )
 
 [node name="Control4" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
 editor/display_folded = true
@@ -102,7 +116,7 @@ margin_right = 180.0
 
 [node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control4"]
 position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 2 )
+texture = ExtResource( 15 )
 
 [node name="Control6" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
 editor/display_folded = true
@@ -111,7 +125,7 @@ margin_right = 240.0
 
 [node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control6"]
 position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 2 )
+texture = ExtResource( 15 )
 
 [node name="Control7" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
 margin_left = 300.0
@@ -119,68 +133,68 @@ margin_right = 300.0
 
 [node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control7"]
 position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 2 )
+texture = ExtResource( 15 )
 
 [node name="Control5" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
 margin_left = 360.0
 margin_right = 360.0
 
 [node name="STATLIN6" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control5"]
-material = ExtResource( 3 )
+material = ExtResource( 16 )
 position = Vector2( 15.1812, -1.22086 )
-texture = ExtResource( 4 )
+texture = ExtResource( 17 )
 
 [node name="STAT01" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control5"]
-material = ExtResource( 3 )
+material = ExtResource( 16 )
 position = Vector2( 11.6365, 9.1442 )
-texture = ExtResource( 5 )
+texture = ExtResource( 18 )
 
 [node name="STATLIN0" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar"]
-material = ExtResource( 3 )
+material = ExtResource( 16 )
 position = Vector2( 125.277, 411.323 )
-texture = ExtResource( 6 )
+texture = ExtResource( 19 )
 
 [node name="LOGO1" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar"]
 position = Vector2( 39.5946, 411.323 )
-texture = ExtResource( 7 )
+texture = ExtResource( 20 )
 
 [node name="MouseController" type="Node2D" parent="CanvasLayer"]
 editor/display_folded = true
-material = ExtResource( 3 )
+material = ExtResource( 16 )
 position = Vector2( 761.252, 372.714 )
 scale = Vector2( 1.5, 1.5 )
 z_index = 999
-script = ExtResource( 8 )
+script = ExtResource( 21 )
 
 [node name="Normal" type="Sprite" parent="CanvasLayer/MouseController"]
 use_parent_material = true
-texture = ExtResource( 9 )
+texture = ExtResource( 22 )
 centered = false
 
 [node name="Hover" type="Sprite" parent="CanvasLayer/MouseController"]
 use_parent_material = true
-texture = ExtResource( 10 )
+texture = ExtResource( 23 )
 centered = false
 
 [node name="Load" type="Sprite" parent="CanvasLayer/MouseController"]
 use_parent_material = true
-texture = ExtResource( 11 )
+texture = ExtResource( 24 )
 centered = false
 
 [node name="Exit" type="AnimatedSprite" parent="CanvasLayer/MouseController"]
 use_parent_material = true
 position = Vector2( -15.5213, -12.6841 )
 frames = SubResource( 1 )
-frame = 3
+frame = 11
 playing = true
 centered = false
 
 [node name="MoveLeft" type="Sprite" parent="CanvasLayer/MouseController"]
 use_parent_material = true
 position = Vector2( 15.9929, 0.0537262 )
-texture = ExtResource( 24 )
+texture = ExtResource( 37 )
 
 [node name="MoveRight" type="Sprite" parent="CanvasLayer/MouseController"]
 use_parent_material = true
 position = Vector2( -15.5659, 0.0537109 )
-texture = ExtResource( 25 )
+texture = ExtResource( 38 )
