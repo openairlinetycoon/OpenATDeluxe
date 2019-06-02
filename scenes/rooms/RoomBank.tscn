@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/bank/BANK.tres" type="Texture" id=2]
+[ext_resource path="res://Images/room/bank/BANK.res" type="Texture" id=2]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Images/room/bank/MONI01.tres" type="Texture" id=4]
-[ext_resource path="res://Images/room/bank/MONI02.tres" type="Texture" id=5]
-[ext_resource path="res://Images/room/bank/MONI03.tres" type="Texture" id=6]
-[ext_resource path="res://Images/room/bank/MONI04.tres" type="Texture" id=7]
-[ext_resource path="res://Images/room/bank/MONI05.tres" type="Texture" id=8]
+[ext_resource path="res://Images/room/bank/MONI01.res" type="Texture" id=4]
+[ext_resource path="res://Images/room/bank/MONI02.res" type="Texture" id=5]
+[ext_resource path="res://Images/room/bank/MONI03.res" type="Texture" id=6]
+[ext_resource path="res://Images/room/bank/MONI04.res" type="Texture" id=7]
+[ext_resource path="res://Images/room/bank/MONI05.res" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true

@@ -1,0 +1,1550 @@
+[gd_scene load_steps=41 format=2]
+
+[ext_resource path="res://Images/gli/glbrick/FENSTER2.res" type="Texture" id=1]
+[ext_resource path="res://Images/gli/glbrick/FENSTER1.res" type="Texture" id=2]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_C.res" type="Texture" id=3]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_CC.res" type="Texture" id=4]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_A.res" type="Texture" id=5]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_B.res" type="Texture" id=6]
+[ext_resource path="res://Images/gli/glbrick/WA01.res" type="Texture" id=7]
+[ext_resource path="res://Images/gli/glbrick/WA02.res" type="Texture" id=8]
+[ext_resource path="res://Images/gli/glbrick/WA02A.res" type="Texture" id=9]
+[ext_resource path="res://Images/gli/glbrick/STAIRS1.res" type="Texture" id=10]
+[ext_resource path="res://Images/gli/glbrick/WA03.res" type="Texture" id=11]
+[ext_resource path="res://Images/gli/glbrick/WA01A.res" type="Texture" id=12]
+[ext_resource path="res://Images/gli/glbrick/STAIRS2.res" type="Texture" id=13]
+[ext_resource path="res://Images/gli/glbrick/WERK3.res" type="Texture" id=14]
+[ext_resource path="res://Images/gli/glbrick/WERK2.res" type="Texture" id=15]
+[ext_resource path="res://Images/gli/glbrick/WERK1.res" type="Texture" id=16]
+[ext_resource path="res://Images/gli/glbrick/WERK4.res" type="Texture" id=17]
+[ext_resource path="res://Images/gli/glbrick/TRESEN4.res" type="Texture" id=18]
+[ext_resource path="res://Images/gli/glbrick/TRESEN1.res" type="Texture" id=19]
+[ext_resource path="res://Images/gli/glbrick/WARTE5.res" type="Texture" id=20]
+[ext_resource path="res://Images/gli/glbrick/PLANT05.res" type="Texture" id=21]
+[ext_resource path="res://Images/gli/glbrick/PLANT07.res" type="Texture" id=22]
+[ext_resource path="res://Images/gli/glbrick/PLANT01.res" type="Texture" id=23]
+[ext_resource path="res://Images/gli/glbrick/PLANT02.res" type="Texture" id=24]
+[ext_resource path="res://Images/gli/glbrick/WARTE7.res" type="Texture" id=25]
+[ext_resource path="res://Images/gli/glbrick/PLANT03.res" type="Texture" id=26]
+[ext_resource path="res://Images/gli/glbrick/PLANT04.res" type="Texture" id=27]
+[ext_resource path="res://Images/gli/glbrick/MONI1.res" type="Texture" id=28]
+[ext_resource path="res://Images/gli/glbrick/WARTE4.res" type="Texture" id=29]
+[ext_resource path="res://Images/gli/glbrick/TRESEN3.res" type="Texture" id=30]
+[ext_resource path="res://Images/gli/glbrick/TRESEN2.res" type="Texture" id=31]
+[ext_resource path="res://Images/gli/glbrick/SITZ3.res" type="Texture" id=32]
+[ext_resource path="res://Images/gli/glbrick/SITZ2.res" type="Texture" id=33]
+[ext_resource path="res://Images/gli/glbrick/SITZ1.res" type="Texture" id=34]
+[ext_resource path="res://Images/gli/glbrick/WARTE6.res" type="Texture" id=35]
+[ext_resource path="res://Images/gli/glbrick/WARTE8.res" type="Texture" id=36]
+[ext_resource path="res://Images/gli/glbrick/WARTE1.res" type="Texture" id=37]
+[ext_resource path="res://Images/gli/glbrick/WARTE2.res" type="Texture" id=38]
+[ext_resource path="res://Images/gli/glbrick/WARTE3.res" type="Texture" id=39]
+[ext_resource path="res://Images/gli/glbrick/RELING.res" type="Texture" id=40]
+
+[node name="right001" type="Node2D"]
+
+[node name="FENSTER2 1" type="Sprite" parent="."]
+position = Vector2( 1661, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 2" type="Sprite" parent="."]
+position = Vector2( 1705, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 3" type="Sprite" parent="."]
+position = Vector2( 1749, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER1 4" type="Sprite" parent="."]
+position = Vector2( 1661, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 5" type="Sprite" parent="."]
+position = Vector2( 1705, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 6" type="Sprite" parent="."]
+position = Vector2( 1748, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FLOOR_C 7" type="Sprite" parent="."]
+position = Vector2( 1672, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_CC 8" type="Sprite" parent="."]
+position = Vector2( 1756, 220 )
+z_index = 10
+texture = ExtResource( 4 )
+centered = false
+
+[node name="FLOOR_A 9" type="Sprite" parent="."]
+position = Vector2( 1672, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_B 10" type="Sprite" parent="."]
+position = Vector2( 1685, 220 )
+z_index = 12
+texture = ExtResource( 6 )
+centered = false
+
+[node name="WA01 11" type="Sprite" parent="."]
+position = Vector2( 1773, -108 )
+z_index = 20
+texture = ExtResource( 7 )
+centered = false
+
+[node name="WA02 12" type="Sprite" parent="."]
+position = Vector2( 1773, 95 )
+z_index = 20
+texture = ExtResource( 8 )
+centered = false
+
+[node name="WA02A 13" type="Sprite" parent="."]
+position = Vector2( 1751, 166 )
+z_index = 20
+texture = ExtResource( 9 )
+centered = false
+
+[node name="WA02 14" type="Sprite" parent="."]
+position = Vector2( 1755, 131 )
+z_index = 20
+texture = ExtResource( 8 )
+centered = false
+
+[node name="WA01 15" type="Sprite" parent="."]
+position = Vector2( 1754, -70 )
+z_index = 20
+texture = ExtResource( 7 )
+centered = false
+
+[node name="STAIRS1 16" type="Sprite" parent="."]
+position = Vector2( 1753, 268 )
+z_index = 20
+texture = ExtResource( 10 )
+centered = false
+
+[node name="WA01 17" type="Sprite" parent="."]
+position = Vector2( 1735, -32 )
+z_index = 20
+texture = ExtResource( 7 )
+centered = false
+
+[node name="WA02 18" type="Sprite" parent="."]
+position = Vector2( 1716, 208 )
+z_index = 20
+texture = ExtResource( 8 )
+centered = false
+
+[node name="WA01 19" type="Sprite" parent="."]
+position = Vector2( 1716, 7 )
+z_index = 20
+texture = ExtResource( 7 )
+centered = false
+
+[node name="WA02 20" type="Sprite" parent="."]
+position = Vector2( 1697, 247 )
+z_index = 20
+texture = ExtResource( 8 )
+centered = false
+
+[node name="WA01 21" type="Sprite" parent="."]
+position = Vector2( 1697, 45 )
+z_index = 20
+texture = ExtResource( 7 )
+centered = false
+
+[node name="WA03 22" type="Sprite" parent="."]
+position = Vector2( 1655, 15 )
+z_index = 20
+texture = ExtResource( 11 )
+centered = false
+
+[node name="WA02 23" type="Sprite" parent="."]
+position = Vector2( 1678, 283 )
+z_index = 20
+texture = ExtResource( 8 )
+centered = false
+
+[node name="WA01 24" type="Sprite" parent="."]
+position = Vector2( 1678, 83 )
+z_index = 20
+texture = ExtResource( 7 )
+centered = false
+
+[node name="WA01A 25" type="Sprite" parent="."]
+position = Vector2( 1792, -7 )
+z_index = 25
+texture = ExtResource( 12 )
+centered = false
+
+[node name="STAIRS2 26" type="Sprite" parent="."]
+position = Vector2( 1736, 290 )
+z_index = 62
+texture = ExtResource( 13 )
+centered = false
+
+[node name="WERK3 27" type="Sprite" parent="."]
+position = Vector2( 2018, 142 )
+z_index = 70
+texture = ExtResource( 14 )
+centered = false
+
+[node name="WERK2 28" type="Sprite" parent="."]
+position = Vector2( 2024, 0 )
+z_index = 70
+texture = ExtResource( 15 )
+centered = false
+
+[node name="WERK1 29" type="Sprite" parent="."]
+position = Vector2( 2024, 166 )
+z_index = 70
+texture = ExtResource( 16 )
+centered = false
+
+[node name="WERK4 30" type="Sprite" parent="."]
+position = Vector2( 2103, 233 )
+z_index = 71
+texture = ExtResource( 17 )
+centered = false
+
+[node name="FLOOR_C 31" type="Sprite" parent="."]
+position = Vector2( 1760, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="TRESEN4 32" type="Sprite" parent="."]
+position = Vector2( 737, 143 )
+z_index = 4
+texture = ExtResource( 18 )
+centered = false
+
+[node name="TRESEN4 33" type="Sprite" parent="."]
+position = Vector2( 1001, 143 )
+z_index = 4
+texture = ExtResource( 18 )
+centered = false
+
+[node name="TRESEN4 34" type="Sprite" parent="."]
+position = Vector2( 1265, 143 )
+z_index = 4
+texture = ExtResource( 18 )
+centered = false
+
+[node name="TRESEN4 35" type="Sprite" parent="."]
+position = Vector2( 1529, 143 )
+z_index = 4
+texture = ExtResource( 18 )
+centered = false
+
+[node name="FENSTER2 36" type="Sprite" parent="."]
+position = Vector2( 517, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 37" type="Sprite" parent="."]
+position = Vector2( 561, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 38" type="Sprite" parent="."]
+position = Vector2( 605, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 39" type="Sprite" parent="."]
+position = Vector2( 649, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 40" type="Sprite" parent="."]
+position = Vector2( 693, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 41" type="Sprite" parent="."]
+position = Vector2( 737, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 42" type="Sprite" parent="."]
+position = Vector2( 781, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 43" type="Sprite" parent="."]
+position = Vector2( 825, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 44" type="Sprite" parent="."]
+position = Vector2( 869, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 45" type="Sprite" parent="."]
+position = Vector2( 913, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 46" type="Sprite" parent="."]
+position = Vector2( 957, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 47" type="Sprite" parent="."]
+position = Vector2( 1001, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 48" type="Sprite" parent="."]
+position = Vector2( 1045, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 49" type="Sprite" parent="."]
+position = Vector2( 1089, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 50" type="Sprite" parent="."]
+position = Vector2( 1133, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 51" type="Sprite" parent="."]
+position = Vector2( 1177, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 52" type="Sprite" parent="."]
+position = Vector2( 1221, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 53" type="Sprite" parent="."]
+position = Vector2( 1265, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 54" type="Sprite" parent="."]
+position = Vector2( 1309, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 55" type="Sprite" parent="."]
+position = Vector2( 1353, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 56" type="Sprite" parent="."]
+position = Vector2( 1397, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 57" type="Sprite" parent="."]
+position = Vector2( 1441, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 58" type="Sprite" parent="."]
+position = Vector2( 1485, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 59" type="Sprite" parent="."]
+position = Vector2( 1529, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 60" type="Sprite" parent="."]
+position = Vector2( 1573, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER2 61" type="Sprite" parent="."]
+position = Vector2( 1617, -128 )
+z_index = 5
+texture = ExtResource( 1 )
+centered = false
+
+[node name="FENSTER1 62" type="Sprite" parent="."]
+position = Vector2( 517, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 63" type="Sprite" parent="."]
+position = Vector2( 561, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 64" type="Sprite" parent="."]
+position = Vector2( 605, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 65" type="Sprite" parent="."]
+position = Vector2( 825, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 66" type="Sprite" parent="."]
+position = Vector2( 869, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 67" type="Sprite" parent="."]
+position = Vector2( 1089, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 68" type="Sprite" parent="."]
+position = Vector2( 1133, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 69" type="Sprite" parent="."]
+position = Vector2( 1353, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 70" type="Sprite" parent="."]
+position = Vector2( 1397, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FENSTER1 71" type="Sprite" parent="."]
+position = Vector2( 1617, 93 )
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="FLOOR_C 72" type="Sprite" parent="."]
+position = Vector2( 528, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 73" type="Sprite" parent="."]
+position = Vector2( 616, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 74" type="Sprite" parent="."]
+position = Vector2( 704, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 75" type="Sprite" parent="."]
+position = Vector2( 792, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 76" type="Sprite" parent="."]
+position = Vector2( 880, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 77" type="Sprite" parent="."]
+position = Vector2( 968, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 78" type="Sprite" parent="."]
+position = Vector2( 1056, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 79" type="Sprite" parent="."]
+position = Vector2( 1144, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 80" type="Sprite" parent="."]
+position = Vector2( 1232, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 81" type="Sprite" parent="."]
+position = Vector2( 1320, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 82" type="Sprite" parent="."]
+position = Vector2( 1408, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 83" type="Sprite" parent="."]
+position = Vector2( 1496, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_C 84" type="Sprite" parent="."]
+position = Vector2( 1584, 220 )
+z_index = 10
+texture = ExtResource( 3 )
+centered = false
+
+[node name="FLOOR_A 85" type="Sprite" parent="."]
+position = Vector2( 528, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 86" type="Sprite" parent="."]
+position = Vector2( 616, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 87" type="Sprite" parent="."]
+position = Vector2( 704, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 88" type="Sprite" parent="."]
+position = Vector2( 792, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 89" type="Sprite" parent="."]
+position = Vector2( 880, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 90" type="Sprite" parent="."]
+position = Vector2( 968, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 91" type="Sprite" parent="."]
+position = Vector2( 1056, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 92" type="Sprite" parent="."]
+position = Vector2( 1144, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 93" type="Sprite" parent="."]
+position = Vector2( 1232, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 94" type="Sprite" parent="."]
+position = Vector2( 1320, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 95" type="Sprite" parent="."]
+position = Vector2( 1408, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 96" type="Sprite" parent="."]
+position = Vector2( 1496, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FLOOR_A 97" type="Sprite" parent="."]
+position = Vector2( 1584, 274 )
+z_index = 10
+texture = ExtResource( 5 )
+centered = false
+
+[node name="TRESEN1 98" type="Sprite" parent="."]
+position = Vector2( 649, 88 )
+z_index = 20
+texture = ExtResource( 19 )
+centered = false
+
+[node name="TRESEN1 99" type="Sprite" parent="."]
+visible = false
+position = Vector2( 913, 88 )
+z_index = 20
+texture = ExtResource( 19 )
+centered = false
+
+[node name="TRESEN1 100" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1177, 88 )
+z_index = 20
+texture = ExtResource( 19 )
+centered = false
+
+[node name="TRESEN1 101" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1441, 88 )
+z_index = 20
+texture = ExtResource( 19 )
+centered = false
+
+[node name="WARTE5 102" type="Sprite" parent="."]
+position = Vector2( 555, 180 )
+z_index = 20
+texture = ExtResource( 20 )
+centered = false
+
+[node name="WARTE5 103" type="Sprite" parent="."]
+position = Vector2( 819, 180 )
+z_index = 20
+texture = ExtResource( 20 )
+centered = false
+
+[node name="WARTE5 104" type="Sprite" parent="."]
+position = Vector2( 1083, 180 )
+z_index = 20
+texture = ExtResource( 20 )
+centered = false
+
+[node name="WARTE5 105" type="Sprite" parent="."]
+position = Vector2( 1347, 180 )
+z_index = 20
+texture = ExtResource( 20 )
+centered = false
+
+[node name="WARTE5 106" type="Sprite" parent="."]
+position = Vector2( 1611, 180 )
+z_index = 20
+texture = ExtResource( 20 )
+centered = false
+
+[node name="PLANT05 107" type="Sprite" parent="."]
+position = Vector2( 586, 154 )
+z_index = 20
+texture = ExtResource( 21 )
+centered = false
+
+[node name="PLANT07 108" type="Sprite" parent="."]
+position = Vector2( 1127, 147 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false
+
+[node name="PLANT01 109" type="Sprite" parent="."]
+position = Vector2( 825, 147 )
+z_index = 20
+texture = ExtResource( 23 )
+centered = false
+
+[node name="PLANT02 110" type="Sprite" parent="."]
+position = Vector2( 862, 157 )
+z_index = 20
+texture = ExtResource( 24 )
+centered = false
+
+[node name="WARTE7 111" type="Sprite" parent="."]
+position = Vector2( 551, 183 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 112" type="Sprite" parent="."]
+position = Vector2( 815, 183 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 113" type="Sprite" parent="."]
+position = Vector2( 1079, 183 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 114" type="Sprite" parent="."]
+position = Vector2( 1343, 183 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="PLANT03 115" type="Sprite" parent="."]
+position = Vector2( 1351, 190 )
+z_index = 20
+texture = ExtResource( 26 )
+centered = false
+
+[node name="PLANT04 116" type="Sprite" parent="."]
+position = Vector2( 1392, 187 )
+z_index = 20
+texture = ExtResource( 27 )
+centered = false
+
+[node name="WARTE7 117" type="Sprite" parent="."]
+position = Vector2( 1607, 183 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="PLANT07 118" type="Sprite" parent="."]
+position = Vector2( 1085, 153 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false
+
+[node name="PLANT07 119" type="Sprite" parent="."]
+position = Vector2( 558, 154 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false
+
+[node name="MONI1 120" type="Sprite" parent="."]
+position = Vector2( 658, 122 )
+z_index = 20
+texture = ExtResource( 28 )
+centered = false
+
+[node name="MONI1 121" type="Sprite" parent="."]
+position = Vector2( 922, 122 )
+z_index = 20
+texture = ExtResource( 28 )
+centered = false
+
+[node name="MONI1 122" type="Sprite" parent="."]
+position = Vector2( 1186, 122 )
+z_index = 20
+texture = ExtResource( 28 )
+centered = false
+
+[node name="MONI1 123" type="Sprite" parent="."]
+position = Vector2( 1450, 122 )
+z_index = 20
+texture = ExtResource( 28 )
+centered = false
+
+[node name="WARTE4 124" type="Sprite" parent="."]
+position = Vector2( 544, 202 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 125" type="Sprite" parent="."]
+position = Vector2( 808, 202 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 126" type="Sprite" parent="."]
+position = Vector2( 1072, 202 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 127" type="Sprite" parent="."]
+position = Vector2( 1336, 202 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 128" type="Sprite" parent="."]
+position = Vector2( 1600, 202 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="TRESEN3 129" type="Sprite" parent="."]
+position = Vector2( 638, 173 )
+z_index = 20
+texture = ExtResource( 30 )
+centered = false
+
+[node name="TRESEN2 130" type="Sprite" parent="."]
+position = Vector2( 769, 176 )
+z_index = 20
+texture = ExtResource( 31 )
+centered = false
+
+[node name="TRESEN3 131" type="Sprite" parent="."]
+visible = false
+position = Vector2( 902, 173 )
+z_index = 20
+texture = ExtResource( 30 )
+centered = false
+
+[node name="TRESEN2 132" type="Sprite" parent="."]
+position = Vector2( 1033, 176 )
+z_index = 20
+texture = ExtResource( 31 )
+centered = false
+
+[node name="TRESEN3 133" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1166, 173 )
+z_index = 20
+texture = ExtResource( 30 )
+centered = false
+
+[node name="TRESEN2 134" type="Sprite" parent="."]
+position = Vector2( 1296, 176 )
+z_index = 20
+texture = ExtResource( 31 )
+centered = false
+
+[node name="TRESEN3 135" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1430, 173 )
+z_index = 20
+texture = ExtResource( 30 )
+centered = false
+
+[node name="TRESEN2 136" type="Sprite" parent="."]
+position = Vector2( 1561, 176 )
+z_index = 20
+texture = ExtResource( 31 )
+centered = false
+
+[node name="WARTE7 137" type="Sprite" parent="."]
+position = Vector2( 540, 205 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 138" type="Sprite" parent="."]
+position = Vector2( 804, 205 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 139" type="Sprite" parent="."]
+position = Vector2( 1068, 205 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 140" type="Sprite" parent="."]
+position = Vector2( 1332, 205 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 141" type="Sprite" parent="."]
+position = Vector2( 1596, 205 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE4 142" type="Sprite" parent="."]
+position = Vector2( 533, 224 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 143" type="Sprite" parent="."]
+position = Vector2( 797, 224 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 144" type="Sprite" parent="."]
+position = Vector2( 1061, 224 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 145" type="Sprite" parent="."]
+position = Vector2( 1325, 224 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 146" type="Sprite" parent="."]
+position = Vector2( 1589, 224 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE7 147" type="Sprite" parent="."]
+position = Vector2( 529, 227 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 148" type="Sprite" parent="."]
+position = Vector2( 793, 227 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 149" type="Sprite" parent="."]
+position = Vector2( 1057, 227 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 150" type="Sprite" parent="."]
+position = Vector2( 1321, 227 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 151" type="Sprite" parent="."]
+position = Vector2( 1585, 227 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE4 152" type="Sprite" parent="."]
+position = Vector2( 522, 246 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 153" type="Sprite" parent="."]
+position = Vector2( 786, 246 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 154" type="Sprite" parent="."]
+position = Vector2( 1050, 246 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 155" type="Sprite" parent="."]
+position = Vector2( 1314, 246 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 156" type="Sprite" parent="."]
+position = Vector2( 1578, 246 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE7 157" type="Sprite" parent="."]
+position = Vector2( 518, 249 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 158" type="Sprite" parent="."]
+position = Vector2( 782, 249 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 159" type="Sprite" parent="."]
+position = Vector2( 1046, 249 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 160" type="Sprite" parent="."]
+position = Vector2( 1310, 249 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 161" type="Sprite" parent="."]
+position = Vector2( 1574, 249 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE4 162" type="Sprite" parent="."]
+position = Vector2( 511, 268 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 163" type="Sprite" parent="."]
+position = Vector2( 775, 268 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 164" type="Sprite" parent="."]
+position = Vector2( 1039, 268 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 165" type="Sprite" parent="."]
+position = Vector2( 1303, 268 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="WARTE4 166" type="Sprite" parent="."]
+position = Vector2( 1567, 268 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="SITZ3 167" type="Sprite" parent="."]
+position = Vector2( 568, 251 )
+z_index = 20
+texture = ExtResource( 32 )
+centered = false
+
+[node name="SITZ3 168" type="Sprite" parent="."]
+position = Vector2( 832, 251 )
+z_index = 20
+texture = ExtResource( 32 )
+centered = false
+
+[node name="SITZ3 169" type="Sprite" parent="."]
+position = Vector2( 1096, 251 )
+z_index = 20
+texture = ExtResource( 32 )
+centered = false
+
+[node name="SITZ3 170" type="Sprite" parent="."]
+position = Vector2( 1360, 251 )
+z_index = 20
+texture = ExtResource( 32 )
+centered = false
+
+[node name="SITZ2 171" type="Sprite" parent="."]
+position = Vector2( 603, 251 )
+z_index = 20
+texture = ExtResource( 33 )
+centered = false
+
+[node name="SITZ2 172" type="Sprite" parent="."]
+position = Vector2( 647, 251 )
+z_index = 20
+texture = ExtResource( 33 )
+centered = false
+
+[node name="SITZ1 173" type="Sprite" parent="."]
+position = Vector2( 691, 251 )
+z_index = 20
+texture = ExtResource( 34 )
+centered = false
+
+[node name="SITZ2 174" type="Sprite" parent="."]
+position = Vector2( 867, 251 )
+z_index = 20
+texture = ExtResource( 33 )
+centered = false
+
+[node name="SITZ2 175" type="Sprite" parent="."]
+position = Vector2( 911, 251 )
+z_index = 20
+texture = ExtResource( 33 )
+centered = false
+
+[node name="SITZ1 176" type="Sprite" parent="."]
+position = Vector2( 955, 251 )
+z_index = 20
+texture = ExtResource( 34 )
+centered = false
+
+[node name="SITZ2 177" type="Sprite" parent="."]
+position = Vector2( 1131, 251 )
+z_index = 20
+texture = ExtResource( 33 )
+centered = false
+
+[node name="SITZ2 178" type="Sprite" parent="."]
+position = Vector2( 1175, 251 )
+z_index = 20
+texture = ExtResource( 33 )
+centered = false
+
+[node name="SITZ1 179" type="Sprite" parent="."]
+position = Vector2( 1219, 251 )
+z_index = 20
+texture = ExtResource( 34 )
+centered = false
+
+[node name="SITZ2 180" type="Sprite" parent="."]
+position = Vector2( 1395, 251 )
+z_index = 20
+texture = ExtResource( 33 )
+centered = false
+
+[node name="SITZ2 181" type="Sprite" parent="."]
+position = Vector2( 1439, 251 )
+z_index = 20
+texture = ExtResource( 33 )
+centered = false
+
+[node name="SITZ1 182" type="Sprite" parent="."]
+position = Vector2( 1483, 251 )
+z_index = 20
+texture = ExtResource( 34 )
+centered = false
+
+[node name="WARTE7 183" type="Sprite" parent="."]
+position = Vector2( 507, 271 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 184" type="Sprite" parent="."]
+position = Vector2( 771, 271 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 185" type="Sprite" parent="."]
+position = Vector2( 1035, 271 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 186" type="Sprite" parent="."]
+position = Vector2( 1299, 271 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE7 187" type="Sprite" parent="."]
+position = Vector2( 1563, 271 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="WARTE6 188" type="Sprite" parent="."]
+position = Vector2( 553, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 189" type="Sprite" parent="."]
+position = Vector2( 597, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 190" type="Sprite" parent="."]
+position = Vector2( 641, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 191" type="Sprite" parent="."]
+position = Vector2( 685, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 192" type="Sprite" parent="."]
+position = Vector2( 729, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 193" type="Sprite" parent="."]
+position = Vector2( 817, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 194" type="Sprite" parent="."]
+position = Vector2( 861, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 195" type="Sprite" parent="."]
+position = Vector2( 905, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 196" type="Sprite" parent="."]
+position = Vector2( 949, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 197" type="Sprite" parent="."]
+position = Vector2( 993, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 198" type="Sprite" parent="."]
+position = Vector2( 1081, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 199" type="Sprite" parent="."]
+position = Vector2( 1125, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 200" type="Sprite" parent="."]
+position = Vector2( 1169, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 201" type="Sprite" parent="."]
+position = Vector2( 1213, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 202" type="Sprite" parent="."]
+position = Vector2( 1257, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 203" type="Sprite" parent="."]
+position = Vector2( 1345, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 204" type="Sprite" parent="."]
+position = Vector2( 1389, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 205" type="Sprite" parent="."]
+position = Vector2( 1433, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 206" type="Sprite" parent="."]
+position = Vector2( 1477, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE6 207" type="Sprite" parent="."]
+position = Vector2( 1521, 292 )
+z_index = 20
+texture = ExtResource( 35 )
+centered = false
+
+[node name="WARTE8 208" type="Sprite" parent="."]
+position = Vector2( 500, 290 )
+z_index = 20
+texture = ExtResource( 36 )
+centered = false
+
+[node name="WARTE1 209" type="Sprite" parent="."]
+position = Vector2( 546, 290 )
+z_index = 20
+texture = ExtResource( 37 )
+centered = false
+
+[node name="WARTE2 210" type="Sprite" parent="."]
+position = Vector2( 590, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 211" type="Sprite" parent="."]
+position = Vector2( 634, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 212" type="Sprite" parent="."]
+position = Vector2( 678, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 213" type="Sprite" parent="."]
+position = Vector2( 722, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE3 214" type="Sprite" parent="."]
+position = Vector2( 764, 290 )
+z_index = 20
+texture = ExtResource( 39 )
+centered = false
+
+[node name="WARTE1 215" type="Sprite" parent="."]
+position = Vector2( 810, 290 )
+z_index = 20
+texture = ExtResource( 37 )
+centered = false
+
+[node name="WARTE2 216" type="Sprite" parent="."]
+position = Vector2( 854, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 217" type="Sprite" parent="."]
+position = Vector2( 898, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 218" type="Sprite" parent="."]
+position = Vector2( 942, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 219" type="Sprite" parent="."]
+position = Vector2( 986, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE3 220" type="Sprite" parent="."]
+position = Vector2( 1028, 290 )
+z_index = 20
+texture = ExtResource( 39 )
+centered = false
+
+[node name="WARTE1 221" type="Sprite" parent="."]
+position = Vector2( 1074, 290 )
+z_index = 20
+texture = ExtResource( 37 )
+centered = false
+
+[node name="WARTE2 222" type="Sprite" parent="."]
+position = Vector2( 1118, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 223" type="Sprite" parent="."]
+position = Vector2( 1162, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 224" type="Sprite" parent="."]
+position = Vector2( 1206, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 225" type="Sprite" parent="."]
+position = Vector2( 1250, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE3 226" type="Sprite" parent="."]
+position = Vector2( 1292, 290 )
+z_index = 20
+texture = ExtResource( 39 )
+centered = false
+
+[node name="WARTE1 227" type="Sprite" parent="."]
+position = Vector2( 1338, 290 )
+z_index = 20
+texture = ExtResource( 37 )
+centered = false
+
+[node name="WARTE2 228" type="Sprite" parent="."]
+position = Vector2( 1382, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 229" type="Sprite" parent="."]
+position = Vector2( 1426, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 230" type="Sprite" parent="."]
+position = Vector2( 1470, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE2 231" type="Sprite" parent="."]
+position = Vector2( 1514, 290 )
+z_index = 20
+texture = ExtResource( 38 )
+centered = false
+
+[node name="WARTE3 232" type="Sprite" parent="."]
+position = Vector2( 1556, 290 )
+z_index = 20
+texture = ExtResource( 39 )
+centered = false
+
+[node name="RELING 233" type="Sprite" parent="."]
+position = Vector2( 527, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 234" type="Sprite" parent="."]
+position = Vector2( 615, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 235" type="Sprite" parent="."]
+position = Vector2( 703, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 236" type="Sprite" parent="."]
+position = Vector2( 791, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 237" type="Sprite" parent="."]
+position = Vector2( 879, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 238" type="Sprite" parent="."]
+position = Vector2( 967, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 239" type="Sprite" parent="."]
+position = Vector2( 1055, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 240" type="Sprite" parent="."]
+position = Vector2( 1143, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 241" type="Sprite" parent="."]
+position = Vector2( 1231, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 242" type="Sprite" parent="."]
+position = Vector2( 1319, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 243" type="Sprite" parent="."]
+position = Vector2( 1407, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 244" type="Sprite" parent="."]
+position = Vector2( 1495, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="RELING 245" type="Sprite" parent="."]
+position = Vector2( 1583, 417 )
+z_index = 20
+texture = ExtResource( 40 )
+centered = false
+
+[node name="PLANT07 246" type="Sprite" parent="."]
+position = Vector2( 1391, 152 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false
+
+[node name="PLANT07 247" type="Sprite" parent="."]
+position = Vector2( 1351, 153 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false
+
+[node name="PLANT07 248" type="Sprite" parent="."]
+position = Vector2( 1126, 153 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false
+
+[node name="PLANT07 249" type="Sprite" parent="."]
+position = Vector2( 858, 154 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false
+
+[node name="PLANT07 250" type="Sprite" parent="."]
+position = Vector2( 822, 153 )
+z_index = 20
+texture = ExtResource( 22 )
+centered = false

@@ -14,30 +14,30 @@
 [ext_resource path="res://scenes/rooms/RoomMuseum.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/rooms/RoomOffice.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/rooms/RoomTerrorist.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Images/gli/glstd/STATLIN5.tres" type="Texture" id=15]
+[ext_resource path="res://Images/gli/glstd/STATLIN5.res" type="Texture" id=15]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=16]
-[ext_resource path="res://Images/gli/glstd/STATLIN6.tres" type="Texture" id=17]
-[ext_resource path="res://Images/gli/glstd/STAT01.tres" type="Texture" id=18]
-[ext_resource path="res://Images/gli/glstd/STATLIN0.tres" type="Texture" id=19]
-[ext_resource path="res://Images/gli/glstd/LOGO1.tres" type="Texture" id=20]
+[ext_resource path="res://Images/gli/glstd/STATLIN6.res" type="Texture" id=17]
+[ext_resource path="res://Images/gli/glstd/STAT01.res" type="Texture" id=18]
+[ext_resource path="res://Images/gli/glstd/STATLIN0.res" type="Texture" id=19]
+[ext_resource path="res://Images/gli/glstd/LOGO1.res" type="Texture" id=20]
 [ext_resource path="res://src/MouseCursor.cs" type="Script" id=21]
-[ext_resource path="res://Images/gli/glbasis/CURSOR.tres" type="Texture" id=22]
-[ext_resource path="res://Images/gli/glbasis/CURSORH.tres" type="Texture" id=23]
-[ext_resource path="res://Images/gli/glbasis/CURSORS.tres" type="Texture" id=24]
-[ext_resource path="res://Images/gli/glbasis/EXIT01.tres" type="Texture" id=25]
-[ext_resource path="res://Images/gli/glbasis/EXIT02.tres" type="Texture" id=26]
-[ext_resource path="res://Images/gli/glbasis/EXIT03.tres" type="Texture" id=27]
-[ext_resource path="res://Images/gli/glbasis/EXIT04.tres" type="Texture" id=28]
-[ext_resource path="res://Images/gli/glbasis/EXIT05.tres" type="Texture" id=29]
-[ext_resource path="res://Images/gli/glbasis/EXIT06.tres" type="Texture" id=30]
-[ext_resource path="res://Images/gli/glbasis/EXIT07.tres" type="Texture" id=31]
-[ext_resource path="res://Images/gli/glbasis/EXIT08.tres" type="Texture" id=32]
-[ext_resource path="res://Images/gli/glbasis/EXIT09.tres" type="Texture" id=33]
-[ext_resource path="res://Images/gli/glbasis/EXIT10.tres" type="Texture" id=34]
-[ext_resource path="res://Images/gli/glbasis/EXIT11.tres" type="Texture" id=35]
-[ext_resource path="res://Images/gli/glbasis/EXIT12.tres" type="Texture" id=36]
-[ext_resource path="res://Images/gli/glbasis/CURSORL.tres" type="Texture" id=37]
-[ext_resource path="res://Images/gli/glbasis/CURSORR.tres" type="Texture" id=38]
+[ext_resource path="res://Images/gli/glbasis/CURSOR.res" type="Texture" id=22]
+[ext_resource path="res://Images/gli/glbasis/CURSORH.res" type="Texture" id=23]
+[ext_resource path="res://Images/gli/glbasis/CURSORS.res" type="Texture" id=24]
+[ext_resource path="res://Images/gli/glbasis/EXIT01.res" type="Texture" id=25]
+[ext_resource path="res://Images/gli/glbasis/EXIT02.res" type="Texture" id=26]
+[ext_resource path="res://Images/gli/glbasis/EXIT03.res" type="Texture" id=27]
+[ext_resource path="res://Images/gli/glbasis/EXIT04.res" type="Texture" id=28]
+[ext_resource path="res://Images/gli/glbasis/EXIT05.res" type="Texture" id=29]
+[ext_resource path="res://Images/gli/glbasis/EXIT06.res" type="Texture" id=30]
+[ext_resource path="res://Images/gli/glbasis/EXIT07.res" type="Texture" id=31]
+[ext_resource path="res://Images/gli/glbasis/EXIT08.res" type="Texture" id=32]
+[ext_resource path="res://Images/gli/glbasis/EXIT09.res" type="Texture" id=33]
+[ext_resource path="res://Images/gli/glbasis/EXIT10.res" type="Texture" id=34]
+[ext_resource path="res://Images/gli/glbasis/EXIT11.res" type="Texture" id=35]
+[ext_resource path="res://Images/gli/glbasis/EXIT12.res" type="Texture" id=36]
+[ext_resource path="res://Images/gli/glbasis/CURSORL.res" type="Texture" id=37]
+[ext_resource path="res://Images/gli/glbasis/CURSORR.res" type="Texture" id=38]
 
 [sub_resource type="SpriteFrames" id=1]
 resource_local_to_scene = true
@@ -56,6 +56,7 @@ script = ExtResource( 1 )
 _rooms = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 editor/display_folded = true
@@ -185,7 +186,7 @@ centered = false
 use_parent_material = true
 position = Vector2( -15.5213, -12.6841 )
 frames = SubResource( 1 )
-frame = 11
+frame = 4
 playing = true
 centered = false
 

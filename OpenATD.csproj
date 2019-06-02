@@ -50,8 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\AirportView.cs" />
+    <Compile Include="src\AirportViewLoader.cs" />
     <Compile Include="src\ATDGameLoader.cs" />
+    <Compile Include="src\BaseFileDecoder.cs" />
     <Compile Include="src\CameraController.cs" />
     <Compile Include="src\MouseArea.cs" />
     <Compile Include="src\MouseAreaRoom.cs" />

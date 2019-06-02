@@ -1,1361 +1,1733 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=64 format=2]
 
-[ext_resource path="res://src/AirportView.cs" type="Script" id=1]
-[ext_resource path="res://Images/gli/glbrick/FENSTER2.tres" type="Texture" id=2]
-[ext_resource path="res://Images/gli/glbrick0/HITECH2.tres" type="Texture" id=3]
-[ext_resource path="res://Images/gli/glbrick/FENSTER1.tres" type="Texture" id=4]
-[ext_resource path="res://Images/gli/glbrick/TREPPE6.tres" type="Texture" id=5]
-[ext_resource path="res://Images/gli/glbrick/FLOOR_C.tres" type="Texture" id=6]
-[ext_resource path="res://Images/gli/glbrick/FLOOR_A.tres" type="Texture" id=7]
-[ext_resource path="res://Images/gli/glbrick/EINGANG4.tres" type="Texture" id=8]
-[ext_resource path="res://Images/gli/glbrick/TREPPE2.tres" type="Texture" id=9]
-[ext_resource path="res://Images/gli/glbrick/EINGANG5.tres" type="Texture" id=10]
-[ext_resource path="res://Images/gli/glbrick/BARR.tres" type="Texture" id=11]
-[ext_resource path="res://Images/gli/glbrick/GLASS.tres" type="Texture" id=12]
-[ext_resource path="res://Images/gli/glbrick/PLANT05.tres" type="Texture" id=13]
-[ext_resource path="res://Images/gli/glbrick/SAEULE0.tres" type="Texture" id=14]
-[ext_resource path="res://Images/gli/glbrick/STUHL05.tres" type="Texture" id=15]
-[ext_resource path="res://Images/gli/glbrick/STUHL03.tres" type="Texture" id=16]
-[ext_resource path="res://Images/gli/glbrick/TISCH.tres" type="Texture" id=17]
-[ext_resource path="res://Images/gli/glbrick/STUHL01.tres" type="Texture" id=18]
-[ext_resource path="res://Images/gli/glbrick/TREPPE3.tres" type="Texture" id=19]
-[ext_resource path="res://Images/gli/glbrick/STUHL04.tres" type="Texture" id=20]
-[ext_resource path="res://Images/gli/glbrick/STUHL02.tres" type="Texture" id=21]
-[ext_resource path="res://Images/gli/glbrick/BAR.tres" type="Texture" id=22]
-[ext_resource path="res://Images/gli/glbrick/HOCKER.tres" type="Texture" id=23]
-[ext_resource path="res://Images/gli/glbrick/MANTLZIE.tres" type="Texture" id=24]
-[ext_resource path="res://Images/gli/glbrick/COFFRZIE.tres" type="Texture" id=25]
-[ext_resource path="res://Images/gli/glbrick/EINGANG2.tres" type="Texture" id=26]
-[ext_resource path="res://Images/gli/glbrick/EINGANG7.tres" type="Texture" id=27]
-[ext_resource path="res://Images/gli/glbrick/EINGANG8.tres" type="Texture" id=28]
-[ext_resource path="res://Images/gli/glbrick/RELING.tres" type="Texture" id=29]
-[ext_resource path="res://Images/gli/glbrick/EINGANG3.tres" type="Texture" id=30]
-[ext_resource path="res://Images/gli/glbrick/EINGANG1.tres" type="Texture" id=31]
-[ext_resource path="res://Images/gli/glbrick/UPFLOOR0.tres" type="Texture" id=32]
-[ext_resource path="res://Images/gli/glbrick/UPFLOOR1.tres" type="Texture" id=33]
-[ext_resource path="res://Images/gli/glbrick/UPFLOOR2.tres" type="Texture" id=34]
-[ext_resource path="res://Images/gli/glbrick/TREPPE1.tres" type="Texture" id=35]
-[ext_resource path="res://Images/gli/glbrick/PLANT07.tres" type="Texture" id=36]
-[ext_resource path="res://Images/gli/glbrick/RAIL1.tres" type="Texture" id=37]
-[ext_resource path="res://Images/gli/glbrick/RAIL4.tres" type="Texture" id=38]
-[ext_resource path="res://Images/gli/glbrick0/HITECH1B.tres" type="Texture" id=39]
-[ext_resource path="res://Images/gli/glbrick/TREPPE4.tres" type="Texture" id=40]
-[ext_resource path="res://Images/gli/glbrick/RAIL5.tres" type="Texture" id=41]
-[ext_resource path="res://Images/gli/glbrick/RAIL6.tres" type="Texture" id=42]
-[ext_resource path="res://Images/gli/glbrick/RAIL2.tres" type="Texture" id=43]
-[ext_resource path="res://Images/gli/glbrick/RAIL8.tres" type="Texture" id=44]
-[ext_resource path="res://Images/gli/glbrick/RAIL7.tres" type="Texture" id=45]
-[ext_resource path="res://Images/gli/glbrick/ZSCREEN.tres" type="Texture" id=46]
-[ext_resource path="res://Images/gli/glbrick0/HITECH1A.tres" type="Texture" id=47]
-[ext_resource path="res://Images/gli/glbrick/TREPPE5.tres" type="Texture" id=48]
-[ext_resource path="res://Images/gli/glbrick/UPFLOOR3.tres" type="Texture" id=49]
-[ext_resource path="res://Images/gli/glbrick/PLANT03.tres" type="Texture" id=50]
-[ext_resource path="res://Images/gli/glbrick/RAIL11.tres" type="Texture" id=51]
-[ext_resource path="res://Images/gli/glbrick/ECKE01.tres" type="Texture" id=52]
-[ext_resource path="res://Images/gli/glbrick/RAIL3.tres" type="Texture" id=53]
-[ext_resource path="res://Images/gli/glbrick/RAIL9.tres" type="Texture" id=54]
-[ext_resource path="res://Images/gli/glbrick/EINGANG6.tres" type="Texture" id=55]
+[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
+[ext_resource path="res://Images/gli/glbrick/FENSTER2.res" type="Texture" id=2]
+[ext_resource path="res://Images/gli/glbrick0/HITECH2.res" type="Texture" id=3]
+[ext_resource path="res://Images/gli/glbrick/FENSTER1.res" type="Texture" id=4]
+[ext_resource path="res://Images/gli/glbrick/TREPPE6.res" type="Texture" id=5]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_C.res" type="Texture" id=6]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_A.res" type="Texture" id=7]
+[ext_resource path="res://Images/gli/glbrick/EINGANG4.res" type="Texture" id=8]
+[ext_resource path="res://Images/gli/glbrick/TREPPE2.res" type="Texture" id=9]
+[ext_resource path="res://Images/gli/glbrick/ROLLTR08.res" type="Texture" id=10]
+[ext_resource path="res://Images/gli/glbrick/ROLLTR01.res" type="Texture" id=11]
+[ext_resource path="res://Images/gli/glbrick/EINGANG5.res" type="Texture" id=12]
+[ext_resource path="res://Images/gli/glbrick/BARR.res" type="Texture" id=13]
+[ext_resource path="res://Images/gli/glbrick/GLASS.res" type="Texture" id=14]
+[ext_resource path="res://Images/gli/glbrick/PLANT05.res" type="Texture" id=15]
+[ext_resource path="res://Images/gli/glbrick/SAEULE0.res" type="Texture" id=16]
+[ext_resource path="res://Images/gli/glbrick/STUHL05.res" type="Texture" id=17]
+[ext_resource path="res://Images/gli/glbrick/STUHL03.res" type="Texture" id=18]
+[ext_resource path="res://Images/gli/glbrick/TISCH.res" type="Texture" id=19]
+[ext_resource path="res://Images/gli/glbrick/STUHL01.res" type="Texture" id=20]
+[ext_resource path="res://Images/gli/glbrick/TREPPE3.res" type="Texture" id=21]
+[ext_resource path="res://Images/gli/glbrick/STUHL04.res" type="Texture" id=22]
+[ext_resource path="res://Images/gli/glbrick/STUHL02.res" type="Texture" id=23]
+[ext_resource path="res://Images/gli/glbrick/BAR.res" type="Texture" id=24]
+[ext_resource path="res://Images/gli/glbrick/HOCKER.res" type="Texture" id=25]
+[ext_resource path="res://Images/gli/glbrick/BARM_01.res" type="Texture" id=26]
+[ext_resource path="res://Images/gli/glbrick/MANB_01.res" type="Texture" id=27]
+[ext_resource path="res://Images/gli/glbrick/PILO_01.res" type="Texture" id=28]
+[ext_resource path="res://Images/gli/glbrick/MONS_01.res" type="Texture" id=29]
+[ext_resource path="res://Images/gli/glbrick/MANTLZIE.res" type="Texture" id=30]
+[ext_resource path="res://Images/gli/glbrick/COFFRZIE.res" type="Texture" id=31]
+[ext_resource path="res://Images/gli/glbrick/MANZIE01.res" type="Texture" id=32]
+[ext_resource path="res://Images/gli/glbrick/EINGANG2.res" type="Texture" id=33]
+[ext_resource path="res://Images/gli/glbrick/EINGANG7.res" type="Texture" id=34]
+[ext_resource path="res://Images/gli/glbrick/EINGANG8.res" type="Texture" id=35]
+[ext_resource path="res://Images/gli/glbrick/RELING.res" type="Texture" id=36]
+[ext_resource path="res://Images/gli/glbrick/EINGANG3.res" type="Texture" id=37]
+[ext_resource path="res://Images/gli/glbrick/EINGANG1.res" type="Texture" id=38]
+[ext_resource path="res://Images/gli/glbrick/BARA01.res" type="Texture" id=39]
+[ext_resource path="res://Images/gli/glbrick/UPFLOOR0.res" type="Texture" id=40]
+[ext_resource path="res://Images/gli/glbrick/UPFLOOR1.res" type="Texture" id=41]
+[ext_resource path="res://Images/gli/glbrick/UPFLOOR2.res" type="Texture" id=42]
+[ext_resource path="res://Images/gli/glbrick/TREPPE1.res" type="Texture" id=43]
+[ext_resource path="res://Images/gli/glbrick/PLANT07.res" type="Texture" id=44]
+[ext_resource path="res://Images/gli/glbrick/RAIL1.res" type="Texture" id=45]
+[ext_resource path="res://Images/gli/glbrick/RAIL4.res" type="Texture" id=46]
+[ext_resource path="res://Images/gli/glbrick0/HITECH1B.res" type="Texture" id=47]
+[ext_resource path="res://Images/gli/glbrick/TREPPE4.res" type="Texture" id=48]
+[ext_resource path="res://Images/gli/glbrick/RAIL5.res" type="Texture" id=49]
+[ext_resource path="res://Images/gli/glbrick/RAIL6.res" type="Texture" id=50]
+[ext_resource path="res://Images/gli/glbrick/RAIL2.res" type="Texture" id=51]
+[ext_resource path="res://Images/gli/glbrick/RAIL8.res" type="Texture" id=52]
+[ext_resource path="res://Images/gli/glbrick/RAIL7.res" type="Texture" id=53]
+[ext_resource path="res://Images/gli/glbrick/ZSCREEN.res" type="Texture" id=54]
+[ext_resource path="res://Images/gli/glbrick0/HITECH1A.res" type="Texture" id=55]
+[ext_resource path="res://Images/gli/glbrick/TREPPE5.res" type="Texture" id=56]
+[ext_resource path="res://Images/gli/glbrick/UPFLOOR3.res" type="Texture" id=57]
+[ext_resource path="res://Images/gli/glbrick/PLANT03.res" type="Texture" id=58]
+[ext_resource path="res://Images/gli/glbrick/RAIL11.res" type="Texture" id=59]
+[ext_resource path="res://Images/gli/glbrick/ECKE01.res" type="Texture" id=60]
+[ext_resource path="res://Images/gli/glbrick/RAIL3.res" type="Texture" id=61]
+[ext_resource path="res://Images/gli/glbrick/RAIL9.res" type="Texture" id=62]
+[ext_resource path="res://Images/gli/glbrick/EINGANG6.res" type="Texture" id=63]
 
 [node name="cafe4101" type="Node2D"]
-script = ExtResource( 1 )
+material = ExtResource( 1 )
 
-[node name="FENSTER2" type="Sprite" parent="."]
+[node name="FENSTER2 1" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1441, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@382" type="Sprite" parent="."]
+[node name="FENSTER2 2" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1485, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@384" type="Sprite" parent="."]
+[node name="FENSTER2 3" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1529, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@386" type="Sprite" parent="."]
+[node name="FENSTER2 4" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1573, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@388" type="Sprite" parent="."]
+[node name="FENSTER2 5" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1617, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@390" type="Sprite" parent="."]
+[node name="FENSTER2 6" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1617, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@392" type="Sprite" parent="."]
+[node name="FENSTER2 7" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1661, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@394" type="Sprite" parent="."]
+[node name="FENSTER2 8" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1705, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@396" type="Sprite" parent="."]
+[node name="FENSTER2 9" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1749, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@FENSTER2@398" type="Sprite" parent="."]
+[node name="FENSTER2 10" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1793, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="HITECH2" type="Sprite" parent="."]
+[node name="HITECH2 11" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 2051, 68 )
 z_index = 6
 texture = ExtResource( 3 )
 centered = false
 
-[node name="FENSTER1" type="Sprite" parent="."]
+[node name="FENSTER1 12" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1221, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@402" type="Sprite" parent="."]
+[node name="FENSTER1 13" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1265, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@404" type="Sprite" parent="."]
+[node name="FENSTER1 14" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1309, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@406" type="Sprite" parent="."]
+[node name="FENSTER1 15" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1353, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@408" type="Sprite" parent="."]
+[node name="FENSTER1 16" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1397, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@410" type="Sprite" parent="."]
+[node name="FENSTER1 17" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1441, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@412" type="Sprite" parent="."]
+[node name="FENSTER1 18" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1485, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@414" type="Sprite" parent="."]
+[node name="FENSTER1 19" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1529, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@416" type="Sprite" parent="."]
+[node name="FENSTER1 20" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1573, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@418" type="Sprite" parent="."]
+[node name="FENSTER1 21" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1617, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@420" type="Sprite" parent="."]
+[node name="FENSTER1 22" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1661, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@422" type="Sprite" parent="."]
+[node name="FENSTER1 23" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1705, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@424" type="Sprite" parent="."]
+[node name="FENSTER1 24" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1749, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="TREPPE6" type="Sprite" parent="."]
+[node name="TREPPE6 25" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1838, 97 )
 z_index = 6
 texture = ExtResource( 5 )
 centered = false
 
-[node name="FLOOR_C" type="Sprite" parent="."]
+[node name="FLOOR_C 26" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1144, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@428" type="Sprite" parent="."]
+[node name="FLOOR_C 27" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1232, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@430" type="Sprite" parent="."]
+[node name="FLOOR_C 28" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1232, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@432" type="Sprite" parent="."]
+[node name="FLOOR_C 29" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1320, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@434" type="Sprite" parent="."]
+[node name="FLOOR_C 30" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1408, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@436" type="Sprite" parent="."]
+[node name="FLOOR_C 31" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1496, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@438" type="Sprite" parent="."]
+[node name="FLOOR_C 32" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1584, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@440" type="Sprite" parent="."]
+[node name="FLOOR_C 33" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1672, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@442" type="Sprite" parent="."]
+[node name="FLOOR_C 34" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1760, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="FLOOR_A" type="Sprite" parent="."]
+[node name="FLOOR_A 35" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1144, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@445" type="Sprite" parent="."]
+[node name="FLOOR_A 36" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1232, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@447" type="Sprite" parent="."]
+[node name="FLOOR_A 37" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1320, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@449" type="Sprite" parent="."]
+[node name="FLOOR_A 38" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1408, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@451" type="Sprite" parent="."]
+[node name="FLOOR_A 39" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1496, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@453" type="Sprite" parent="."]
+[node name="FLOOR_A 40" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1584, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@455" type="Sprite" parent="."]
+[node name="FLOOR_A 41" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1672, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@457" type="Sprite" parent="."]
+[node name="FLOOR_A 42" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1760, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="EINGANG4" type="Sprite" parent="."]
+[node name="EINGANG4 43" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1559, 416 )
 z_index = 12
 texture = ExtResource( 8 )
 centered = false
 
-[node name="@EINGANG4@460" type="Sprite" parent="."]
+[node name="EINGANG4 44" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1648, 416 )
 z_index = 12
 texture = ExtResource( 8 )
 centered = false
 
-[node name="TREPPE2" type="Sprite" parent="."]
+[node name="TREPPE2 45" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1779, 189 )
 z_index = 19
 texture = ExtResource( 9 )
 centered = false
 
-[node name="EINGANG5" type="Sprite" parent="."]
-position = Vector2( 1595, 428 )
+[node name="ROLLTR08 46" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1543, 427 )
 z_index = 19
 texture = ExtResource( 10 )
 centered = false
 
-[node name="BARR" type="Sprite" parent="."]
-position = Vector2( 1287, 167 )
-z_index = 20
+[node name="ROLLTR01 47" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1633, 428 )
+z_index = 19
 texture = ExtResource( 11 )
 centered = false
 
-[node name="GLASS" type="Sprite" parent="."]
-position = Vector2( 1290, 191 )
-z_index = 20
+[node name="EINGANG5 48" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1595, 428 )
+z_index = 19
 texture = ExtResource( 12 )
 centered = false
 
-[node name="PLANT05" type="Sprite" parent="."]
-position = Vector2( 1479, 159 )
+[node name="BARR 49" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1287, 167 )
 z_index = 20
 texture = ExtResource( 13 )
 centered = false
 
-[node name="SAEULE0" type="Sprite" parent="."]
-position = Vector2( 1548, 127 )
+[node name="GLASS 50" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1290, 191 )
 z_index = 20
 texture = ExtResource( 14 )
 centered = false
 
-[node name="STUHL05" type="Sprite" parent="."]
-position = Vector2( 1455, 187 )
+[node name="PLANT05 51" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1479, 159 )
 z_index = 20
 texture = ExtResource( 15 )
 centered = false
 
-[node name="STUHL03" type="Sprite" parent="."]
-position = Vector2( 1637, 193 )
+[node name="SAEULE0 52" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1548, 127 )
 z_index = 20
 texture = ExtResource( 16 )
 centered = false
 
-[node name="TISCH" type="Sprite" parent="."]
-position = Vector2( 1620, 217 )
+[node name="STUHL05 53" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1455, 187 )
 z_index = 20
 texture = ExtResource( 17 )
 centered = false
 
-[node name="STUHL01" type="Sprite" parent="."]
-position = Vector2( 1586, 205 )
+[node name="STUHL03 54" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1637, 193 )
 z_index = 20
 texture = ExtResource( 18 )
 centered = false
 
-[node name="TREPPE3" type="Sprite" parent="."]
-position = Vector2( 1766, 134 )
+[node name="TISCH 55" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1620, 217 )
 z_index = 20
 texture = ExtResource( 19 )
 centered = false
 
-[node name="@TISCH@473" type="Sprite" parent="."]
-position = Vector2( 1445, 225 )
-z_index = 20
-texture = ExtResource( 17 )
-centered = false
-
-[node name="STUHL04" type="Sprite" parent="."]
-position = Vector2( 1420, 234 )
+[node name="STUHL01 56" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1586, 205 )
 z_index = 20
 texture = ExtResource( 20 )
 centered = false
 
-[node name="STUHL02" type="Sprite" parent="."]
-position = Vector2( 1483, 232 )
+[node name="TREPPE3 57" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1766, 134 )
 z_index = 20
 texture = ExtResource( 21 )
 centered = false
 
-[node name="@STUHL02@477" type="Sprite" parent="."]
-position = Vector2( 1647, 233 )
+[node name="TISCH 58" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1445, 225 )
 z_index = 20
-texture = ExtResource( 21 )
+texture = ExtResource( 19 )
 centered = false
 
-[node name="BAR" type="Sprite" parent="."]
-position = Vector2( 1132, 167 )
+[node name="STUHL04 59" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1420, 234 )
 z_index = 20
 texture = ExtResource( 22 )
 centered = false
 
-[node name="HOCKER" type="Sprite" parent="."]
-position = Vector2( 1313, 241 )
+[node name="STUHL02 60" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1483, 232 )
 z_index = 20
 texture = ExtResource( 23 )
 centered = false
 
-[node name="@SAEULE0@481" type="Sprite" parent="."]
-position = Vector2( 1995, 168 )
-z_index = 20
-texture = ExtResource( 14 )
-centered = false
-
-[node name="@HOCKER@483" type="Sprite" parent="."]
-position = Vector2( 1148, 257 )
+[node name="STUHL02 61" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1647, 233 )
 z_index = 20
 texture = ExtResource( 23 )
 centered = false
 
-[node name="@HOCKER@485" type="Sprite" parent="."]
-position = Vector2( 1192, 257 )
-z_index = 20
-texture = ExtResource( 23 )
-centered = false
-
-[node name="@HOCKER@487" type="Sprite" parent="."]
-position = Vector2( 1236, 257 )
-z_index = 20
-texture = ExtResource( 23 )
-centered = false
-
-[node name="@STUHL03@489" type="Sprite" parent="."]
-position = Vector2( 1364, 253 )
-z_index = 20
-texture = ExtResource( 16 )
-centered = false
-
-[node name="@TISCH@491" type="Sprite" parent="."]
-position = Vector2( 1342, 277 )
-z_index = 20
-texture = ExtResource( 17 )
-centered = false
-
-[node name="@STUHL01@493" type="Sprite" parent="."]
-position = Vector2( 1297, 267 )
-z_index = 20
-texture = ExtResource( 18 )
-centered = false
-
-[node name="MANTLZIE" type="Sprite" parent="."]
-position = Vector2( 1292, 260 )
+[node name="BAR 62" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1132, 167 )
 z_index = 20
 texture = ExtResource( 24 )
 centered = false
 
-[node name="COFFRZIE" type="Sprite" parent="."]
-position = Vector2( 1304, 308 )
+[node name="HOCKER 63" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1313, 241 )
 z_index = 20
 texture = ExtResource( 25 )
 centered = false
 
-[node name="@STUHL02@497" type="Sprite" parent="."]
-position = Vector2( 1349, 298 )
+[node name="SAEULE0 64" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1995, 168 )
 z_index = 20
-texture = ExtResource( 21 )
+texture = ExtResource( 16 )
 centered = false
 
-[node name="EINGANG2" type="Sprite" parent="."]
-position = Vector2( 1598, 387 )
+[node name="BARM_01 65" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1152, 198 )
 z_index = 20
 texture = ExtResource( 26 )
 centered = false
 
-[node name="EINGANG7" type="Sprite" parent="."]
-position = Vector2( 1524, 383 )
+[node name="HOCKER 66" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1148, 257 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="HOCKER 67" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1192, 257 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="HOCKER 68" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1236, 257 )
+z_index = 20
+texture = ExtResource( 25 )
+centered = false
+
+[node name="MANB_01 69" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1175, 217 )
 z_index = 20
 texture = ExtResource( 27 )
 centered = false
 
-[node name="EINGANG8" type="Sprite" parent="."]
-position = Vector2( 1685, 382 )
+[node name="PILO_01 70" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1224, 212 )
 z_index = 20
 texture = ExtResource( 28 )
 centered = false
 
-[node name="RELING" type="Sprite" parent="."]
-position = Vector2( 1143, 417 )
+[node name="MONS_01 71" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1163, 281 )
 z_index = 20
 texture = ExtResource( 29 )
 centered = false
 
-[node name="@RELING@503" type="Sprite" parent="."]
-position = Vector2( 1231, 417 )
+[node name="STUHL03 72" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1364, 253 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 18 )
 centered = false
 
-[node name="@RELING@505" type="Sprite" parent="."]
-position = Vector2( 1319, 417 )
+[node name="TISCH 73" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1342, 277 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 19 )
 centered = false
 
-[node name="@RELING@507" type="Sprite" parent="."]
-position = Vector2( 1407, 417 )
+[node name="STUHL01 74" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1297, 267 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 20 )
 centered = false
 
-[node name="EINGANG3" type="Sprite" parent="."]
-position = Vector2( 1480, 380 )
+[node name="MANTLZIE 75" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1292, 260 )
 z_index = 20
 texture = ExtResource( 30 )
 centered = false
 
-[node name="EINGANG1" type="Sprite" parent="."]
-position = Vector2( 1712, 380 )
+[node name="COFFRZIE 76" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1304, 308 )
 z_index = 20
 texture = ExtResource( 31 )
 centered = false
 
-[node name="@RELING@511" type="Sprite" parent="."]
-position = Vector2( 1733, 417 )
+[node name="MANZIE01 77" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1345, 266 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 32 )
 centered = false
 
-[node name="@RELING@513" type="Sprite" parent="."]
-position = Vector2( 1759, 417 )
+[node name="STUHL02 78" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1349, 298 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 23 )
 centered = false
 
-[node name="UPFLOOR0" type="Sprite" parent="."]
-position = Vector2( 1431, 93 )
-z_index = 50
-texture = ExtResource( 32 )
-centered = false
-
-[node name="@UPFLOOR0@516" type="Sprite" parent="."]
-position = Vector2( 1607, 93 )
-z_index = 50
-texture = ExtResource( 32 )
-centered = false
-
-[node name="UPFLOOR1" type="Sprite" parent="."]
-position = Vector2( 1851, 93 )
-z_index = 50
+[node name="EINGANG2 79" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1598, 387 )
+z_index = 20
 texture = ExtResource( 33 )
 centered = false
 
-[node name="@UPFLOOR0@519" type="Sprite" parent="."]
-position = Vector2( 1864, 93 )
-z_index = 50
-texture = ExtResource( 32 )
-centered = false
-
-[node name="@UPFLOOR1@521" type="Sprite" parent="."]
-position = Vector2( 1844, 108 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="@UPFLOOR1@523" type="Sprite" parent="."]
-position = Vector2( 1728, 115 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="@UPFLOOR1@525" type="Sprite" parent="."]
-position = Vector2( 1818, 115 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="@UPFLOOR1@527" type="Sprite" parent="."]
-position = Vector2( 1862, 115 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="UPFLOOR2" type="Sprite" parent="."]
-position = Vector2( 1991, 118 )
-z_index = 50
+[node name="EINGANG7 80" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1524, 383 )
+z_index = 20
 texture = ExtResource( 34 )
 centered = false
 
-[node name="@UPFLOOR2@530" type="Sprite" parent="."]
-position = Vector2( 1985, 134 )
-z_index = 50
-texture = ExtResource( 34 )
-centered = false
-
-[node name="@UPFLOOR2@532" type="Sprite" parent="."]
-position = Vector2( 2029, 134 )
-z_index = 50
-texture = ExtResource( 34 )
-centered = false
-
-[node name="@UPFLOOR2@534" type="Sprite" parent="."]
-position = Vector2( 2047, 134 )
-z_index = 50
-texture = ExtResource( 34 )
-centered = false
-
-[node name="@UPFLOOR0@536" type="Sprite" parent="."]
-position = Vector2( 1718, 137 )
-z_index = 50
-texture = ExtResource( 32 )
-centered = false
-
-[node name="TREPPE1" type="Sprite" parent="."]
-position = Vector2( 1779, 67 )
-z_index = 59
+[node name="EINGANG8 81" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1685, 382 )
+z_index = 20
 texture = ExtResource( 35 )
 centered = false
 
-[node name="PLANT07" type="Sprite" parent="."]
-position = Vector2( 1844, 24 )
-z_index = 60
+[node name="RELING 82" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1143, 417 )
+z_index = 20
 texture = ExtResource( 36 )
 centered = false
 
-[node name="RAIL1" type="Sprite" parent="."]
-position = Vector2( 1478, 73 )
-z_index = 60
+[node name="RELING 83" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1231, 417 )
+z_index = 20
+texture = ExtResource( 36 )
+centered = false
+
+[node name="RELING 84" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1319, 417 )
+z_index = 20
+texture = ExtResource( 36 )
+centered = false
+
+[node name="RELING 85" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1407, 417 )
+z_index = 20
+texture = ExtResource( 36 )
+centered = false
+
+[node name="EINGANG3 86" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1480, 380 )
+z_index = 20
 texture = ExtResource( 37 )
 centered = false
 
-[node name="@RAIL1@541" type="Sprite" parent="."]
-position = Vector2( 1565, 73 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="RAIL4" type="Sprite" parent="."]
-position = Vector2( 1653, 73 )
-z_index = 60
+[node name="EINGANG1 87" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1712, 380 )
+z_index = 20
 texture = ExtResource( 38 )
 centered = false
 
-[node name="@RAIL4@544" type="Sprite" parent="."]
-position = Vector2( 1920, 73 )
-z_index = 60
-texture = ExtResource( 38 )
+[node name="RELING 88" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1733, 417 )
+z_index = 20
+texture = ExtResource( 36 )
 centered = false
 
-[node name="HITECH1B" type="Sprite" parent="."]
-position = Vector2( 2037, 21 )
-z_index = 60
+[node name="RELING 89" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1759, 417 )
+z_index = 20
+texture = ExtResource( 36 )
+centered = false
+
+[node name="BARA01 90" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1157, 167 )
+z_index = 21
 texture = ExtResource( 39 )
 centered = false
 
-[node name="TREPPE4" type="Sprite" parent="."]
-position = Vector2( 1767, -17 )
-z_index = 60
+[node name="UPFLOOR0 91" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1431, 93 )
+z_index = 50
 texture = ExtResource( 40 )
 centered = false
 
-[node name="RAIL5" type="Sprite" parent="."]
-position = Vector2( 1466, 73 )
-z_index = 60
+[node name="UPFLOOR0 92" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1607, 93 )
+z_index = 50
+texture = ExtResource( 40 )
+centered = false
+
+[node name="UPFLOOR1 93" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1851, 93 )
+z_index = 50
 texture = ExtResource( 41 )
 centered = false
 
-[node name="@RAIL5@549" type="Sprite" parent="."]
-position = Vector2( 1908, 73 )
-z_index = 60
+[node name="UPFLOOR0 94" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1864, 93 )
+z_index = 50
+texture = ExtResource( 40 )
+centered = false
+
+[node name="UPFLOOR1 95" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1844, 108 )
+z_index = 50
 texture = ExtResource( 41 )
 centered = false
 
-[node name="RAIL6" type="Sprite" parent="."]
-position = Vector2( 1902, 70 )
-z_index = 60
+[node name="UPFLOOR1 96" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1728, 115 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="UPFLOOR1 97" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1818, 115 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="UPFLOOR1 98" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1862, 115 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="UPFLOOR2 99" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1991, 118 )
+z_index = 50
 texture = ExtResource( 42 )
 centered = false
 
-[node name="RAIL2" type="Sprite" parent="."]
-position = Vector2( 1985, 94 )
-z_index = 60
+[node name="UPFLOOR2 100" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1985, 134 )
+z_index = 50
+texture = ExtResource( 42 )
+centered = false
+
+[node name="UPFLOOR2 101" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 2029, 134 )
+z_index = 50
+texture = ExtResource( 42 )
+centered = false
+
+[node name="UPFLOOR2 102" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 2047, 134 )
+z_index = 50
+texture = ExtResource( 42 )
+centered = false
+
+[node name="UPFLOOR0 103" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1718, 137 )
+z_index = 50
+texture = ExtResource( 40 )
+centered = false
+
+[node name="TREPPE1 104" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1779, 67 )
+z_index = 59
 texture = ExtResource( 43 )
 centered = false
 
-[node name="@RAIL1@553" type="Sprite" parent="."]
-position = Vector2( 1994, 114 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="RAIL8" type="Sprite" parent="."]
-position = Vector2( 2046, 85 )
+[node name="PLANT07 105" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1844, 24 )
 z_index = 60
 texture = ExtResource( 44 )
 centered = false
 
-[node name="@RAIL2@556" type="Sprite" parent="."]
-position = Vector2( 1718, 95 )
-z_index = 60
-texture = ExtResource( 43 )
-centered = false
-
-[node name="@RAIL1@558" type="Sprite" parent="."]
-position = Vector2( 1758, 115 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@560" type="Sprite" parent="."]
-position = Vector2( 1776, 115 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="RAIL7" type="Sprite" parent="."]
-position = Vector2( 1860, 95 )
+[node name="RAIL1 106" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1478, 73 )
 z_index = 60
 texture = ExtResource( 45 )
 centered = false
 
-[node name="ZSCREEN" type="Sprite" parent="."]
-position = Vector2( 1582, 113 )
-z_index = 65
+[node name="RAIL1 107" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1565, 73 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL4 108" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1653, 73 )
+z_index = 60
 texture = ExtResource( 46 )
 centered = false
 
-[node name="HITECH1A" type="Sprite" parent="."]
-position = Vector2( 1932, -10 )
-z_index = 70
+[node name="RAIL4 109" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1920, 73 )
+z_index = 60
+texture = ExtResource( 46 )
+centered = false
+
+[node name="HITECH1B 110" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 2037, 21 )
+z_index = 60
 texture = ExtResource( 47 )
 centered = false
 
-[node name="@PLANT05@565" type="Sprite" parent="."]
-position = Vector2( 1962, 212 )
-z_index = 20
-texture = ExtResource( 13 )
-centered = false
-
-[node name="@PLANT05@567" type="Sprite" parent="."]
-position = Vector2( 1984, 168 )
-z_index = 20
-texture = ExtResource( 13 )
-centered = false
-
-[node name="@PLANT05@569" type="Sprite" parent="."]
-position = Vector2( 2017, 190 )
-z_index = 20
-texture = ExtResource( 13 )
-centered = false
-
-[node name="@SAEULE0@571" type="Sprite" parent="."]
-position = Vector2( 2010, 174 )
-z_index = 20
-texture = ExtResource( 14 )
-centered = false
-
-[node name="@SAEULE0@573" type="Sprite" parent="."]
-position = Vector2( 1997, 168 )
-z_index = 65
-texture = ExtResource( 14 )
-centered = false
-
-[node name="@UPFLOOR1@575" type="Sprite" parent="."]
-position = Vector2( 1810, 120 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="TREPPE5" type="Sprite" parent="."]
-position = Vector2( 1767, -18 )
+[node name="TREPPE4 111" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1767, -17 )
 z_index = 60
 texture = ExtResource( 48 )
 centered = false
 
-[node name="@UPFLOOR2@578" type="Sprite" parent="."]
-position = Vector2( 1994, 115 )
-z_index = 50
-texture = ExtResource( 34 )
-centered = false
-
-[node name="UPFLOOR3" type="Sprite" parent="."]
-position = Vector2( 2028, 136 )
-z_index = 50
+[node name="RAIL5 112" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1466, 73 )
+z_index = 60
 texture = ExtResource( 49 )
 centered = false
 
-[node name="@UPFLOOR1@581" type="Sprite" parent="."]
-position = Vector2( 2047, 136 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="@UPFLOOR2@583" type="Sprite" parent="."]
-position = Vector2( 1985, 137 )
-z_index = 50
-texture = ExtResource( 34 )
-centered = false
-
-[node name="@RAIL1@585" type="Sprite" parent="."]
-position = Vector2( 1997, 114 )
+[node name="RAIL5 113" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1908, 73 )
 z_index = 60
-texture = ExtResource( 37 )
+texture = ExtResource( 49 )
 centered = false
 
-[node name="@RAIL1@587" type="Sprite" parent="."]
-position = Vector2( 1999, 114 )
+[node name="RAIL6 114" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1902, 70 )
 z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@589" type="Sprite" parent="."]
-position = Vector2( 2031, 114 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@591" type="Sprite" parent="."]
-position = Vector2( 1999, 114 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@593" type="Sprite" parent="."]
-position = Vector2( 1989, 114 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@SAEULE0@595" type="Sprite" parent="."]
-position = Vector2( 1993, 154 )
-z_index = 20
-texture = ExtResource( 14 )
-centered = false
-
-[node name="@RAIL1@597" type="Sprite" parent="."]
-position = Vector2( 2012, 114 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@PLANT07@599" type="Sprite" parent="."]
-position = Vector2( 1918, 213 )
-z_index = 60
-texture = ExtResource( 36 )
-centered = false
-
-[node name="@UPFLOOR1@601" type="Sprite" parent="."]
-position = Vector2( 1842, 96 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="@PLANT07@603" type="Sprite" parent="."]
-position = Vector2( 1851, 24 )
-z_index = 60
-texture = ExtResource( 36 )
-centered = false
-
-[node name="@UPFLOOR1@605" type="Sprite" parent="."]
-position = Vector2( 1832, 93 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="@PLANT07@607" type="Sprite" parent="."]
-position = Vector2( 1863, 20 )
-z_index = 20
-texture = ExtResource( 36 )
-centered = false
-
-[node name="PLANT03" type="Sprite" parent="."]
-position = Vector2( 1873, 63 )
-z_index = 20
 texture = ExtResource( 50 )
 centered = false
 
-[node name="@PLANT03@610" type="Sprite" parent="."]
-position = Vector2( 1854, 68 )
-z_index = 20
-texture = ExtResource( 50 )
-centered = false
-
-[node name="@UPFLOOR1@612" type="Sprite" parent="."]
-position = Vector2( 2027, 137 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="@UPFLOOR2@614" type="Sprite" parent="."]
-position = Vector2( 2005, 137 )
-z_index = 50
-texture = ExtResource( 34 )
-centered = false
-
-[node name="@RAIL1@616" type="Sprite" parent="."]
-position = Vector2( 2008, 107 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@618" type="Sprite" parent="."]
-position = Vector2( 1983, 117 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@620" type="Sprite" parent="."]
-position = Vector2( 1998, 107 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@622" type="Sprite" parent="."]
-position = Vector2( 1774, 114 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@624" type="Sprite" parent="."]
-position = Vector2( 1774, 95 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL1@626" type="Sprite" parent="."]
-position = Vector2( 1765, 115 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="@RAIL6@628" type="Sprite" parent="."]
-position = Vector2( 1977, 233 )
-z_index = 60
-texture = ExtResource( 42 )
-centered = false
-
-[node name="@RAIL5@630" type="Sprite" parent="."]
-position = Vector2( 1907, 61 )
-z_index = 60
-texture = ExtResource( 41 )
-centered = false
-
-[node name="RAIL11" type="Sprite" parent="."]
-position = Vector2( 2030, 226 )
+[node name="RAIL2 115" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1985, 94 )
 z_index = 60
 texture = ExtResource( 51 )
 centered = false
 
-[node name="@RAIL6@633" type="Sprite" parent="."]
-position = Vector2( 1897, 66 )
+[node name="RAIL1 116" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1994, 114 )
 z_index = 60
-texture = ExtResource( 42 )
+texture = ExtResource( 45 )
 centered = false
 
-[node name="@UPFLOOR1@635" type="Sprite" parent="."]
-position = Vector2( 1983, 137 )
-z_index = 50
-texture = ExtResource( 33 )
-centered = false
-
-[node name="@RAIL11@637" type="Sprite" parent="."]
-position = Vector2( 1985, 80 )
-z_index = 60
-texture = ExtResource( 51 )
-centered = false
-
-[node name="@RAIL4@639" type="Sprite" parent="."]
-position = Vector2( 1667, 97 )
-z_index = 60
-texture = ExtResource( 38 )
-centered = false
-
-[node name="@RAIL4@641" type="Sprite" parent="."]
-position = Vector2( 1918, 61 )
-z_index = 60
-texture = ExtResource( 38 )
-centered = false
-
-[node name="@RAIL1@643" type="Sprite" parent="."]
-position = Vector2( 2016, 266 )
-z_index = 60
-texture = ExtResource( 37 )
-centered = false
-
-[node name="ECKE01" type="Sprite" parent="."]
-position = Vector2( 1918, 59 )
+[node name="RAIL8 117" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 2046, 85 )
 z_index = 60
 texture = ExtResource( 52 )
 centered = false
 
-[node name="@RAIL6@646" type="Sprite" parent="."]
-position = Vector2( 1933, 233 )
+[node name="RAIL2 118" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1718, 95 )
 z_index = 60
-texture = ExtResource( 42 )
+texture = ExtResource( 51 )
 centered = false
 
-[node name="@RAIL6@648" type="Sprite" parent="."]
-position = Vector2( 1911, 62 )
+[node name="RAIL1 119" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1758, 115 )
 z_index = 60
-texture = ExtResource( 42 )
+texture = ExtResource( 45 )
 centered = false
 
-[node name="@RAIL5@650" type="Sprite" parent="."]
-position = Vector2( 1894, 95 )
+[node name="RAIL1 120" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1776, 115 )
 z_index = 60
-texture = ExtResource( 41 )
+texture = ExtResource( 45 )
 centered = false
 
-[node name="@RAIL5@652" type="Sprite" parent="."]
-position = Vector2( 1894, 95 )
-z_index = 60
-texture = ExtResource( 41 )
-centered = false
-
-[node name="@RAIL5@654" type="Sprite" parent="."]
-position = Vector2( 1897, 80 )
-z_index = 60
-texture = ExtResource( 41 )
-centered = false
-
-[node name="RAIL3" type="Sprite" parent="."]
-position = Vector2( 1899, 86 )
+[node name="RAIL7 121" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1860, 95 )
 z_index = 60
 texture = ExtResource( 53 )
 centered = false
 
-[node name="@UPFLOOR0@657" type="Sprite" parent="."]
+[node name="ZSCREEN 122" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1582, 113 )
+z_index = 65
+texture = ExtResource( 54 )
+centered = false
+
+[node name="HITECH1A 123" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1932, -10 )
+z_index = 70
+texture = ExtResource( 55 )
+centered = false
+
+[node name="PLANT05 124" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1962, 212 )
+z_index = 20
+texture = ExtResource( 15 )
+centered = false
+
+[node name="PLANT05 125" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1984, 168 )
+z_index = 20
+texture = ExtResource( 15 )
+centered = false
+
+[node name="PLANT05 126" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 2017, 190 )
+z_index = 20
+texture = ExtResource( 15 )
+centered = false
+
+[node name="SAEULE0 127" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 2010, 174 )
+z_index = 20
+texture = ExtResource( 16 )
+centered = false
+
+[node name="SAEULE0 128" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1997, 168 )
+z_index = 65
+texture = ExtResource( 16 )
+centered = false
+
+[node name="UPFLOOR1 129" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1810, 120 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="TREPPE5 130" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1767, -18 )
+z_index = 60
+texture = ExtResource( 56 )
+centered = false
+
+[node name="UPFLOOR2 131" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1994, 115 )
+z_index = 50
+texture = ExtResource( 42 )
+centered = false
+
+[node name="UPFLOOR3 132" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 2028, 136 )
+z_index = 50
+texture = ExtResource( 57 )
+centered = false
+
+[node name="UPFLOOR1 133" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 2047, 136 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="UPFLOOR2 134" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1985, 137 )
+z_index = 50
+texture = ExtResource( 42 )
+centered = false
+
+[node name="RAIL1 135" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1997, 114 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 136" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1999, 114 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 137" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 2031, 114 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 138" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1999, 114 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 139" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1989, 114 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="SAEULE0 140" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1993, 154 )
+z_index = 20
+texture = ExtResource( 16 )
+centered = false
+
+[node name="RAIL1 141" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 2012, 114 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="PLANT07 142" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1918, 213 )
+z_index = 60
+texture = ExtResource( 44 )
+centered = false
+
+[node name="UPFLOOR1 143" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1842, 96 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="PLANT07 144" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1851, 24 )
+z_index = 60
+texture = ExtResource( 44 )
+centered = false
+
+[node name="UPFLOOR1 145" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1832, 93 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="PLANT07 146" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1863, 20 )
+z_index = 20
+texture = ExtResource( 44 )
+centered = false
+
+[node name="PLANT03 147" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1873, 63 )
+z_index = 20
+texture = ExtResource( 58 )
+centered = false
+
+[node name="PLANT03 148" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1854, 68 )
+z_index = 20
+texture = ExtResource( 58 )
+centered = false
+
+[node name="UPFLOOR1 149" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 2027, 137 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="UPFLOOR2 150" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 2005, 137 )
+z_index = 50
+texture = ExtResource( 42 )
+centered = false
+
+[node name="RAIL1 151" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 2008, 107 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 152" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1983, 117 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 153" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1998, 107 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 154" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1774, 114 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 155" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1774, 95 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL1 156" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1765, 115 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="RAIL6 157" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1977, 233 )
+z_index = 60
+texture = ExtResource( 50 )
+centered = false
+
+[node name="RAIL5 158" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1907, 61 )
+z_index = 60
+texture = ExtResource( 49 )
+centered = false
+
+[node name="RAIL11 159" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 2030, 226 )
+z_index = 60
+texture = ExtResource( 59 )
+centered = false
+
+[node name="RAIL6 160" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1897, 66 )
+z_index = 60
+texture = ExtResource( 50 )
+centered = false
+
+[node name="UPFLOOR1 161" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1983, 137 )
+z_index = 50
+texture = ExtResource( 41 )
+centered = false
+
+[node name="RAIL11 162" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1985, 80 )
+z_index = 60
+texture = ExtResource( 59 )
+centered = false
+
+[node name="RAIL4 163" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1667, 97 )
+z_index = 60
+texture = ExtResource( 46 )
+centered = false
+
+[node name="RAIL4 164" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1918, 61 )
+z_index = 60
+texture = ExtResource( 46 )
+centered = false
+
+[node name="RAIL1 165" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 2016, 266 )
+z_index = 60
+texture = ExtResource( 45 )
+centered = false
+
+[node name="ECKE01 166" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1918, 59 )
+z_index = 60
+texture = ExtResource( 60 )
+centered = false
+
+[node name="RAIL6 167" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1933, 233 )
+z_index = 60
+texture = ExtResource( 50 )
+centered = false
+
+[node name="RAIL6 168" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1911, 62 )
+z_index = 60
+texture = ExtResource( 50 )
+centered = false
+
+[node name="RAIL5 169" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1894, 95 )
+z_index = 60
+texture = ExtResource( 49 )
+centered = false
+
+[node name="RAIL5 170" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1894, 95 )
+z_index = 60
+texture = ExtResource( 49 )
+centered = false
+
+[node name="RAIL5 171" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1897, 80 )
+z_index = 60
+texture = ExtResource( 49 )
+centered = false
+
+[node name="RAIL3 172" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1899, 86 )
+z_index = 60
+texture = ExtResource( 61 )
+centered = false
+
+[node name="UPFLOOR0 173" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1906, 286 )
 z_index = 50
-texture = ExtResource( 32 )
+texture = ExtResource( 40 )
 centered = false
 
-[node name="@UPFLOOR1@659" type="Sprite" parent="."]
+[node name="UPFLOOR1 174" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1873, 93 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@661" type="Sprite" parent="."]
+[node name="UPFLOOR1 175" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1961, 93 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@663" type="Sprite" parent="."]
+[node name="UPFLOOR1 176" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1917, 93 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@665" type="Sprite" parent="."]
+[node name="UPFLOOR1 177" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1950, 115 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@667" type="Sprite" parent="."]
+[node name="UPFLOOR1 178" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1939, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR0@669" type="Sprite" parent="."]
+[node name="UPFLOOR0 179" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 2005, 264 )
 z_index = 50
-texture = ExtResource( 32 )
+texture = ExtResource( 40 )
 centered = false
 
-[node name="@UPFLOOR1@671" type="Sprite" parent="."]
+[node name="UPFLOOR1 180" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1763, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@673" type="Sprite" parent="."]
+[node name="UPFLOOR1 181" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1763, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@675" type="Sprite" parent="."]
+[node name="UPFLOOR1 182" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1719, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@677" type="Sprite" parent="."]
+[node name="UPFLOOR1 183" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1807, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@679" type="Sprite" parent="."]
+[node name="UPFLOOR1 184" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1851, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@681" type="Sprite" parent="."]
+[node name="UPFLOOR1 185" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1961, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR0@683" type="Sprite" parent="."]
+[node name="UPFLOOR0 186" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1717, 137 )
 z_index = 50
-texture = ExtResource( 32 )
+texture = ExtResource( 40 )
 centered = false
 
-[node name="@RAIL1@685" type="Sprite" parent="."]
+[node name="RAIL1 187" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1853, 115 )
 z_index = 60
-texture = ExtResource( 37 )
+texture = ExtResource( 45 )
 centered = false
 
-[node name="@UPFLOOR0@687" type="Sprite" parent="."]
+[node name="UPFLOOR0 188" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1893, 137 )
 z_index = 50
-texture = ExtResource( 32 )
+texture = ExtResource( 40 )
 centered = false
 
-[node name="RAIL9" type="Sprite" parent="."]
+[node name="RAIL9 189" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1849, 97 )
 z_index = 60
-texture = ExtResource( 54 )
+texture = ExtResource( 62 )
 centered = false
 
-[node name="@RAIL9@690" type="Sprite" parent="."]
+[node name="RAIL9 190" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1937, 97 )
 z_index = 60
-texture = ExtResource( 54 )
+texture = ExtResource( 62 )
 centered = false
 
-[node name="@RAIL1@692" type="Sprite" parent="."]
+[node name="RAIL1 191" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1941, 115 )
 z_index = 60
-texture = ExtResource( 37 )
+texture = ExtResource( 45 )
 centered = false
 
-[node name="@RAIL8@694" type="Sprite" parent="."]
+[node name="RAIL8 192" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 2040, 95 )
 z_index = 60
-texture = ExtResource( 44 )
+texture = ExtResource( 52 )
 centered = false
 
-[node name="@UPFLOOR0@696" type="Sprite" parent="."]
+[node name="UPFLOOR0 193" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1917, 176 )
 z_index = 50
-texture = ExtResource( 32 )
+texture = ExtResource( 40 )
 centered = false
 
-[node name="@UPFLOOR0@698" type="Sprite" parent="."]
+[node name="UPFLOOR0 194" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1737, 137 )
 z_index = 50
-texture = ExtResource( 32 )
+texture = ExtResource( 40 )
 centered = false
 
-[node name="@UPFLOOR0@700" type="Sprite" parent="."]
+[node name="UPFLOOR0 195" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1741, 137 )
 z_index = 50
-texture = ExtResource( 32 )
+texture = ExtResource( 40 )
 centered = false
 
-[node name="@UPFLOOR0@702" type="Sprite" parent="."]
+[node name="UPFLOOR0 196" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1917, 137 )
 z_index = 50
-texture = ExtResource( 32 )
+texture = ExtResource( 40 )
 centered = false
 
-[node name="@UPFLOOR1@704" type="Sprite" parent="."]
+[node name="UPFLOOR1 197" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1761, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@UPFLOOR1@706" type="Sprite" parent="."]
+[node name="UPFLOOR1 198" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1717, 137 )
 z_index = 50
-texture = ExtResource( 33 )
+texture = ExtResource( 41 )
 centered = false
 
-[node name="@RAIL8@708" type="Sprite" parent="."]
+[node name="RAIL8 199" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1763, 86 )
 z_index = 60
-texture = ExtResource( 44 )
+texture = ExtResource( 52 )
 centered = false
 
-[node name="@TREPPE6@710" type="Sprite" parent="."]
+[node name="TREPPE6 200" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1881, 96 )
 z_index = 6
 texture = ExtResource( 5 )
 centered = false
 
-[node name="@FENSTER1@712" type="Sprite" parent="."]
+[node name="FENSTER1 201" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1881, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@714" type="Sprite" parent="."]
+[node name="FENSTER1 202" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1837, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER1@716" type="Sprite" parent="."]
+[node name="FENSTER1 203" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1705, 93 )
 z_index = 5
 texture = ExtResource( 4 )
 centered = false
 
-[node name="@FENSTER2@718" type="Sprite" parent="."]
+[node name="FENSTER2 204" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1837, -128 )
 z_index = 5
 texture = ExtResource( 2 )
 centered = false
 
-[node name="@TREPPE4@720" type="Sprite" parent="."]
+[node name="TREPPE4 205" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1767, -18 )
 z_index = 60
-texture = ExtResource( 40 )
+texture = ExtResource( 48 )
 centered = false
 
-[node name="@RELING@722" type="Sprite" parent="."]
+[node name="RELING 206" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1759, 417 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 36 )
 centered = false
 
-[node name="@EINGANG1@724" type="Sprite" parent="."]
+[node name="EINGANG1 207" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1730, 380 )
 z_index = 20
-texture = ExtResource( 31 )
+texture = ExtResource( 38 )
 centered = false
 
-[node name="EINGANG6" type="Sprite" parent="."]
+[node name="EINGANG6 208" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1472, 442 )
 z_index = 17
-texture = ExtResource( 55 )
+texture = ExtResource( 63 )
 centered = false
 
-[node name="@EINGANG2@727" type="Sprite" parent="."]
+[node name="ROLLTR08 209" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1647, 349 )
+z_index = 19
+texture = ExtResource( 10 )
+centered = false
+
+[node name="ROLLTR01 210" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1543, 429 )
+z_index = 19
+texture = ExtResource( 11 )
+centered = false
+
+[node name="EINGANG2 211" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1598, 399 )
 z_index = 20
-texture = ExtResource( 26 )
+texture = ExtResource( 33 )
 centered = false
 
-[node name="@RELING@729" type="Sprite" parent="."]
+[node name="RELING 212" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1671, 417 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 36 )
 centered = false
 
-[node name="@RELING@731" type="Sprite" parent="."]
+[node name="RELING 213" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1583, 417 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 36 )
 centered = false
 
-[node name="@RELING@733" type="Sprite" parent="."]
+[node name="RELING 214" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
 position = Vector2( 1495, 417 )
 z_index = 20
-texture = ExtResource( 29 )
+texture = ExtResource( 36 )
 centered = false
 
-[node name="@GLASS@735" type="Sprite" parent="."]
+[node name="GLASS 215" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1282, 202 )
 z_index = 20
-texture = ExtResource( 12 )
+texture = ExtResource( 14 )
 centered = false
 
-[node name="@FLOOR_A@737" type="Sprite" parent="."]
+[node name="FLOOR_A 216" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1144, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@739" type="Sprite" parent="."]
+[node name="FLOOR_A 217" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1144, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@MANTLZIE@741" type="Sprite" parent="."]
+[node name="MANTLZIE 218" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1287, 267 )
 z_index = 20
-texture = ExtResource( 24 )
+texture = ExtResource( 30 )
 centered = false
 
-[node name="@FLOOR_A@743" type="Sprite" parent="."]
+[node name="MANZIE01 219" type="Sprite" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2( 1083, 320 )
+z_index = 20
+texture = ExtResource( 32 )
+centered = false
+
+[node name="FLOOR_A 220" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1144, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@745" type="Sprite" parent="."]
+[node name="FLOOR_A 221" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1144, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_C@747" type="Sprite" parent="."]
+[node name="FLOOR_C 222" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1320, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@HOCKER@749" type="Sprite" parent="."]
+[node name="HOCKER 223" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1322, 211 )
 z_index = 20
-texture = ExtResource( 23 )
+texture = ExtResource( 25 )
 centered = false
 
-[node name="@FLOOR_C@751" type="Sprite" parent="."]
+[node name="MONS_01 224" type="Sprite" parent="."]
+use_parent_material = true
+position = Vector2( 1207, 280 )
+z_index = 20
+texture = ExtResource( 29 )
+centered = false
+
+[node name="FLOOR_C 225" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 880, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@753" type="Sprite" parent="."]
+[node name="FLOOR_C 226" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 968, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_C@755" type="Sprite" parent="."]
+[node name="FLOOR_C 227" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 1056, 220 )
 z_index = 10
 texture = ExtResource( 6 )
 centered = false
 
-[node name="@FLOOR_A@757" type="Sprite" parent="."]
+[node name="FLOOR_A 228" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 264, 274 )
 z_index = 10
 texture = ExtResource( 7 )
 centered = false
 
-[node name="@FLOOR_A@759" type="Sprite" parent="."]
+[node name="FLOOR_A 229" type="Sprite" parent="."]
+use_parent_material = true
 position = Vector2( 352, 274 )
 z_index = 10
 texture = ExtResource( 7 )

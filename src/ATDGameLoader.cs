@@ -6,7 +6,9 @@ using Directory = System.IO.Directory;
 using Thread = System.Threading.Thread;
 using System.Diagnostics;
 
-public class ATDGameLoader : Node {
+public class ATDGameLoader : Node2D {
+	private const string PackFile = "ATDFiles.pck";
+	private const string ImagesPath = "res://Images";
 	public Label loadInfo;
 	public FileDialog selectATDPath;
 	public AcceptDialog directoryInvalidDialog;
@@ -16,6 +18,8 @@ public class ATDGameLoader : Node {
 	[Export]
 	bool forceRebuild = false;
 	bool isInEditor;
+
+	ResourceInteractiveLoader gameLoader;
 
 	static volatile string currentFolder;
 	static volatile string currentLibrary;
@@ -27,7 +31,7 @@ public class ATDGameLoader : Node {
 
 		isInEditor = Engine.EditorHint;
 
-		if (forceRebuild || (!System.IO.File.Exists("ATDFiles.pck") && !Directory.Exists(ProjectSettings.GlobalizePath("res://Images/")))) {
+		if (forceRebuild || (!System.IO.File.Exists(PackFile) && !Directory.Exists(ProjectSettings.GlobalizePath(ImagesPath)))) {
 			selectATDPath = GetNode<FileDialog>("FileDialog"); //Get the path to the ATD install
 			selectATDPath.Connect("dir_selected", this, nameof(ChoseFile));
 			selectATDPath.PopupCentered(new Vector2(500, 500));
@@ -36,10 +40,50 @@ public class ATDGameLoader : Node {
 			directoryInvalidDialog.Connect("confirmed", this, nameof(AcceptDialog));
 		} else { //If there is no need for a rebuild, just skip asking
 			if (!isInEditor) {
-				ProjectSettings.LoadResourcePack("ATDFiles.pck"); //If we are not in the editor: we need to add the ATDFiles
+				ProjectSettings.LoadResourcePack(PackFile); //If we are not in the editor: we need to add the ATDFiles
 			}
-			GetTree().ChangeScene("res://scenes/base.tscn");
+
+			SetProcess(true);
+			gameLoader = ResourceLoader.LoadInteractive("res://scenes/base.tscn");
+
+			//GetTree().ChangeScene("res://scenes/base.tscn");
 		}
+	}
+
+	public override void _Process(float delta) {
+		loadInfo.SetText("Loading: " + currentFolder + "/" + currentLibrary + "/" + currentFile);
+
+
+		if (gameLoader == null) {
+			//SetProcess(false);
+			return;
+		}
+
+		if (GetNode<Sprite>("Title").GetTexture() == null) {
+			GetNode<Sprite>("Title").SetTexture((Texture)ResourceLoader.Load("res://Images/room/titel/TITEL.res"));
+		}
+
+		int time = OS.GetTicksMsec();
+		while (OS.GetTicksMsec() < time + 100) {
+			Error state = gameLoader.Poll();
+
+			if (state == Error.FileEof) {
+				Resource newScene = gameLoader.GetResource();
+				gameLoader = null;
+
+				var root = GetTree().GetRoot();
+				root.GetChild(root.GetChildCount() - 1).QueueFree();
+				root.AddChild(((PackedScene)newScene).Instance());
+				return;
+				//ChangeScene("res://scenes/base.tscn");
+
+			} else if (state == Error.Ok) {
+				int progress = 100 / gameLoader.GetStageCount() * gameLoader.GetStage();
+				loadInfo.SetText("Loading scene: " + progress + "%");
+			}
+		}
+
+
 	}
 
 	public void ChoseFile(string dir) {
@@ -61,11 +105,24 @@ public class ATDGameLoader : Node {
 		selectATDPath.PopupCentered(new Vector2(500, 500)); //try try and try again
 	}
 
-	public override void _Process(float delta) {
-		loadInfo.SetText("Loading: " + currentFolder + "/" + currentLibrary + "/" + currentFile);
+	public void LoadData() {
+		// Code to decrypt the .csv files -- Not needed for now!
+		// BaseFileDecoder d = new BaseFileDecoder();
+		// File n = new File();
+		// string[] files = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/data/");
+		// foreach(string f in files){
+		// 	n.Open(f, (int)File.ModeFlags.Read);
+		// 	System.IO.File.WriteAllBytes(f + "s",d.ReadFile(n));
+		// 	n.Close();
+		// }
+		LoadImages();
 	}
 
-	private void LoadData() {
+
+	/// <summary>
+	/// Loads, Saves (when neccessary) and packes all .gli files in "room" and "gli"
+	/// </summary>
+	private void LoadImages() {
 		libraryFolders = new Dictionary<string, List<GFXLibrary>>(); //A list of graphic folders of the game
 		libraryFolders.Add("room", new List<GFXLibrary>());
 		libraryFolders.Add("gli", new List<GFXLibrary>());
@@ -102,23 +159,27 @@ public class ATDGameLoader : Node {
 
 
 		//Write them to disk
-		ExportImages(!System.IO.File.Exists("ATDFiles.pck") && !isInEditor);
+		ExportImages(!isInEditor);
 
 		//Should only be needed when we are not in the editor, but adding it doesnt hurt us, even if the file isn't present
-		bool s = ProjectSettings.LoadResourcePack("ATDFiles.pck");
+		bool s = ProjectSettings.LoadResourcePack(PackFile);
 		GetTree().ChangeScene("res://scenes/base.tscn");
 	}
 
+	/// <summary>
+	/// Saves all gli files in the libraryFolders dictionary to the "ImagesPath" folder
+	/// </summary>
+	/// <param name="packFiles">Should the files be packed into a .pck file</param>
 	private void ExportImages(bool packFiles) {
 		PCKPacker p = new PCKPacker();
 
 
 		if (packFiles) //Should we pack them up? Only needed when we are not inside the editor
-			p.PckStart("ATDFiles.pck", 4);
+			p.PckStart(PackFile, 4);
 
 
-		string basePath = ProjectSettings.GlobalizePath("res://Images"); //Get an absolute Path to our project/executable folder
-		string baseGodotPath = "res://Images";
+		string basePath = ProjectSettings.GlobalizePath(ImagesPath); //Get an absolute Path to our project/executable folder
+		string baseGodotPath = ImagesPath;
 
 		if (!Directory.Exists(basePath))
 			Directory.CreateDirectory(basePath);
@@ -134,6 +195,14 @@ public class ATDGameLoader : Node {
 			p.Flush(true);
 	}
 
+	/// <summary>
+	/// Saves every file inside a List&lt;GFXLibrary&gt;
+	/// </summary>
+	/// <param name="packFiles">Should the files be packed into a .pck file</param>
+	/// <param name="p">The PCKPacker for the packing, can be null when packFiles is false</param>
+	/// <param name="basePath">An absolute path to the base folder</param>
+	/// <param name="baseGodotPath">A relative path to the base folder, in the "res://" space</param>
+	/// <param name="librarys">List of GFXLibrarys to save</param>
 	private static void SaveLibrarysInList(bool packFiles, PCKPacker p, string basePath, string baseGodotPath, List<GFXLibrary> librarys) {
 		foreach (var lib in librarys) {
 			string libPath = basePath + "/" + lib.name;
@@ -148,9 +217,17 @@ public class ATDGameLoader : Node {
 		}
 	}
 
+	/// <summary>
+	/// Saves every file inside a GFXLibrary
+	/// </summary>
+	/// <param name="packFiles">Should the files be packed into a .pck file</param>
+	/// <param name="p">The PCKPacker for the packing, can be null when packFiles is false</param>
+	/// <param name="lib">The GFXLibrary to save</param>
+	/// <param name="libPath">The absolute path to save the files to</param>
+	/// <param name="libGodotPath">The relative path to save the files to, in "res://" space</param>
 	private static void SaveFiles(bool packFiles, PCKPacker p, GFXLibrary lib, string libPath, string libGodotPath) {
 		foreach (GFXLibrary.GFXFile file in lib.files) {
-			string fileName = file.name.Trim('\0') + ".tres";
+			string fileName = file.name.Trim('\0') + ".res";
 			string filePath = libPath + "/" + fileName;
 			string fileGodotPath = libGodotPath + "/" + fileName;
 

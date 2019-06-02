@@ -6,11 +6,20 @@ using System.IO;
 using Directory = System.IO.Directory;
 using File = Godot.File;
 using Path = System.IO.Path;
+using System.Text;
 
-public class AirportView : Node {
+public class AirportViewLoader : Node {
 	// Declare member variables here. Examples:
 	// private int a = 2;
 	// private string b = "text";
+	[Export]
+	public string basePath = "";
+	[Export]
+	public NodePath baseScene;
+	Node2D _baseScene;
+
+	public int currentID;
+
 	struct BrickInfo {
 		public string path, name;
 		public int xOffset, yOffset, zIndex;
@@ -20,8 +29,8 @@ public class AirportView : Node {
 
 	public void PrepareBricks() {
 		//TODO: Decrypt the CSV Files in here!
-
-		using (var reader = new StreamReader(@"I:\Downloads\Kopie von Airline Tycoon Deluxe_Steam Files_2018-06-02\Airline Tycoon Deluxe\steamapps\common\Airline Tycoon Deluxe\data\brick.csvs")) {
+		//@"I:\Downloads\Kopie von Airline Tycoon Deluxe_Steam Files_2018-06-02\Airline Tycoon Deluxe\steamapps\common\Airline Tycoon Deluxe\data\
+		using (var reader = new StreamReader(basePath + "/data/brick.csvs")) {
 
 			reader.ReadLine();//Header
 			reader.ReadLine();//Empty Line
@@ -31,14 +40,21 @@ public class AirportView : Node {
 			List<string> listB = new List<string>();
 			while (!reader.EndOfStream) {
 				var line = reader.ReadLine();//Content
-				reader.ReadLine();//Empty Line
 				var values = line.Split(';');
+
+				if (values.Length == 0)
+					continue; //Empty line!
 
 				long id = Convert.ToInt32(values[0]);
 				string fileName = values[15];
 
-				if (fileName.Contains(' ') || fileName.Contains(':'))
-					continue; //We can't process ranges yet! TODO
+				if (fileName.Contains(' ') || fileName.Contains(':')) {
+					//We can't "really" process ranges yet! TODO
+					//a space indicates another sprite
+					//a : indicates a repetition of the preceeding sprite
+
+					fileName = fileName.Split(' ', ':').First();
+				}
 
 				BrickInfo info = new BrickInfo();
 
@@ -58,10 +74,12 @@ public class AirportView : Node {
 		return Directory.GetFiles(ProjectSettings.GlobalizePath("res://Images/gli") + "/", name + ".*", System.IO.SearchOption.AllDirectories).FirstOrDefault();
 	}
 
-	public void CreateSprite(long id, int x, int y) {
+	public void CreateSprite(long id, int x, int y, int par) {
+		currentID++;
+
 		Sprite s = new Sprite();
-		AddChild(s);
-		s.SetOwner(this);
+		_baseScene.AddChild(s);
+		s.SetOwner(_baseScene);
 
 		if (x > 176) {
 			//x += (44 * 5 - 1056) / 176 * 176 + 176;
@@ -69,33 +87,37 @@ public class AirportView : Node {
 		s.Centered = false;
 		s.ZIndex = bricks[id].zIndex;
 		s.SetPosition(new Vector2(x, y));
-		s.Name = bricks[id].name;
+		s.Name = bricks[id].name + " " + currentID;
+		if (par != 0)
+			s.Visible = false;
 
 		s.SetTexture(ResourceLoader.Load<Texture>(bricks[id].path));
 	}
 
 	public override void _Ready() {
+		_baseScene = GetNode<Node2D>(baseScene);
+
 		PrepareBricks();
 
-		string[] files = Directory.GetFiles(
-			@"I:\Downloads\Kopie von Airline Tycoon Deluxe_Steam Files_2018-06-02\Airline Tycoon Deluxe\steamapps\common\Airline Tycoon Deluxe\misc\",
-			"*1*1.dat");//First Level only for now
+		string[] files = Directory.GetFiles(basePath + "/misc/",
+			"*.dat");
 
 		foreach (string filePath in files) {
 			File f = new File();
 			f.Open(filePath, (int)File.ModeFlags.Read);
 
+			currentID = 0;
 			LoadLevelFile(f);
 
-			Name = Path.GetFileNameWithoutExtension(filePath);
+			_baseScene.Name = Path.GetFileNameWithoutExtension(filePath);
 
 			PackedScene save = new PackedScene();
-			save.Pack(GetTree().CurrentScene);
-			ResourceSaver.Save("res://scenes/rooms/" + Name + ".tscn", save);
-			foreach (Node n in GetChildren()) {
-				RemoveChild(n);
-				n.SetOwner(null);
+			save.Pack(_baseScene);
 
+			ResourceSaver.Save("res://scenes/airportPartsImport/" + _baseScene.Name + ".tscn", save);
+			foreach (Node n in _baseScene.GetChildren()) {
+				_baseScene.RemoveChild(n);
+				n.QueueFree();
 			}
 
 			f.Close();
@@ -123,7 +145,7 @@ public class AirportView : Node {
 				if (bricks[id].name.Contains("RUNE"))
 					continue;
 
-				CreateSprite(id, x, y);
+				CreateSprite(id, x, y, par);
 
 				GD.Print("GFX - Name: " + bricks[id].name
 				 + " at x: " + x + "+ " + bricks[id].xOffset

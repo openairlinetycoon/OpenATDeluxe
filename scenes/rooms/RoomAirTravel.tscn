@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/reiseb/REISEB.tres" type="Texture" id=2]
+[ext_resource path="res://Images/room/reiseb/REISEB.res" type="Texture" id=2]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]

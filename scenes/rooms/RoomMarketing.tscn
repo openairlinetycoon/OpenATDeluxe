@@ -1,37 +1,37 @@
 [gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/werbung/WERBUNG.tres" type="Texture" id=2]
-[ext_resource path="res://Images/room/werbung/WERBUNG2.tres" type="Texture" id=3]
-[ext_resource path="res://Images/room/werbung/SPRATZL0.tres" type="Texture" id=4]
-[ext_resource path="res://Images/room/werbung/SPRATZL1.tres" type="Texture" id=5]
-[ext_resource path="res://Images/room/werbung/SPRATZL2.tres" type="Texture" id=6]
-[ext_resource path="res://Images/room/werbung/SPRATZL3.tres" type="Texture" id=7]
-[ext_resource path="res://Images/room/werbung/SPRATZL4.tres" type="Texture" id=8]
-[ext_resource path="res://Images/room/werbung/BOY_01.tres" type="Texture" id=9]
-[ext_resource path="res://Images/room/werbung/BOY_02.tres" type="Texture" id=10]
-[ext_resource path="res://Images/room/werbung/BOY_03.tres" type="Texture" id=11]
-[ext_resource path="res://Images/room/werbung/SCREEN01.tres" type="Texture" id=12]
-[ext_resource path="res://Images/room/werbung/SCREEN02.tres" type="Texture" id=13]
-[ext_resource path="res://Images/room/werbung/SCREEN03.tres" type="Texture" id=14]
-[ext_resource path="res://Images/room/werbung/SCREEN04.tres" type="Texture" id=15]
-[ext_resource path="res://Images/room/werbung/SCREEN05.tres" type="Texture" id=16]
-[ext_resource path="res://Images/room/werbung/SCREEN06.tres" type="Texture" id=17]
-[ext_resource path="res://Images/room/werbung/CAFE01.tres" type="Texture" id=18]
-[ext_resource path="res://Images/room/werbung/CAFE02.tres" type="Texture" id=19]
-[ext_resource path="res://Images/room/werbung/CAFE03.tres" type="Texture" id=20]
-[ext_resource path="res://Images/room/werbung/CAFE04.tres" type="Texture" id=21]
-[ext_resource path="res://Images/room/werbung/CAFE05.tres" type="Texture" id=22]
-[ext_resource path="res://Images/room/werbung/CAFE06.tres" type="Texture" id=23]
-[ext_resource path="res://Images/room/werbung/CAFE07.tres" type="Texture" id=24]
-[ext_resource path="res://Images/room/werbung/CAFE08.tres" type="Texture" id=25]
-[ext_resource path="res://Images/room/werbung/CAFE09.tres" type="Texture" id=26]
-[ext_resource path="res://Images/room/werbung/CAFE10.tres" type="Texture" id=27]
-[ext_resource path="res://Images/room/werbung/CAFE11.tres" type="Texture" id=28]
-[ext_resource path="res://Images/room/werbung/CAFE12.tres" type="Texture" id=29]
-[ext_resource path="res://Images/room/werbung/CAFE13.tres" type="Texture" id=30]
-[ext_resource path="res://Images/room/werbung/CAFE14.tres" type="Texture" id=31]
-[ext_resource path="res://Images/room/werbung/CAFE15.tres" type="Texture" id=32]
+[ext_resource path="res://Images/room/werbung/WERBUNG.res" type="Texture" id=2]
+[ext_resource path="res://Images/room/werbung/WERBUNG2.res" type="Texture" id=3]
+[ext_resource path="res://Images/room/werbung/SPRATZL0.res" type="Texture" id=4]
+[ext_resource path="res://Images/room/werbung/SPRATZL1.res" type="Texture" id=5]
+[ext_resource path="res://Images/room/werbung/SPRATZL2.res" type="Texture" id=6]
+[ext_resource path="res://Images/room/werbung/SPRATZL3.res" type="Texture" id=7]
+[ext_resource path="res://Images/room/werbung/SPRATZL4.res" type="Texture" id=8]
+[ext_resource path="res://Images/room/werbung/BOY_01.res" type="Texture" id=9]
+[ext_resource path="res://Images/room/werbung/BOY_02.res" type="Texture" id=10]
+[ext_resource path="res://Images/room/werbung/BOY_03.res" type="Texture" id=11]
+[ext_resource path="res://Images/room/werbung/SCREEN01.res" type="Texture" id=12]
+[ext_resource path="res://Images/room/werbung/SCREEN02.res" type="Texture" id=13]
+[ext_resource path="res://Images/room/werbung/SCREEN03.res" type="Texture" id=14]
+[ext_resource path="res://Images/room/werbung/SCREEN04.res" type="Texture" id=15]
+[ext_resource path="res://Images/room/werbung/SCREEN05.res" type="Texture" id=16]
+[ext_resource path="res://Images/room/werbung/SCREEN06.res" type="Texture" id=17]
+[ext_resource path="res://Images/room/werbung/CAFE01.res" type="Texture" id=18]
+[ext_resource path="res://Images/room/werbung/CAFE02.res" type="Texture" id=19]
+[ext_resource path="res://Images/room/werbung/CAFE03.res" type="Texture" id=20]
+[ext_resource path="res://Images/room/werbung/CAFE04.res" type="Texture" id=21]
+[ext_resource path="res://Images/room/werbung/CAFE05.res" type="Texture" id=22]
+[ext_resource path="res://Images/room/werbung/CAFE06.res" type="Texture" id=23]
+[ext_resource path="res://Images/room/werbung/CAFE07.res" type="Texture" id=24]
+[ext_resource path="res://Images/room/werbung/CAFE08.res" type="Texture" id=25]
+[ext_resource path="res://Images/room/werbung/CAFE09.res" type="Texture" id=26]
+[ext_resource path="res://Images/room/werbung/CAFE10.res" type="Texture" id=27]
+[ext_resource path="res://Images/room/werbung/CAFE11.res" type="Texture" id=28]
+[ext_resource path="res://Images/room/werbung/CAFE12.res" type="Texture" id=29]
+[ext_resource path="res://Images/room/werbung/CAFE13.res" type="Texture" id=30]
+[ext_resource path="res://Images/room/werbung/CAFE14.res" type="Texture" id=31]
+[ext_resource path="res://Images/room/werbung/CAFE15.res" type="Texture" id=32]
 [ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=33]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=34]
 
@@ -99,7 +99,6 @@ texture = ExtResource( 3 )
 use_parent_material = true
 position = Vector2( 88.1566, -120.766 )
 frames = SubResource( 1 )
-frame = 4
 playing = true
 
 [node name="Arm" type="AnimatedSprite" parent="Base"]
@@ -114,7 +113,7 @@ centered = false
 use_parent_material = true
 position = Vector2( -33.0332, -143.15 )
 frames = SubResource( 3 )
-frame = 1
+frame = 3
 playing = true
 centered = false
 
@@ -122,7 +121,7 @@ centered = false
 use_parent_material = true
 position = Vector2( -144.019, -145.899 )
 frames = SubResource( 4 )
-frame = 6
+frame = 7
 playing = true
 
 [node name="MouseHover" type="Node2D" parent="Base"]

@@ -1,25 +1,26 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://src/CameraController.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
-[ext_resource path="res://Images/gli/glbrick/BACK_D.tres" type="Texture" id=3]
-[ext_resource path="res://Images/gli/glbrick/BACK_C.tres" type="Texture" id=4]
-[ext_resource path="res://Images/gli/glbrick/BACK_B.tres" type="Texture" id=5]
-[ext_resource path="res://Images/gli/glbrick/BACK_A2.tres" type="Texture" id=6]
-[ext_resource path="res://Images/gli/glbrick/FLOOR_Z.tres" type="Texture" id=7]
-[ext_resource path="res://Images/gli/glbrick/FRACHT04.tres" type="Texture" id=8]
-[ext_resource path="res://Images/gli/glbrick/FRACHT01.tres" type="Texture" id=9]
-[ext_resource path="res://Images/gli/glbrick/FRACHT02.tres" type="Texture" id=10]
-[ext_resource path="res://Images/gli/glbrick/WA03.tres" type="Texture" id=11]
+[ext_resource path="res://Images/gli/glbrick/BACK_D.res" type="Texture" id=3]
+[ext_resource path="res://Images/gli/glbrick/BACK_C.res" type="Texture" id=4]
+[ext_resource path="res://Images/gli/glbrick/BACK_B.res" type="Texture" id=5]
+[ext_resource path="res://Images/gli/glbrick/BACK_A2.res" type="Texture" id=6]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_Z.res" type="Texture" id=7]
+[ext_resource path="res://Images/gli/glbrick/FRACHT04.res" type="Texture" id=8]
+[ext_resource path="res://Images/gli/glbrick/FRACHT01.res" type="Texture" id=9]
+[ext_resource path="res://Images/gli/glbrick/FRACHT02.res" type="Texture" id=10]
+[ext_resource path="res://Images/gli/glbrick/WA03.res" type="Texture" id=11]
 [ext_resource path="res://scenes/airportParts/ofice1701.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/airportParts/entry4101.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/airportParts/shops101.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/airportParts/cafe4101.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/airportParts/secur1101.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Images/gli/glbrick/FLOOR_E.tres" type="Texture" id=17]
-[ext_resource path="res://Images/gli/glbrick/FLOOR_D.tres" type="Texture" id=18]
-[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=19]
-[ext_resource path="res://src/MouseAreaRoom.cs" type="Script" id=20]
+[ext_resource path="res://scenes/airportParts/right201.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_E.res" type="Texture" id=18]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_D.res" type="Texture" id=19]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=20]
+[ext_resource path="res://src/MouseAreaRoom.cs" type="Script" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -463,31 +464,29 @@ texture = ExtResource( 11 )
 
 [node name="ofice1701" parent="Base" instance=ExtResource( 12 )]
 position = Vector2( 185.805, 585.477 )
-script = null
 
 [node name="entry4101" parent="Base" instance=ExtResource( 13 )]
 position = Vector2( 1945.56, 585.527 )
-script = null
 
 [node name="shops101" parent="Base" instance=ExtResource( 14 )]
 position = Vector2( 2384.66, 585.527 )
-script = null
 
 [node name="cafe4101" parent="Base" instance=ExtResource( 15 )]
 position = Vector2( 2384.66, 585.527 )
-script = null
 
 [node name="secur1101" parent="Base" instance=ExtResource( 16 )]
 position = Vector2( 3965.5, 585.527 )
-script = null
+
+[node name="right201" parent="Base" instance=ExtResource( 17 )]
+position = Vector2( 4008.91, 585.591 )
 
 [node name="FLOOR_E" type="Sprite" parent="."]
 position = Vector2( 1509.15, 698.918 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 
 [node name="FLOOR_D" type="Sprite" parent="."]
 position = Vector2( 1583.38, 706.753 )
-texture = ExtResource( 18 )
+texture = ExtResource( 19 )
 
 [node name="Interactables" type="Node2D" parent="."]
 z_index = 999
@@ -497,20 +496,20 @@ z_as_relative = false
 position = Vector2( 3719.93, 222.181 )
 scale = Vector2( 4.44232, 7.28947 )
 
-[node name="MouseColliderRoom" parent="Interactables/Marketing" instance=ExtResource( 19 )]
+[node name="MouseColliderRoom" parent="Interactables/Marketing" instance=ExtResource( 20 )]
 roomSceneName = "RoomMarketing"
 
 [node name="FLOffice" type="Node2D" parent="Interactables"]
 position = Vector2( 2663.61, 222.181 )
 scale = Vector2( 4.44232, 7.28947 )
 
-[node name="MouseColliderRoom" parent="Interactables/FLOffice" instance=ExtResource( 19 )]
+[node name="MouseColliderRoom" parent="Interactables/FLOffice" instance=ExtResource( 20 )]
 roomSceneName = "RoomOffice"
 
 [node name="Kiosk" type="Node2D" parent="Interactables"]
 position = Vector2( 6335.19, 498.466 )
 
-[node name="MouseColliderRoom2" parent="Interactables/Kiosk" instance=ExtResource( 19 )]
+[node name="MouseColliderRoom2" parent="Interactables/Kiosk" instance=ExtResource( 20 )]
 position = Vector2( 0.54541, 2.06586 )
 scale = Vector2( 4.44232, 7.28947 )
 roomSceneName = "RoomKiosk"
@@ -523,7 +522,7 @@ shape = SubResource( 1 )
 position = Vector2( 5892.59, 510.157 )
 
 [node name="MouseCollider" type="Area2D" parent="Interactables/Bank"]
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomBank"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Bank/MouseCollider"]
@@ -534,7 +533,7 @@ shape = SubResource( 2 )
 position = Vector2( 939.073, 523.047 )
 
 [node name="MouseCollider" type="Area2D" parent="Interactables/Museum"]
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomMuseum"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Museum/MouseCollider"]
@@ -545,7 +544,7 @@ position = Vector2( 331.615, 544.15 )
 
 [node name="MouseCollider2" type="Area2D" parent="Interactables/Cargo"]
 position = Vector2( -0.36145, 2.38788 )
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomCargo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Cargo/MouseCollider2"]
@@ -557,7 +556,7 @@ position = Vector2( 1529.95, 473.305 )
 
 [node name="MouseCollider3" type="Area2D" parent="Interactables/LastMinute"]
 position = Vector2( -3.20215, 6.7095 )
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomLastMinute"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/LastMinute/MouseCollider3"]
@@ -569,7 +568,7 @@ position = Vector2( 3592.27, 463.981 )
 
 [node name="MouseCollider4" type="Area2D" parent="Interactables/AirTravel"]
 position = Vector2( -1.2334, 0.963043 )
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomAirTravel"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/AirTravel/MouseCollider4"]
@@ -581,7 +580,7 @@ position = Vector2( 5104.97, 471.351 )
 
 [node name="MouseCollider5" type="Area2D" parent="Interactables/ArabAir"]
 position = Vector2( -1.4751, -0.866486 )
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomArabAir"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/ArabAir/MouseCollider5"]
@@ -593,7 +592,7 @@ position = Vector2( 5469.54, 501.871 )
 
 [node name="MouseCollider6" type="Area2D" parent="Interactables/DutyFree"]
 position = Vector2( -0.956055, -0.453552 )
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomDutyFree"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/DutyFree/MouseCollider6"]
@@ -605,7 +604,7 @@ position = Vector2( 7052.22, 463.699 )
 
 [node name="MouseCollider7" type="Area2D" parent="Interactables/Cafe"]
 position = Vector2( 0.0302734, -0.566345 )
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomCafe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Cafe/MouseCollider7"]
@@ -617,7 +616,7 @@ position = Vector2( 4412.46, 865.976 )
 
 [node name="MouseCollider8" type="Area2D" parent="Interactables/Exit"]
 position = Vector2( -2.26416, 4.18445 )
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomExit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Exit/MouseCollider8"]
@@ -628,7 +627,7 @@ position = Vector2( 5281.61, 466.635 )
 
 [node name="MouseCollider9" type="Area2D" parent="Interactables/Terrorist"]
 position = Vector2( 4.10938, 0.922943 )
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roomSceneName = "RoomTerrorist"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Terrorist/MouseCollider9"]

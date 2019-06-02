@@ -1,26 +1,26 @@
 [gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/sabotage/SABOTAGE.tres" type="Texture" id=2]
+[ext_resource path="res://Images/room/sabotage/SABOTAGE.res" type="Texture" id=2]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Images/room/sabotage/RAUCH00.tres" type="Texture" id=4]
-[ext_resource path="res://Images/room/sabotage/RAUCH01.tres" type="Texture" id=5]
-[ext_resource path="res://Images/room/sabotage/RAUCH02.tres" type="Texture" id=6]
-[ext_resource path="res://Images/room/sabotage/RAUCH03.tres" type="Texture" id=7]
-[ext_resource path="res://Images/room/sabotage/RAUCH04.tres" type="Texture" id=8]
-[ext_resource path="res://Images/room/sabotage/RAUCH05.tres" type="Texture" id=9]
-[ext_resource path="res://Images/room/sabotage/RAUCH06.tres" type="Texture" id=10]
-[ext_resource path="res://Images/room/sabotage/RAUCH07.tres" type="Texture" id=11]
-[ext_resource path="res://Images/room/sabotage/RAUCH08.tres" type="Texture" id=12]
-[ext_resource path="res://Images/room/sabotage/RAUCH09.tres" type="Texture" id=13]
-[ext_resource path="res://Images/room/sabotage/RAUCH10.tres" type="Texture" id=14]
-[ext_resource path="res://Images/room/sabotage/AUGE00.tres" type="Texture" id=15]
-[ext_resource path="res://Images/room/sabotage/AUGE01.tres" type="Texture" id=16]
-[ext_resource path="res://Images/room/sabotage/AUGE02.tres" type="Texture" id=17]
-[ext_resource path="res://Images/room/sabotage/AUGE03.tres" type="Texture" id=18]
-[ext_resource path="res://Images/room/sabotage/AUGE04.tres" type="Texture" id=19]
-[ext_resource path="res://Images/room/sabotage/AUGE05.tres" type="Texture" id=20]
-[ext_resource path="res://Images/room/sabotage/AUGE06.tres" type="Texture" id=21]
+[ext_resource path="res://Images/room/sabotage/RAUCH00.res" type="Texture" id=4]
+[ext_resource path="res://Images/room/sabotage/RAUCH01.res" type="Texture" id=5]
+[ext_resource path="res://Images/room/sabotage/RAUCH02.res" type="Texture" id=6]
+[ext_resource path="res://Images/room/sabotage/RAUCH03.res" type="Texture" id=7]
+[ext_resource path="res://Images/room/sabotage/RAUCH04.res" type="Texture" id=8]
+[ext_resource path="res://Images/room/sabotage/RAUCH05.res" type="Texture" id=9]
+[ext_resource path="res://Images/room/sabotage/RAUCH06.res" type="Texture" id=10]
+[ext_resource path="res://Images/room/sabotage/RAUCH07.res" type="Texture" id=11]
+[ext_resource path="res://Images/room/sabotage/RAUCH08.res" type="Texture" id=12]
+[ext_resource path="res://Images/room/sabotage/RAUCH09.res" type="Texture" id=13]
+[ext_resource path="res://Images/room/sabotage/RAUCH10.res" type="Texture" id=14]
+[ext_resource path="res://Images/room/sabotage/AUGE00.res" type="Texture" id=15]
+[ext_resource path="res://Images/room/sabotage/AUGE01.res" type="Texture" id=16]
+[ext_resource path="res://Images/room/sabotage/AUGE02.res" type="Texture" id=17]
+[ext_resource path="res://Images/room/sabotage/AUGE03.res" type="Texture" id=18]
+[ext_resource path="res://Images/room/sabotage/AUGE04.res" type="Texture" id=19]
+[ext_resource path="res://Images/room/sabotage/AUGE05.res" type="Texture" id=20]
+[ext_resource path="res://Images/room/sabotage/AUGE06.res" type="Texture" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -75,13 +75,13 @@ shape = SubResource( 1 )
 [node name="Flame" type="AnimatedSprite" parent="Base"]
 position = Vector2( -37.0306, 91.1803 )
 frames = SubResource( 2 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="Eye" type="AnimatedSprite" parent="Base"]
 position = Vector2( -342.512, -160.567 )
 frames = SubResource( 3 )
-frame = 6
+frame = 2
 speed_scale = 0.2
 playing = true
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Images/room/kiosk/KIOSK.tres" type="Texture" id=3]
+[ext_resource path="res://Images/room/kiosk/KIOSK.res" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true

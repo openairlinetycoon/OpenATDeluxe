@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/buero_b/BUERO.tres" type="Texture" id=2]
-[ext_resource path="res://Images/room/buero/DOOR_O.tres" type="Texture" id=3]
-[ext_resource path="res://Images/room/buero/DOOR_T.tres" type="Texture" id=4]
+[ext_resource path="res://Images/room/buero_b/BUERO.res" type="Texture" id=2]
+[ext_resource path="res://Images/room/buero/DOOR_O.res" type="Texture" id=3]
+[ext_resource path="res://Images/room/buero/DOOR_T.res" type="Texture" id=4]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=6]
 
