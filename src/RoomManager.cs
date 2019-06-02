@@ -14,44 +14,42 @@ public class RoomManager : Node2D {
 	public Godot.Collections.Array _rooms;
 	private static Dictionary<string, PackedScene> rooms;
 
-	public override void _Ready () {
-        roomPosition = new Vector2(4448, 0);
+	public override void _Ready() {
+		roomPosition = new Vector2(4448, 0);
 
 
 		rooms = new Dictionary<string, PackedScene>();
-        foreach(var entry in _rooms){
-            PackedScene scene = (PackedScene)entry;
-            string file = System.IO.Path.GetFileNameWithoutExtension(scene.ResourcePath);
-            rooms.Add(file, scene);
+		foreach (var entry in _rooms) {
+			PackedScene scene = (PackedScene)entry;
+			string file = System.IO.Path.GetFileNameWithoutExtension(scene.ResourcePath);
+			rooms.Add(file, scene);
 		}
-        //LoadRooms(); --FIXME: godot can't find the "res://scenes/rooms/" folder reliably
+		//LoadRooms(); --FIXME: godot can't find the "res://scenes/rooms/" folder reliably
 
-        instance = this;
-        ChangeRoom("", isAirport: true);
-    }
+		instance = this;
+		ChangeRoom("", isAirport: true);
+	}
 
 
 	/// <summary>
 	/// Load every Room in preparation
 	/// </summary>
-    private static void LoadRooms()
-    {
-        Directory d = new Directory();
-        Error error = d.Open("res://scenes/rooms");
+	private static void LoadRooms() {
+		Directory d = new Directory();
+		Error error = d.Open("res://scenes/rooms");
 
-        Debug.Assert(error == Error.Ok, "Error opening the rooms folder! Error: " + error);
+		Debug.Assert(error == Error.Ok, "Error opening the rooms folder! Error: " + error);
 
-        d.ListDirBegin(true, true);
-        string file;
+		d.ListDirBegin(true, true);
+		string file;
 
-        while ((file = d.GetNext()) != "")
-        {
-            rooms.Add(System.IO.Path.GetFileNameWithoutExtension(file), ResourceLoader.Load<PackedScene>("res://scenes/rooms/" + file));
-        }
-        d.ListDirEnd();
-    }
+		while ((file = d.GetNext()) != "") {
+			rooms.Add(System.IO.Path.GetFileNameWithoutExtension(file), ResourceLoader.Load<PackedScene>("res://scenes/rooms/" + file));
+		}
+		d.ListDirEnd();
+	}
 
-    public static void ChangeRoom(string newRoomName, bool isAirport) {
+	public static void ChangeRoom(string newRoomName, bool isAirport) {
 		if (!isAirport) {
 			CameraController cam = GetCameraControllerInCurrentRoom();
 			if (cam != null)
