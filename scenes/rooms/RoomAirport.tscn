@@ -1,26 +1,28 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://src/CameraController.cs" type="Script" id=1]
-[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
-[ext_resource path="res://Images/gli/glbrick/BACK_D.res" type="Texture" id=3]
-[ext_resource path="res://Images/gli/glbrick/BACK_C.res" type="Texture" id=4]
-[ext_resource path="res://Images/gli/glbrick/BACK_B.res" type="Texture" id=5]
-[ext_resource path="res://Images/gli/glbrick/BACK_A2.res" type="Texture" id=6]
-[ext_resource path="res://Images/gli/glbrick/FLOOR_Z.res" type="Texture" id=7]
-[ext_resource path="res://Images/gli/glbrick/FRACHT04.res" type="Texture" id=8]
-[ext_resource path="res://Images/gli/glbrick/FRACHT01.res" type="Texture" id=9]
-[ext_resource path="res://Images/gli/glbrick/FRACHT02.res" type="Texture" id=10]
-[ext_resource path="res://Images/gli/glbrick/WA03.res" type="Texture" id=11]
-[ext_resource path="res://scenes/airportParts/ofice1701.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/airportParts/entry4101.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/airportParts/shops101.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/airportParts/cafe4101.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/airportParts/secur1101.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/airportParts/right201.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Images/gli/glbrick/FLOOR_E.res" type="Texture" id=18]
-[ext_resource path="res://Images/gli/glbrick/FLOOR_D.res" type="Texture" id=19]
-[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=20]
-[ext_resource path="res://src/MouseAreaRoom.cs" type="Script" id=21]
+[ext_resource path="res://src/Characters/NavigationController.cs" type="Script" id=2]
+[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=3]
+[ext_resource path="res://Images/gli/glbrick/BACK_D.res" type="Texture" id=4]
+[ext_resource path="res://Images/gli/glbrick/BACK_C.res" type="Texture" id=5]
+[ext_resource path="res://Images/gli/glbrick/BACK_B.res" type="Texture" id=6]
+[ext_resource path="res://Images/gli/glbrick/BACK_A2.res" type="Texture" id=7]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_Z.res" type="Texture" id=8]
+[ext_resource path="res://Images/gli/glbrick/FRACHT04.res" type="Texture" id=9]
+[ext_resource path="res://Images/gli/glbrick/FRACHT01.res" type="Texture" id=10]
+[ext_resource path="res://Images/gli/glbrick/FRACHT02.res" type="Texture" id=11]
+[ext_resource path="res://Images/gli/glbrick/WA03.res" type="Texture" id=12]
+[ext_resource path="res://scenes/airportParts/ofice1701.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/airportParts/entry4101.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/airportParts/shops101.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/airportParts/cafe4101.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/airportParts/secur1101.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/airportParts/right201.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_E.res" type="Texture" id=19]
+[ext_resource path="res://Images/gli/glbrick/FLOOR_D.res" type="Texture" id=20]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=21]
+[ext_resource path="res://src/MouseAreaRoom.cs" type="Script" id=22]
+[ext_resource path="res://src/Characters/PlayerCharacter.cs" type="Script" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -56,6 +58,8 @@ extents = Vector2( 182.84, 72.0816 )
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 38.9468, 107.368 )
 
+[sub_resource type="CircleShape2D" id=12]
+
 [node name="RoomAirport" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -78,417 +82,428 @@ speed = 300.0
 [node name="CameraTarget" type="Node2D" parent="."]
 position = Vector2( 4448.56, 336.554 )
 
-[node name="Base" type="Node2D" parent="."]
-material = ExtResource( 2 )
+[node name="Navigation2D" type="Navigation2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Base" type="Node2D" parent="Navigation2D"]
+material = ExtResource( 3 )
 position = Vector2( -154, -1151 )
 scale = Vector2( 2, 2 )
 
-[node name="Backdrop" type="Node2D" parent="Base"]
+[node name="Backdrop" type="Node2D" parent="Navigation2D/Base"]
+editor/display_folded = true
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="BACK_D" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 341.184, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D5" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D5" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2443.33, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D3" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D3" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1394.84, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D6" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D6" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 3496.98, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D2" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D2" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 866.58, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D8" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D8" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2968.72, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D4" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D4" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1920.24, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D7" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D7" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4022.38, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D9" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D9" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4540.02, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_D10" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_D10" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 5066.8, 808.597 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="BACK_C" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 339.917, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C5" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C5" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2442.06, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C3" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C3" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1393.57, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C6" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C6" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 3495.72, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C2" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C2" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 865.313, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C8" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C8" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2967.45, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C4" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C4" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1918.97, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C7" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C7" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4021.11, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C9" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C9" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4538.75, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_C10" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_C10" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 5065.54, 685.458 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="BACK_B" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 339.459, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B5" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B5" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2441.6, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B3" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B3" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1393.12, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B7" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B7" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 3495.26, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B2" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B2" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 864.855, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B6" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B6" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2967, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B4" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B4" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1918.51, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B8" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B8" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4020.65, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B9" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B9" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4538.29, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B10" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B10" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 5065.08, 629.069 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B19" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B19" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 5065.08, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B11" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B11" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 339.459, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B12" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B12" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2441.6, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B13" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B13" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1393.12, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B14" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B14" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 3495.26, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B15" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B15" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 864.855, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B18" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B18" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2967, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B20" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B20" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1918.51, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B16" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B16" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4020.65, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_B17" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_B17" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4538.29, 742.341 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="BACK_A2" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A2" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 371.661, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A6" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A6" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2473.8, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A4" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A4" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1425.32, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A7" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A7" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 3527.46, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A3" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A3" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 897.057, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A9" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A9" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 2999.2, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A5" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A5" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 1950.71, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A8" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A8" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4052.86, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A10" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A10" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 4570.49, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="BACK_A11" type="Sprite" parent="Base/Backdrop"]
+[node name="BACK_A11" type="Sprite" parent="Navigation2D/Base/Backdrop"]
 use_parent_material = true
 position = Vector2( 5097.28, 592.273 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="LeftWall" type="Node2D" parent="Base"]
+[node name="LeftWall" type="Node2D" parent="Navigation2D/Base"]
 editor/display_folded = true
-material = ExtResource( 2 )
+material = ExtResource( 3 )
 position = Vector2( 14.8861, -60.3373 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Floor" type="Node2D" parent="Base/LeftWall"]
+[node name="Floor" type="Node2D" parent="Navigation2D/Base/LeftWall"]
 editor/display_folded = true
-material = ExtResource( 2 )
+material = ExtResource( 3 )
 
-[node name="FLOOR_Z6" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z6" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 402.237, 938.986 )
 scale = Vector2( 1, -1 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z14" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z14" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 402.829, 1105.87 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z7" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z7" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 306.737, 938.986 )
 scale = Vector2( 1, -1 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z10" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z10" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 307.329, 1105.87 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z8" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z8" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 354.737, 938.986 )
 scale = Vector2( 1, -1 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z11" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z11" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 355.329, 1105.87 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z5" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z5" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 259.237, 938.986 )
 scale = Vector2( 1, -1 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z13" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z13" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 259.829, 1105.87 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 402.237, 854.986 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z12" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z12" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 384.513, 953.639 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z3" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z3" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 306.737, 854.986 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z15" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z15" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 307.329, 1021.87 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z2" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z2" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 354.737, 854.986 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z16" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z16" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 355.329, 1021.87 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z4" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z4" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 259.237, 854.986 )
 z_index = -2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="FLOOR_Z9" type="Sprite" parent="Base/LeftWall/Floor"]
+[node name="FLOOR_Z9" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
 use_parent_material = true
 position = Vector2( 259.829, 1021.87 )
 z_index = -2
-texture = ExtResource( 7 )
-
-[node name="FRACHT04" type="Sprite" parent="Base/LeftWall"]
-use_parent_material = true
-position = Vector2( 350.518, 1009.47 )
 texture = ExtResource( 8 )
 
-[node name="FRACHT01" type="Sprite" parent="Base/LeftWall"]
+[node name="FRACHT04" type="Sprite" parent="Navigation2D/Base/LeftWall"]
 use_parent_material = true
-position = Vector2( 184.087, 899.301 )
+position = Vector2( 350.518, 1009.47 )
 texture = ExtResource( 9 )
 
-[node name="FRACHT02" type="Sprite" parent="Base/LeftWall"]
+[node name="FRACHT01" type="Sprite" parent="Navigation2D/Base/LeftWall"]
 use_parent_material = true
-position = Vector2( 294.419, 975.151 )
+position = Vector2( 184.087, 899.301 )
 texture = ExtResource( 10 )
 
-[node name="FENSTER5" type="Sprite" parent="Base/LeftWall"]
+[node name="FRACHT02" type="Sprite" parent="Navigation2D/Base/LeftWall"]
+use_parent_material = true
+position = Vector2( 294.419, 975.151 )
+texture = ExtResource( 11 )
+
+[node name="FENSTER5" type="Sprite" parent="Navigation2D/Base/LeftWall"]
 use_parent_material = true
 position = Vector2( 347.985, 925.587 )
 z_index = 2
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
-[node name="ofice1701" parent="Base" instance=ExtResource( 12 )]
-position = Vector2( 185.805, 585.477 )
+[node name="ofice1701" parent="Navigation2D/Base" instance=ExtResource( 13 )]
+position = Vector2( 185.805, 585.591 )
 
-[node name="entry4101" parent="Base" instance=ExtResource( 13 )]
-position = Vector2( 1945.56, 585.527 )
+[node name="entry4101" parent="Navigation2D/Base" instance=ExtResource( 14 )]
+position = Vector2( 1945.81, 585.591 )
 
-[node name="shops101" parent="Base" instance=ExtResource( 14 )]
-position = Vector2( 2384.66, 585.527 )
+[node name="shops101" parent="Navigation2D/Base" instance=ExtResource( 15 )]
+position = Vector2( 2385.81, 585.591 )
 
-[node name="cafe4101" parent="Base" instance=ExtResource( 15 )]
-position = Vector2( 2384.66, 585.527 )
+[node name="cafe4101" parent="Navigation2D/Base" instance=ExtResource( 16 )]
+position = Vector2( 2385.81, 585.591 )
 
-[node name="secur1101" parent="Base" instance=ExtResource( 16 )]
+[node name="secur1101" parent="Navigation2D/Base" instance=ExtResource( 17 )]
 position = Vector2( 3965.5, 585.527 )
 
-[node name="right201" parent="Base" instance=ExtResource( 17 )]
+[node name="right201" parent="Navigation2D/Base" instance=ExtResource( 18 )]
 position = Vector2( 4008.91, 585.591 )
 
 [node name="FLOOR_E" type="Sprite" parent="."]
 position = Vector2( 1509.15, 698.918 )
-texture = ExtResource( 18 )
+texture = ExtResource( 19 )
 
 [node name="FLOOR_D" type="Sprite" parent="."]
 position = Vector2( 1583.38, 706.753 )
-texture = ExtResource( 19 )
+texture = ExtResource( 20 )
 
 [node name="Interactables" type="Node2D" parent="."]
+editor/display_folded = true
 z_index = 999
 z_as_relative = false
 
@@ -496,20 +511,20 @@ z_as_relative = false
 position = Vector2( 3719.93, 222.181 )
 scale = Vector2( 4.44232, 7.28947 )
 
-[node name="MouseColliderRoom" parent="Interactables/Marketing" instance=ExtResource( 20 )]
+[node name="MouseColliderRoom" parent="Interactables/Marketing" instance=ExtResource( 21 )]
 roomSceneName = "RoomMarketing"
 
 [node name="FLOffice" type="Node2D" parent="Interactables"]
 position = Vector2( 2663.61, 222.181 )
 scale = Vector2( 4.44232, 7.28947 )
 
-[node name="MouseColliderRoom" parent="Interactables/FLOffice" instance=ExtResource( 20 )]
+[node name="MouseColliderRoom" parent="Interactables/FLOffice" instance=ExtResource( 21 )]
 roomSceneName = "RoomOffice"
 
 [node name="Kiosk" type="Node2D" parent="Interactables"]
 position = Vector2( 6335.19, 498.466 )
 
-[node name="MouseColliderRoom2" parent="Interactables/Kiosk" instance=ExtResource( 20 )]
+[node name="MouseColliderRoom2" parent="Interactables/Kiosk" instance=ExtResource( 21 )]
 position = Vector2( 0.54541, 2.06586 )
 scale = Vector2( 4.44232, 7.28947 )
 roomSceneName = "RoomKiosk"
@@ -522,7 +537,7 @@ shape = SubResource( 1 )
 position = Vector2( 5892.59, 510.157 )
 
 [node name="MouseCollider" type="Area2D" parent="Interactables/Bank"]
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomBank"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Bank/MouseCollider"]
@@ -533,7 +548,7 @@ shape = SubResource( 2 )
 position = Vector2( 939.073, 523.047 )
 
 [node name="MouseCollider" type="Area2D" parent="Interactables/Museum"]
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomMuseum"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Museum/MouseCollider"]
@@ -544,7 +559,7 @@ position = Vector2( 331.615, 544.15 )
 
 [node name="MouseCollider2" type="Area2D" parent="Interactables/Cargo"]
 position = Vector2( -0.36145, 2.38788 )
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomCargo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Cargo/MouseCollider2"]
@@ -556,7 +571,7 @@ position = Vector2( 1529.95, 473.305 )
 
 [node name="MouseCollider3" type="Area2D" parent="Interactables/LastMinute"]
 position = Vector2( -3.20215, 6.7095 )
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomLastMinute"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/LastMinute/MouseCollider3"]
@@ -568,7 +583,7 @@ position = Vector2( 3592.27, 463.981 )
 
 [node name="MouseCollider4" type="Area2D" parent="Interactables/AirTravel"]
 position = Vector2( -1.2334, 0.963043 )
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomAirTravel"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/AirTravel/MouseCollider4"]
@@ -580,7 +595,7 @@ position = Vector2( 5104.97, 471.351 )
 
 [node name="MouseCollider5" type="Area2D" parent="Interactables/ArabAir"]
 position = Vector2( -1.4751, -0.866486 )
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomArabAir"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/ArabAir/MouseCollider5"]
@@ -592,7 +607,7 @@ position = Vector2( 5469.54, 501.871 )
 
 [node name="MouseCollider6" type="Area2D" parent="Interactables/DutyFree"]
 position = Vector2( -0.956055, -0.453552 )
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomDutyFree"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/DutyFree/MouseCollider6"]
@@ -604,7 +619,7 @@ position = Vector2( 7052.22, 463.699 )
 
 [node name="MouseCollider7" type="Area2D" parent="Interactables/Cafe"]
 position = Vector2( 0.0302734, -0.566345 )
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomCafe"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Cafe/MouseCollider7"]
@@ -616,7 +631,7 @@ position = Vector2( 4412.46, 865.976 )
 
 [node name="MouseCollider8" type="Area2D" parent="Interactables/Exit"]
 position = Vector2( -2.26416, 4.18445 )
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomExit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Exit/MouseCollider8"]
@@ -627,11 +642,27 @@ position = Vector2( 5281.61, 466.635 )
 
 [node name="MouseCollider9" type="Area2D" parent="Interactables/Terrorist"]
 position = Vector2( 4.10938, 0.922943 )
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 roomSceneName = "RoomTerrorist"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Terrorist/MouseCollider9"]
 position = Vector2( -4.92676, 2.10526 )
 shape = SubResource( 11 )
+
+[node name="Player" type="AnimatedSprite" parent="."]
+material = ExtResource( 3 )
+position = Vector2( 4330, 883.954 )
+scale = Vector2( 2, 2 )
+z_index = 61
+speed_scale = 4.0
+playing = true
+offset = Vector2( 0, -32 )
+script = ExtResource( 23 )
+playerID = 2
+
+[node name="Collider" type="KinematicBody2D" parent="Player"]
+
+[node name="Shape" type="CollisionShape2D" parent="Player/Collider"]
+shape = SubResource( 12 )
 
 [editable path="Interactables/Kiosk/MouseColliderRoom2"]

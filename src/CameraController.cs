@@ -29,14 +29,14 @@ public class CameraController : Camera2D {
 			side = 0;
 		}
 
-		SetPosition (GetGlobalMousePosition () + new Vector2 (speed * (Input.IsMouseButtonPressed (1) ? 2 : 1), 0) * side);
+		SetPosition(GetGlobalMousePosition() + new Vector2(speed * (Input.IsMouseButtonPressed(1) ? 2 : 1), 0) * side);
 	}
 
-	public Vector2 _GetPosition () {
-		return GetPosition ();
+	public Vector2 _GetPosition() {
+		return GetPosition();
 	}
 
-	public void _SetPosition (Vector2 pos) {
-		SetPosition (pos);
+	public void _SetPosition(Vector2 pos) {
+		SetPosition(pos);
 	}
 }

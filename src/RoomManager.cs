@@ -57,7 +57,6 @@ public class RoomManager : Node2D {
 		}
 
 		if (isAirport) {
-
 			newRoomName = "RoomAirport";
 		}
 

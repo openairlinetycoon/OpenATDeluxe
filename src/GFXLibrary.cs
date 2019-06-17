@@ -128,7 +128,16 @@ public class GFXLibrary {
 			c += 4;
 		}
 
-
+		if (colors.Length == 0) {
+			f.Close();
+			GD.PrintErr("Empty Texture! GFX: " + file.name);
+			return null;
+		}
+		if (colors.Length != width * height * 4) {
+			f.Close();
+			GD.PrintErr("Wrong Texture Size! GFX: " + file.name);
+			return null;
+		}
 
 		image.CreateFromData(width, height, false, Image.Format.Rgba8, colors);
 

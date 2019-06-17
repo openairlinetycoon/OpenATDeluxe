@@ -1,16 +1,35 @@
 using Godot;
 using System;
+using System.Text;
 using BinaryWriter = System.IO.BinaryWriter;
 using MemoryStream = System.IO.MemoryStream;
 
 public class BaseFileDecoder {
+	protected string filePath;
+	protected string fileData;
+
 	public const string xtRLEMagic = "xtRLE";
-	private const int KEY_ONE_XTRLE = 0xa5;
-	private const int KEY_TWO_XTRLE = 0x00;
+	protected const int KEY_ONE_XTRLE = 0xa5;
+	protected const int KEY_TWO_XTRLE = 0x00;
+	protected static Encoding BaseEncoding => Encoding.GetEncoding(1252);
 
 	public enum DecodingMethod {
 		None,
 		xtRLE,
+	}
+
+	public BaseFileDecoder(string _filePath) {
+		filePath = _filePath;
+
+		File f = new File();
+		Error e = f.Open(filePath, (int)File.ModeFlags.Read);
+
+		if (e != Error.Ok) {
+			throw new ArgumentException("Error opening file: " + filePath + " - Error " + e.ToString());
+		}
+
+		byte[] data = ReadFile(f);
+		fileData = BaseEncoding.GetString(data);
 	}
 
 	/// <summary>
@@ -25,7 +44,7 @@ public class BaseFileDecoder {
 
 		switch (method) {
 			case (DecodingMethod.None):
-
+				data = fileIn.GetBuffer(fileIn.GetLen());
 				break;
 			case (DecodingMethod.xtRLE):
 				data = DecodeXTRLE(fileIn);
@@ -41,8 +60,8 @@ public class BaseFileDecoder {
 	/// <param name="fileIn">An already opened file</param>
 	/// <returns>If file is an xtRLE file: DecodingMethod.xtRLE; if not DecodingMethod.None</returns>
 	private static DecodingMethod IsXTRLE(File fileIn) {
-		byte[] magic = fileIn.GetBuffer(xtRLEMagic.Length);
-		DecodingMethod method = xtRLEMagic.ToAscii() == magic ? DecodingMethod.xtRLE : DecodingMethod.None;
+		string magic = Encoding.UTF8.GetString(fileIn.GetBuffer(xtRLEMagic.Length));
+		DecodingMethod method = (xtRLEMagic == magic) ? DecodingMethod.xtRLE : DecodingMethod.None;
 		fileIn.Seek(0); //Go back to the start of the file
 		return method;
 	}

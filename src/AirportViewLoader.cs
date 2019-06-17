@@ -45,8 +45,13 @@ public class AirportViewLoader : Node {
 				if (values.Length == 0)
 					continue; //Empty line!
 
+				if (values[0] == "-")
+					continue; //Other data belonging to the prev. clan - skipped for now
+
 				long id = Convert.ToInt32(values[0]);
 				string fileName = values[15];
+
+				bool hasLuggage = Convert.ToInt32(values[0]) > 0;
 
 				if (fileName.Contains(' ') || fileName.Contains(':')) {
 					//We can't "really" process ranges yet! TODO

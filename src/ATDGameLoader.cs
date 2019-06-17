@@ -7,6 +7,7 @@ using Thread = System.Threading.Thread;
 using System.Diagnostics;
 
 public class ATDGameLoader : Node2D {
+	private const int FileSystemVersion = 1; //What version is the current file decrypter. For forced rebuilds on changes
 	private const string PackFile = "ATDFiles.pck";
 	private const string ImagesPath = "res://Images";
 	public Label loadInfo;
@@ -29,11 +30,34 @@ public class ATDGameLoader : Node2D {
 	public override void _Ready() {
 		loadInfo = GetNode<Label>("LoadInfo");
 
-		isInEditor = Engine.EditorHint;
+		GFXLibrary.pathToAirlineTycoonD = (string)ProjectSettings.GetSetting("application/config/atd_path");
+
+		isInEditor = OS.IsDebugBuild();
+
+		if (isInEditor) {
+			File f = new File();
+
+			File.ModeFlags flag = File.ModeFlags.ReadWrite;
+
+			if (!f.FileExists("res://Images/version.txt"))
+				flag = File.ModeFlags.WriteRead;
+
+			f.Open("res://Images/version.txt", (int)flag);
+
+			int currentVersion = f.Get32();
+
+			forceRebuild = (currentVersion != FileSystemVersion);
+
+			f.Seek(0);
+			f.Store32(FileSystemVersion);
+
+			f.Close();
+		}
 
 		if (forceRebuild || (!System.IO.File.Exists(PackFile) && !Directory.Exists(ProjectSettings.GlobalizePath(ImagesPath)))) {
 			selectATDPath = GetNode<FileDialog>("FileDialog"); //Get the path to the ATD install
 			selectATDPath.Connect("dir_selected", this, nameof(ChoseFile));
+			selectATDPath.GetCancel().Connect("button_down", this, nameof(ExitGame));
 			selectATDPath.PopupCentered(new Vector2(500, 500));
 
 			directoryInvalidDialog = GetNode<AcceptDialog>("DirectoryInvalid");
@@ -48,6 +72,9 @@ public class ATDGameLoader : Node2D {
 
 			//GetTree().ChangeScene("res://scenes/base.tscn");
 		}
+
+
+		LoadOtherData();
 	}
 
 	public override void _Process(float delta) {
@@ -86,6 +113,11 @@ public class ATDGameLoader : Node2D {
 
 	}
 
+	public void ExitGame() {
+		selectATDPath.GetCloseButton().
+		GetTree().Quit();
+	}
+
 	public void ChoseFile(string dir) {
 		if (!System.IO.File.Exists(dir + "/gli/glbasis.gli")) { //Basic check to see if we are inside the ATD folder
 			GD.PrintErr("INVALID PATH CHOSEN, CAN'T FIND glbasis.gli IN SUBFOLDER gli!");
@@ -93,9 +125,10 @@ public class ATDGameLoader : Node2D {
 			return;
 		}
 
+		ProjectSettings.SetSetting("application/config/atd_path", dir);
 		GFXLibrary.pathToAirlineTycoonD = dir;
 
-		Thread t = new Thread(LoadData);
+		Thread t = new Thread(CreateData);
 		t.Name = "DataLoader";
 
 		t.Start();
@@ -105,7 +138,24 @@ public class ATDGameLoader : Node2D {
 		selectATDPath.PopupCentered(new Vector2(500, 500)); //try try and try again
 	}
 
-	public void LoadData() {
+
+	public void LoadOtherData() {
+		string[] midFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.mid");
+		string[] oggFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.ogg");
+
+		if (oggFiles.Length != 0) { //OGG Files are preffered, as there currently is only a buggy Midi player available
+			MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Ogg);
+			MusicController.isOgg = true;
+		} else {
+			MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Mid);
+		}
+
+		ClanCSVFile clanFile = new ClanCSVFile(GFXLibrary.pathToAirlineTycoonD + "/data/clan.csv");
+		CSVFileDecoder decoder = new CSVFileDecoder(GFXLibrary.pathToAirlineTycoonD + "/data/brick.csv");
+	}
+
+	public void CreateData() {
+
 		// Code to decrypt the .csv files -- Not needed for now!
 		// BaseFileDecoder d = new BaseFileDecoder();
 		// File n = new File();
@@ -163,7 +213,7 @@ public class ATDGameLoader : Node2D {
 
 		//Should only be needed when we are not in the editor, but adding it doesnt hurt us, even if the file isn't present
 		bool s = ProjectSettings.LoadResourcePack(PackFile);
-		GetTree().ChangeScene("res://scenes/base.tscn");
+		GetTree().ChangeScene("res://scenes/base.tscn"); //No need for the interactive loader, everything is already in memory!
 	}
 
 	/// <summary>
@@ -233,10 +283,14 @@ public class ATDGameLoader : Node2D {
 
 			currentFile = fileName;
 
-			GD.Print(filePath);
-			GD.Print(fileGodotPath);
+			//GD.Print(filePath);
+			//GD.Print(fileGodotPath);
 
-			ResourceSaver.Save(filePath, file.GetTexture(), (int)ResourceSaver.SaverFlags.Compress);
+			Texture resource = file.GetTexture();
+			if (resource == null)
+				continue;
+
+			ResourceSaver.Save(filePath, resource, (int)ResourceSaver.SaverFlags.Compress);
 
 			if (packFiles)
 				p.AddFile(fileGodotPath, filePath);

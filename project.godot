@@ -18,6 +18,7 @@ _global_script_class_icons={
 config/name="OpenATD"
 run/main_scene="res://scenes/load.tscn"
 config/icon="res://icon.png"
+config/atd_path="P:\\Projekte\\Major Games\\BASE\\ATD"
 
 [display]
 
@@ -25,6 +26,15 @@ window/size/width=1920
 window/size/height=1080
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "midi" )
+
+[mono]
+
+profiler/args="default:alloc,output=output.mlpd"
+profiler/enabled=true
 
 [rendering]
 

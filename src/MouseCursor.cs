@@ -83,8 +83,11 @@ public class MouseCursor : Node2D {
 			InputEventMouseButton mouse = e as InputEventMouseButton;
 
 			if (mouse.IsPressed()) {
-				if (currentHover != null) {
+				if (currentHover != null && movingCamera == 0) {
 					currentHover.OnClick();
+				} else if (PlayerCharacter.instance != null && RoomManager.currentRoom == "RoomAirport") {
+					//SET MOVING WAYPOINT
+					PlayerCharacter.instance.SetPath(CameraController.airportCamera.GetGlobalMousePosition());
 				}
 				//         if (currentTexture < lib.filesInLibrary) {
 

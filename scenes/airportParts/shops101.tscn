@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://Images/gli/glbrick/FLOOR_C.res" type="Texture" id=1]
 [ext_resource path="res://Images/gli/glbrick/FLOOR_A.res" type="Texture" id=2]
@@ -84,6 +84,11 @@
 [ext_resource path="res://Images/gli/glbrick/OFFICEB.res" type="Texture" id=82]
 [ext_resource path="res://Images/gli/glbrick/DURCHL04.res" type="Texture" id=83]
 [ext_resource path="res://Images/gli/glbrick/PLANT06.res" type="Texture" id=84]
+
+[sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 990, 240, 1030, 240, 1020, 260, 990, 250, 1150, 410, 270, 410, 270, 320, 320, 320, 320, 290, 350, 290, 350, 320, 390, 320, 390, 290, 450, 290, 450, 320, 570, 320, 1150, 310, 1120, 310, 570, 290, 690, 290, 690, 310, 820, 310, 820, 300, 920, 300, 1080, 260, 1080, 250, 1120, 250, 950, 250, 1440, 110, 1470, 110, 1450, 150, 1430, 140, 190, 150, 220, 140, 200, 130, 220, 130 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7 ), PoolIntArray( 7, 8, 9, 10 ), PoolIntArray( 4, 7, 10 ), PoolIntArray( 4, 10, 11 ), PoolIntArray( 11, 12, 13, 14 ), PoolIntArray( 4, 11, 14 ), PoolIntArray( 4, 14, 15 ), PoolIntArray( 16, 4, 15, 17 ), PoolIntArray( 15, 18, 19, 20 ), PoolIntArray( 21, 22, 23, 17 ), PoolIntArray( 24, 25, 26, 17 ), PoolIntArray( 23, 27, 3, 2, 17 ), PoolIntArray( 2, 24, 17 ), PoolIntArray( 21, 17, 15 ), PoolIntArray( 21, 15, 20 ), PoolIntArray( 28, 29, 30, 31 ), PoolIntArray( 31, 30, 32, 33 ), PoolIntArray( 33, 32, 34, 35 ) ]
+outlines = [ PoolVector2Array( 1150, 410, 1150, 310, 1120, 310, 1120, 250, 1080, 250, 1080, 260, 1020, 260, 1030, 240, 990, 240, 990, 250, 950, 250, 920, 300, 820, 300, 820, 310, 690, 310, 690, 290, 570, 290, 570, 320, 450, 320, 450, 290, 390, 290, 390, 320, 350, 320, 350, 290, 320, 290, 320, 320, 270, 320, 270, 410 ), PoolVector2Array( 200, 130, 190, 150, 1450, 150, 1470, 110, 1440, 110, 1430, 140, 220, 140, 220, 130 ) ]
 
 [node name="shops101" type="Node2D"]
 
@@ -828,115 +833,115 @@ centered = false
 
 [node name="RAIL3 123" type="Sprite" parent="."]
 position = Vector2( 182, 76 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 68 )
 centered = false
 
 [node name="RAIL5 124" type="Sprite" parent="."]
 position = Vector2( 1466, 73 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 69 )
 centered = false
 
 [node name="RAIL6 125" type="Sprite" parent="."]
 position = Vector2( 1458, 75 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 70 )
 centered = false
 
 [node name="RAIL2 126" type="Sprite" parent="."]
 position = Vector2( 176, 97 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 71 )
 centered = false
 
 [node name="RAIL1 127" type="Sprite" parent="."]
 position = Vector2( 223, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 128" type="Sprite" parent="."]
 position = Vector2( 311, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 129" type="Sprite" parent="."]
 position = Vector2( 399, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 130" type="Sprite" parent="."]
 position = Vector2( 487, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 131" type="Sprite" parent="."]
 position = Vector2( 575, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 132" type="Sprite" parent="."]
 position = Vector2( 663, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 133" type="Sprite" parent="."]
 position = Vector2( 751, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 134" type="Sprite" parent="."]
 position = Vector2( 839, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 135" type="Sprite" parent="."]
 position = Vector2( 927, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 136" type="Sprite" parent="."]
 position = Vector2( 1015, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 137" type="Sprite" parent="."]
 position = Vector2( 1103, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 138" type="Sprite" parent="."]
 position = Vector2( 1191, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 139" type="Sprite" parent="."]
 position = Vector2( 1279, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL1 140" type="Sprite" parent="."]
 position = Vector2( 1363, 117 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 72 )
 centered = false
 
 [node name="RAIL7 141" type="Sprite" parent="."]
 position = Vector2( 1418, 97 )
-z_index = 60
+z_index = 65
 texture = ExtResource( 73 )
 centered = false
 
@@ -1508,3 +1513,7 @@ position = Vector2( 497, 65 )
 z_index = 52
 texture = ExtResource( 46 )
 centered = false
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+z_index = 4096
+navpoly = SubResource( 1 )
