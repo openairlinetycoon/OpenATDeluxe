@@ -58,8 +58,11 @@
     <Compile Include="src\Characters\AnimationData.cs" />
     <Compile Include="src\Characters\BaseCharacter.cs" />
     <Compile Include="src\Characters\PlayerCharacter.cs" />
+    <Compile Include="src\CharacterItem.cs" />
     <Compile Include="src\ClanCSVFile.cs" />
     <Compile Include="src\CameraController.cs" />
+    <Compile Include="src\GameController.cs" />
+    <Compile Include="src\MainMenu.cs" />
     <Compile Include="src\MouseArea.cs" />
     <Compile Include="src\MouseAreaRoom.cs" />
     <Compile Include="src\MouseCursor.cs" />

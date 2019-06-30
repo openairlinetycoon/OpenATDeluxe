@@ -49,6 +49,8 @@ public class MouseCursor : Node2D {
 		if (area != null) {
 			currentHover = area;
 			ChangeMouseState(area.isExitToAirport ? MouseState.Exit : MouseState.Hover);
+		} else {
+			ChangeMouseState(MouseState.Hover);
 		}
 	}
 
@@ -56,8 +58,9 @@ public class MouseCursor : Node2D {
 		MouseArea area = other as MouseArea;
 		if (area != null && area == currentHover) {
 			currentHover = null;
-			ChangeMouseState(MouseState.Normal);
 		}
+
+		ChangeMouseState(MouseState.Normal);
 	}
 
 
@@ -78,7 +81,7 @@ public class MouseCursor : Node2D {
 
 	int currentTexture = 0;
 
-	public override void _Input(InputEvent e) {
+	public override void _UnhandledInput(InputEvent e) {
 		if (e is InputEventMouseButton) {
 			InputEventMouseButton mouse = e as InputEventMouseButton;
 

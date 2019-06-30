@@ -27,7 +27,6 @@ public class RoomManager : Node2D {
 		//LoadRooms(); --FIXME: godot can't find the "res://scenes/rooms/" folder reliably
 
 		instance = this;
-		ChangeRoom("", isAirport: true);
 	}
 
 
@@ -87,6 +86,9 @@ public class RoomManager : Node2D {
 	}
 
 	private static CameraController GetCameraControllerInCurrentRoom() {
+		if (currentRoomNode == null)
+			return null;
+
 		CameraController cam;
 		foreach (Node child in currentRoomNode.GetChildren()) {
 			cam = child as CameraController;

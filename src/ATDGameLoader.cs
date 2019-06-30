@@ -10,6 +10,7 @@ public class ATDGameLoader : Node2D {
 	private const int FileSystemVersion = 1; //What version is the current file decrypter. For forced rebuilds on changes
 	private const string PackFile = "ATDFiles.pck";
 	private const string ImagesPath = "res://Images";
+	private const string ATDPathConfig = "application/config/atd_path";
 	public Label loadInfo;
 	public FileDialog selectATDPath;
 	public AcceptDialog directoryInvalidDialog;
@@ -30,7 +31,7 @@ public class ATDGameLoader : Node2D {
 	public override void _Ready() {
 		loadInfo = GetNode<Label>("LoadInfo");
 
-		GFXLibrary.pathToAirlineTycoonD = (string)ProjectSettings.GetSetting("application/config/atd_path");
+		GFXLibrary.pathToAirlineTycoonD = (string)ProjectSettings.GetSetting(ATDPathConfig);
 
 		isInEditor = OS.IsDebugBuild();
 
@@ -46,9 +47,8 @@ public class ATDGameLoader : Node2D {
 
 			int currentVersion = f.Get32();
 
-			forceRebuild = (currentVersion != FileSystemVersion);
+			forceRebuild = forceRebuild ? forceRebuild : (currentVersion != FileSystemVersion);
 
-			f.Seek(0);
 			f.Store32(FileSystemVersion);
 
 			f.Close();
@@ -66,6 +66,7 @@ public class ATDGameLoader : Node2D {
 			if (!isInEditor) {
 				ProjectSettings.LoadResourcePack(PackFile); //If we are not in the editor: we need to add the ATDFiles
 			}
+			LoadOtherData();
 
 			SetProcess(true);
 			gameLoader = ResourceLoader.LoadInteractive("res://scenes/base.tscn");
@@ -74,7 +75,6 @@ public class ATDGameLoader : Node2D {
 		}
 
 
-		LoadOtherData();
 	}
 
 	public override void _Process(float delta) {
@@ -100,7 +100,8 @@ public class ATDGameLoader : Node2D {
 
 				var root = GetTree().GetRoot();
 				root.GetChild(root.GetChildCount() - 1).QueueFree();
-				root.AddChild(((PackedScene)newScene).Instance());
+				Node node = ((PackedScene)newScene).Instance();
+				root.AddChild(node);
 				return;
 				//ChangeScene("res://scenes/base.tscn");
 
@@ -125,7 +126,8 @@ public class ATDGameLoader : Node2D {
 			return;
 		}
 
-		ProjectSettings.SetSetting("application/config/atd_path", dir);
+		ProjectSettings.SetSetting(ATDPathConfig, dir);
+		ProjectSettings.Save();
 		GFXLibrary.pathToAirlineTycoonD = dir;
 
 		Thread t = new Thread(CreateData);
@@ -165,6 +167,9 @@ public class ATDGameLoader : Node2D {
 		// 	System.IO.File.WriteAllBytes(f + "s",d.ReadFile(n));
 		// 	n.Close();
 		// }
+
+		LoadOtherData();
+
 		LoadImages();
 	}
 

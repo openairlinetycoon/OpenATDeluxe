@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 
 public class MusicController : Node {
+	public static MusicController instance;
 	public static Song[] musicFiles;
 	public static bool isOgg;
 	int currentSong = 7;
@@ -28,6 +29,8 @@ public class MusicController : Node {
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
+		instance = this;
+
 		if (musicFiles.Length == 0)
 			SetProcess(false);
 
@@ -39,20 +42,24 @@ public class MusicController : Node {
 	public override void _Process(float delta) {
 		if (HasSongFinished()) {
 			NextSong();
-			string song = musicFiles[currentSong].name;
-			if ((song == "title" || song == "at2") && isInMainMenu == false) //is main menu song?
-				NextSong();
+			PlaySong();
+		}
+	}
 
-			song = musicFiles[currentSong].name;
-			Song.SongTypes type = musicFiles[currentSong].type;
+	private void PlaySong() {
+		string song = musicFiles[currentSong].name;
+		if ((song == "title" || song == "at2") && isInMainMenu == false) //is main menu song?
+			NextSong();
 
-			if (type == Song.SongTypes.Ogg) {
-				oggPlayer.SetStream(musicFiles[currentSong].oggData);
-				oggPlayer.Play();
-			} else if (type == Song.SongTypes.Mid) {
-				midiPlayer.Call("set_file", musicFiles[currentSong]);
-				midiPlayer.Call("play", 0);
-			}
+		song = musicFiles[currentSong].name;
+		Song.SongTypes type = musicFiles[currentSong].type;
+
+		if (type == Song.SongTypes.Ogg) {
+			oggPlayer.SetStream(musicFiles[currentSong].oggData);
+			oggPlayer.Play();
+		} else if (type == Song.SongTypes.Mid) {
+			midiPlayer.Call("set_file", musicFiles[currentSong]);
+			midiPlayer.Call("play", 0);
 		}
 	}
 
@@ -61,6 +68,16 @@ public class MusicController : Node {
 			return !oggPlayer.Playing;
 		} else {
 			return !IsMidiPlaying;
+		}
+	}
+
+	public void SetSong(string name) {
+		for (int i = 0; i < musicFiles.Length; i++) {
+			if (musicFiles[i].name == name) {
+				currentSong = i;
+				PlaySong();
+			}
+
 		}
 	}
 
