@@ -99,7 +99,9 @@ public class MainMenu : Node2D {
 
 				new MenuItem(
 					"Free Game",
-					MenuItem.EntryType.Link) {OnClick = ()=>RoomManager.ChangeRoom("", true)},
+					MenuItem.EntryType.Link) {OnClick = ()=>{
+						RoomManager.ChangeRoom("", true);
+						GameController.instance.SetTaskbar(true);}},
 				new MenuItem(
 					"Campaigns",
 					MenuItem.EntryType.LinkBlocked),

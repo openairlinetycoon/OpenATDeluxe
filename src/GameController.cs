@@ -5,7 +5,7 @@ public class GameController : Node2D {
 	public static GameController instance;
 
 	public void SetTaskbar(bool toggle) {
-		taskbar.SetVisible(false);
+		taskbar.SetVisible(toggle);
 	}
 
 
