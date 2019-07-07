@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Directory = System.IO.Directory;
 using Thread = System.Threading.Thread;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 public class ATDGameLoader : Node2D {
 	private const int FileSystemVersion = 1; //What version is the current file decrypter. For forced rebuilds on changes
@@ -21,8 +22,11 @@ public class ATDGameLoader : Node2D {
 	bool forceRebuild = false;
 	bool isInEditor;
 
+	static bool otherDataLoaded;
+
 	ResourceInteractiveLoader gameLoader;
 
+	static volatile string otherLoading;
 	static volatile string currentFolder;
 	static volatile string currentLibrary;
 	static volatile string currentFile;
@@ -94,7 +98,7 @@ public class ATDGameLoader : Node2D {
 		while (OS.GetTicksMsec() < time + 100) {
 			Error state = gameLoader.Poll();
 
-			if (state == Error.FileEof) {
+			if (state == Error.FileEof && AllDataLoaded()) {
 				Resource newScene = gameLoader.GetResource();
 				gameLoader = null;
 
@@ -105,6 +109,8 @@ public class ATDGameLoader : Node2D {
 				return;
 				//ChangeScene("res://scenes/base.tscn");
 
+			} else if (state == Error.FileEof) {
+				loadInfo.SetText("Loading " + otherLoading + "...");
 			} else if (state == Error.Ok) {
 				int progress = 100 / gameLoader.GetStageCount() * gameLoader.GetStage();
 				loadInfo.SetText("Loading scene: " + progress + "%");
@@ -112,6 +118,10 @@ public class ATDGameLoader : Node2D {
 		}
 
 
+	}
+
+	private bool AllDataLoaded() {
+		return otherDataLoaded;
 	}
 
 	public void ExitGame() {
@@ -142,18 +152,33 @@ public class ATDGameLoader : Node2D {
 
 
 	public void LoadOtherData() {
-		string[] midFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.mid");
-		string[] oggFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.ogg");
+		Task.Run(() =>
+		{
+			otherLoading = "Music";
+			string[] midFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.mid");
+			string[] oggFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.ogg");
 
-		if (oggFiles.Length != 0) { //OGG Files are preffered, as there currently is only a buggy Midi player available
-			MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Ogg);
-			MusicController.isOgg = true;
-		} else {
-			MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Mid);
-		}
+			if (oggFiles.Length != 0) { //OGG Files are preffered, as there currently is only a buggy Midi player available
+				MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Ogg);
+				MusicController.isOgg = true;
+			} else {
+				MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Mid);
+			}
 
-		ClanCSVFile clanFile = new ClanCSVFile(GFXLibrary.pathToAirlineTycoonD + "/data/clan.csv");
-		CSVFileDecoder decoder = new CSVFileDecoder(GFXLibrary.pathToAirlineTycoonD + "/data/brick.csv");
+			otherLoading = "Clan CSV";
+			ClanCSVFile clanFile = new ClanCSVFile(GFXLibrary.pathToAirlineTycoonD + "/data/clan.csv");
+
+			otherLoading = "Brick CSV";
+			CSVFileDecoder decoder = new CSVFileDecoder(GFXLibrary.pathToAirlineTycoonD + "/data/brick.csv");
+
+
+			//otherLoading = "Localization Data";
+			//LocalizationManager.LoadLocalizationData();
+			//This is only there to compile the localization.csv, we don't need it every run.
+
+			otherLoading = "";
+			otherDataLoaded = true;
+		});
 	}
 
 	public void CreateData() {
