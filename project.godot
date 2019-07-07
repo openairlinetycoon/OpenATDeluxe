@@ -31,6 +31,11 @@ window/stretch/aspect="keep"
 
 enabled=PoolStringArray( "midi" )
 
+[locale]
+
+translations=PoolStringArray( "res://localization/localization.de.translation", "res://localization/localization.en.translation", "res://localization/localization.es.translation", "res://localization/localization.fr.translation", "res://localization/localization.it.translation", "res://localization/localization.nl.translation", "res://localization/localization.pt.translation", "res://localization/localization.pt_BR.translation" )
+locale_filter=[ 1, [  ] ]
+
 [mono]
 
 profiler/args="default:alloc,output=output.mlpd"

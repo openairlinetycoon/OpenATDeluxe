@@ -62,6 +62,8 @@
     <Compile Include="src\ClanCSVFile.cs" />
     <Compile Include="src\CameraController.cs" />
     <Compile Include="src\GameController.cs" />
+    <Compile Include="src\Localization\LocalizationManager.cs" />
+    <Compile Include="src\Localization\LocalizedString.cs" />
     <Compile Include="src\MainMenu.cs" />
     <Compile Include="src\MouseArea.cs" />
     <Compile Include="src\MouseAreaRoom.cs" />

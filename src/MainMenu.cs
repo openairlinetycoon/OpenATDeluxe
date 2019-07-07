@@ -63,14 +63,14 @@ public class MainMenu : Node2D {
 		exceptions.Add('\'', "ANF1");
 		exceptions.Add('"', "ANF2");
 		exceptions.Add('!', "AUSR");
-		exceptions.Add('~', "BULL");
+		exceptions.Add('~', "KREUZ");
 		exceptions.Add(':', "DPKT");
 		exceptions.Add('?', "FRAGE");
 		exceptions.Add('=', "GLCH");
 		exceptions.Add('(', "KLA");
 		exceptions.Add(')', "KLZ");
 		exceptions.Add(',', "KOMMA");
-		exceptions.Add('#', "KREUZ");
+		exceptions.Add('#', "BULL");
 		exceptions.Add('<', "LESS");
 		exceptions.Add('*', "MAL");
 		exceptions.Add('-', "MINUS");
@@ -81,6 +81,7 @@ public class MainMenu : Node2D {
 		exceptions.Add(';', "SEMI");
 		exceptions.Add('/', "SLASH");
 		exceptions.Add(' ', "SP");
+		exceptions.Add('Ü', "UE");
 	}
 
 	private void PopulateMenuScenes() {
@@ -91,52 +92,52 @@ public class MainMenu : Node2D {
 			SceneName.MainMenu,
 			new List<MenuItem>() {
 				new MenuItem(
-					"Main Menu:",
+					Tr("NewG>500"), //Main Menu:
 					MenuItem.EntryType.Header),
 				new MenuItem(
 					"",
 					MenuItem.EntryType.HeaderBar),
 
 				new MenuItem(
-					"Free Game",
+					"# "+Tr("NewG>501"), // # Free Game
 					MenuItem.EntryType.Link) {OnClick = ()=>{
 						RoomManager.ChangeRoom("", true);
 						GameController.instance.SetTaskbar(true);}},
 				new MenuItem(
-					"Campaigns",
+					Tr("NewG>515"),//Campaigns
 					MenuItem.EntryType.LinkBlocked),
 				new MenuItem(
-					"Network Game",
+					Tr("NewG>514"),//Network Game
 					MenuItem.EntryType.LinkBlocked),
 				new MenuItem(
-					"Load Game!",
+					Tr("NewG>506"), //Load Game
 					MenuItem.EntryType.LinkBlocked),
 
 				new MenuItem(),
 
 				new MenuItem(
-					"Home Airport",
+					Tr("NewG>504"), //Home Airport
 					MenuItem.EntryType.LinkBlocked),
 				new MenuItem(
-					"Options",
+					Tr("NewG>507"), //Options
 					MenuItem.EntryType.Link) {SceneToChangeTo = SceneName.Settings},
 
 				new MenuItem(),
 
 				new MenuItem(
-					"Intro",
+					Tr("NewG>505"), //Intro
 					MenuItem.EntryType.LinkBlocked),
 				new MenuItem(
-					"Credits",
+					Tr("NewG>508"), //Credits
 					MenuItem.EntryType.LinkBlocked),
 				new MenuItem(
-					"Highscores",
+					Tr("NewG>509"), //Highscores
 					MenuItem.EntryType.LinkBlocked),
 
 				new MenuItem(),
 
 				new MenuItem(
-					"Quit Game!",
+					Tr("NewG>510"), //Quit Game
 					MenuItem.EntryType.Link)  {SceneToChangeTo = SceneName.MainMenu},
 			});
 		menuScenes.Add(
@@ -167,6 +168,9 @@ public class MainMenu : Node2D {
 		for (int line = 0; line < scene.Count; line++) {
 			string text = scene[line].text;
 			for (int x = 0; x < text.Length; x++) {
+				if (x >= MaxTextLength)
+					break;
+
 				string output = CheckExceptions(text[x]);
 
 				Sprite s = CreateTextSprite(scene[line], output);
@@ -393,7 +397,7 @@ public class MenuItem {
 					break;
 				case (EntryType.Link):
 				case (EntryType.LinkBlocked):
-					this.text = " ~ " + text;
+					this.text = " " + text;
 					break;
 
 			}
