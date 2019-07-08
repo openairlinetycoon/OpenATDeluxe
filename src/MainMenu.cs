@@ -29,7 +29,12 @@ public class MainMenu : Node2D {
 
 	public enum SceneName {
 		MainMenu,
+
 		Settings,
+		Graphics,
+		Sound,
+		Other,
+
 		FreeGame,
 		Campaign,
 	}
@@ -144,7 +149,7 @@ public class MainMenu : Node2D {
 			SceneName.Settings,
 			new List<MenuItem>() {
 				new MenuItem(
-					"Settings",
+					Tr("Misc>4000"),
 					MenuItem.EntryType.Header
 				),
 				new MenuItem(
@@ -152,20 +157,169 @@ public class MainMenu : Node2D {
 					MenuItem.EntryType.HeaderBar
 				),
 				new MenuItem(
-					"< Back",
+					Tr("Misc>4001"), //Graphics
+					MenuItem.EntryType.Link
+				)   {SceneToChangeTo = SceneName.Graphics},
+				new MenuItem(
+					Tr("Misc>4002"), //Sound
+					MenuItem.EntryType.Link
+				)   {SceneToChangeTo = SceneName.Sound},
+				new MenuItem(
+					Tr("Misc>4003"), //Other
+					MenuItem.EntryType.Link
+				)   {SceneToChangeTo = SceneName.Other},
+				new MenuItem(),
+				new MenuItem(
+					Tr("Misc>4007"), //Ok
 					MenuItem.EntryType.MoveLeft
 				)   {SceneToChangeTo = SceneName.MainMenu},
+			});
+		menuScenes.Add(
+			SceneName.Graphics,
+			new List<MenuItem>() {
 				new MenuItem(
-					"Next >",
-					MenuItem.EntryType.MoveRight
-				)
+					Tr("Misc>4010"),
+					MenuItem.EntryType.Header
+				),
+				new MenuItem(
+					"",
+					MenuItem.EntryType.HeaderBar
+				),
+				new MenuItem(
+					Tr("Misc>4011"), //Planes
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4013"), //PASSENGERS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4015"), //BLINDS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4017"), //ROOM DETAILS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4020"), //THOUGHTS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4022"), //SCROLLINT
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4024"), //TRANSPARENCY
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4026"), //SHADOWS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(),
+				new MenuItem(
+					Tr("Misc>4007"), //Ok
+					MenuItem.EntryType.MoveLeft
+				)   {SceneToChangeTo = SceneName.Settings},
+			});
+		menuScenes.Add(
+			SceneName.Sound,
+			new List<MenuItem>() {
+				new MenuItem(
+					Tr("Misc>4120"),
+					MenuItem.EntryType.Header
+				),
+				new MenuItem(
+					"",
+					MenuItem.EntryType.HeaderBar
+				),
+				new MenuItem(
+					Tr("Misc>4121"), //Planes
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					"", //Planes
+					MenuItem.EntryType.Slider
+				),
+				new MenuItem(
+					Tr("Misc>4122"), //PASSENGERS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					"", //Planes
+					MenuItem.EntryType.Slider
+				),
+				new MenuItem(
+					Tr("Misc>4123"), //BLINDS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					"", //Planes
+					MenuItem.EntryType.Slider
+				),
+				new MenuItem(
+					Tr("Misc>4124"), //ROOM DETAILS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					"", //Planes
+					MenuItem.EntryType.Slider
+				),
+				new MenuItem(
+					Tr("Misc>4125"), //THOUGHTS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					"", //Planes
+					MenuItem.EntryType.Slider
+				),
+				new MenuItem(
+					Tr("Misc>4126"), //SCROLLINT
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					"", //Planes
+					MenuItem.EntryType.Slider
+				),
+				new MenuItem(
+					Tr("Misc>4127"), //TRANSPARENCY
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					"", //Planes
+					MenuItem.EntryType.Slider
+				),
+				new MenuItem(
+					Tr("Misc>4130"), //SHADOWS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4132"), //SHADOWS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4140"), //SHADOWS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4150"), //SHADOWS
+					MenuItem.EntryType.Link
+				),
+				new MenuItem(
+					Tr("Misc>4007"), //Ok
+					MenuItem.EntryType.MoveLeft
+				)   {SceneToChangeTo = SceneName.Settings},
 			});
 
 	}
 
 	private void PrepareMenuScene(SceneName name) {
 		List<MenuItem> scene = menuScenes[name];
+		int lineSkips = 0;
 		for (int line = 0; line < scene.Count; line++) {
+			if (scene[line].type == MenuItem.EntryType.Slider)
+				lineSkips++;
 			string text = scene[line].text;
 			for (int x = 0; x < text.Length; x++) {
 				if (x >= MaxTextLength)
@@ -175,10 +329,13 @@ public class MainMenu : Node2D {
 
 				Sprite s = CreateTextSprite(scene[line], output);
 
-				int xPos = x, yPos = line;
+				int xPos = x, yPos = line - lineSkips;
 				switch (scene[line].type) {
 					case MenuItem.EntryType.MoveLeft:
 						yPos = grid.GetUpperBound(1);
+						break;
+					case MenuItem.EntryType.Slider:
+						xPos = grid.GetUpperBound(0) - text.Length + x + 1;
 						break;
 					case MenuItem.EntryType.MoveRight:
 						yPos = grid.GetUpperBound(1);
@@ -186,8 +343,12 @@ public class MainMenu : Node2D {
 						break;
 				}
 
+				if (xPos >= MaxTextLength)
+					break;
+
 				grid[xPos, yPos].AddChild(s);
 				((CharacterItem)grid[xPos, yPos]).AssignedMenuItem = scene[line];
+				((CharacterItem)grid[xPos, yPos]).character = output;
 				//grid[x, line].Connect("mouse_entered", grid[x, line], "OnMouseEnter");
 				//((CharacterItem)grid[x, line]).OnMouseEnter();
 
@@ -203,6 +364,7 @@ public class MainMenu : Node2D {
 		foreach (Control g in grid) {
 			CharacterItem characterItem = (g as CharacterItem);
 			characterItem.AssignedMenuItem = null;
+			characterItem.character = "";
 
 			if (characterItem.IsConnected("mouse_entered", g, "MouseEntered")) {
 				characterItem.Disconnect("mouse_entered", g, "MouseEntered");
@@ -212,6 +374,8 @@ public class MainMenu : Node2D {
 			if (g.GetChildCount() == 1)
 				g.GetChild(0)?.QueueFree();
 		}
+
+		MouseCursor.instance.ChangeMouseState(MouseCursor.MouseState.Normal);
 
 		PrepareMenuScene(name);
 	}
@@ -350,6 +514,7 @@ public class MenuItem {
 	public enum EntryType {
 		Undefined,
 		Space,
+		Slider, //Eg. volume - INLINE
 		Link,
 		LinkBlocked,
 		MoveLeft,
@@ -362,6 +527,7 @@ public class MenuItem {
 	public EntryType type = EntryType.Undefined;
 
 	public Action OnClick;
+	public Action<string> OnClickSpecial;
 
 	private MainMenu.SceneName _sceneToChangeTo;
 	public MainMenu.SceneName SceneToChangeTo {
@@ -385,6 +551,9 @@ public class MenuItem {
 		this.text = text;
 		OnClick = onClick;
 	}
+	public MenuItem(EntryType type) : this("", type, true) {
+
+	}
 
 	public MenuItem(string text, EntryType type, bool fillWithType = true) {
 		this.text = text;
@@ -400,7 +569,15 @@ public class MenuItem {
 					this.text = " " + text;
 					break;
 
+				case (EntryType.Slider):
+					this.text = "---~--- ";
+					break;
+
 			}
+		}
+
+		if (type == EntryType.Slider) {
+
 		}
 
 		OnClick = null;

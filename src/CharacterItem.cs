@@ -2,6 +2,7 @@ using Godot;
 
 public class CharacterItem : Control {
 	private MenuItem assignedMenuItem;
+	public string character = "";
 
 	public MenuItem AssignedMenuItem {
 		get => assignedMenuItem;
@@ -26,8 +27,10 @@ public class CharacterItem : Control {
 		InputEventMouseButton mouse = e as InputEventMouseButton;
 
 		if (mouse != null && AssignedMenuItem != null) {
-			if (mouse.Pressed && mouse.ButtonIndex == (int)ButtonList.Left)
-				AssignedMenuItem.OnClick?.Invoke();
+			if (mouse.Pressed && mouse.ButtonIndex == (int)ButtonList.Left) {
+				AssignedMenuItem?.OnClick?.Invoke();
+				AssignedMenuItem?.OnClickSpecial?.Invoke(character);
+			}
 		}
 	}
 }
