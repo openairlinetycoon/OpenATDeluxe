@@ -436,6 +436,7 @@ public class MainMenu : Node2D {
 			AddChild(p);
 			p.SetStream(audioFiles[r.Next(0, 2)]);
 			p.Play();
+			p.SetBus("soundFX");
 			await Task.Delay(60);
 		}
 

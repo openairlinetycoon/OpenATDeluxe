@@ -8,14 +8,14 @@ public class RoomManager : Node2D {
 	public static string currentRoom;
 	public static Node2D currentRoomNode;
 
-	private static Vector2 roomPosition;
+	public static Vector2 roomPosition;
 
 	[Export] //--FIXME: It should be automated!
 	public Godot.Collections.Array _rooms;
 	private static Dictionary<string, PackedScene> rooms;
 
 	public override void _Ready() {
-		roomPosition = new Vector2(4448, 0);
+		roomPosition = new Vector2(4330, 880);
 
 
 		rooms = new Dictionary<string, PackedScene>();
@@ -49,11 +49,11 @@ public class RoomManager : Node2D {
 	}
 
 	public static void ChangeRoom(string newRoomName, bool isAirport) {
-		if (!isAirport) {
-			CameraController cam = GetCameraControllerInCurrentRoom();
-			if (cam != null)
-				roomPosition = cam.GetPosition();
-		}
+		// if (!isAirport) {
+		// 	CameraController cam = GetCameraControllerInCurrentRoom();
+		// 	if (cam != null)
+		// 		roomPosition = cam.GetPosition();
+		// }
 
 		if (isAirport) {
 			newRoomName = "RoomAirport";
@@ -80,6 +80,7 @@ public class RoomManager : Node2D {
 
 		if (isAirport) {
 			GetCameraControllerInCurrentRoom()?.SetPosition(roomPosition);
+			PlayerCharacter.instance.SetPosition(roomPosition);
 		}
 
 		//instance.AddChild(n);

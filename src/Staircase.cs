@@ -23,9 +23,11 @@ public class Staircase : Node2D {
 		int oldZ = character.ZIndex;
 		character.ZIndex = isUpstairs ? 19 : 59;
 
+		var buffer = character.OnGoalReached;
+
 		Action<BaseCharacter> teleport = null;
 		teleport = (c) => {
-			c.FinishedPath -= teleport;
+			c.OnPathFinished -= teleport;
 
 			if (isUpstairs) {
 				c.Position = new Vector2(12, -260) + GetGlobalPosition();
@@ -34,10 +36,11 @@ public class Staircase : Node2D {
 			}
 			c.ZIndex = oldZ;
 			c.isInAnimation = false;
-			c.SetPath(c.goal);
+			c.SetPath(c.mainGoal);
+			c.OnGoalReached = buffer;
 		};
 
-		character.FinishedPath += teleport;
+		character.OnPathFinished += teleport;
 
 	}
 	//  // Called every frame. 'delta' is the elapsed time since the previous frame.
