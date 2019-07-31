@@ -31,9 +31,10 @@ public class MusicController : Node {
 	public override void _Ready() {
 		instance = this;
 
-		if (musicFiles.Length == 0)
+		if (musicFiles == null || musicFiles?.Length == 0) {
 			SetProcess(false);
-
+			return;
+		}
 		midiPlayer = GetNode(_midiPlayer);
 		oggPlayer = (AudioStreamPlayer)GetNode(_oggPlayer);
 	}

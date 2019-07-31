@@ -93,7 +93,7 @@
 [ext_resource path="res://Images/gli/glbrick/LIGHT01.res" type="Texture" id=91]
 [ext_resource path="res://Images/gli/glbrick/ZSCREEN.res" type="Texture" id=92]
 
-[sub_resource type="NavigationPolygon" id=2]
+[sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 1930, 410, 210, 410, 240, 360, 280, 360, 300, 310, 420, 310, 410, 330, 820, 240, 930, 240, 920, 260, 960, 260, 910, 360, 1830, 250, 1850, 250, 1830, 290, 1810, 290, 520, 230, 540, 230, 510, 300, 480, 310, 1900, 260, 1930, 260, 790, 300, 1880, 260, 1860, 290, 460, 330, 470, 310, 1470, 360, 1510, 290, 1910, 150, 500, 150, 520, 140, 640, 140, 670, 140, 700, 100, 800, 100, 780, 140, 1910, 140 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 3 ), PoolIntArray( 7, 8, 9 ), PoolIntArray( 9, 10, 11 ), PoolIntArray( 12, 13, 14, 15 ), PoolIntArray( 16, 17, 18, 19 ), PoolIntArray( 20, 21, 0 ), PoolIntArray( 7, 9, 11, 22 ), PoolIntArray( 23, 20, 0, 24 ), PoolIntArray( 25, 26, 19 ), PoolIntArray( 27, 28, 15, 0 ), PoolIntArray( 14, 24, 0 ), PoolIntArray( 15, 14, 0 ), PoolIntArray( 25, 19, 18, 22, 11 ), PoolIntArray( 3, 6, 25, 11 ), PoolIntArray( 0, 3, 11 ), PoolIntArray( 27, 0, 11 ), PoolIntArray( 29, 30, 31, 32 ), PoolIntArray( 29, 32, 33 ), PoolIntArray( 34, 35, 36, 33 ), PoolIntArray( 36, 37, 29 ), PoolIntArray( 36, 29, 33 ) ]
 outlines = [ PoolVector2Array( 1930, 410, 210, 410, 240, 360, 280, 360, 300, 310, 420, 310, 410, 330, 460, 330, 470, 310, 480, 310, 520, 230, 540, 230, 510, 300, 790, 300, 820, 240, 930, 240, 920, 260, 960, 260, 910, 360, 1470, 360, 1510, 290, 1810, 290, 1830, 250, 1850, 250, 1830, 290, 1860, 290, 1880, 260, 1900, 260, 1930, 260 ), PoolVector2Array( 1910, 140, 1910, 150, 500, 150, 520, 140, 640, 140, 670, 140, 700, 100, 800, 100, 780, 140 ) ]
@@ -2777,4 +2777,4 @@ centered = false
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 z_index = 100
-navpoly = SubResource( 2 )
+navpoly = SubResource( 1 )

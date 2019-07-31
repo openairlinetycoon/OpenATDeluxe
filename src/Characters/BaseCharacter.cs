@@ -15,9 +15,16 @@ public class BaseCharacter : AnimatedSprite {
 
 	public int dir = 1;
 	public Queue<Vector2> path;
-	public Vector2 goal;
+	public Vector2 mainGoal;
+	public Vector2 currentGoal;
 	public bool shiftsFloor; //Does the player goe from one height level to the other
 	const int ShiftHeight = 410; //Guesstimation for the heigth
+
+
+	public Action<BaseCharacter> OnPathFinished, OnGoalReached;
+
+	[Export]
+	private bool drawDebug = false;
 
 	[Export]
 	public string name = "";
@@ -53,32 +60,35 @@ public class BaseCharacter : AnimatedSprite {
 		if (isInAnimation)
 			return;
 
-		goal = _goal;
+		mainGoal = _goal;
+		currentGoal = mainGoal;
+
+		Update();
 
 		bool isShiftingUp = Position.y > ShiftHeight;
 
 
-		shiftsFloor = goal.y > ShiftHeight & Position.y < ShiftHeight | goal.y < ShiftHeight & Position.y > ShiftHeight;
+		shiftsFloor = mainGoal.y > ShiftHeight & Position.y < ShiftHeight | mainGoal.y < ShiftHeight & Position.y > ShiftHeight;
 
-		GD.Print(shiftsFloor);
-
-		FinishedPath = null; //They probably don't want to talk to us anymore
+		OnPathFinished = null; //They probably don't want to talk to us anymore
+		OnGoalReached = null;
 
 		Staircase nearestStaircase = GetNearestStaircase(isShiftingUp);
 
 		if (shiftsFloor) {
 			Action<BaseCharacter> teleport = null;
 			teleport = (c) => {
-				FinishedPath -= teleport;
+				OnPathFinished -= teleport;
 
 				nearestStaircase.TriggerAnimation(this);
 			};
 
-			FinishedPath += teleport;
+			OnPathFinished += teleport;
+			currentGoal = nearestStaircase.GlobalPosition;
 		}
 
 		path = new Queue<Vector2>(
-			NavigationController.instance.GetSimplePath(Position, shiftsFloor ? nearestStaircase.GlobalPosition : goal, true));
+			NavigationController.instance.GetSimplePath(Position, shiftsFloor ? nearestStaircase.GlobalPosition : mainGoal, true));
 	}
 
 	public Staircase GetNearestStaircase(bool isShiftingUp) {
@@ -100,6 +110,7 @@ public class BaseCharacter : AnimatedSprite {
 	}
 
 	override public void _Process(float delta) {
+		Update();
 		if (path != null && path?.Count != 0) {
 			MoveOnPath(SpeedWalking * delta);
 		} else {
@@ -129,11 +140,22 @@ public class BaseCharacter : AnimatedSprite {
 			path.Dequeue();
 		}
 
-		if (path.Count == 0)
-			FinishedPath?.Invoke(this);
+		if (path.Count == 0) {
+			if (currentGoal == mainGoal) {
+				OnGoalReached?.Invoke(this);
+			}
+			OnPathFinished?.Invoke(this);
+
+		}
+
+
 	}
 
-	public Action<BaseCharacter> FinishedPath;
+	override public void _Draw() {
+		if (drawDebug)
+			DrawCircle(ToLocal(mainGoal), 2, new Color(1, 0, 0));
+	}
+
 
 	public void SetViewDir(Vector2 direction) {
 		float angle = Mathf.Atan2(direction.y, direction.x) - 1.5708f;

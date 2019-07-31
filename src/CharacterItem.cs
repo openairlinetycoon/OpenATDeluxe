@@ -2,12 +2,14 @@ using Godot;
 
 public class CharacterItem : Control {
 	private MenuItem assignedMenuItem;
+	public string character = "";
+	public int stringPosition = 0;
 
 	public MenuItem AssignedMenuItem {
 		get => assignedMenuItem;
 		set {
 			assignedMenuItem = value;
-			if (value?.OnClick != null) {
+			if (value?.OnClick != null || value?.OnClickSpecial != null) {
 				Connect("mouse_entered", this, nameof(MouseEntered));
 				Connect("mouse_exited", this, nameof(MouseExited));
 			}
@@ -26,8 +28,10 @@ public class CharacterItem : Control {
 		InputEventMouseButton mouse = e as InputEventMouseButton;
 
 		if (mouse != null && AssignedMenuItem != null) {
-			if (mouse.Pressed && mouse.ButtonIndex == (int)ButtonList.Left)
-				AssignedMenuItem.OnClick?.Invoke();
+			if (mouse.Pressed && mouse.ButtonIndex == (int)ButtonList.Left) {
+				AssignedMenuItem?.OnClick?.Invoke();
+				AssignedMenuItem?.OnClickSpecial?.Invoke(stringPosition);
+			}
 		}
 	}
 }
