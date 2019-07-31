@@ -76,13 +76,19 @@ custom_constants/margin_left = 0
 custom_constants/margin_bottom = 0
 
 [node name="Taskbar" type="Control" parent="CanvasLayer/MarginContainer"]
-editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 mouse_filter = 1
 
+[node name="background" type="ColorRect" parent="CanvasLayer/MarginContainer/Taskbar"]
+margin_top = 392.0
+margin_right = 638.0
+margin_bottom = 432.0
+color = Color( 0, 0, 0, 1 )
+
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer/Taskbar"]
-margin_left = 249.423
+editor/display_folded = true
+margin_left = 247.0
 margin_top = 413.0
 margin_right = 609.423
 margin_bottom = 413.0
@@ -156,11 +162,11 @@ texture = ExtResource( 20 )
 
 [node name="STATLIN0" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar"]
 material = ExtResource( 18 )
-position = Vector2( 125.277, 411.323 )
+position = Vector2( 124, 411.779 )
 texture = ExtResource( 21 )
 
 [node name="LOGO1" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar"]
-position = Vector2( 39.5946, 411.323 )
+position = Vector2( 38.3176, 411.779 )
 texture = ExtResource( 22 )
 
 [node name="MouseController" type="Node2D" parent="CanvasLayer"]
@@ -190,7 +196,7 @@ centered = false
 use_parent_material = true
 position = Vector2( -15.5213, -12.6841 )
 frames = SubResource( 1 )
-frame = 7
+frame = 11
 playing = true
 centered = false
 
