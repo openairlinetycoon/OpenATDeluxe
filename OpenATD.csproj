@@ -65,7 +65,12 @@
     <Compile Include="src\GameController.cs" />
     <Compile Include="src\Localization\LocalizationManager.cs" />
     <Compile Include="src\Localization\LocalizedString.cs" />
-    <Compile Include="src\MainMenu.cs" />
+    <Compile Include="src\MenuScene.cs" />
+    <Compile Include="src\Menus\MainMenu.cs" />
+    <Compile Include="src\Menus\SettingsMenu.cs" />
+    <Compile Include="src\Menus\GraphicsMenu.cs" />
+    <Compile Include="src\Menus\SoundMenu.cs" />
+    <Compile Include="src\Menus\OtherMenu.cs" />
     <Compile Include="src\MouseArea.cs" />
     <Compile Include="src\MouseAreaRoom.cs" />
     <Compile Include="src\MouseCursor.cs" />

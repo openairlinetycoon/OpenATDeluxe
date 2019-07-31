@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-public class MainMenu : Node2D {
-	public static MainMenu instance;
+public class MenuScene : Node2D {
+	public static MenuScene instance;
 
 	[Export]
 	public NodePath _textGrid;
@@ -14,6 +14,7 @@ public class MainMenu : Node2D {
 	[Export]
 	public NodePath _klackerPlayer;
 	public AudioStreamPlayer klackerPlayer;
+	public static bool klackersEnabled = true;
 
 	const int CharA = 'A';
 	const int CharZ = 'Z';
@@ -25,21 +26,7 @@ public class MainMenu : Node2D {
 	public Dictionary<char, string> exceptions = new Dictionary<char, string>();
 
 	List<Task> klackerTasks;
-	public Dictionary<SceneName, List<MenuItem>> menuScenes;
-	public SceneName currentScene;
-
-	public enum SceneName {
-		MainMenu,
-
-		Settings,
-		Graphics,
-		Sound,
-		Other,
-
-		FreeGame,
-		Campaign,
-	}
-
+	public IBaseMenu currentScene;
 
 	Random r = new Random(DateTime.Now.Millisecond);
 
@@ -60,7 +47,7 @@ public class MainMenu : Node2D {
 		PopulateMenuScenes();
 
 
-		PrepareMenuScene(SceneName.MainMenu);
+		PrepareMenuScene(new MainMenu());
 	}
 
 	private void PopulateExceptions() {
@@ -91,232 +78,11 @@ public class MainMenu : Node2D {
 	}
 
 	private void PopulateMenuScenes() {
-		menuScenes = new Dictionary<SceneName, List<MenuItem>>();
 		klackerTasks = new List<Task>();
-
-		menuScenes.Add(
-			SceneName.MainMenu,
-			new List<MenuItem>() {
-				new MenuItem(
-					Tr("NewG>500"), //Main Menu:
-					MenuItem.EntryType.Header),
-				new MenuItem(
-					"",
-					MenuItem.EntryType.HeaderBar),
-
-				new MenuItem(
-					"# "+Tr("NewG>501"), // # Free Game
-					MenuItem.EntryType.Link) {OnClick = ()=>{
-						RoomManager.ChangeRoom("", true);
-						GameController.instance.SetTaskbar(true);}},
-				new MenuItem(
-					Tr("NewG>515"),//Campaigns
-					MenuItem.EntryType.LinkBlocked),
-				new MenuItem(
-					Tr("NewG>514"),//Network Game
-					MenuItem.EntryType.LinkBlocked),
-				new MenuItem(
-					Tr("NewG>506"), //Load Game
-					MenuItem.EntryType.LinkBlocked),
-
-				new MenuItem(),
-
-				new MenuItem(
-					Tr("NewG>504"), //Home Airport
-					MenuItem.EntryType.LinkBlocked),
-				new MenuItem(
-					Tr("NewG>507"), //Options
-					MenuItem.EntryType.Link) {SceneToChangeTo = SceneName.Settings},
-
-				new MenuItem(),
-
-				new MenuItem(
-					Tr("NewG>505"), //Intro
-					MenuItem.EntryType.LinkBlocked),
-				new MenuItem(
-					Tr("NewG>508"), //Credits
-					MenuItem.EntryType.LinkBlocked),
-				new MenuItem(
-					Tr("NewG>509"), //Highscores
-					MenuItem.EntryType.LinkBlocked),
-
-				new MenuItem(),
-
-				new MenuItem(
-					Tr("NewG>510"), //Quit Game
-					MenuItem.EntryType.Link)  {SceneToChangeTo = SceneName.MainMenu},
-			});
-		menuScenes.Add(
-			SceneName.Settings,
-			new List<MenuItem>() {
-				new MenuItem(
-					Tr("Misc>4000"),
-					MenuItem.EntryType.Header
-				),
-				new MenuItem(
-					"",
-					MenuItem.EntryType.HeaderBar
-				),
-				new MenuItem(
-					Tr("Misc>4001"), //Graphics
-					MenuItem.EntryType.Link
-				)   {SceneToChangeTo = SceneName.Graphics},
-				new MenuItem(
-					Tr("Misc>4002"), //Sound
-					MenuItem.EntryType.Link
-				)   {SceneToChangeTo = SceneName.Sound},
-				new MenuItem(
-					Tr("Misc>4003"), //Other
-					MenuItem.EntryType.Link
-				)   {SceneToChangeTo = SceneName.Other},
-				new MenuItem(),
-				new MenuItem(
-					Tr("Misc>4007"), //Ok
-					MenuItem.EntryType.MoveLeft
-				)   {SceneToChangeTo = SceneName.MainMenu},
-			});
-		menuScenes.Add(
-			SceneName.Graphics,
-			new List<MenuItem>() {
-				new MenuItem(
-					Tr("Misc>4010"),
-					MenuItem.EntryType.Header
-				),
-				new MenuItem(
-					"",
-					MenuItem.EntryType.HeaderBar
-				),
-				new MenuItem(
-					Tr("Misc>4011"), //Planes
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4013"), //PASSENGERS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4015"), //BLINDS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4017"), //ROOM DETAILS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4020"), //THOUGHTS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4022"), //SCROLLINT
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4024"), //TRANSPARENCY
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4026"), //SHADOWS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(),
-				new MenuItem(
-					Tr("Misc>4007"), //Ok
-					MenuItem.EntryType.MoveLeft
-				)   {SceneToChangeTo = SceneName.Settings},
-			});
-		menuScenes.Add(
-			SceneName.Sound,
-			new List<MenuItem>() {
-				new MenuItem(
-					Tr("Misc>4120"),
-					MenuItem.EntryType.Header
-				),
-				new MenuItem(
-					"",
-					MenuItem.EntryType.HeaderBar
-				),
-				new MenuItem(
-					Tr("Misc>4121"), //Planes
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					"", //Planes
-					MenuItem.EntryType.Slider
-				),
-				new MenuItem(
-					Tr("Misc>4122"), //PASSENGERS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					"", //Planes
-					MenuItem.EntryType.Slider
-				),
-				new MenuItem(
-					Tr("Misc>4123"), //BLINDS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					"", //Planes
-					MenuItem.EntryType.Slider
-				),
-				new MenuItem(
-					Tr("Misc>4124"), //ROOM DETAILS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					"", //Planes
-					MenuItem.EntryType.Slider
-				),
-				new MenuItem(
-					Tr("Misc>4125"), //THOUGHTS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					"", //Planes
-					MenuItem.EntryType.Slider
-				),
-				new MenuItem(
-					Tr("Misc>4126"), //SCROLLINT
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					"", //Planes
-					MenuItem.EntryType.Slider
-				),
-				new MenuItem(
-					Tr("Misc>4127"), //TRANSPARENCY
-					MenuItem.EntryType.Link
-				),
-				new SliderItem(
-					()=>(int)AudioServer.GetBusVolumeDb(2), //Planes
-					(vol) => {AudioServer.SetBusVolumeDb(2, vol); SettingsManager.SetSetting("audio/bus2vol", vol);}
-				),
-				new MenuItem(
-					Tr("Misc>4130"), //SHADOWS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4132"), //SHADOWS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4140"), //SHADOWS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4150"), //SHADOWS
-					MenuItem.EntryType.Link
-				),
-				new MenuItem(
-					Tr("Misc>4007"), //Ok
-					MenuItem.EntryType.MoveLeft
-				)   {SceneToChangeTo = SceneName.Settings},
-			});
-
 	}
 
-	private void PrepareMenuScene(SceneName name, bool klackerOnlyChanges = false) {
-		List<MenuItem> scene = menuScenes[name];
+	private void PrepareMenuScene(IBaseMenu name, bool klackerOnlyChanges = false) {
+		List<MenuItem> scene = name.GetMenuItems();
 		int lineSkips = 0;
 		for (int line = 0; line < scene.Count; line++) {
 			if (scene[line].type == MenuItem.EntryType.Slider)
@@ -366,7 +132,7 @@ public class MainMenu : Node2D {
 		Task.Run(PlayKlackers);
 	}
 
-	public void ChangeScene(SceneName scene, bool klackerOnlyChanges = false) {
+	public void ChangeScene(IBaseMenu scene, bool klackerOnlyChanges = false) {
 
 		foreach (Control g in grid) {
 			CharacterItem characterItem = (g as CharacterItem);
@@ -413,6 +179,9 @@ public class MainMenu : Node2D {
 	}
 
 	private async Task PlayKlackers() {
+		if (!klackersEnabled)
+			return;
+
 		AudioStreamSample[] audioFiles = new AudioStreamSample[3];
 		audioFiles[0] = new AudioStreamSample();
 		audioFiles[1] = new AudioStreamSample();
@@ -421,11 +190,10 @@ public class MainMenu : Node2D {
 		List<AudioStreamPlayer> oneShotAudios = new List<AudioStreamPlayer>();
 
 		byte[] data = System.IO.File.ReadAllBytes(SoundPath + "Klack0.raw");
-
 		audioFiles[0].SetData(data);
 		audioFiles[0].MixRate = 44100;
-		data = System.IO.File.ReadAllBytes(SoundPath + "Klack1.raw");
 
+		data = System.IO.File.ReadAllBytes(SoundPath + "Klack1.raw");
 		audioFiles[1].SetData(data);
 		audioFiles[1].MixRate = 44100;
 
@@ -513,9 +281,9 @@ public class MenuItem {
 		get {
 			switch (type) {
 				case (EntryType.LinkBlocked):
-					return MainMenu.FilePrefixDark;
+					return MenuScene.FilePrefixDark;
 				default:
-					return MainMenu.FilePrefixNormal;
+					return MenuScene.FilePrefixNormal;
 			}
 		}
 	}
@@ -541,16 +309,6 @@ public class MenuItem {
 	public Action OnClick;
 	public Action<int> OnClickSpecial;
 
-	private MainMenu.SceneName _sceneToChangeTo;
-	public MainMenu.SceneName SceneToChangeTo {
-		get => _sceneToChangeTo;
-		set {
-			_sceneToChangeTo = value;
-
-			if (OnClick == null)
-				OnClick += () => MainMenu.instance.ChangeScene(value, klackerOnlyChanges);
-		}
-	}
 
 
 	public MenuItem() {
@@ -578,10 +336,6 @@ public class MenuItem {
 			switch (type) {
 				case (EntryType.HeaderBar):
 					this.text = "========================";
-					break;
-				case (EntryType.Link):
-				case (EntryType.LinkBlocked):
-					this.text = " " + text;
 					break;
 			}
 		}
@@ -617,6 +371,7 @@ public class SliderItem : MenuItem {
 
 		OnClickSpecial += (pos) =>
 		{
+			pos = Mathf.Clamp(pos, 0, 6);
 			int newVolume = pos == 0 ? -80 : ConvertRange(0, 6, rangeStart, rangeEnd, pos);
 
 			setValue(newVolume);
@@ -624,7 +379,40 @@ public class SliderItem : MenuItem {
 			text = "------- ";
 			text = text.Remove(pos, 1).Insert(pos, "~");
 
-			MainMenu.instance.ChangeScene(MainMenu.instance.currentScene, klackerOnlyChanges);
+			MenuScene.instance.ChangeScene(MenuScene.instance.currentScene, klackerOnlyChanges);
 		};
 	}
+}
+
+public class MenuChangeItem : MenuItem {
+	public IBaseMenu sceneToChangeTo;
+
+	public MenuChangeItem(string text, IBaseMenu newMenu) : base(text, EntryType.Link, false) {
+		this.text = text;
+
+		sceneToChangeTo = newMenu;
+
+		OnClick = () => MenuScene.instance.ChangeScene(sceneToChangeTo, klackerOnlyChanges);
+	}
+}
+public class SwitchItem : MenuItem {
+	public IBaseMenu sceneToChangeTo;
+
+	public SwitchItem(string onText, string offText, Func<bool> getValue, Action<bool> setValue) : base(onText, EntryType.Link, false) {
+
+		text = getValue() ? onText : offText;
+		OnClick = () =>
+		{
+			setValue(!getValue());
+
+			text = getValue() ? onText : offText;
+
+			MenuScene.instance.ChangeScene(MenuScene.instance.currentScene, true);
+		};
+	}
+	public SwitchItem(string onText, string offText, SettingsValue<bool> setting) : this(onText, offText, setting.GetValue, setting.SetValue) { }
+}
+
+public interface IBaseMenu {
+	List<MenuItem> GetMenuItems();
 }

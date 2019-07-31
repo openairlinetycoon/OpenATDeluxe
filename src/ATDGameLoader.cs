@@ -196,7 +196,7 @@ public class ATDGameLoader : Node2D {
 			exceptions.Add(TryAction(() =>
 			{
 				otherLoading = "Settings";
-				AudioServer.SetBusVolumeDb(2, Convert.ToSingle(SettingsManager.GetSetting("audio/bus2vol")));
+				SettingsManager.LoadSavedData();
 			}));
 			foreach (Exception e in exceptions) {
 				if (e != null)

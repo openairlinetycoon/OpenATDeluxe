@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/MainMenu.cs" type="Script" id=1]
+[ext_resource path="res://src/MenuScene.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
 [ext_resource path="res://Images/room/startup/HAUPTMNU.res" type="Texture" id=3]
 
