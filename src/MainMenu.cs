@@ -26,6 +26,7 @@ public class MainMenu : Node2D {
 
 	List<Task> klackerTasks;
 	public Dictionary<SceneName, List<MenuItem>> menuScenes;
+	public SceneName currentScene;
 
 	public enum SceneName {
 		MainMenu,
@@ -286,9 +287,9 @@ public class MainMenu : Node2D {
 					Tr("Misc>4127"), //TRANSPARENCY
 					MenuItem.EntryType.Link
 				),
-				new MenuItem(
-					"", //Planes
-					MenuItem.EntryType.Slider
+				new SliderItem(
+					()=>(int)AudioServer.GetBusVolumeDb(2), //Planes
+					(vol) => {AudioServer.SetBusVolumeDb(2, vol); SettingsManager.SetSetting("audio/bus2vol", vol);}
 				),
 				new MenuItem(
 					Tr("Misc>4130"), //SHADOWS
@@ -314,7 +315,7 @@ public class MainMenu : Node2D {
 
 	}
 
-	private void PrepareMenuScene(SceneName name) {
+	private void PrepareMenuScene(SceneName name, bool klackerOnlyChanges = false) {
 		List<MenuItem> scene = menuScenes[name];
 		int lineSkips = 0;
 		for (int line = 0; line < scene.Count; line++) {
@@ -347,19 +348,25 @@ public class MainMenu : Node2D {
 					break;
 
 				grid[xPos, yPos].AddChild(s);
-				((CharacterItem)grid[xPos, yPos]).AssignedMenuItem = scene[line];
-				((CharacterItem)grid[xPos, yPos]).character = output;
+				CharacterItem characterItem = ((CharacterItem)grid[xPos, yPos]);
+				bool dontKlacker = klackerOnlyChanges & characterItem.character != output;
+
+				characterItem.AssignedMenuItem = scene[line];
+				characterItem.character = output;
+				characterItem.stringPosition = x;
+
 				//grid[x, line].Connect("mouse_entered", grid[x, line], "OnMouseEnter");
 				//((CharacterItem)grid[x, line]).OnMouseEnter();
 
-				klackerTasks.Add(AnimateText(scene[line], s, text[x]));
+				if (dontKlacker == false)
+					klackerTasks.Add(AnimateText(scene[line], s, text[x]));
 			}
 		}
 
-		PlayKlackers();
+		Task.Run(PlayKlackers);
 	}
 
-	public void ChangeScene(SceneName name) {
+	public void ChangeScene(SceneName scene, bool klackerOnlyChanges = false) {
 
 		foreach (Control g in grid) {
 			CharacterItem characterItem = (g as CharacterItem);
@@ -377,7 +384,9 @@ public class MainMenu : Node2D {
 
 		MouseCursor.instance.ChangeMouseState(MouseCursor.MouseState.Normal);
 
-		PrepareMenuScene(name);
+		currentScene = scene;
+
+		PrepareMenuScene(scene, klackerOnlyChanges);
 	}
 
 	private async Task AnimateText(MenuItem item, Sprite text, char current) {
@@ -527,8 +536,10 @@ public class MenuItem {
 
 	public EntryType type = EntryType.Undefined;
 
+	public bool klackerOnlyChanges = false;
+
 	public Action OnClick;
-	public Action<string> OnClickSpecial;
+	public Action<int> OnClickSpecial;
 
 	private MainMenu.SceneName _sceneToChangeTo;
 	public MainMenu.SceneName SceneToChangeTo {
@@ -537,7 +548,7 @@ public class MenuItem {
 			_sceneToChangeTo = value;
 
 			if (OnClick == null)
-				OnClick += () => MainMenu.instance.ChangeScene(value);
+				OnClick += () => MainMenu.instance.ChangeScene(value, klackerOnlyChanges);
 		}
 	}
 
@@ -560,6 +571,9 @@ public class MenuItem {
 		this.text = text;
 		this.type = type;
 
+		if (type == EntryType.Slider)
+			GD.PrintErr("Warning, using base MenuItem for Slider! Use SliderItem instead!");
+
 		if (fillWithType) {
 			switch (type) {
 				case (EntryType.HeaderBar):
@@ -569,21 +583,48 @@ public class MenuItem {
 				case (EntryType.LinkBlocked):
 					this.text = " " + text;
 					break;
-
-				case (EntryType.Slider):
-					this.text = "---~--- ";
-					break;
-
 			}
 		}
 
-		if (type == EntryType.Slider) {
-
-		}
 
 		OnClick = null;
 	}
 	public MenuItem(string text, EntryType type, Action onClick, bool fillWithType = true) : this(text, type, fillWithType) {
 		OnClick = onClick;
+	}
+}
+
+
+public class SliderItem : MenuItem {
+	public static int ConvertRange(
+		int originalStart, int originalEnd, // original range
+		int newStart, int newEnd, // desired range
+		int value) // value to convert
+	{
+		float scale = (float)(newEnd - newStart) / (originalEnd - originalStart);
+		return (int)(newStart + ((value - originalStart) * scale));
+	}
+
+	public SliderItem(Func<int> value, Action<int> setValue, int rangeStart = -40, int rangeEnd = 3, int mute = -70) : base("", EntryType.Slider, true) {
+		klackerOnlyChanges = true;
+		OnClick = null;
+
+		int position = ConvertRange(rangeStart, rangeEnd, 0, 6, value());
+		position = Mathf.Clamp(position, 0, 6);
+
+		text = "------- ";
+		text = text.Remove(position, 1).Insert(position, "~");
+
+		OnClickSpecial += (pos) =>
+		{
+			int newVolume = pos == 0 ? -80 : ConvertRange(0, 6, rangeStart, rangeEnd, pos);
+
+			setValue(newVolume);
+
+			text = "------- ";
+			text = text.Remove(pos, 1).Insert(pos, "~");
+
+			MainMenu.instance.ChangeScene(MainMenu.instance.currentScene, klackerOnlyChanges);
+		};
 	}
 }

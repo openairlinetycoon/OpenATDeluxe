@@ -72,6 +72,7 @@
     <Compile Include="src\GFXLibrary.cs" />
     <Compile Include="src\MusicController.cs" />
     <Compile Include="src\RoomManager.cs" />
+    <Compile Include="src\SettingsManager.cs" />
     <Compile Include="src\Staircase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

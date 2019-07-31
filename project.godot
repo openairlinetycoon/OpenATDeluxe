@@ -17,6 +17,7 @@ _global_script_class_icons={
 
 config/name="OpenATD"
 run/main_scene="res://scenes/load.tscn"
+config/project_settings_override="settings.cfg"
 config/icon="res://icon.png"
 config/atd_path="P:\\Projekte\\Major Games\\BASE\\ATD"
 
@@ -39,7 +40,6 @@ locale_filter=[ 1, [  ] ]
 [mono]
 
 profiler/args="default:alloc,output=output.mlpd"
-profiler/enabled=true
 
 [rendering]
 

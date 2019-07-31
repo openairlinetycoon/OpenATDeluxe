@@ -35,7 +35,8 @@ public class ATDGameLoader : Node2D {
 	public override void _Ready() {
 		loadInfo = GetNode<Label>("LoadInfo");
 
-		GFXLibrary.pathToAirlineTycoonD = (string)ProjectSettings.GetSetting(ATDPathConfig);
+		GFXLibrary.pathToAirlineTycoonD = (string)SettingsManager.GetSetting(ATDPathConfig, "");
+		GD.Print(GFXLibrary.pathToAirlineTycoonD);
 
 		isInEditor = OS.IsDebugBuild();
 
@@ -136,8 +137,7 @@ public class ATDGameLoader : Node2D {
 			return;
 		}
 
-		ProjectSettings.SetSetting(ATDPathConfig, dir);
-		ProjectSettings.Save();
+		SettingsManager.SetSetting(ATDPathConfig, dir);
 		GFXLibrary.pathToAirlineTycoonD = dir;
 
 		Thread t = new Thread(CreateData);
@@ -150,34 +150,67 @@ public class ATDGameLoader : Node2D {
 		selectATDPath.PopupCentered(new Vector2(500, 500)); //try try and try again
 	}
 
+	public static Exception TryAction(Action action) {
+		try {
+			action();
+		} catch (Exception e) {
+			return e;
+		}
+
+		return null;
+	}
 
 	public void LoadOtherData() {
 		Task.Run(() =>
 		{
-			otherLoading = "Music";
-			string[] midFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.mid");
-			string[] oggFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.ogg");
+			List<Exception> exceptions = new List<Exception>();
 
-			if (oggFiles.Length != 0) { //OGG Files are preffered, as there currently is only a buggy Midi player available
-				MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Ogg);
-				MusicController.isOgg = true;
-			} else {
-				MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Mid);
+			exceptions.Add(TryAction(() =>
+			{
+				otherLoading = "Music";
+				string[] midFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.mid");
+				string[] oggFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.ogg");
+
+				if (oggFiles.Length != 0) { //OGG Files are preffered, as there currently is only a buggy Midi player available
+					MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Ogg);
+					MusicController.isOgg = true;
+				} else {
+					MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Mid);
+				}
+			}));
+
+			exceptions.Add(TryAction(() =>
+			{
+				otherLoading = "Clan CSV";
+				ClanCSVFile clanFile = new ClanCSVFile(GFXLibrary.pathToAirlineTycoonD + "/data/clan.csv");
+			}));
+
+			exceptions.Add(TryAction(() =>
+			{
+				otherLoading = "Brick CSV";
+				CSVFileDecoder decoder = new CSVFileDecoder(GFXLibrary.pathToAirlineTycoonD + "/data/brick.csv");
+			}));
+
+
+
+			exceptions.Add(TryAction(() =>
+			{
+				otherLoading = "Settings";
+				AudioServer.SetBusVolumeDb(2, Convert.ToSingle(SettingsManager.GetSetting("audio/bus2vol")));
+			}));
+			foreach (Exception e in exceptions) {
+				if (e != null)
+					GD.Print("Error loading!\n" + e.Message + "\n" + e.StackTrace);
 			}
 
-			otherLoading = "Clan CSV";
-			ClanCSVFile clanFile = new ClanCSVFile(GFXLibrary.pathToAirlineTycoonD + "/data/clan.csv");
-
-			otherLoading = "Brick CSV";
-			CSVFileDecoder decoder = new CSVFileDecoder(GFXLibrary.pathToAirlineTycoonD + "/data/brick.csv");
+			otherLoading = "";
+			otherDataLoaded = true;
 
 
 			//otherLoading = "Localization Data";
 			//LocalizationManager.LoadLocalizationData();
 			//This is only there to compile the localization.csv, we don't need it every run.
 
-			otherLoading = "";
-			otherDataLoaded = true;
 		});
 	}
 
