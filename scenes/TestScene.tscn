@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Smacker/SmkPlayer.cs" type="Script" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+margin_right = 1919.0
+margin_bottom = 1088.0
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 760.303, 458.922 )
+z_index = 4
+script = ExtResource( 1 )
+path = "C:\\Jonas\\Airline Tycoon Deluxe\\video\\PL4SCRI2.smk"

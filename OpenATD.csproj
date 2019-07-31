@@ -78,7 +78,13 @@
     <Compile Include="src\MusicController.cs" />
     <Compile Include="src\RoomManager.cs" />
     <Compile Include="src\SettingsManager.cs" />
+    <Compile Include="src\Smacker\SmkPlayer.cs" />
     <Compile Include="src\Staircase.cs" />
+    <Compile Include="src\Smacker\Smk.cs" />
+    <Compile Include="src\Smacker\BitStream.cs" />
+    <Compile Include="src\Smacker\Huffmantree.cs" />
+    <Compile Include="src\Smacker\SmkDecoder.cs" />
+    <Compile Include="src\Smacker\Util.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
