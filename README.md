@@ -4,11 +4,13 @@ It will add support for Full HD resolution, and native support for platforms lik
 
 ## Contributing
 
-You can help by getting involved in active development of [things to do](https://github.com/WizzardMaker/OpenATDeluxe/projects/1) or by bug-testing the game in its current state. Thanks in advance !
+You can help by getting involved in active development of [things to do](https://github.com/WizzardMaker/OpenATDeluxe/projects/1), by suggesting new features or reporting bugs of the original game, or by bug-testing the game in its current state. Thanks in advance !
 
 ## Progress
-- Game rooms are being added [#10](https://github.com/WizzardMaker/OpenATDeluxe/issues/10)
-- Data import is being worked on, still more reverse engineering needed [#5](https://github.com/WizzardMaker/OpenATDeluxe/issues/5)
+- Game rooms are nearly all added [#10](https://github.com/WizzardMaker/OpenATDeluxe/issues/10)
+- Data import is 90% finished [#5](https://github.com/WizzardMaker/OpenATDeluxe/issues/5)
+- The airport is implemented
+- The player character is implemented
 
 ## Todo
 - See [board](https://github.com/WizzardMaker/OpenATDeluxe/projects/1)
@@ -21,22 +23,12 @@ You can help by getting involved in active development of [things to do](https:/
 
 
 ## How to build the project
+- Not yet possible. We are working on a process to build release version. Stay tuned!
 - TODO: Add the texture cleaner programm...
 
 ## WIP Pictures
-All images are work and progress and do not represent any gameplay at the moment. All are still images taken from the game files
+All images are work in progress!
 
-The office of Falcon Airlines
-![Imgur](https://i.imgur.com/NQxIqSW.png)
+![Imgur](https://i.imgur.com/Vc9CAym.gif)
 
-The Airport
-
-![Imgur](https://i.imgur.com/zIm9eSq.gif)
-
-The Airport and switching rooms
-
-![Imgur](https://i.imgur.com/C5BUXhE.gif)
-
-The marketing office
-
-![Imgur](https://i.imgur.com/56e3Unf.gif)
+![Imgur](https://i.imgur.com/A4toKcI.gif)
