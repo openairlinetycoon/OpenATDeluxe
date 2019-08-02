@@ -1,60 +1,76 @@
 using Godot;
 using System;
 
-public class SmkPlayer : Sprite
-{
-    [Export]
-    public string path;
+public class SmkPlayer : Sprite {
+	[Export]
+	public string path;
 
-    SmackerFile file;
-    SmackerDecoder decoder;
+	ImageTexture[] buffer;
 
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+	float fps;
+	float timeDelta;
+	float currentTimeDelta;
+	int currentFrame = 0;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        this.Texture = new ImageTexture();
-        file = SmackerFile.OpenFromStream(new System.IO.FileStream(path, System.IO.FileMode.Open)); ;
-        decoder = file.Decoder;
-        decoder.ReadNextFrame();
-        Image i = new Image();
-        i.CreateFromData((int)file.Header.Width, (int)file.Header.Height, false, Image.Format.Rgb8, decoder.RGBData);
-        var t = new ImageTexture();
+	SmackerFile file;
+	SmackerDecoder decoder;
 
-        t.CreateFromImage(i);
-        Texture = t;
+	/// <summary>
+	/// The decoder needs to go through every frame to fully populate a palette.
+	/// the sequence would be heavily fragmented in the first run, if we don't do this.
+	/// </summary>
+	private void PrewarmDecoder() {
+		int frames = (int)file.Header.NbFrames;
 
-    }
-    public byte[] ARGBData(byte[] data, byte[] palette)
-    {
-        byte[] result = new byte[data.Length * 4];
-        int j = 0;
-        for (int i = 0; i < data.Length; i++)
-        {
-            j = i * 4;
-            result[j + 0] = (byte)(palette[data[i]] * 3 + 2);
-            result[j + 1] = (byte)(palette[data[i]] * 3 + 1);
-            result[j + 2] = (byte)(palette[data[i]] * 3 + 0);
+		for (int i = 0; i < frames; i++) {
+			decoder.ReadNextFrame();
+		}
+		decoder.Reset();
 
-            if (result[j + 1] != 0 || result[j + 2] != 0 || result[j + 3] != 0)
-                result[j + 3] = 255;
-        }
-        return result;
-    }
+	}
+
+	/// <summary>
+	/// Save every frame to a image texture and buffer it.
+	/// </summary>
+	private void BufferImages() {
+		int frames = (int)file.Header.NbFrames;
+		buffer = new ImageTexture[frames];
+
+		for (int i = 0; i < frames; i++) {
+			decoder.ReadNextFrame();
+
+			Image image = new Image();
 
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(float delta)
-    {
-        decoder.ReadNextFrame();
-        Image i = new Image();
-        i.CreateFromData((int)file.Header.Width, (int)file.Header.Height, false, Image.Format.Rgb8, decoder.RGBData);
-        var t = new ImageTexture();
+			image.CreateFromData((int)file.Header.Width, (int)file.Header.Height, false, Image.Format.Rgba8, decoder.RGBAData);
+			image.PremultiplyAlpha();
+			buffer[i] = new ImageTexture();
+			buffer[i].CreateFromImage(image);
+		}
+	}
 
-        t.CreateFromImage(i);
-        Texture = t;
-    }
+	private void LoadSmacker() {
+		file = SmackerFile.OpenFromStream(new System.IO.FileStream(path, System.IO.FileMode.Open)); ;
+		decoder = file.Decoder;
+		fps = (float)file.Header.Fps;
+		timeDelta = 1 / fps;
+	}
+
+	public override void _Ready() {
+		LoadSmacker();
+		PrewarmDecoder();
+		BufferImages();
+	}
+
+	public override void _Process(float delta) {
+		currentTimeDelta += delta;
+		if (currentTimeDelta > timeDelta) {
+			currentTimeDelta = 0;
+
+			currentFrame++;
+			currentFrame = Mathf.Wrap(currentFrame, 0, buffer.Length);
+
+			Texture = buffer[currentFrame];
+		}
+	}
 }

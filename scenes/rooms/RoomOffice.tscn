@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/buero_b/BUERO.res" type="Texture" id=2]
-[ext_resource path="res://Images/room/buero/DOOR_O.res" type="Texture" id=3]
-[ext_resource path="res://Images/room/buero/DOOR_T.res" type="Texture" id=4]
-[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Images/room/buero_c/BUERO.res" type="Texture" id=2]
+[ext_resource path="res://src/Smacker/SmkPlayer.cs" type="Script" id=3]
+[ext_resource path="res://Images/room/buero/DOOR_O.res" type="Texture" id=4]
+[ext_resource path="res://Images/room/buero/DOOR_T.res" type="Texture" id=5]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=7]
 
 [node name="RoomOffice" type="Node2D"]
 
@@ -27,40 +28,46 @@ position = Vector2( 0, -20 )
 scale = Vector2( 1.2, 0.89 )
 texture = ExtResource( 2 )
 
+[node name="Player" type="Sprite" parent="Base/roomSprite"]
+material = ExtResource( 1 )
+position = Vector2( -94.0938, 76.0217 )
+script = ExtResource( 3 )
+path = "G:\\GOG Games\\Airline Tycoon Deluxe\\video\\PL3WAIT.smk"
+
 [node name="DOOR_O" type="Sprite" parent="Base"]
 visible = false
 use_parent_material = true
 position = Vector2( 260.639, -47.0193 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="DOOR_T" type="Sprite" parent="Base"]
 visible = false
 use_parent_material = true
 position = Vector2( 271.541, -48 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="MouseColliderRoom" parent="Base" instance=ExtResource( 5 )]
+[node name="MouseColliderRoom" parent="Base" instance=ExtResource( 6 )]
 position = Vector2( 325.043, -61.5831 )
 scale = Vector2( 5.31445, 9.63602 )
 isExitToAirport = true
 
-[node name="Globe" parent="Base" instance=ExtResource( 6 )]
+[node name="Globe" parent="Base" instance=ExtResource( 7 )]
 position = Vector2( 16.4454, -39.1077 )
 scale = Vector2( 3.8892, 3.31086 )
 gravity = 0.0
 
-[node name="Petrol" parent="Base" instance=ExtResource( 6 )]
+[node name="Petrol" parent="Base" instance=ExtResource( 7 )]
 position = Vector2( 43.9585, -115.776 )
 scale = Vector2( 6.79051, 4.0173 )
 gravity = 0.0
 
-[node name="Telefone" parent="Base" instance=ExtResource( 6 )]
+[node name="Telefone" parent="Base" instance=ExtResource( 7 )]
 position = Vector2( 152.786, 46.1729 )
 rotation = 0.251526
 scale = Vector2( -6.89733, -2.26798 )
 gravity = 0.0
 
-[node name="Telefone2" parent="Base" instance=ExtResource( 6 )]
+[node name="Telefone2" parent="Base" instance=ExtResource( 7 )]
 position = Vector2( 72.8993, 84.5262 )
 rotation = 0.267813
 scale = Vector2( -8.3052, 3.16862 )
