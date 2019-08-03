@@ -436,7 +436,7 @@ public class SmackerDecoder {
 					//Console.WriteLine(runLengthNotComplete);
 					break;
 				case 1:
-					System.Console.Write("FULL - ");
+					//System.Console.Write("FULL - ");
 					int mode = 0;
 					if (File.IsV4) {
 						int type = m.ReadBits(1);
@@ -559,9 +559,9 @@ public class SmackerDecoder {
 			}
 		}
 
-		if (runLengthNotComplete > 0) {
-			Console.WriteLine("Warning: frame ended before runlength has reached zero");
-		}
+		// if (runLengthNotComplete > 0) {
+		// 	Console.WriteLine("Warning: frame ended before runlength has reached zero");
+		// }
 
 		lastFrameData = currentFrameData;
 	}

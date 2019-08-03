@@ -3,7 +3,7 @@ using System;
 
 public class SmkPlayer : Sprite {
 	[Export]
-	public string path;
+	public string fileName;
 
 	ImageTexture[] buffer;
 
@@ -39,18 +39,24 @@ public class SmkPlayer : Sprite {
 		for (int i = 0; i < frames; i++) {
 			decoder.ReadNextFrame();
 
-			Image image = new Image();
-
-
-			image.CreateFromData((int)file.Header.Width, (int)file.Header.Height, false, Image.Format.Rgba8, decoder.RGBAData);
-			image.PremultiplyAlpha();
-			buffer[i] = new ImageTexture();
-			buffer[i].CreateFromImage(image);
+			buffer[i] = PrepareImageTexture();
 		}
 	}
 
+	private ImageTexture PrepareImageTexture() {
+
+		Image image = new Image();
+
+
+		image.CreateFromData((int)file.Header.Width, (int)file.Header.Height, false, Image.Format.Rgba8, decoder.RGBAData);
+		image.PremultiplyAlpha();
+		ImageTexture t = new ImageTexture();
+		t.CreateFromImage(image);
+		return t;
+	}
+
 	private void LoadSmacker() {
-		file = SmackerFile.OpenFromStream(new System.IO.FileStream(path, System.IO.FileMode.Open)); ;
+		file = SmackerFile.OpenFromStream(new System.IO.FileStream(GFXLibrary.pathToAirlineTycoonD + "/video/" + fileName, System.IO.FileMode.Open));
 		decoder = file.Decoder;
 		fps = (float)file.Header.Fps;
 		timeDelta = 1 / fps;
