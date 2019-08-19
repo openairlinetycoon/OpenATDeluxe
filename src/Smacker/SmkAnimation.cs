@@ -53,7 +53,7 @@ public class SmkAnimation : SmkPlayer {
 			}
 
 			//First time
-			onPlay += MakeSound;
+			OnPlay += MakeSound;
 
 			if (goal?.finish != null || goal == null) {
 				//When animation repeats
