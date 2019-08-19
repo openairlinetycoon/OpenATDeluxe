@@ -20,10 +20,13 @@ public class SmkAnimation : SmkPlayer {
 		smkAnimation.UseParentMaterial = true;
 		smkAnimation.isPlaying = false;
 		smkAnimation.Visible = false;
-
 		smkAnimation.audio = audio;
 
-		//smkAnimation.SetAudio();
+		if (audio != null) {
+			audio.use8BitEncoding = true;
+		}
+
+		smkAnimation.SetAudio();
 
 		smkAnimation.goal = goals;
 		if (goals == null) {
@@ -38,9 +41,11 @@ public class SmkAnimation : SmkPlayer {
 	override public void _Ready() {
 		base._Ready();
 
-		audio = audio ?? (SoundPlayer)GetChildren().FirstOrDefault((a) => a is SoundPlayer);
-		//TODO: Utilize a pooling system, to prevent longer sounds from being cut off, when the animation finishes earlier
-		SetAudio();
+		if (audio == null) {
+			audio = (SoundPlayer)GetChildren().FirstOrDefault((a) => a is SoundPlayer);
+			//TODO: Utilize a pooling system, to prevent longer sounds from being cut off, when the animation finishes earlier
+			SetAudio();
+		}
 	}
 
 	private void SetAudio() {
