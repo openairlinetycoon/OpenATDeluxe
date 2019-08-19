@@ -29,12 +29,6 @@
 //
 
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-//using NUnit.Framework;
-using System.IO;
-
 public class Huffmantree {
 	protected internal class Node {
 		//"0"- branch
