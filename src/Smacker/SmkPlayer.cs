@@ -5,12 +5,44 @@ public class SmkPlayer : Sprite {
 	[Export]
 	public string fileName;
 
+	public Action OnPlay, OnPause, OnAnimationFinish;
+
+	public bool isPlaying = true;
+
 	ImageTexture[] buffer;
 
 	float fps;
 	float timeDelta;
 	float currentTimeDelta;
 	int currentFrame = 0;
+
+	public static SmkPlayer CreateSmacker(Node parent, string name, string folder = "video/") {
+		SmkPlayer p = new SmkPlayer();
+		p.Centered = false;
+		p.UseParentMaterial = true;
+		p.fileName = folder + name;
+		parent.AddChild(p, true);
+		return p;
+	}
+
+
+	public static SmkPlayer CreateSmacker(Node parent, string name, Vector2 position, string folder = "/video/") {
+		SmkPlayer p = CreateSmacker(parent, name, folder);
+		p.Position = position;
+		return p;
+	}
+
+	public static SmkPlayer CreateSmacker(Node parent, string name, Vector2 position, bool isPlaying, string folder = "/video/") {
+		SmkPlayer p = CreateSmacker(parent, name, position, folder);
+		p.isPlaying = isPlaying;
+		return p;
+	}
+	public static SmkPlayer CreateSmacker(Node parent, string name, Vector2 position, bool isPlaying, bool isVisible, string folder = "/video/") {
+		SmkPlayer p = CreateSmacker(parent, name, position, isPlaying, folder);
+		p.Visible = isVisible;
+		return p;
+	}
+
 
 	SmackerFile file;
 	SmackerDecoder decoder;
@@ -31,6 +63,7 @@ public class SmkPlayer : Sprite {
 
 	/// <summary>
 	/// Save every frame to a image texture and buffer it.
+	/// Saves us GC
 	/// </summary>
 	private void BufferImages() {
 		int frames = (int)file.Header.NbFrames;
@@ -56,7 +89,7 @@ public class SmkPlayer : Sprite {
 	}
 
 	private void LoadSmacker() {
-		file = SmackerFile.OpenFromStream(new System.IO.FileStream(GFXLibrary.pathToAirlineTycoonD + "/video/" + fileName, System.IO.FileMode.Open));
+		file = SmackerFile.OpenFromStream(new System.IO.FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open));
 		decoder = file.Decoder;
 		fps = (float)file.Header.Fps;
 		timeDelta = 1 / fps;
@@ -68,15 +101,40 @@ public class SmkPlayer : Sprite {
 		BufferImages();
 	}
 
+	public void Play() {
+		OnPlay?.Invoke();
+		isPlaying = true;
+		Visible = true;
+
+		currentFrame = 0;
+		Texture = buffer[currentFrame];
+	}
+	public void Pause() {
+		OnPause?.Invoke();
+		isPlaying = false;
+	}
+	new public void Hide() {
+		isPlaying = false;
+		Visible = false;
+	}
+
 	public override void _Process(float delta) {
+		if (!isPlaying || !Visible)
+			return;
+
 		currentTimeDelta += delta;
 		if (currentTimeDelta > timeDelta) {
 			currentTimeDelta = 0;
 
 			currentFrame++;
-			currentFrame = Mathf.Wrap(currentFrame, 0, buffer.Length);
 
+			if (currentFrame == buffer.Length)
+				OnAnimationFinish?.Invoke();
+
+			currentFrame = Mathf.Wrap(currentFrame, 0, buffer.Length);
 			Texture = buffer[currentFrame];
 		}
 	}
+
+
 }
