@@ -76,8 +76,13 @@
     <Compile Include="src\MouseCursor.cs" />
     <Compile Include="src\GFXLibrary.cs" />
     <Compile Include="src\MusicController.cs" />
+    <Compile Include="src\OneShotAction.cs" />
+    <Compile Include="src\Resources\SoundPlayer.cs" />
     <Compile Include="src\RoomManager.cs" />
+    <Compile Include="src\Scenes\Office.cs" />
     <Compile Include="src\SettingsManager.cs" />
+    <Compile Include="src\Smacker\AnimationList.cs" />
+    <Compile Include="src\Smacker\SmkAnimation.cs" />
     <Compile Include="src\Smacker\SmkPlayer.cs" />
     <Compile Include="src\Staircase.cs" />
     <Compile Include="src\Smacker\Smk.cs" />
