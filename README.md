@@ -1,10 +1,14 @@
+![Imgur](https://i.imgur.com/9eLVJQ5.png)
+
 # OpenATDeluxe
 This is the repository of the Open Source remake of Airline Tycoon Deluxe.
 It will add support for Full HD resolution, and native support for platforms like Windows (10), Linux and OSx.
 
 ## Contributing
 
-You can help by getting involved in active development of [things to do](https://github.com/WizzardMaker/OpenATDeluxe/projects/1), by suggesting new features or reporting bugs of the original game, or by bug-testing the game in its current state. Thanks in advance !
+Join our [Discord](https://discord.gg/epPf384)!
+
+You can help by getting involved in active development of [things to do](https://github.com/WizzardMaker/OpenATDeluxe/projects/1), by suggesting new features, reporting bugs of the original game, or by bug-testing the game in its current state. Thanks in advance !
 
 ## Progress
 - Game rooms are nearly all added [#10](https://github.com/WizzardMaker/OpenATDeluxe/issues/10)
