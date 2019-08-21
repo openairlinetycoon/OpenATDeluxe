@@ -31,13 +31,13 @@ public class Office : Node2D {
 			SmkAnimation.CreateAnimation(baseNode, player + "Wait.smk", goals: new AnimationGoal(onTrigger: TriggerIdleAnimation)));
 		//Idle: 0
 		playerAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, player + "Blat.smk", audio: SoundPlayer.CreatePlayer("/video/plxblat.raw", "effects"), goals: new AnimationGoal(finish: 2, cancel: 0)));
+			SmkAnimation.CreateAnimation(baseNode, player + "Blat.smk", audio: SoundPlayer.CreatePlayer("/video/plxblat.raw", "effects"), goals: new AnimationGoal(finish: 3, cancel: 0)));
 		//Idle animation: 1
 		playerAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, player + "Scri1.smk", audio: SoundPlayer.CreatePlayer($"/video/{player}Scri1.raw", "effects"), goals: new AnimationGoal(finish: 0, cancel: 0)));
 		//Idle animation: 2
 		playerAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, player + "Scri2.smk"));
+			SmkAnimation.CreateAnimation(baseNode, player + "Scri2.smk", audio: SoundPlayer.CreatePlayer($"/video/{player}Scri2.raw", "effects"), goals: new AnimationGoal(finish: 0, cancel: 0)));
 		//Idle animation: 3
 		playerAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, player + "Brief.smk", goals: new AnimationGoal(finish: 5, cancel: 5)));

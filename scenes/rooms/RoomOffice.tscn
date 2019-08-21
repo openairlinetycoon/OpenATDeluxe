@@ -2,13 +2,13 @@
 
 [ext_resource path="res://src/Scenes/Office.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
-[ext_resource path="res://src/Resources/SoundPlayer.cs" type="Script" id=3]
-[ext_resource path="res://Images/room/buero_b/BUERO.res" type="Texture" id=4]
-[ext_resource path="res://Images/room/buero/DOOR_O.res" type="Texture" id=5]
-[ext_resource path="res://Images/room/buero/DOOR_T.res" type="Texture" id=6]
-[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/Smacker/SmkAnimation.cs" type="Script" id=9]
+[ext_resource path="res://Images/room/buero_b/BUERO.res" type="Texture" id=3]
+[ext_resource path="res://Images/room/buero/DOOR_O.res" type="Texture" id=4]
+[ext_resource path="res://Images/room/buero/DOOR_T.res" type="Texture" id=5]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Smacker/SmkAnimation.cs" type="Script" id=8]
+[ext_resource path="res://src/Resources/SoundPlayer.cs" type="Script" id=9]
 
 [node name="RoomOffice" type="Node2D"]
 script = ExtResource( 1 )
@@ -26,64 +26,58 @@ margin_bottom = 540.0
 rect_scale = Vector2( 3, 2.25 )
 mouse_filter = 1
 
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Base"]
-autoplay = true
-script = ExtResource( 3 )
-loop = true
-filePath = "/SOUND/Warning.raw"
-
 [node name="roomSprite" type="Sprite" parent="Base"]
 position = Vector2( 0, -20 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="DOOR_O" type="Sprite" parent="Base"]
 visible = false
 use_parent_material = true
 position = Vector2( 260.639, -47.0193 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 
 [node name="DOOR_T" type="Sprite" parent="Base"]
 visible = false
 use_parent_material = true
 position = Vector2( 271.541, -48 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 
-[node name="MouseColliderRoom" parent="Base" instance=ExtResource( 7 )]
-position = Vector2( 325.043, -61.5831 )
+[node name="MouseColliderRoom" parent="Base" instance=ExtResource( 6 )]
+position = Vector2( 274.937, -69.0061 )
 scale = Vector2( 5.31445, 9.63602 )
 isExitToAirport = true
 
-[node name="Globe" parent="Base" instance=ExtResource( 8 )]
+[node name="Globe" parent="Base" instance=ExtResource( 7 )]
 position = Vector2( 16.4454, -39.1077 )
 scale = Vector2( 3.8892, 3.31086 )
 gravity = 0.0
 
-[node name="Petrol" parent="Base" instance=ExtResource( 8 )]
-position = Vector2( 43.9585, -115.776 )
+[node name="Petrol" parent="Base" instance=ExtResource( 7 )]
+position = Vector2( 36.721, -129.88 )
 scale = Vector2( 6.79051, 4.0173 )
 gravity = 0.0
 
-[node name="Telefone" parent="Base" instance=ExtResource( 8 )]
-position = Vector2( 152.786, 46.1729 )
+[node name="Telefone" parent="Base" instance=ExtResource( 7 )]
+position = Vector2( 136.572, 55.3823 )
 rotation = 0.251526
 scale = Vector2( -6.89733, -2.26798 )
 gravity = 0.0
 
-[node name="Telefone2" parent="Base" instance=ExtResource( 8 )]
-position = Vector2( 72.8993, 84.5262 )
+[node name="Telefone2" parent="Base" instance=ExtResource( 7 )]
+position = Vector2( 50.9607, 100.912 )
 rotation = 0.267813
 scale = Vector2( -8.3052, 3.16862 )
 gravity = 0.0
 
-[node name="Sprite" type="Sprite" parent="Base"]
+[node name="Clock" type="Sprite" parent="Base"]
 use_parent_material = true
 position = Vector2( 100, -131 )
 centered = false
-script = ExtResource( 9 )
+script = ExtResource( 8 )
 fileName = "/video/Uhr.smk"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Base/Sprite"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Base/Clock"]
 autoplay = true
-script = ExtResource( 3 )
+script = ExtResource( 9 )
 loop = true
 filePath = "/video/Uhr.raw"
