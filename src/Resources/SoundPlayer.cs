@@ -43,6 +43,11 @@ public class SoundPlayer : AudioStreamPlayer {
 
 	override public void _Ready() {
 		if (Stream == null) { //Created inside the editor -> We need to initialize with editor values
+			if (!File.Exists(SoundPath + filePath)) {
+				GD.PrintErr($"File: {SoundPath + filePath} not found!");
+				return;
+			}
+
 			SetAudioStream(filePath);
 			if (Autoplay) //Autoplay does not work natively, because there is was Audio Stream to play before we added it here
 				Play();
