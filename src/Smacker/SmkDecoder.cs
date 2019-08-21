@@ -108,103 +108,171 @@ public class SmackerDecoder {
 		set { currentFrame = value; }
 	}
 
-	public void UnpackPalette() {
-		Stream s = File.Stream;
+	// public void UnpackPalette() {
+	// 	Stream s = File.Stream;
 
-		uint startPos = (uint)s.Position;
-		int len = 4 * s.ReadByte();
+	// 	uint startPos = (uint)s.Position;
+	// 	int len = 4 * s.ReadByte();
 
-		byte[] chunk = new byte[len];
-		s.Read(chunk, 0, len);
-		var p = 0;
+	// 	byte[] chunk = new byte[len];
+	// 	s.Read(chunk, 0, len);
+	// 	var p = 0;
 
-		Color[] oldPalette = new Color[256];
-		Array.Copy(CurrentPalette, oldPalette, 256);
+	// 	Color[] oldPalette = new Color[256];
+	// 	Array.Copy(CurrentPalette, oldPalette, 256);
 
-		var pal = 0;
+	// 	var pal = 0;
 
-		int sz = 0;
-		byte b0;
-		while (sz < 256) {
-			b0 = chunk[p++];
-			if ((b0 & 0x80) != 0) {               // if top bit is 1 (0x80 = 10000000)
-				sz += (b0 & 0x7f) + 1;     // get lower 7 bits + 1 (0x7f = 01111111)
-				pal += ((b0 & 0x7f) + 1);
-			} else if ((b0 & 0x40) != 0) {        // if top 2 bits are 01 (0x40 = 01000000)
-				byte c = (byte)((b0 & 0x3f) + 1);  // get lower 6 bits + 1 (0x3f = 00111111)
-				uint ps = (uint)(chunk[p++]);
-				sz += c;
+	// 	int sz = 0;
+	// 	byte b0;
+	// 	while (sz < 256) {
+	// 		b0 = chunk[p++];
+	// 		if ((b0 & 0x80) != 0) {               // if top bit is 1 (0x80 = 10000000)
+	// 			sz += (b0 & 0x7f) + 1;     // get lower 7 bits + 1 (0x7f = 01111111)
+	// 			pal += ((b0 & 0x7f) + 1);
+	// 		} else if ((b0 & 0x40) != 0) {        // if top 2 bits are 01 (0x40 = 01000000)
+	// 			byte c = (byte)((b0 & 0x3f) + 1);  // get lower 6 bits + 1 (0x3f = 00111111)
+	// 			uint ps = (uint)(chunk[p++]);
+	// 			sz += c;
 
-				while (c-- != 0) {
-					CurrentPalette[pal].r = oldPalette[ps].r;
-					CurrentPalette[pal].g = oldPalette[ps].g;
-					CurrentPalette[pal].b = oldPalette[ps].b;
-					ps++;
-				}
-			} else {                       // top 2 bits are 00
-				sz++;
-				// get the lower 6 bits for each component (0x3f = 00111111)
-				byte r = (byte)(b0 & 0x3f);
-				byte g = (byte)(chunk[p++] & 0x3f);
-				byte b = (byte)(chunk[p++] & 0x3f);
+	// 			while (c-- != 0) {
+	// 				CurrentPalette[pal].r = oldPalette[ps].r;
+	// 				CurrentPalette[pal].g = oldPalette[ps].g;
+	// 				CurrentPalette[pal].b = oldPalette[ps].b;
+	// 				ps++;
+	// 			}
+	// 		} else {                       // top 2 bits are 00
+	// 			sz++;
+	// 			// get the lower 6 bits for each component (0x3f = 00111111)
+	// 			byte r = (byte)(b0 & 0x3f);
+	// 			byte g = (byte)(chunk[p++] & 0x3f);
+	// 			byte b = (byte)(chunk[p++] & 0x3f);
 
-				// upscale to full 8-bit color values. The Multimedia Wiki suggests
-				// a lookup table for this, but this should produce the same result.
-				CurrentPalette[pal].r = (byte)(r * 4 + r / 16);
-				CurrentPalette[pal].g = (byte)(g * 4 + g / 16);
-				CurrentPalette[pal].b = (byte)(b * 4 + b / 16);
-			}
-		}
+	// 			// upscale to full 8-bit color values. The Multimedia Wiki suggests
+	// 			// a lookup table for this, but this should produce the same result.
+	// 			CurrentPalette[pal].r = (byte)(r * 4 + r / 16);
+	// 			CurrentPalette[pal].g = (byte)(g * 4 + g / 16);
+	// 			CurrentPalette[pal].b = (byte)(b * 4 + b / 16);
+	// 		}
+	// 	}
 
-		s.Seek(startPos + len, SeekOrigin.Begin);
+	// 	s.Seek(startPos + len, SeekOrigin.Begin);
 
-	}
+	// }
 
 	private void UpdatePalette() {
 		//UnpackPalette();
 		//return;
 		// System.Console.WriteLine("Updating palette");
 		Stream s = File.Stream;
-		Color[] OldPallette = (Color[])CurrentPalette.Clone();
+		Color[] OldPallette = new Color[256];
+		Array.Copy(CurrentPalette, OldPallette, CurrentPalette.Length);
 		int size = (int)Util.ReadByte(s);
 		//For some dark reason we need to mask out the lower two bits
 		size = size * 4 - 1;
 		if (size == -1)
 			return;
 
+
 		int sz = 0;
 		long pos = s.Position + size;
 		int palIndex = 0;
 		int j;
-		while (sz < 256) {
-			int t = (int)Util.ReadByte(s);
-			if ((t & 0x80) == 0x80) {
-				/* skip palette entries */
-				sz += (t & 0x7F) + 1;
-				for (int i = 0; i < (t & 0x7F) + 1; i++) {
-					//sz++;
-					if (palIndex > CurrentPalette.Length - 1)
-						break;
-					CurrentPalette[palIndex++] = Color.FromArgb(255, 0, 0, 0);
+
+		int indexTemp = 0;
+
+		// while (sz < 256) {
+		// 	int t = (int)Util.ReadByte(s);
+		// 	if ((t & 0x80) == 0x80) {
+		// 		/* skip palette entries */
+		// 		sz += (t & 0x7F) + 1;
+		// 		palIndex += (t & 0x7F) + 1;
+		// 		// for (int i = 0; i < (t & 0x7F) + 1; i++) {
+		// 		// 	//sz++;
+
+		// 		// 	if (palIndex > CurrentPalette.Length - 1)
+		// 		// 		break;
+		// 		// 	CurrentPalette[palIndex] = OldPallette[indexTemp];
+		// 		// 	indexTemp++;
+		// 		// 	palIndex++;
+		// 		// }
+		// 		//palIndex += ((t & 0x7F) + 1);
+		// 	} else if ((t & 0x40) == 0x40) {
+		// 		/* copy with offset */
+		// 		int count = (t & 0x3f) + 1;
+		// 		int tmp_index = ((int)Util.ReadByte(s));
+
+		// 		//					Console.WriteLine ("copy2 {0} entries, from {1} to {2}", count, tmp_index, new_index);
+		// 		if (palIndex + count > CurrentPalette.Length - 1)
+		// 			count = CurrentPalette.Length - palIndex - 1;
+		// 		if (palIndex + tmp_index > CurrentPalette.Length - 1)
+		// 			count = CurrentPalette.Length - tmp_index - 1;
+		// 		// 		break;
+
+		// 		Array.Copy(OldPallette, tmp_index, CurrentPalette, palIndex, count);
+		// 		palIndex += count;
+		// 		sz += count;
+		// 		// int off = ((int)Util.ReadByte(s));
+		// 		// j = (t & 0x3F) + 1;
+		// 		// while ((j-- != 0) && sz < 256) {
+		// 		// 	if (palIndex > CurrentPalette.Length - 1 || off > OldPallette.Length - 1)
+		// 		// 		break;
+		// 		// 	CurrentPalette[palIndex++] = OldPallette[off];
+		// 		// 	sz++;
+		// 		// 	off++;
+		// 		// }
+		// 	} else {
+		// 		/* new entries */
+		// 		CurrentPalette[palIndex++] = Color.FromArgb(smackerMap[t], smackerMap[(int)Util.ReadByte(s) & 0x3F], smackerMap[(int)Util.ReadByte(s) & 0x3F]);
+		// 		sz++;
+		// 	}
+		// }
+
+		int i = 0, count = 0;
+		while ((i < 255) && (size > 0)) {
+			int current = (int)Util.ReadByte(s);
+			size--;
+
+			if ((current & 0x80) == 0x80) {
+				count = (current & 0x7F) + 1;
+
+				if (i + count > 256)
+					break;
+
+				i += count;
+			} else if ((current & 0x40) == 0x40) {
+				if (size < 2) {
+					break;
 				}
-				//palIndex += ((t & 0x7F) + 1);
-			} else if ((t & 0x40) == 0x40) {
-				/* copy with offset */
-				int off = ((int)Util.ReadByte(s));
-				j = (t & 0x3F) + 1;
-				while ((j-- != 0) && sz < 256) {
-					if (palIndex > CurrentPalette.Length - 1 || off > OldPallette.Length - 1)
-						break;
-					CurrentPalette[palIndex++] = OldPallette[off];
-					sz++;
-					off++;
+
+				count = (current & 0x3F) + 1;
+
+				int offset = (int)Util.ReadByte(s);
+				size--;
+
+				if (i + count > 256 || offset + count > 256 || (offset < i && offset + count > i)) {
+					break;
 				}
+
+				Array.Copy(OldPallette, offset, CurrentPalette, i, count);
+
+				i += count;
 			} else {
-				/* new entries */
-				CurrentPalette[palIndex++] = Color.FromArgb(smackerMap[t], smackerMap[(int)Util.ReadByte(s) & 0x3F], smackerMap[(int)Util.ReadByte(s) & 0x3F]);
-				sz++;
+				CurrentPalette[i] = Color.FromArgb(smackerMap[current], smackerMap[(int)Util.ReadByte(s) & 0x3F], smackerMap[(int)Util.ReadByte(s) & 0x3F]);
+				size -= 2;
+				i++;
 			}
 		}
+		// for (int p = 0; p < size; p++) {
+		// 	int t = (int)Util.ReadByte(s);
+
+		// 	if ((t & 0x80) == 0x80) {
+		// 		//Copy the next 0b0xxxxxxx entries to the current entry.
+		// 		int palettesToCopy = (t & 0x7F) + 1;
+
+		// 	}
+
+		// }
 		s.Seek(pos, SeekOrigin.Begin);
 	}
 
@@ -218,24 +286,23 @@ public class SmackerDecoder {
 	/// <summary>
 	/// Reads the next frame.
 	/// </summary>            
-	public void ReadNextFrame() {
+	public void ReadNextFrame(bool onlyUpdatePalette = false) {
 		uint mask = 1;
 
 		if (CurrentFrame >= File.Header.NbFrames) {
 			Reset();
-			return;
 		}
 		//throw new EndOfStreamException("No more frames");
 
 		long currentPos = File.Stream.Position;
 
 		//If this frame has a palette record
-		if ((File.FrameTypes[CurrentFrame] & mask) > 0) {
+		if ((File.FrameTypes[CurrentFrame] & mask) == mask) {
 			//Update the palette
 			UpdatePalette();
 		}
 
-		//Sound data
+		//Sound data - buggy and not working
 		// mask <<= 1;
 		// for (int i = 0; i < 7; i++, mask <<= 1) {
 		// 	if ((file.FrameTypes[CurrentFrame] & mask) > 0) {
@@ -338,7 +405,8 @@ public class SmackerDecoder {
 
 		//Video data
 		try {
-			DecodeVideo();
+			if (!onlyUpdatePalette)
+				DecodeVideo();
 		} catch (IOException exc) {
 			Console.WriteLine("Exception caught while decoding frame:" + exc.ToString());
 		}
@@ -682,7 +750,7 @@ public class SmackerDecoder {
 				result[j] = CurrentPalette[lastFrameData[i]].r;
 				result[j + 1] = CurrentPalette[lastFrameData[i]].g;
 				result[j + 2] = CurrentPalette[lastFrameData[i]].b;
-				result[j + 3] = (byte)(CurrentPalette[lastFrameData[i]].g == 255 && CurrentPalette[lastFrameData[i]].b == 0 ? 0 : 255);
+				result[j + 3] = (byte)(CurrentPalette[lastFrameData[i]].g == 255 && CurrentPalette[lastFrameData[i]].b == 0 && CurrentPalette[lastFrameData[i]].r == 0 ? 0 : 255);
 
 			}
 			return result;
