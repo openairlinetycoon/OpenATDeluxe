@@ -15,13 +15,17 @@ public class Office : Node2D {
 
 		playerAnims.basePosition = playerPos;
 
+		bool alreadyFired = false;
 		bool TriggerIdleAnimation(AnimationGoal goal) {
 			//If phonecall happens:
+			bool ret = !alreadyFired;
+			alreadyFired = true;
+
 			goal.triggerID = 1;
-			return false;
+			return ret;
 		}
 
-		string player = "PL3";
+		string player = "PL2";
 
 		playerAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, player + "Wait.smk", goals: new AnimationGoal(onTrigger: TriggerIdleAnimation)));
