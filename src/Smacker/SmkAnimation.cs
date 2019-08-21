@@ -26,12 +26,12 @@ public class SmkAnimation : SmkPlayer {
 			audio.use8BitEncoding = true;
 		}
 
-		smkAnimation.SetAudio();
-
 		smkAnimation.goal = goals;
 		if (goals == null) {
 			smkAnimation.goal = new AnimationGoal();
 		}
+
+		smkAnimation.SetAudio();
 
 		parent.AddChild(smkAnimation, true);
 
