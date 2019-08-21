@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 
 public class SmkPlayer : Sprite {
 	[Export]
@@ -53,9 +54,10 @@ public class SmkPlayer : Sprite {
 	/// </summary>
 	private void PrewarmDecoder() {
 		int frames = (int)file.Header.NbFrames;
+		buffer = new ImageTexture[frames];
 
 		for (int i = 0; i < frames; i++) {
-			decoder.ReadNextFrame();
+			decoder.ReadNextFrame(true);
 		}
 		decoder.Reset();
 
@@ -71,9 +73,13 @@ public class SmkPlayer : Sprite {
 
 		for (int i = 0; i < frames; i++) {
 			decoder.ReadNextFrame();
-
 			buffer[i] = PrepareImageTexture();
 		}
+	}
+
+	private void PrepareFrameImage() {
+		decoder.ReadNextFrame();
+		buffer[currentFrame] = PrepareImageTexture();
 	}
 
 	private ImageTexture PrepareImageTexture() {
@@ -88,8 +94,22 @@ public class SmkPlayer : Sprite {
 		return t;
 	}
 
-	private void LoadSmacker() {
-		file = SmackerFile.OpenFromStream(new System.IO.FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open));
+	Stream fileStream;
+	private void LoadSmacker(bool loadFileToMemory = true) {
+		if (loadFileToMemory) {
+			//These files are not that big, so we can just load them into memory, to free the file
+			FileStream temp = new FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open);
+			using (temp) {
+				//create new MemoryStream object
+				fileStream = new MemoryStream();
+				fileStream.SetLength(temp.Length);
+				//read file to MemoryStream
+				temp.Read(((MemoryStream)fileStream).GetBuffer(), 0, (int)temp.Length);
+			}
+		} else {
+			fileStream = new FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open);
+		}
+		file = SmackerFile.OpenFromStream(fileStream);
 		decoder = file.Decoder;
 		fps = (float)file.Header.Fps;
 		timeDelta = 1 / fps;
@@ -98,7 +118,11 @@ public class SmkPlayer : Sprite {
 	public override void _Ready() {
 		LoadSmacker();
 		PrewarmDecoder();
-		BufferImages();
+		//BufferImages();
+	}
+
+	override public void _ExitTree() {
+		fileStream.Dispose();
 	}
 
 	public void Play() {
@@ -107,6 +131,8 @@ public class SmkPlayer : Sprite {
 		Visible = true;
 
 		currentFrame = 0;
+		if (buffer[currentFrame] == null)
+			PrepareFrameImage();
 		Texture = buffer[currentFrame];
 	}
 	public void Pause() {
@@ -125,16 +151,23 @@ public class SmkPlayer : Sprite {
 		currentTimeDelta += delta;
 		if (currentTimeDelta > timeDelta) {
 			currentTimeDelta = 0;
-
 			currentFrame++;
 
 			if (currentFrame == buffer.Length)
 				OnAnimationFinish?.Invoke();
 
 			currentFrame = Mathf.Wrap(currentFrame, 0, buffer.Length);
+
+
+			if (buffer[currentFrame] == null)
+				PrepareFrameImage();
+
 			Texture = buffer[currentFrame];
 		}
 	}
 
 
 }
+
+
+
