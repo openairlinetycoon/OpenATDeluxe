@@ -6,9 +6,11 @@ using Directory = System.IO.Directory;
 using Thread = System.Threading.Thread;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using SystemFile = System.IO.File;
 
 public class ATDGameLoader : Node2D {
-	private const int FileSystemVersion = 1; //What version is the current file decrypter. For forced rebuilds on changes
+	private const string FileSystemVersion = "b529608a055d4db2eb8089d4a6fe5e9e3827332e"; //What version/checksum is the current file decryptor. For forced rebuilds on changes. CURRENTLY UNTESTED CHECKSUM!
 	private const string PackFile = "ATDFiles.pck";
 	private const string ImagesPath = "res://Images";
 	private const string ATDPathConfig = "application/config/atd_path";
@@ -20,7 +22,7 @@ public class ATDGameLoader : Node2D {
 
 	[Export]
 	bool forceRebuild = false;
-	bool isInEditor;
+	bool isInEditor; //TODO:Refractor this to the game class!
 
 	static bool otherDataLoaded;
 
@@ -38,38 +40,28 @@ public class ATDGameLoader : Node2D {
 		GFXLibrary.pathToAirlineTycoonD = (string)SettingsManager.GetSetting(ATDPathConfig, "");
 		GD.Print(GFXLibrary.pathToAirlineTycoonD);
 
-		isInEditor = OS.IsDebugBuild();
+		isInEditor = IsInEditor();
 
-		if (isInEditor) {
-			File f = new File();
-
-			File.ModeFlags flag = File.ModeFlags.ReadWrite;
-
-			if (!f.FileExists("res://Images/version.txt"))
-				flag = File.ModeFlags.WriteRead;
-
-			f.Open("res://Images/version.txt", (int)flag);
-
-			int currentVersion = f.Get32();
-
-			forceRebuild = forceRebuild ? forceRebuild : (currentVersion != FileSystemVersion);
-
-			f.Store32(FileSystemVersion);
-
-			f.Close();
+		//Is the current GFXLibrary.pathToAirlineTycoonD  folder, the correct folder?
+		if (!IsOriginalGamePath(GFXLibrary.pathToAirlineTycoonD)) {
+			SetNewGamePath();//Correct the error!
+			return; //We decide later, whether the files need to be updated!
 		}
 
-		if (forceRebuild || (!System.IO.File.Exists(PackFile) && !Directory.Exists(ProjectSettings.GlobalizePath(ImagesPath)))) {
-			selectATDPath = GetNode<FileDialog>("FileDialog"); //Get the path to the ATD install
-			selectATDPath.Connect("dir_selected", this, nameof(ChoseFile));
-			selectATDPath.GetCancel().Connect("button_down", this, nameof(ExitGame));
-			selectATDPath.PopupCentered(new Vector2(500, 500));
+		//If the current path is correct, check for the "correctness" of our files
+		ValidateFiles();
+	}
 
-			directoryInvalidDialog = GetNode<AcceptDialog>("DirectoryInvalid");
-			directoryInvalidDialog.Connect("confirmed", this, nameof(AcceptDialog));
-		} else { //If there is no need for a rebuild, just skip asking
+	private static bool IsOriginalGamePath(string dir) {
+		return SystemFile.Exists(dir + "/gli/glbasis.gli");
+	}
+
+	private void ValidateFiles() {
+		if (forceRebuild || (IsDataVersionWrong() && !isInEditor) || (isInEditor && !Directory.Exists(ProjectSettings.GlobalizePath(ImagesPath)))) {
+			StartImageRebuild(); //Files are corrupt/wrong/missing!
+		} else { //If there is no need for a rebuild, just load the data and leave
 			if (!isInEditor) {
-				ProjectSettings.LoadResourcePack(PackFile); //If we are not in the editor: we need to add the ATDFiles
+				ProjectSettings.LoadResourcePack(PackFile); //If we are not in the editor: add the ATDFiles
 			}
 			LoadOtherData();
 
@@ -78,18 +70,68 @@ public class ATDGameLoader : Node2D {
 
 			//GetTree().ChangeScene("res://scenes/base.tscn");
 		}
+	}
 
+	private void StartImageRebuild() {
+		GD.Print($"Rebuilding images... Are we in the editor? {isInEditor}");
 
+		//State possible reasons, we are not here to judge, we just execute
+		if (forceRebuild)
+			GD.Print("Forced rebuild active!");
+		if (!SystemFile.Exists(PackFile))
+			GD.Print($"{PackFile} does not exist!");
+		if (!Directory.Exists(ProjectSettings.GlobalizePath(ImagesPath)))
+			GD.Print($"{ProjectSettings.GlobalizePath(ImagesPath)} does not exist!");
+
+		Thread t = new Thread(CreateData); //Task?
+		t.Name = "DataLoader";
+
+		t.Start();
+		// selectATDPath = GetNode<FileDialog>("FileDialog"); //Get the path to the ATD install
+		// selectATDPath.Connect("dir_selected", this, nameof(ChoseFile));
+		// selectATDPath.GetCancel().Connect("button_down", this, nameof(ExitGame));
+		// selectATDPath.PopupCentered(new Vector2(500, 500));
+
+		// directoryInvalidDialog = GetNode<AcceptDialog>("DirectoryInvalid");
+		// directoryInvalidDialog.Connect("confirmed", this, nameof(AcceptDialog));
+	}
+
+	private bool IsInEditor() {
+		return SystemFile.Exists("default_env.tres") && SystemFile.Exists("default_bus_layout.tres");
+	}
+
+	private bool IsDataVersionWrong() {
+		if (!SystemFile.Exists(PackFile)) {
+			return true;
+		}
+
+		loadInfo.SetText("Creating checksum...");
+
+		using (SHA1 currentFileChecksum = SHA1.Create()) {
+			byte[] hash = currentFileChecksum.ComputeHash(SystemFile.Open(PackFile, System.IO.FileMode.Open));
+			string stringHash = BitConverter.ToString(hash).Replace("-", String.Empty).ToLowerInvariant();
+			GD.Print($"Your hash: \"{ stringHash}\", correct hash: \"{FileSystemVersion}\"");
+			return stringHash != FileSystemVersion;
+		}
+	}
+
+	private void SetNewGamePath() {
+		selectATDPath = GetNode<FileDialog>("FileDialog"); //Get the path to the ATD install
+		selectATDPath.Connect("dir_selected", this, nameof(ChoseFile));
+		selectATDPath.GetCancel().Connect("button_down", this, nameof(ExitGame));
+		selectATDPath.PopupCentered(new Vector2(500, 500));
+
+		directoryInvalidDialog = GetNode<AcceptDialog>("DirectoryInvalid");
+		directoryInvalidDialog.Connect("confirmed", this, nameof(AcceptDialog));
 	}
 
 	public override void _Process(float delta) {
-		loadInfo.SetText("Loading: " + currentFolder + "/" + currentLibrary + "/" + currentFile);
-
-
 		if (gameLoader == null) {
 			//SetProcess(false);
 			return;
 		}
+
+		loadInfo.SetText("Loading: " + currentFolder + "/" + currentLibrary + "/" + currentFile);
 
 		if (GetNode<Sprite>("Title").GetTexture() == null) {
 			GetNode<Sprite>("Title").SetTexture((Texture)ResourceLoader.Load("res://Images/room/titel/TITEL.res"));
@@ -111,7 +153,7 @@ public class ATDGameLoader : Node2D {
 				//ChangeScene("res://scenes/base.tscn");
 
 			} else if (state == Error.FileEof) {
-				loadInfo.SetText("Loading " + otherLoading + "...");
+				loadInfo.SetText("Loading " + otherLoading + (((OS.GetTicksMsec() / 500) % 3 == 0) ? "." : ((OS.GetTicksMsec() / 500) % 3 == 1) ? ".." : "..."));
 			} else if (state == Error.Ok) {
 				int progress = 100 / gameLoader.GetStageCount() * gameLoader.GetStage();
 				loadInfo.SetText("Loading scene: " + progress + "%");
@@ -131,21 +173,16 @@ public class ATDGameLoader : Node2D {
 	}
 
 	public void ChoseFile(string dir) {
-		if (!System.IO.File.Exists(dir + "/gli/glbasis.gli")) { //Basic check to see if we are inside the ATD folder
+		if (!IsOriginalGamePath(dir)) { //Basic check to see if we are inside the ATD folder
 			GD.PrintErr("INVALID PATH CHOSEN, CAN'T FIND glbasis.gli IN SUBFOLDER gli!");
 			directoryInvalidDialog.PopupCentered();
 			return;
 		}
-
 		SettingsManager.SetSetting(ATDPathConfig, dir);
 		GFXLibrary.pathToAirlineTycoonD = dir;
 
-		Thread t = new Thread(CreateData);
-		t.Name = "DataLoader";
-
-		t.Start();
+		ValidateFiles();
 	}
-
 	public void AcceptDialog() {
 		selectATDPath.PopupCentered(new Vector2(500, 500)); //try try and try again
 	}
@@ -161,12 +198,10 @@ public class ATDGameLoader : Node2D {
 	}
 
 	public void LoadOtherData() {
-		Task.Run(() =>
-		{
+		Task.Run(() => {
 			List<Exception> exceptions = new List<Exception>();
 
-			exceptions.Add(TryAction(() =>
-			{
+			exceptions.Add(TryAction(() => {
 				otherLoading = "Music";
 				string[] midFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.mid");
 				string[] oggFiles = System.IO.Directory.GetFiles(GFXLibrary.pathToAirlineTycoonD + "/sound/", "*.ogg");
@@ -179,22 +214,19 @@ public class ATDGameLoader : Node2D {
 				}
 			}));
 
-			exceptions.Add(TryAction(() =>
-			{
+			exceptions.Add(TryAction(() => {
 				otherLoading = "Clan CSV";
 				ClanCSVFile clanFile = new ClanCSVFile(GFXLibrary.pathToAirlineTycoonD + "/data/clan.csv");
 			}));
 
-			exceptions.Add(TryAction(() =>
-			{
+			exceptions.Add(TryAction(() => {
 				otherLoading = "Brick CSV";
 				CSVFileDecoder decoder = new CSVFileDecoder(GFXLibrary.pathToAirlineTycoonD + "/data/brick.csv");
 			}));
 
 
 
-			exceptions.Add(TryAction(() =>
-			{
+			exceptions.Add(TryAction(() => {
 				otherLoading = "Settings";
 				SettingsManager.LoadSavedData();
 			}));
