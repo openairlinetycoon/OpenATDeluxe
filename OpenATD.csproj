@@ -62,6 +62,10 @@
     <Compile Include="src\CharacterItem.cs" />
     <Compile Include="src\ClanCSVFile.cs" />
     <Compile Include="src\CameraController.cs" />
+    <Compile Include="src\Speech\AdvisorSystem.cs" />
+    <Compile Include="src\Speech\Dialogue.cs" />
+    <Compile Include="src\Speech\DialogueSystem.cs" />
+    <Compile Include="src\Speech\DialogueWindow.cs" />
     <Compile Include="src\GameController.cs" />
     <Compile Include="src\Localization\LocalizationManager.cs" />
     <Compile Include="src\Localization\LocalizedString.cs" />

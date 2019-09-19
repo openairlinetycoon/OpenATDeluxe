@@ -25,6 +25,18 @@ public class Office : Node2D {
 			return ret;
 		}
 
+		Dialogue test = new Dialogue("Bank"); //Yes? - Start
+		DialogueNode start = new DialogueNode(109);
+		DialogueNodeReturning debugEnding = new DialogueNodeReturning(103);
+
+		test.AddNode(start)
+			.AddNode(debugEnding);
+
+		start.AddOption(new DialogueOption(101, debugEnding));
+		start.AddOption(new DialogueOption(102, debugEnding));
+		start.AddOption(new DialogueOption(103, debugEnding));
+
+		DialogueSystem.StartDialogue(test, "P1");
 		string player = "PL2";
 
 		playerAnims.Add(

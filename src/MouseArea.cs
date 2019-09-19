@@ -11,10 +11,10 @@ public class MouseArea : Area2D {
 	}
 
 	public void MouseEntered() {
-		MouseCursor.instance.MouseEnter(this);
+		MouseCursor.instance?.MouseEnter(this);
 	}
 	public void MouseExited() {
-		MouseCursor.instance.MouseLeave(this);
+		MouseCursor.instance?.MouseLeave(this);
 	}
 
 

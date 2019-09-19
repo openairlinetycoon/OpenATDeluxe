@@ -19,7 +19,15 @@ config/name="OpenATD"
 run/main_scene="res://scenes/load.tscn"
 config/project_settings_override="settings.cfg"
 config/icon="res://icon.png"
-config/atd_path="P:\\Projekte\\Major Games\\BASE\\ATD"
+config/atd_path="P:/Projekte/Major Games/BASE/ATD"
+
+[audio]
+
+bus2vol=-4
+bus6vol=-18
+bus5vol=-32
+bus3vol=-25
+bus4vol=-4
 
 [display]
 
@@ -32,6 +40,17 @@ window/stretch/aspect="keep"
 
 enabled=PoolStringArray( "midi" )
 
+[graphics]
+
+transparency=true
+passenger=false
+shadow=false
+thoughts=true
+blind=true
+roomDetails=false
+scrolling=true
+planes=false
+
 [locale]
 
 translations=PoolStringArray( "res://localization/localization.de.translation", "res://localization/localization.en.translation", "res://localization/localization.es.translation", "res://localization/localization.fr.translation", "res://localization/localization.it.translation", "res://localization/localization.nl.translation", "res://localization/localization.pt.translation", "res://localization/localization.pt_BR.translation" )
@@ -40,6 +59,18 @@ locale_filter=[ 1, [  ] ]
 [mono]
 
 profiler/args="default:alloc,output=output.mlpd"
+
+[other]
+
+secretary=true
+advisor=false
+autosave=true
+fax=false
+realNames=true
+textBubbles=false
+summary=true
+gameStartToday=true
+roundNumbers=false
 
 [rendering]
 
