@@ -8,7 +8,6 @@
 
 [node name="DialogueSystem" type="Node2D" parent="."]
 position = Vector2( 0, 1080 )
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -24,6 +23,7 @@ grow_horizontal = 0
 grow_vertical = 0
 size_flags_stretch_ratio = 0.0
 alignment = 2
+script = ExtResource( 1 )
 
 [node name="Label" type="Label" parent="DialogueSystem/Prefab"]
 margin_top = 4.0
@@ -57,20 +57,3 @@ axis_stretch_vertical = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 0
-
-[node name="Line0" type="Control" parent="DialogueSystem/Prefab/Label/Lines"]
-margin_right = 1872.0
-margin_bottom = 17.0
-rect_min_size = Vector2( 0, 17 )
-
-[node name="Line1" type="Control" parent="DialogueSystem/Prefab/Label/Lines"]
-margin_top = 17.0
-margin_right = 1872.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 0, 17 )
-
-[node name="Line2" type="Control" parent="DialogueSystem/Prefab/Label/Lines"]
-margin_top = 34.0
-margin_right = 1872.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 0, 17 )
