@@ -11,7 +11,7 @@ public class MouseCursor : Node2D {
 	List<Node2D> states = new List<Node2D>();
 
 	MouseState currentState;
-	MouseArea currentHover; //The "object" we are currently hovering above
+	Node currentHover; //The "object" we are currently hovering above
 
 	public enum MouseState : int {
 		Normal = 0,
@@ -44,22 +44,20 @@ public class MouseCursor : Node2D {
 		Input.SetMouseMode(Input.MouseMode.Hidden);
 	}
 
-	public void MouseEnter(Area2D other) {
-		MouseArea area = other as MouseArea;
-		if (area != null) {
-			currentHover = area;
+	public void MouseEnter(Node other) {
+		if (other is MouseArea area) {
 			ChangeMouseState(area.isExitToAirport ? MouseState.Exit : MouseState.Hover);
 		} else {
 			ChangeMouseState(MouseState.Hover);
 		}
+		currentHover = other;
 	}
 
-	public void MouseLeave(Area2D other) {
-		MouseArea area = other as MouseArea;
-		if (area != null && area == currentHover) {
-			currentHover = null;
+	public void MouseLeave(Node other) {
+		if (other is MouseArea area && area == currentHover) {
 		}
 
+		currentHover = null;
 		ChangeMouseState(MouseState.Normal);
 	}
 
@@ -81,13 +79,12 @@ public class MouseCursor : Node2D {
 
 	int currentTexture = 0;
 
-	public override void _UnhandledInput(InputEvent e) {
-		if (e is InputEventMouseButton) {
-			InputEventMouseButton mouse = e as InputEventMouseButton;
+	public override void _Input(InputEvent e) {
+		if (e is InputEventMouseButton mouse) {
 
 			if (mouse.IsPressed()) {
 				if (currentHover != null && movingCamera == 0) {
-					currentHover.OnClick();
+					currentHover.Call("OnClick");
 				} else if (PlayerCharacter.instance != null && RoomManager.currentRoom == "RoomAirport") {
 					//SET MOVING WAYPOINT
 					PlayerCharacter.instance.SetPath(CameraController.airportCamera.GetGlobalMousePosition());
@@ -98,6 +95,8 @@ public class MouseCursor : Node2D {
 				//         } else {
 				//             currentTexture = 0;
 				//         }
+
+				GetTree().SetInputAsHandled();
 			}
 		}
 	}
