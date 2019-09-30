@@ -127,7 +127,7 @@ public class Dialogue {
 	}
 
 	public void SelectOption(int id) {
-		//TODO: Add OOR check!
+		//TODO: Add OutOfRange check!
 		DialogueNode nextNode = CurrentNode.options[id].GetDestinationNode();
 
 		StartNode(nextNode);
