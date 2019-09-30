@@ -14,11 +14,13 @@ public class SoundPlayer : AudioStreamPlayer {
 	public string filePath;
 	AudioStreamSample audioFile = new AudioStreamSample();
 
-	public static SoundPlayer CreatePlayer(string file, string bus) {
+	public static SoundPlayer CreatePlayer(string file, string bus, bool use8BitEncoding = false) {
 		SoundPlayer player = new SoundPlayer();
 		if (!File.Exists(SoundPath + file)) {
 			throw (new System.IO.FileNotFoundException($"File: {SoundPath + file} not found!"));
 		}
+
+		player.use8BitEncoding = use8BitEncoding;
 
 		player.SetAudioStream(file);
 		player.Bus = bus;
