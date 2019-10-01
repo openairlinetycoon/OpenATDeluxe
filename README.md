@@ -8,16 +8,16 @@ It will add support for Full HD resolution, and native support for platforms lik
 
 Join our [Discord](https://discord.gg/epPf384)!
 
-You can help by getting involved in active development of [things to do](https://github.com/WizzardMaker/OpenATDeluxe/projects/1), by suggesting new features, reporting bugs of the original game, or by bug-testing the game in its current state. Thanks in advance !
+You can help by getting involved in active development of [things to do](https://github.com/openairlinetycoon/OpenATDeluxe/projects/1), by suggesting new features, reporting bugs of the original game, or by bug-testing the game in its current state. Thanks in advance !
 
 ## Progress
-- Game rooms are nearly all added [#10](https://github.com/WizzardMaker/OpenATDeluxe/issues/10)
-- Data import is 90% finished [#5](https://github.com/WizzardMaker/OpenATDeluxe/issues/5)
+- Game rooms are nearly all added [#10](https://github.com/openairlinetycoon/OpenATDeluxe/issues/10)
+- Data import is 90% finished [#5](https://github.com/openairlinetycoon/OpenATDeluxe/issues/5)
 - The airport is implemented
 - The player character is implemented
 
 ## Todo
-- See [board](https://github.com/WizzardMaker/OpenATDeluxe/projects/1)
+- See [board](https://github.com/openairlinetycoon/OpenATDeluxe/projects/1)
 
 ## How to compile the Godot branch
 - Download Godot 3.1 Mono or later
@@ -36,3 +36,5 @@ All images are work in progress!
 ![Imgur](https://i.imgur.com/Vc9CAym.gif)
 
 ![Imgur](https://i.imgur.com/A4toKcI.gif)
+
+![atd.gif](https://user-images.githubusercontent.com/7768485/65977049-837dae00-e471-11e9-8426-26400f53eb59.gif)
