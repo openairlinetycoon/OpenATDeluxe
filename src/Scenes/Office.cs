@@ -27,14 +27,16 @@ public class Office : Node2D {
 
 		Dialogue test = new Dialogue("Bank"); //Yes? - Start
 		DialogueNode start = new DialogueNode(109);
-		DialogueNodeReturning debugEnding = new DialogueNodeReturning(103);
+		DialogueNodeReturning noNewLoan = new DialogueNodeReturning(120);
+		DialogueNodeReturning noReturningOfLoan = new DialogueNodeReturning(140);
 
 		test.AddNode(start)
-			.AddNode(debugEnding);
+			.AddNode(noNewLoan)
+			.AddNode(noReturningOfLoan);
 
-		start.AddOption(new DialogueOption(101, debugEnding));
-		start.AddOption(new DialogueOption(102, debugEnding));
-		start.AddOption(new DialogueOption(103, debugEnding));
+		start.AddOption(new DialogueOption(101, noNewLoan));
+		start.AddOption(new DialogueOption(102, noReturningOfLoan));
+		start.AddOption(new DialogueOptionReturning(103));
 
 		DialogueSystem.StartDialogue(test, "P1");
 		string player = "PL2";

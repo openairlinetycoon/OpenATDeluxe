@@ -31,7 +31,7 @@ public class DialogueSystem : Node2D {
 	public enum DialogueStates {
 		ReadingHead,
 		PickingOptions,
-		ReadingOptions,
+		ReadingPickedOption,
 		Other,
 	}
 
@@ -63,10 +63,23 @@ public class DialogueSystem : Node2D {
 		currentDialogue = dialogue;
 		currentDialogue.Start();
 
+		ReadNextNodeHead(dialogue);
+	}
+
+	private static void ReadNextNodeHead(Dialogue dialogue) {
+		if (IsDialogueActive == false) {
+			Speechbubble.Hide();
+
+			return;//TODO: Delete/Hide Speechbubble
+		}
+
+		Speechbubble.Show();
+
 		Speechbubble.PrepareBubbleHeadText(0, dialogue);
 		state = DialogueStates.ReadingHead;
 		StartDialogueHeadSpeech();
 	}
+
 	public static string GetInstruction(string text) {
 		string pattern = @"\[\[(.*)\]\]";
 
@@ -77,36 +90,51 @@ public class DialogueSystem : Node2D {
 
 		return instruction;
 	}
-	private static void StartDialogueHeadSpeech() {
-		void WaitForSpeechToFinish() {
-			//Make Speech!
 
-			System.Threading.Thread.Sleep(2000); //!DUMMY SLEEP
-			Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
-		}
+	private static void CreateSoundAndWaitForFinish(string fileName) {
 		SoundPlayer speech
-		 = SoundPlayer.CreatePlayer($"/VOICE/{GetInstruction(GetFullTrText(currentDialogue.CurrentNode.textId, currentDialogue))}.raw", "language", false);//P1\BA\3014
+		= SoundPlayer.CreatePlayer($"/VOICE/{fileName}.raw", "language", false);//P1\BA\3014
 
 
 		instance.AddChild(speech);
 		speech.Play();
+		while (speech.Playing) { } //TODO: Find a CPU friendlier way of waiting
+
+		speech.QueueFree();
+	}
+
+	/// <summary>
+	/// Starts the sound for the 
+	/// </summary>
+	private static void StartDialogueHeadSpeech() {
+		void WaitForSpeechToFinish() {
+
+			string fileName = GetInstruction(GetFullTrText(currentDialogue.CurrentNode.textId, currentDialogue));
+			CreateSoundAndWaitForFinish(fileName);
+
+			currentDialogue.CurrentNode.OnSpeechFinished();
+
+			if (currentDialogue.CurrentNode.options.Count == 0) { //No options often means returning Node.
+				ReadNextNodeHead(currentDialogue);
+			} else {
+				state = DialogueStates.PickingOptions;
+				Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
+			}
+		}
 
 		Task.Run(() => WaitForSpeechToFinish());
 	}
 
 	private static void StartDialogueAnswerSpeech(int optionIndex) {
 		void WaitForSpeechToFinish() {
-			//Make Speech!
+			string fileName = GetInstruction(GetFullTrText(currentDialogue.CurrentNode.options[optionIndex].textId, currentDialogue));
+			CreateSoundAndWaitForFinish(fileName);
 
-			System.Threading.Thread.Sleep(2000); //!DUMMY SLEEP
+			currentDialogue.CurrentNode.OnSpeechFinished();
 			currentDialogue.SelectOption(optionIndex);
+
+			ReadNextNodeHead(currentDialogue);
 		}
-		SoundPlayer speech
-		 = SoundPlayer.CreatePlayer($"/VOICE/{GetInstruction(GetFullTrText(currentDialogue.CurrentNode.options[optionIndex].textId, currentDialogue))}.raw", "language", false);//P1\BA\3014
-
-
-		instance.AddChild(speech);
-		speech.Play();
 
 		Task.Run(() => WaitForSpeechToFinish());
 	}
@@ -124,15 +152,20 @@ public class DialogueSystem : Node2D {
 
 	}
 
+	public static void StopDialogue() {
+		currentDialogue = null;
+	}
+
+
 	public static void SelectOption(int option) {
 		if (!IsDialogueActive)
 			return;
 		GD.Print($"OPTION {option}");
 
+		state = DialogueStates.ReadingPickedOption;
 		Speechbubble.PrepareBubbleAnswerText(option, 0, currentDialogue);
-
-
 		StartDialogueAnswerSpeech(option);
+
 		//currentDialogue.SelectOption(option);
 	}
 

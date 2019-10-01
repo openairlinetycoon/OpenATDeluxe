@@ -39,6 +39,8 @@ public class DialogueNodeReturning : DialogueNode {
 	public DialogueNodeReturning(int textId) : base(textId) {
 	}
 
+	new private void AddOption(DialogueOption option) { } //We don't allow options for returning nodes. That would confuse people
+
 	public override void OnSpeechFinished() {
 		base.OnSpeechFinished();
 
@@ -57,7 +59,16 @@ public class DialogueOption {
 	}
 
 	public virtual DialogueNode GetDestinationNode() {
-		throw new NotImplementedException();
+		return destination;
+	}
+}
+
+public class DialogueOptionReturning : DialogueOption {
+	public DialogueOptionReturning(int textId) : base(textId, null) {
+	}
+
+	override public DialogueNode GetDestinationNode() {
+		return null;
 	}
 }
 
@@ -121,6 +132,10 @@ public class Dialogue {
 	}
 
 	public void ReturnToPrevNode() {
+		if (dialogueStack.Count == 0) {
+			DialogueSystem.StopDialogue();
+			return;
+		}
 		DialogueNode prev = dialogueStack.Pop();
 
 		StartNode(prev, false); //Opt out of Stack to prevent looping forth and back
@@ -129,8 +144,12 @@ public class Dialogue {
 	public void SelectOption(int id) {
 		//TODO: Add OutOfRange check!
 		DialogueNode nextNode = CurrentNode.options[id].GetDestinationNode();
+		if (CurrentNode.options[id] is DialogueOptionReturning) {
+			ReturnToPrevNode();
+		} else {
+			StartNode(nextNode);
 
-		StartNode(nextNode);
+		}
 	}
 
 
