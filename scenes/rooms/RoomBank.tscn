@@ -1,13 +1,19 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/bank/BANK.res" type="Texture" id=2]
-[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Images/room/bank/MONI01.res" type="Texture" id=4]
-[ext_resource path="res://Images/room/bank/MONI02.res" type="Texture" id=5]
-[ext_resource path="res://Images/room/bank/MONI03.res" type="Texture" id=6]
-[ext_resource path="res://Images/room/bank/MONI04.res" type="Texture" id=7]
-[ext_resource path="res://Images/room/bank/MONI05.res" type="Texture" id=8]
+[ext_resource path="res://src/Scenes/Bank.cs" type="Script" id=1]
+[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
+[ext_resource path="res://Images/room/bank/BANK.res" type="Texture" id=3]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Images/room/bank/MONI01.res" type="Texture" id=5]
+[ext_resource path="res://Images/room/bank/MONI02.res" type="Texture" id=6]
+[ext_resource path="res://Images/room/bank/MONI03.res" type="Texture" id=7]
+[ext_resource path="res://Images/room/bank/MONI04.res" type="Texture" id=8]
+[ext_resource path="res://Images/room/bank/MONI05.res" type="Texture" id=9]
+[ext_resource path="res://Images/gli/glberatr/BER92_01.res" type="Texture" id=10]
+[ext_resource path="res://Images/gli/glberatr/BER92_02.res" type="Texture" id=11]
+[ext_resource path="res://Images/gli/glberatr/BER92_03.res" type="Texture" id=12]
+[ext_resource path="res://Images/gli/glberatr/BER92_04.res" type="Texture" id=13]
+[ext_resource path="res://Prefabs/DialogueSystem.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -15,16 +21,25 @@ extents = Vector2( 21.9167, 8.34528 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 9.0
+} ]
+
 [node name="RoomKiosk" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="Base" type="Control" parent="."]
-material = ExtResource( 1 )
+material = ExtResource( 2 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -39,9 +54,10 @@ mouse_filter = 1
 [node name="roomSprite" type="Sprite" parent="Base"]
 position = Vector2( -75.529, -2.43213 )
 scale = Vector2( 0.990909, 0.990909 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
-[node name="MouseColliderRoom2" parent="Base" instance=ExtResource( 3 )]
+[node name="MouseColliderRoom2" parent="Base" instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( -254.784, -29.7827 )
 scale = Vector2( 5.31445, 9.63602 )
 z_index = 1
@@ -54,8 +70,24 @@ shape = SubResource( 1 )
 [node name="Screen" type="AnimatedSprite" parent="Base"]
 position = Vector2( -194.358, -7.53902 )
 frames = SubResource( 2 )
-frame = 4
 speed_scale = 0.15
 playing = true
 
+[node name="Screen2" type="AnimatedSprite" parent="Base"]
+visible = false
+use_parent_material = true
+position = Vector2( -343.338, 36.8621 )
+z_index = 16
+frames = SubResource( 3 )
+
+[node name="DialogueSystem" parent="." instance=ExtResource( 14 )]
+
+[node name="Prefab" parent="DialogueSystem" index="0"]
+visible = false
+
+[node name="Speechbubble" parent="DialogueSystem/Prefab/Label" index="0"]
+mouse_filter = 1
+
 [editable path="Base/MouseColliderRoom2"]
+
+[editable path="DialogueSystem"]
