@@ -8,11 +8,29 @@ public class AnimationList : List<SmkAnimation> {
 	public Vector2 basePosition;
 
 	public SmkAnimation current;
+	public MouseArea mouseArea;
+
+	public MouseArea CreateMouseArea(Node parent) {
+		mouseArea = new MouseArea();
+		CollisionShape2D area = new CollisionShape2D();
+		area.Shape = new RectangleShape2D();
+		area.ZIndex = 1;
+		mouseArea.AddChild(area);
+		parent.AddChild(mouseArea);
+
+		return mouseArea;
+	}
 
 	public void Play(int index) {
 		StopAll();
 
 		current = this[index];
+
+		if (mouseArea != null) {
+			int width = current.GetWidth(), height = current.GetHeight();
+			mouseArea.area.Scale = new Vector2(width / 2, height / 2) / 10f;
+			mouseArea.area.Position = new Vector2(width / 2, height / 2) + basePosition;
+		}
 		current.Play();
 	}
 
@@ -30,6 +48,13 @@ public class AnimationList : List<SmkAnimation> {
 		StopAll();
 
 		current = Find((toFind) => toFind == animation);
+
+		if (mouseArea != null) {
+			int width = current.GetWidth(), height = current.GetHeight();
+			mouseArea.area.Scale = new Vector2(width / 2, height / 2) / 10f;
+			mouseArea.area.Position = new Vector2(width / 2, height / 2) + basePosition;
+		}
+
 		current.Play();
 	}
 
@@ -50,7 +75,7 @@ public class AnimationList : List<SmkAnimation> {
 	}
 
 	public void Cancel() {
-		SmkAnimation anim = current.goal.cancel;
+		SmkAnimation anim = current?.goal?.cancel;
 		if (current.goal.cancelID != -1)
 			Play(current.goal.cancelID);
 
@@ -68,7 +93,7 @@ public class AnimationList : List<SmkAnimation> {
 	}
 
 	public void ProcessTrigger() {
-		if (current.goal.onTrigger?.Invoke(current.goal) == true)
+		if (current?.goal?.onTrigger?.Invoke(current.goal) == true)
 			Trigger();
 	}
 }

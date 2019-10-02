@@ -144,6 +144,17 @@ public class SmkPlayer : Sprite {
 		Visible = false;
 	}
 
+	public int GetWidth() {
+		if (buffer[currentFrame] == null)
+			PrepareFrameImage();
+		return buffer[currentFrame].GetWidth();
+	}
+	public int GetHeight() {
+		if (buffer[currentFrame] == null)
+			PrepareFrameImage();
+		return buffer[currentFrame].GetHeight();
+	}
+
 	public override void _Process(float delta) {
 		if (!isPlaying || !Visible)
 			return;
