@@ -12,6 +12,17 @@ public class MouseCursor : Node2D {
 
 	MouseState currentState;
 	Node currentHover; //The "object" we are currently hovering above
+	List<HoverStackItem> hovers = new List<HoverStackItem>();
+
+	public struct HoverStackItem {
+		public MouseState state;
+		public Node item;
+
+		public HoverStackItem(MouseState state, Node item) {
+			this.state = state;
+			this.item = item;
+		}
+	}
 
 	public enum MouseState : int {
 		Normal = 0,
@@ -45,20 +56,51 @@ public class MouseCursor : Node2D {
 	}
 
 	public void MouseEnter(Node other) {
+		MouseState state = MouseState.Hover;
 		if (other is MouseArea area) {
-			ChangeMouseState(area.isExitToAirport ? MouseState.Exit : MouseState.Hover);
+			ChangeMouseState(state = (area.isExitToAirport ? MouseState.Exit : MouseState.Hover));
 		} else {
 			ChangeMouseState(MouseState.Hover);
 		}
-		currentHover = other;
+
+		if (other != null) {
+			currentHover = other;
+			hovers.Add(new HoverStackItem(state, other));
+		}
 	}
 
 	public void MouseLeave(Node other) {
 		if (other is MouseArea area && area == currentHover) {
 		}
 
-		currentHover = null;
-		ChangeMouseState(MouseState.Normal);
+		if (other != null)
+			hovers.Remove(hovers.Find((o) => o.item == other));
+		List<HoverStackItem> marked = new List<HoverStackItem>();
+		foreach (HoverStackItem i in hovers) {
+			if (IsInstanceValid(i.item) != true)
+				marked.Add(i);
+		}
+		foreach (HoverStackItem i in marked) {
+			hovers.Remove(i);
+		}
+		HoverStackItem next = hovers.LastOrDefault(); ;
+		currentHover = next.item;
+
+		ChangeMouseState(next.state);
+	}
+
+	public int GetIndexRecursive(Node n, bool withZIndexAdded = false) {
+		int index = 0;
+		Node current = n;
+		Node root = GetTree().Root;
+		while (current != root) {
+			index += current.GetIndex();
+			index += withZIndexAdded ? (int)(current.HasMethod("GetZIndex") ? current.Call("GetZIndex") : 0) : 0;
+
+			current = current.GetParent();
+		}
+
+		return index;
 	}
 
 
@@ -80,14 +122,21 @@ public class MouseCursor : Node2D {
 	int currentTexture = 0;
 
 	public override void _Input(InputEvent e) {
+
+		if (currentHover != null) {
+			//GD.Print(currentHover.Name);
+		}
 		if (e is InputEventMouseButton mouse) {
 
 			if (mouse.IsPressed()) {
-				if (currentHover != null && movingCamera == 0) {
+				bool handled = false;
+				if (currentHover != null && movingCamera == 0 && IsInstanceValid(currentHover)) {
 					currentHover.Call("OnClick");
+					handled = true;
 				} else if (PlayerCharacter.instance != null && RoomManager.currentRoom == "RoomAirport") {
 					//SET MOVING WAYPOINT
 					PlayerCharacter.instance.SetPath(CameraController.airportCamera.GetGlobalMousePosition());
+					handled = true;
 				}
 				//         if (currentTexture < lib.filesInLibrary) {
 
@@ -95,8 +144,8 @@ public class MouseCursor : Node2D {
 				//         } else {
 				//             currentTexture = 0;
 				//         }
-
-				GetTree().SetInputAsHandled();
+				if (handled)
+					GetTree().SetInputAsHandled();
 			}
 		}
 	}
