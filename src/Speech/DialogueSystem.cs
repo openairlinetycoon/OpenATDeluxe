@@ -18,6 +18,8 @@ public class DialogueSystem : Node2D {
 		}
 	}
 
+	public static string currentlyTalking;
+
 	public static DialogueWindow Speechbubble {
 		get {
 			_speechbubble = _speechbubble ?? (DialogueWindow)instance.FindNode("Prefab"); //TODO: FIX ME!!
@@ -90,6 +92,16 @@ public class DialogueSystem : Node2D {
 
 		return instruction;
 	}
+	public static string GetInstructionActor(string text) {
+		string pattern = @"(.*)\\"; //B2\109
+
+		string actor = Regex.Match(text, pattern).Groups[1].Value;
+
+		//Player 1 is used as placeholder in the localization. We have to change that to the current player
+		actor = actor.Replace("P1", $"P{GameController.playerID}");
+
+		return actor;
+	}
 
 	private static void CreateSoundAndWaitForFinish(string fileName) {
 		SoundPlayer speech
@@ -98,19 +110,21 @@ public class DialogueSystem : Node2D {
 
 		instance.AddChild(speech);
 		speech.Play();
-		while (speech.Playing) { } //TODO: Find a CPU friendlier way of waiting
-
+		while (speech.Playing) { }
+		//TODO: Find a CPU friendlier way of waiting
+		//TODO: Add multiple sound instructions
 		speech.QueueFree();
 	}
 
 	/// <summary>
-	/// Starts the sound for the 
+	/// Starts the sound for the dialogue
 	/// </summary>
 	private static void StartDialogueHeadSpeech() {
 		void WaitForSpeechToFinish() {
-
 			string fileName = GetInstruction(GetFullTrText(currentDialogue.CurrentNode.textId, currentDialogue));
+			currentlyTalking = GetInstructionActor(fileName);
 			CreateSoundAndWaitForFinish(fileName);
+			currentlyTalking = "";
 
 			currentDialogue.CurrentNode.OnSpeechFinished();
 
@@ -128,7 +142,9 @@ public class DialogueSystem : Node2D {
 	private static void StartDialogueAnswerSpeech(int optionIndex) {
 		void WaitForSpeechToFinish() {
 			string fileName = GetInstruction(GetFullTrText(currentDialogue.CurrentNode.options[optionIndex].textId, currentDialogue));
+			currentlyTalking = GetInstructionActor(fileName);
 			CreateSoundAndWaitForFinish(fileName);
+			currentlyTalking = "";
 
 			currentDialogue.CurrentNode.OnSpeechFinished();
 			currentDialogue.SelectOption(optionIndex);

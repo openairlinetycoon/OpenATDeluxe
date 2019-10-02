@@ -32,6 +32,7 @@ public class DialogueWindow : Control {
 			MouseCursor.instance?.MouseLeave(this);
 		}
 		public void OnClick() {
+			MouseCursor.instance?.ChangeMouseState(MouseCursor.MouseState.Normal);
 			DialogueSystem.SelectOption(option);
 		}
 
