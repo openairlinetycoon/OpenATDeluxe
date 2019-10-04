@@ -44,10 +44,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 960.0
-margin_top = 540.0
-margin_right = 960.0
-margin_bottom = 540.0
+margin_left = 980.0
+margin_top = 550.0
+margin_right = 980.0
+margin_bottom = 550.0
 rect_scale = Vector2( 2.5, 2.5 )
 mouse_filter = 1
 
@@ -70,6 +70,7 @@ shape = SubResource( 1 )
 [node name="Screen" type="AnimatedSprite" parent="Base"]
 position = Vector2( -194.358, -7.53902 )
 frames = SubResource( 2 )
+frame = 2
 speed_scale = 0.15
 playing = true
 
