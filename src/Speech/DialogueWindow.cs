@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Text;
 
 public class DialogueWindow : Control {
 	public Label textLabel;
@@ -62,8 +63,30 @@ public class DialogueWindow : Control {
 		return newLine;
 	}
 
-	public static string GetFullCleanTrText(int id, Dialogue dialogue) {
-		return CleanOffInstruction(TranslationServer.Translate(dialogue.dialogueGroup + ">" + id));
+	public static string FillWildcards(string fullText, params string[] values) {
+		var aStringBuilder = new StringBuilder(fullText);
+
+		int index = 0;
+		int offset = 0;
+		foreach (Match m in Regex.Matches(fullText, @"%[a-z]*")) {
+			int wildcardPos = m.Index + offset;
+
+			aStringBuilder.Remove(wildcardPos, 2);
+			aStringBuilder.Insert(wildcardPos, values[index]);
+			offset += values[index].Length - 2;
+
+			index++;
+		}
+
+		fullText = aStringBuilder.ToString();
+		return fullText;
+	}
+
+	public static string GetFullCleanTrText(int id, Dialogue dialogue, string[] wildcards = null) {
+		string text = CleanOffInstruction(TranslationServer.Translate(dialogue.dialogueGroup + ">" + id));
+		if (wildcards != null)
+			text = FillWildcards(text, wildcards);
+		return text;
 	}
 
 	public void PrepareBubbleHeadText(int currentActor, Dialogue dialogue) {
@@ -77,7 +100,7 @@ public class DialogueWindow : Control {
 
 		//TODO: Add positioning to dialogue actor
 
-		string text = GetFullCleanTrText(dialogue.CurrentNode.textId, dialogue);
+		string text = GetFullCleanTrText(dialogue.CurrentNode.textId, dialogue, dialogue.CurrentNode.wildcards);
 		textLabel.Text = text;
 	}
 
@@ -97,7 +120,7 @@ public class DialogueWindow : Control {
 		int optionIndex = 0;
 		foreach (DialogueOption option in dialogue.CurrentNode.options) {
 			text += "* ";
-			text += GetFullCleanTrText(option.textId, dialogue);
+			text += GetFullCleanTrText(option.textId, dialogue, option.wildcards);
 			text += '\n';
 			textLabel.Text = text;
 
@@ -119,13 +142,13 @@ public class DialogueWindow : Control {
 
 		lines.Clear();
 
-		string text = GetFullCleanTrText(dialogue.CurrentNode.options[optionIndex].textId, dialogue); ;
+		string text = GetFullCleanTrText(dialogue.CurrentNode.options[optionIndex].textId, dialogue, dialogue.CurrentNode.options[optionIndex].wildcards);
 		textLabel.Text = text;
 
 	}
 
 	public static string CleanOffInstruction(string text) {
-		string pattern = @"\[\[(.*)\]\]";
+		string pattern = @" ?\[\[([^\]]*)\]\]";
 		return Regex.Replace(text, pattern, "");
 	}
 

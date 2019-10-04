@@ -13,12 +13,17 @@ public class DialogueNode {
 
 	public int textId;
 
+	public string[] wildcards;
+
+	public bool returnable = true;
+
 	public List<DialogueOption> options = new List<DialogueOption>();
 
 	protected Action onSpeechFinished, start;
 
-	public DialogueNode(int textId) {
+	public DialogueNode(int textId, params string[] wildcards) {
 		this.textId = textId;
+		this.wildcards = wildcards;
 	}
 
 	public virtual void Start(Dialogue master) {
@@ -33,10 +38,14 @@ public class DialogueNode {
 	public void AddOption(DialogueOption option) {
 		options.Add(option);
 	}
+
+	public void PreventReturning() {
+		returnable = false;
+	}
 }
 
 public class DialogueNodeReturning : DialogueNode {
-	public DialogueNodeReturning(int textId) : base(textId) {
+	public DialogueNodeReturning(int textId, params string[] wildcards) : base(textId, wildcards) {
 	}
 
 	new private void AddOption(DialogueOption option) { } //We don't allow options for returning nodes. That would confuse people
@@ -51,11 +60,14 @@ public class DialogueNodeReturning : DialogueNode {
 public class DialogueOption {
 	public int textId;
 
+	public string[] wildcards;
+
 	DialogueNode destination;
 
-	public DialogueOption(int textId, DialogueNode destination) {
+	public DialogueOption(int textId, DialogueNode destination, params string[] wildcards) {
 		this.textId = textId;
 		this.destination = destination;
+		this.wildcards = wildcards;
 	}
 
 	public virtual DialogueNode GetDestinationNode() {
@@ -64,7 +76,7 @@ public class DialogueOption {
 }
 
 public class DialogueOptionReturning : DialogueOption {
-	public DialogueOptionReturning(int textId) : base(textId, null) {
+	public DialogueOptionReturning(int textId, params string[] wildcards) : base(textId, null, wildcards) {
 	}
 
 	override public DialogueNode GetDestinationNode() {
@@ -75,7 +87,7 @@ public class DialogueOptionReturning : DialogueOption {
 public class DialogueOptionConditioned : DialogueOption {
 	public Func<DialogueNode> condition;
 
-	public DialogueOptionConditioned(int textId, Func<DialogueNode> destinations) : base(textId, null) {
+	public DialogueOptionConditioned(int textId, Func<DialogueNode> destinations, params string[] wildcards) : base(textId, null, wildcards) {
 		this.condition = destinations;
 	}
 
@@ -118,8 +130,10 @@ public class Dialogue {
 	}
 
 	public void StartNode(DialogueNode node, bool addCurrentNodeToStack = true) {
-		if (!nodes.Contains(node))
-			throw new ArgumentOutOfRangeException("Node not inside Dialogue!");
+		addCurrentNodeToStack = node.returnable & addCurrentNodeToStack;
+
+		//if (!nodes.Contains(node))
+		//	throw new ArgumentOutOfRangeException("Node not inside Dialogue!");
 
 		if (CurrentNode != null && addCurrentNodeToStack) {
 			//Add old node to stack
