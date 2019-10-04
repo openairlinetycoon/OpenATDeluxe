@@ -24,6 +24,9 @@ public class GameController : Node2D {
 	public NodePath _taskbar;
 	public Control taskbar;
 
+	public static string[] playerCompanyNames = { "Sunshine Airways", "Falcon Lines", "Phönix Travel", "Honey Airlines" };
+	public static string[] playerNames = { "Tina Cortez", "Siggi Sorglos", "Igor Tuppolevsky", "Mario Zucchero" };
+
 	public override void _Ready() {
 		instance = this;
 		taskbar = GetNode<Control>(_taskbar);
