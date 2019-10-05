@@ -84,6 +84,7 @@
     <Compile Include="src\Resources\SoundPlayer.cs" />
     <Compile Include="src\RoomManager.cs" />
     <Compile Include="src\Scenes\Office.cs" />
+    <Compile Include="src\Scenes\Bank.cs" />
     <Compile Include="src\SettingsManager.cs" />
     <Compile Include="src\Smacker\AnimationList.cs" />
     <Compile Include="src\Smacker\SmkAnimation.cs" />
