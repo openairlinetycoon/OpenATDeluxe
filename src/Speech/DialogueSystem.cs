@@ -22,9 +22,11 @@ public class DialogueSystem : Node2D {
 
 	public static string currentlyTalking;
 
+	public static bool skipHead;
+
 	public static DialogueWindow Speechbubble {
 		get {
-			_speechbubble = _speechbubble ?? (DialogueWindow)instance.FindNode("Prefab"); //TODO: FIX ME!!
+			_speechbubble = _speechbubble ?? (DialogueWindow)instance.FindNode("Speechbubble");
 			return _speechbubble;
 		}
 		set => _speechbubble = value;
@@ -169,7 +171,7 @@ public class DialogueSystem : Node2D {
 					offset += replacementSpeech.Length - 1;
 					int wildcardPos = m.Index + offset;
 
-					aStringBuilder.Remove(wildcardPos, 2);
+					aStringBuilder.Remove(wildcardPos, 2);//!Account for the actual size, not just %s -> e.g. %li 
 					aStringBuilder.Insert(wildcardPos, values[index]);
 					offset += values[index].Length - 2;
 
@@ -179,7 +181,7 @@ public class DialogueSystem : Node2D {
 			} else {
 				int wildcardPos = m.Index + offset;
 
-				aStringBuilder.Remove(wildcardPos, 2);
+				aStringBuilder.Remove(wildcardPos, 2);//!Account for the actual size, not just %s -> e.g. %li 
 				aStringBuilder.Insert(wildcardPos, values[index]);
 				offset += values[index].Length - 2;
 			}
@@ -253,7 +255,13 @@ public class DialogueSystem : Node2D {
 			currentDialogue.CurrentNode.OnSpeechFinished();
 			currentDialogue.SelectOption(optionIndex);
 
-			ReadNextNodeHead(currentDialogue);
+			if (skipHead) {
+				state = DialogueStates.PickingOptions;
+				Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
+				skipHead = false;
+			} else {
+				ReadNextNodeHead(currentDialogue);
+			}
 		}
 
 		string currentFullText = GetFullTrText(currentDialogue.CurrentNode.options[optionIndex].textId, currentDialogue);

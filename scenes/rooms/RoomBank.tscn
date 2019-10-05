@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/Scenes/Bank.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
@@ -13,7 +13,8 @@
 [ext_resource path="res://Images/gli/glberatr/BER92_02.res" type="Texture" id=11]
 [ext_resource path="res://Images/gli/glberatr/BER92_03.res" type="Texture" id=12]
 [ext_resource path="res://Images/gli/glberatr/BER92_04.res" type="Texture" id=13]
-[ext_resource path="res://Prefabs/DialogueSystem.tscn" type="PackedScene" id=14]
+[ext_resource path="res://src/Speech/DialogueSystem.cs" type="Script" id=14]
+[ext_resource path="res://Prefabs/Speech/Speechbubble.tscn" type="PackedScene" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -50,6 +51,9 @@ margin_right = 980.0
 margin_bottom = 550.0
 rect_scale = Vector2( 2.5, 2.5 )
 mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="roomSprite" type="Sprite" parent="Base"]
 position = Vector2( -75.529, -2.43213 )
@@ -57,7 +61,6 @@ scale = Vector2( 0.990909, 0.990909 )
 texture = ExtResource( 3 )
 
 [node name="MouseColliderRoom2" parent="Base" instance=ExtResource( 4 )]
-editor/display_folded = true
 position = Vector2( -254.784, -29.7827 )
 scale = Vector2( 5.31445, 9.63602 )
 z_index = 1
@@ -70,7 +73,7 @@ shape = SubResource( 1 )
 [node name="Screen" type="AnimatedSprite" parent="Base"]
 position = Vector2( -194.358, -7.53902 )
 frames = SubResource( 2 )
-frame = 2
+frame = 4
 speed_scale = 0.15
 playing = true
 
@@ -81,14 +84,14 @@ position = Vector2( -343.338, 36.8621 )
 z_index = 16
 frames = SubResource( 3 )
 
-[node name="DialogueSystem" parent="." instance=ExtResource( 14 )]
+[node name="DialogueSystem2" type="Node2D" parent="."]
+position = Vector2( 0, -120 )
+script = ExtResource( 14 )
 
-[node name="Prefab" parent="DialogueSystem" index="0"]
+[node name="Speechbubble" parent="DialogueSystem2" instance=ExtResource( 15 )]
 visible = false
-
-[node name="Speechbubble" parent="DialogueSystem/Prefab/Label" index="0"]
-mouse_filter = 1
+margin_top = 945.29
+margin_bottom = 945.29
+mouse_filter = 2
 
 [editable path="Base/MouseColliderRoom2"]
-
-[editable path="DialogueSystem"]

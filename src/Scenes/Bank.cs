@@ -20,6 +20,7 @@ public class Bank : Node2D {
 		sharesAnims.CreateMouseArea(baseNode);
 
 
+
 		Dialogue loanDialogue = new Dialogue("Bank");
 		{
 			DialogueNode startCredit = new DialogueNode(109);
@@ -39,7 +40,7 @@ public class Bank : Node2D {
 		{//keep them in scope, so that we don't use the wrong nodes from the prev. dialogue
 			DialogueNode startShare = new DialogueNode(900);
 
-			DialogueNode buyShares = new DialogueNode(2000) { returnable = false };
+			DialogueNode buyShares = new DialogueNode(2000) { returnable = true };
 			DialogueNodeReturning noShares = new DialogueNodeReturning(1200);
 			DialogueNodeReturning noSelling = new DialogueNodeReturning(1100);
 

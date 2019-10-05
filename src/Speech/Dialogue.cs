@@ -46,6 +46,7 @@ public class DialogueNode {
 
 public class DialogueNodeReturning : DialogueNode {
 	public DialogueNodeReturning(int textId, params string[] wildcards) : base(textId, wildcards) {
+		returnable = false;
 	}
 
 	new private void AddOption(DialogueOption option) { } //We don't allow options for returning nodes. That would confuse people
@@ -126,6 +127,8 @@ public class Dialogue {
 	/// Starts the node which got added first.
 	/// </summary>
 	public void Start() {
+		dialogueStack.Clear();
+		CurrentNode = null;
 		StartNode(nodes[0]);
 	}
 
@@ -150,6 +153,8 @@ public class Dialogue {
 			DialogueSystem.StopDialogue();
 			return;
 		}
+		DialogueSystem.skipHead = true;
+
 		DialogueNode prev = dialogueStack.Pop();
 
 		StartNode(prev, false); //Opt out of Stack to prevent looping forth and back
@@ -162,7 +167,6 @@ public class Dialogue {
 			ReturnToPrevNode();
 		} else {
 			StartNode(nextNode);
-
 		}
 	}
 

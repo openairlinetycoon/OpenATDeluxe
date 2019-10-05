@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Speech/DialogueWindow.cs" type="Script" id=1]
+[ext_resource path="res://Images/gli/glstd/BLASE5.res" type="Texture" id=2]
+
+[node name="Speechbubble" type="Control"]
+margin_top = -1.74157
+margin_right = 1920.0
+margin_bottom = -1.74157
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeechbubbleFlexible" type="HBoxContainer" parent="."]
+show_behind_parent = true
+margin_right = 1920.0
+margin_bottom = 48.0
+mouse_filter = 2
+custom_constants/separation = -1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftSide" type="MarginContainer" parent="SpeechbubbleFlexible"]
+margin_right = 960.0
+margin_bottom = 48.0
+rect_clip_content = true
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = -32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Texture" type="NinePatchRect" parent="SpeechbubbleFlexible/LeftSide"]
+margin_right = 992.0
+margin_bottom = 48.0
+grow_horizontal = 0
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 360, 56 )
+patch_margin_left = 27
+patch_margin_top = 24
+patch_margin_right = 33
+patch_margin_bottom = 24
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightSide" type="MarginContainer" parent="SpeechbubbleFlexible"]
+margin_left = 959.0
+margin_right = 1920.0
+margin_bottom = 48.0
+rect_clip_content = true
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_left = -32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Flip" type="Control" parent="SpeechbubbleFlexible/RightSide"]
+margin_left = -32.0
+margin_right = 961.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Texture" type="NinePatchRect" parent="SpeechbubbleFlexible/RightSide/Flip"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 993.0
+margin_right = 993.0
+grow_horizontal = 0
+rect_scale = Vector2( -1, 1 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 360, 56 )
+patch_margin_left = 27
+patch_margin_top = 24
+patch_margin_right = 33
+patch_margin_bottom = 24
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -960.0
+margin_right = 960.0
+margin_bottom = 10.0
+grow_vertical = 0
+rect_min_size = Vector2( 1920, 10 )
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
