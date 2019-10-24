@@ -8,6 +8,7 @@ public class DialogueWindow : Control {
 	//public Label textLabel;
 
 	public VBoxContainer lineContainer;
+	public MarginContainer container;
 
 	public HBoxContainer speechbubble;
 	public NinePatchRect rightTexture;
@@ -21,6 +22,8 @@ public class DialogueWindow : Control {
 	public override void _Ready() {
 		//textLabel = GetNode<Label>("Label");
 		lineContainer = GetNode<VBoxContainer>("Content");
+
+		// container = GetNode<MarginContainer>("Margin");
 		lineContainer.Connect("resized", this, "OnContainerSizeChange");
 
 		speechbubble = GetNode<HBoxContainer>("SpeechbubbleFlexible");
@@ -33,9 +36,11 @@ public class DialogueWindow : Control {
 	}
 
 	public void OnContainerSizeChange() {
-		speechbubble.RectPosition = lineContainer.RectPosition;
-		speechbubble.RectSize = lineContainer.RectSize;
+		// container.Hide();
+		// container.Show();
 
+		speechbubble.RectPosition = lineContainer.RectPosition - new Vector2(25, 5);
+		speechbubble.RectSize = lineContainer.RectSize + new Vector2(50, 10);
 		//Force redraw and repositioning
 		speechbubble.Hide();
 		speechbubble.Show();
@@ -117,13 +122,7 @@ public class DialogueWindow : Control {
 	}
 
 	public void PrepareBubbleHeadText(int currentActor, Dialogue dialogue) {
-		if (lines != null) {
-			foreach (Control l in lines) {
-				l.Free();
-			}
-			// lineContainer.RectSize = new Vector2(lineContainer.RectSize.x, 0);
-			// lineContainer.RectPosition = new Vector2(0, 0);
-		}
+		ClearLines();
 
 		lines.Clear();
 
@@ -142,17 +141,23 @@ public class DialogueWindow : Control {
 		lineContainer.Show();
 	}
 
-	//TODO: Add positioning to dialogue actor
-	public void PrepareBubbleOptionsText(int currentActor, Dialogue dialogue) {
-		int lineCount = 1; //Start at 1 to compensate the first '\n' in the loop
-
+	private void ClearLines() {
 		if (lines != null) {
-			foreach (Control line in lines) {
-				line.Free();
+			foreach (Control l in lines) {
+				l.Hide();
+				l.CallDeferred("queue_free");
 			}
 			// lineContainer.RectSize = new Vector2(lineContainer.RectSize.x, 0);
 			// lineContainer.RectPosition = new Vector2(0, 0);
 		}
+	}
+
+	//TODO: Add positioning to dialogue actor
+	public void PrepareBubbleOptionsText(int currentActor, Dialogue dialogue) {
+		int lineCount = 1; //Start at 1 to compensate the first '\n' in the loop
+
+
+		ClearLines();
 
 		lines.Clear();
 		linesDebug.Clear();
@@ -191,14 +196,7 @@ public class DialogueWindow : Control {
 		//Change to a prefab system to avoid https://github.com/godotengine/godot/issues/32470 :(
 	}
 	public void PrepareBubbleAnswerText(int optionIndex, int currentActor, Dialogue dialogue) {
-		if (lines != null) {
-			foreach (Control l in lines) {
-				l.Free();
-			}
-			//lineContainer.Update();
-			// lineContainer.RectSize = new Vector2(lineContainer.RectSize.x, 0);
-			// lineContainer.RectPosition = new Vector2(0, 0);
-		}
+		ClearLines();
 
 		lines.Clear();
 		HBoxContainer line = (HBoxContainer)linePrefab.Instance();

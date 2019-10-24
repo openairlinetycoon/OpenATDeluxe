@@ -1,16 +1,24 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using Environment = System.Environment;
 
 public class DialogueSystem : Node2D {
 	static DialogueSystem instance;
+	public static Queue<Action> dialogueCommandQueue = new Queue<Action>();
 
 	override public void _Ready() {
 		instance = this;
+	}
+
+	override public void _Process(float _dt) {
+		if (dialogueCommandQueue?.Count != 0) {
+			dialogueCommandQueue.Dequeue().Invoke();
+		}
 	}
 
 	public static Dialogue currentDialogue;
@@ -113,31 +121,6 @@ public class DialogueSystem : Node2D {
 		return actor;
 	}
 
-	private static void CreateSoundAndWaitForFinish(List<string> instructions, string currentFullText) {
-
-		int index = 0;
-		foreach (string fileName in instructions) {
-			if (fileName == "*") {
-				if (currentlyTalking == "") {
-					GD.PushError("Trying to create a speech wildcard failed! currentlyTalking was empty!");
-					return;
-				}
-				int playerName = Regex.Matches(currentFullText, "]]")[index].Index;
-			}
-			SoundPlayer speech
-			= SoundPlayer.CreatePlayer($"/VOICE/{fileName}.raw", "language", false);//P1\BA\3014
-			instance.AddChild(speech);
-
-			speech.Play();
-			while (speech.Playing) { }
-			//TODO: Find a CPU friendlier way of waiting
-			//TODO: Add multiple sound instructions -- Coming!
-			speech.QueueFree();
-
-			index++;
-		}
-	}
-
 	/// <summary>
 	/// Needs currentlyTalking to be defined!
 	/// </summary>
@@ -171,9 +154,9 @@ public class DialogueSystem : Node2D {
 					offset += replacementSpeech.Length - 1;
 					int wildcardPos = m.Index + offset;
 
-					aStringBuilder.Remove(wildcardPos, 2);//!Account for the actual size, not just %s -> e.g. %li 
+					aStringBuilder.Remove(wildcardPos, m.Groups[1].Length);//!Account for the actual size, not just %s -> e.g. %li 
 					aStringBuilder.Insert(wildcardPos, values[index]);
-					offset += values[index].Length - 2;
+					offset += values[index].Length - m.Groups[1].Length;
 
 				} else {
 					GD.PushError("speech wildcard method not implemented yet! Following string: " + values[index]);
@@ -181,9 +164,9 @@ public class DialogueSystem : Node2D {
 			} else {
 				int wildcardPos = m.Index + offset;
 
-				aStringBuilder.Remove(wildcardPos, 2);//!Account for the actual size, not just %s -> e.g. %li 
+				aStringBuilder.Remove(wildcardPos, m.Groups[1].Length);//!Account for the actual size, not just %s -> e.g. %li 
 				aStringBuilder.Insert(wildcardPos, values[index]);
-				offset += values[index].Length - 2;
+				offset += values[index].Length - m.Groups[1].Length;
 			}
 
 			index++;
@@ -213,67 +196,93 @@ public class DialogueSystem : Node2D {
 			return -1;
 		}
 	}
+	private static void CreateSoundsAndExecuteOnFinish(List<string> instructions, string currentFullText, Action onFinish) {
+		List<SoundPlayer> player = new List<SoundPlayer>();
+
+		int index = 0;
+		foreach (string fileName in instructions) {
+			if (fileName == "*") {
+				if (currentlyTalking == "") {
+					GD.PushError("Trying to create a speech wildcard failed! currentlyTalking was empty!");
+					return;
+				}
+				int playerName = Regex.Matches(currentFullText, "]]")[index].Index;
+			}
+			SoundPlayer speech
+			= SoundPlayer.CreatePlayer($"/VOICE/{fileName}.raw", "language", false);//P1\BA\3014
+			instance.AddChild(speech);
+
+			player.Add(speech);
+		}
+
+		if (player.Count == 0) {
+			onFinish.Invoke();
+			return;
+		}
+
+		for (int i = 0; i < player.Count - 1; i++) {
+			int lambda = i; //lambdas store the variable, not the value on creation. We store the value here to reference it later
+			player[i].OnSoundFinished += () => { player[lambda].QueueFree(); player[lambda + 1].Play(); };
+		}
+		//We make an exception to the last entry to call our onFinish method, instead of trying to play the non existant next voice line 
+		player[player.Count - 1].OnSoundFinished += () => { player[player.Count - 1].QueueFree(); onFinish.Invoke(); };
+
+		SoundPlayer soundPlayer = player.First();
+		soundPlayer?.Play();
+	}
+
+	private static void CompileTextAndInstructions(string[] wildcards, int textId, out string currentFullText, out List<string> instructions) {
+		currentFullText = GetFullTrText(textId, currentDialogue);
+		instructions = GetInstruction(currentFullText);
+		currentlyTalking = GetInstructionActor(instructions[0]);
+
+		if (wildcards != null) {
+			currentFullText = FillWildcards(currentFullText, wildcards);
+			instructions = GetInstruction(currentFullText); //Get the new set of instructions, in case there were wildcards replaced
+		}
+	}
 
 	/// <summary>
 	/// Starts the sound for the dialogue
 	/// </summary>
 	private static void StartDialogueHeadSpeech() {
-		void WaitForSpeechToFinish(string fullText, List<string> instr) {
+		string[] wildcards = currentDialogue.CurrentNode.wildcards;
+		int textId = currentDialogue.CurrentNode.textId;
 
+		string currentFullText;
+		List<string> instructions;
+		CompileTextAndInstructions(wildcards, textId, out currentFullText, out instructions);
 
-			CreateSoundAndWaitForFinish(instr, fullText);
-			currentlyTalking = "";
+		dialogueCommandQueue.Enqueue(
+			() => CreateSoundsAndExecuteOnFinish(instructions, currentFullText, () => {
+				currentlyTalking = "";
+				currentDialogue.CurrentNode.OnSpeechFinished();
 
-			currentDialogue.CurrentNode.OnSpeechFinished();
-
-			if (currentDialogue.CurrentNode.options.Count == 0) { //No options often means returning Node.
-				ReadNextNodeHead(currentDialogue);
-			} else {
 				state = DialogueStates.PickingOptions;
 				Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
-			}
-		}
-
-		string currentFullText = GetFullTrText(currentDialogue.CurrentNode.textId, currentDialogue);
-		List<string> instructions = GetInstruction(currentFullText);
-		currentlyTalking = GetInstructionActor(instructions[0]);
-
-		if (currentDialogue.CurrentNode.wildcards != null) {
-			currentFullText = FillWildcards(currentFullText, currentDialogue.CurrentNode.wildcards);
-			instructions = GetInstruction(currentFullText); //Get the new set of instructions, in case there were wildcards replaced
-		}
-
-		Task.Run(() => WaitForSpeechToFinish(currentFullText, instructions));
+			}));
+		//Task.Run(() => WaitForSpeechToFinish(currentFullText, instructions));
 	}
 
 	private static void StartDialogueAnswerSpeech(int optionIndex) {
-		void WaitForSpeechToFinish(string fullText, List<string> instr) {
+		string[] wildcards = currentDialogue.CurrentNode.options[optionIndex].wildcards;
+		int textId = currentDialogue.CurrentNode.options[optionIndex].textId;
 
-			CreateSoundAndWaitForFinish(instr, fullText);
-			currentlyTalking = "";
+		string currentFullText;
+		List<string> instructions;
+		CompileTextAndInstructions(wildcards, textId, out currentFullText, out instructions);
 
-			currentDialogue.CurrentNode.OnSpeechFinished();
-			currentDialogue.SelectOption(optionIndex);
+		dialogueCommandQueue.Enqueue(
+			() => CreateSoundsAndExecuteOnFinish(instructions, currentFullText, () => {
+				currentlyTalking = "";
 
-			if (skipHead) {
-				state = DialogueStates.PickingOptions;
-				Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
-				skipHead = false;
-			} else {
+				currentDialogue.CurrentNode.OnSpeechFinished();
+				currentDialogue.SelectOption(optionIndex);
+
 				ReadNextNodeHead(currentDialogue);
-			}
-		}
+			}));
 
-		string currentFullText = GetFullTrText(currentDialogue.CurrentNode.options[optionIndex].textId, currentDialogue);
-		List<string> instructions = GetInstruction(currentFullText);
-		currentlyTalking = GetInstructionActor(instructions[0]);
-
-		if (currentDialogue.CurrentNode.options[optionIndex].wildcards != null) {
-			currentFullText = FillWildcards(currentFullText, currentDialogue.CurrentNode.options[optionIndex].wildcards);
-			instructions = GetInstruction(currentFullText); //Get the new set of instructions, in case there were wildcards replaced
-		}
-
-		Task.Run(() => WaitForSpeechToFinish(currentFullText, instructions));
+		//Task.Run(() => WaitForSpeechToFinish(currentFullText, instructions));
 	}
 
 
@@ -291,6 +300,7 @@ public class DialogueSystem : Node2D {
 
 	public static void StopDialogue() {
 		currentDialogue = null;
+		dialogueCommandQueue.Clear();
 	}
 
 
@@ -308,3 +318,11 @@ public class DialogueSystem : Node2D {
 
 
 }
+
+
+/* 
+StartDialogue called
+Create sounds
+Play each sound
+Create next Node
+*/

@@ -133,7 +133,8 @@ public class Dialogue {
 	}
 
 	public void StartNode(DialogueNode node, bool addCurrentNodeToStack = true) {
-		addCurrentNodeToStack = node.returnable & addCurrentNodeToStack;
+		if (CurrentNode != null)
+			addCurrentNodeToStack = CurrentNode.returnable & addCurrentNodeToStack;
 
 		//if (!nodes.Contains(node))
 		//	throw new ArgumentOutOfRangeException("Node not inside Dialogue!");
@@ -157,7 +158,7 @@ public class Dialogue {
 
 		DialogueNode prev = dialogueStack.Pop();
 
-		StartNode(prev, false); //Opt out of Stack to prevent looping forth and back
+		StartNode(prev); //Opt out of Stack to prevent looping forth and back
 	}
 
 	public void SelectOption(int id) {

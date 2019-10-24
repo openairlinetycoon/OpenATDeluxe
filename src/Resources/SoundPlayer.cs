@@ -7,6 +7,10 @@ using File = System.IO.File;
 public class SoundPlayer : AudioStreamPlayer {
 	public readonly static string SoundPath = GFXLibrary.pathToAirlineTycoonD;
 
+	public Action OnSoundFinished;
+
+	bool started;
+
 	[Export]
 	public bool loop, use8BitEncoding;
 
@@ -43,6 +47,12 @@ public class SoundPlayer : AudioStreamPlayer {
 		Stream = audioFile;
 	}
 
+	new public void Play(int fromPosition = 0) {
+		base.Play(fromPosition);
+
+		started = true;
+	}
+
 	override public void _Ready() {
 		if (Stream == null) { //Created inside the editor -> We need to initialize with editor values
 			if (!File.Exists(SoundPath + filePath)) {
@@ -53,6 +63,13 @@ public class SoundPlayer : AudioStreamPlayer {
 			SetAudioStream(filePath);
 			if (Autoplay) //Autoplay does not work natively, because there is was Audio Stream to play before we added it here
 				Play();
+		}
+	}
+
+	override public void _Process(float delta) {
+		if (!IsPlaying() && started) {
+			started = false;
+			OnSoundFinished?.Invoke();
 		}
 	}
 }
