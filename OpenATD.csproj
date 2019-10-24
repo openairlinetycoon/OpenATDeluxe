@@ -63,6 +63,7 @@
     <Compile Include="src\ClanCSVFile.cs" />
     <Compile Include="src\CameraController.cs" />
     <Compile Include="src\Speech\AdvisorSystem.cs" />
+    <Compile Include="src\Speech\AutoSize.cs" />
     <Compile Include="src\Speech\Dialogue.cs" />
     <Compile Include="src\Speech\DialogueSystem.cs" />
     <Compile Include="src\Speech\DialogueWindow.cs" />

@@ -1,44 +1,49 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Speech/DialogueWindow.cs" type="Script" id=1]
-[ext_resource path="res://Images/gli/glstd/BLASE5.res" type="Texture" id=2]
+[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
+[ext_resource path="res://Images/gli/glstd/BLASE5.res" type="Texture" id=3]
+[ext_resource path="res://src/Speech/AutoSize.cs" type="Script" id=4]
 
 [node name="Speechbubble" type="Control"]
-margin_top = -1.74157
 margin_right = 1920.0
-margin_bottom = -1.74157
+margin_bottom = 50.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SpeechbubbleFlexible" type="HBoxContainer" parent="."]
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0.78 )
 show_behind_parent = true
-margin_right = 1920.0
-margin_bottom = 48.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/separation = -1
+custom_constants/separation = 0
+alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LeftSide" type="MarginContainer" parent="SpeechbubbleFlexible"]
 margin_right = 960.0
-margin_bottom = 48.0
+margin_bottom = 50.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = -32
+custom_constants/margin_right = -34
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Texture" type="NinePatchRect" parent="SpeechbubbleFlexible/LeftSide"]
-margin_right = 992.0
-margin_bottom = 48.0
+material = ExtResource( 2 )
+margin_right = 994.0
+margin_bottom = 50.0
 grow_horizontal = 0
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 region_rect = Rect2( 0, 0, 360, 56 )
 patch_margin_left = 27
 patch_margin_top = 24
@@ -51,35 +56,35 @@ __meta__ = {
 }
 
 [node name="RightSide" type="MarginContainer" parent="SpeechbubbleFlexible"]
-margin_left = 959.0
+margin_left = 960.0
 margin_right = 1920.0
-margin_bottom = 48.0
+margin_bottom = 50.0
 rect_clip_content = true
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_left = -32
+custom_constants/margin_left = -33
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Flip" type="Control" parent="SpeechbubbleFlexible/RightSide"]
-margin_left = -32.0
-margin_right = 961.0
-margin_bottom = 48.0
+margin_left = -33.0
+margin_right = 960.0
+margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Texture" type="NinePatchRect" parent="SpeechbubbleFlexible/RightSide/Flip"]
+material = ExtResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 993.0
-margin_right = 993.0
 grow_horizontal = 0
 rect_scale = Vector2( -1, 1 )
+rect_pivot_offset = Vector2( 496.5, 25 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 region_rect = Rect2( 0, 0, 360, 56 )
 patch_margin_left = 27
 patch_margin_top = 24
@@ -87,20 +92,17 @@ patch_margin_right = 33
 patch_margin_bottom = 24
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Content" type="VBoxContainer" parent="."]
-anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -960.0
-margin_right = 960.0
-margin_bottom = 10.0
 grow_vertical = 0
-rect_min_size = Vector2( 1920, 10 )
+rect_min_size = Vector2( 0, 10 )
 alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false

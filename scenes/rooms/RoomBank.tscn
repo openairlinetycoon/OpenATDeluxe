@@ -73,7 +73,7 @@ shape = SubResource( 1 )
 [node name="Screen" type="AnimatedSprite" parent="Base"]
 position = Vector2( -194.358, -7.53902 )
 frames = SubResource( 2 )
-frame = 4
+frame = 2
 speed_scale = 0.15
 playing = true
 
@@ -89,9 +89,10 @@ position = Vector2( 0, -120 )
 script = ExtResource( 14 )
 
 [node name="Speechbubble" parent="DialogueSystem2" instance=ExtResource( 15 )]
-visible = false
-margin_top = 945.29
-margin_bottom = 945.29
+margin_left = 83.0
+margin_top = 812.0
+margin_right = 902.0
+margin_bottom = 875.0
 mouse_filter = 2
 
 [editable path="Base/MouseColliderRoom2"]

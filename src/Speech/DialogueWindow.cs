@@ -33,6 +33,9 @@ public class DialogueWindow : Control {
 
 		lines = new List<Control>();
 		linesDebug = new List<Control>();
+
+		this.Update();
+		this.Hide();
 	}
 
 	public void OnContainerSizeChange() {
@@ -44,9 +47,6 @@ public class DialogueWindow : Control {
 		//Force redraw and repositioning
 		speechbubble.Hide();
 		speechbubble.Show();
-
-		//reposition the right texture, so that its properly aligned
-		rightTexture.RectPosition = new Vector2(rightTexture.RectSize.x, 0);
 	}
 
 	public class OptionLine : Control {
