@@ -47,3 +47,16 @@ custom_colors/font_color_shadow = Color( 0.0313726, 0.137255, 0.027451, 1 )
 text = "Loading.."
 align = 3
 valign = 1
+
+[node name="LoadInfoFiles" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 261.299
+margin_top = 990.0
+margin_right = 318.299
+margin_bottom = 1004.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0.290196, 0.92549, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.0313726, 0.137255, 0.027451, 1 )
+align = 3
+valign = 1

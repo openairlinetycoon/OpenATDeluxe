@@ -67,7 +67,7 @@ public class GFXLibrary {
 		File f = new File();
 		try {
 			f.Open(pathToGFXFile, (int)File.ModeFlags.Read);
-			GD.Print("Reading: " + pathToGFXFile);
+			//GD.Print("Reading: " + pathToGFXFile);
 			ReadHeader(f);
 			ReadFileHeaders(f);
 		} catch (Exception e) {
@@ -78,29 +78,45 @@ public class GFXLibrary {
 		}
 	}
 
+	File handle;
+
+	public void Open() {
+		handle = new File();
+		Error e = handle.Open(pathToGFXFile, (int)File.ModeFlags.Read);
+	}
+
+	public void Close() {
+		handle.Close();
+		handle.Dispose();
+	}
+
 	public Texture CreateTextureFromFile(GFXFile file) {
 		Image image = new Image();
 
-		File f = new File();
-		Error e = f.Open(pathToGFXFile, (int)File.ModeFlags.Read);
+		bool disposeOfHandle = false;
 
+		if (handle == null) {
+			Open();
+			disposeOfHandle = true;
+		}
 
+		handle.Seek(file.libraryOffset); // Go to the position of the gfx file in the library file
 
-		f.Seek(file.libraryOffset); // Go to the position of the gfx file in the library file
+		int a = handle.Get32(); //skip unused data - 76 in glbasis.gli
+		int fileSize = handle.Get32(); //size of file in bytes
 
-		int a = f.Get32(); //skip unused data - 76 in glbasis.gli
-		int fileSize = f.Get32(); //size of file in bytes
-
-		int width = f.Get32(); //Get image width in pixel
-		int height = f.Get32(); //Get image height in pixel
+		int width = handle.Get32(); //Get image width in pixel
+		int height = handle.Get32(); //Get image height in pixel
 
 		byte[] colors = new byte[fileSize / 2 * 4];
 
-		f.Seek(file.libraryOffset + 76); //Skip unneeded values
+		handle.Seek(file.libraryOffset + 76); //Skip unneeded values
+
+		byte[] readColors = handle.GetBuffer(fileSize);
 
 		int c = 0;
-		for (int i = 0; i < fileSize / 2; i++) {
-			int color = f.Get16(); //Get a RGB565 color value
+		for (int i = 0; i + 1 < fileSize; i += 2) {
+			int color = readColors[i] + (readColors[i + 1] << 8);//handle.Get16(); //Get a RGB565 color value
 
 
 			//Convert it to a RGB888 value
@@ -127,15 +143,16 @@ public class GFXLibrary {
 			//save
 			c += 4;
 		}
-
 		if (colors.Length == 0) {
-			f.Close();
-			GD.PrintErr("Empty Texture! GFX: " + file.name);
+			if (disposeOfHandle)
+				handle.Close();
+			//GD.PrintErr("Empty Texture! GFX: " + file.name);
 			return null;
 		}
 		if (colors.Length != width * height * 4) {
-			f.Close();
-			GD.PrintErr("Wrong Texture Size! GFX: " + file.name);
+			if (disposeOfHandle)
+				handle.Close();
+			//GD.PrintErr("Wrong Texture Size! GFX: " + file.name);
 			return null;
 		}
 
@@ -146,8 +163,8 @@ public class GFXLibrary {
 		texture.Flags = (int)Texture.FlagsEnum.Filter;
 
 		image.Dispose();
-		f.Close();
-		f.Dispose();
+		if (disposeOfHandle)
+			handle.Close();
 
 		return texture;
 	}
