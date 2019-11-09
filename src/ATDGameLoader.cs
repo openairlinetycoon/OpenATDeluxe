@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using SystemFile = System.IO.File;
+using System.Threading;
 
 public class ATDGameLoader : Node2D {
 	private const string FileSystemVersion = "b529608a055d4db2eb8089d4a6fe5e9e3827332e"; //What version/checksum is the current file decryptor. For forced rebuilds on changes. CURRENTLY UNTESTED CHECKSUM!
@@ -31,7 +32,7 @@ public class ATDGameLoader : Node2D {
 	static volatile string otherLoading;
 	static volatile string currentFolder;
 	static volatile string currentLibrary;
-	static volatile string currentFile;
+	public static volatile string currentFile;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
@@ -53,7 +54,7 @@ public class ATDGameLoader : Node2D {
 		ValidateFiles();
 	}
 
-	private static bool IsOriginalGamePath(string dir) {
+	public static bool IsOriginalGamePath(string dir) {
 		if (!Directory.Exists(dir))
 			return false;
 		return SystemFile.Exists(FindFolder("gli", dir) + "/glbasis.gli");
@@ -258,7 +259,9 @@ public class ATDGameLoader : Node2D {
 		// }
 		LoadImages();
 		LoadOtherData();
-		CallDeferred("Start"); //No need for the interactive loader, everything is already in memory!
+
+		GetTree().ChangeScene("res://scenes/base.tscn");
+		//CallDeferred(nameof(Start)); //No need for the interactive loader, everything is already in memory!
 	}
 	//10.92
 	//
@@ -270,9 +273,32 @@ public class ATDGameLoader : Node2D {
 	private void LoadImages() {
 		SetProcess(true);
 
+		SetFolders();
+
+		Debug.Assert(GetNode<Sprite>("Title") != null, "Invalid scene structure! Title child node missing!");
+		Debug.Assert(libraryFolders[FindFolder("room")].Find((lib) => lib.name == "titel") != null, "Missing room gli library folder! Check your files for completion! (title.gli)");
+
+		Debug.Assert(
+			libraryFolders[FindFolder("room")].Find((lib) => lib.name == "titel").files.Find((f) => f.name.Trim('\0') == "TITEL") != null,
+			 "Missing TITLE room file in GFXLibrary titel from room!");
+
+		GetNode<Sprite>("Title").SetTexture(
+			libraryFolders[FindFolder("room")]
+				.Find((lib) => lib.name == "titel").files
+				.Find((f) => f.name.Trim('\0') == "TITEL").GetTexture());
+
+
+		//Write them to disk
+		ImportImages();
+
+		//Should only be needed when we are not in the editor, but adding it doesnt hurt us, even if the file isn't present
+		//bool s = ProjectSettings.LoadResourcePack(PackFile);
+	}
+
+	public static void SetFolders(string folder = "") {
 		libraryFolders = new Dictionary<string, List<GFXLibrary>>(); //A list of graphic folders of the game
-		libraryFolders.Add(FindFolder("room"), new List<GFXLibrary>());
-		libraryFolders.Add(FindFolder("gli"), new List<GFXLibrary>());
+		libraryFolders.Add(FindFolder("room", folder), new List<GFXLibrary>());
+		libraryFolders.Add(FindFolder("gli", folder), new List<GFXLibrary>());
 
 		foreach (var folderKVP in libraryFolders) {
 			string folderName = folderKVP.Key;
@@ -290,25 +316,6 @@ public class ATDGameLoader : Node2D {
 				}
 			}
 		}
-
-		Debug.Assert(GetNode<Sprite>("Title") != null, "Invalid scene structure! Title child node missing!");
-		Debug.Assert(libraryFolders[FindFolder("room")].Find((lib) => lib.name == "titel") != null, "Missing room gli library folder! Check your files for completion! (title.gli)");
-
-		Debug.Assert(
-			libraryFolders[FindFolder("room")].Find((lib) => lib.name == "titel").files.Find((f) => f.name.Trim('\0') == "TITEL") != null,
-			 "Missing TITLE room file in GFXLibrary titel from room!");
-
-		GetNode<Sprite>("Title").SetTexture(
-			libraryFolders[FindFolder("room")]
-				.Find((lib) => lib.name == "titel").files
-				.Find((f) => f.name.Trim('\0') == "TITEL").GetTexture());
-
-
-		//Write them to disk
-		ExportImages();
-
-		//Should only be needed when we are not in the editor, but adding it doesnt hurt us, even if the file isn't present
-		//bool s = ProjectSettings.LoadResourcePack(PackFile);
 	}
 
 	public void Start() {
@@ -319,51 +326,59 @@ public class ATDGameLoader : Node2D {
 	/// Saves all gli files in the libraryFolders dictionary to the "ImagesPath" folder
 	/// </summary>
 	/// <param name="packFiles">Should the files be packed into a .pck file</param>
-	private void ExportImages() {
+	public static void ImportImages(bool saveFiles = false, CancellationToken cancelation = default(CancellationToken)) {
 		string basePath = ProjectSettings.GlobalizePath(ImagesPath); //Get an absolute Path to our project/executable folder
 		string baseGodotPath = ImagesPath;
 
-		//if (!Directory.Exists(basePath))
-		//	Directory.CreateDirectory(basePath);
+		if (!Directory.Exists(basePath) && saveFiles)
+			Directory.CreateDirectory(basePath);
 
 		foreach (var folderKVP in libraryFolders) {
 			List<GFXLibrary> libraries = folderKVP.Value;
 			string libraryName = Directory.GetParent(folderKVP.Key + "/").Name;
 
-			SaveLibrarysInList(basePath + "/" + libraryName, baseGodotPath + "/" + libraryName, libraries);
-		}
-	}
+			string libbasePath = basePath + "/" + libraryName;
+			string libbaseGodotPath = baseGodotPath + "/" + libraryName;
 
-	/// <summary>
-	/// Saves every file inside a List&lt;GFXLibrary&gt;
-	/// </summary>
-	/// <param name="packFiles">Should the files be packed into a .pck file</param>
-	/// <param name="p">The PCKPacker for the packing, can be null when packFiles is false</param>
-	/// <param name="basePath">An absolute path to the base folder</param>
-	/// <param name="baseGodotPath">A relative path to the base folder, in the "res://" space</param>
-	/// <param name="librarys">List of GFXLibrarys to save</param>
-	private static void SaveLibrarysInList(string basePath, string baseGodotPath, List<GFXLibrary> librarys) {
-		List<Task> loader = new List<Task>();
-		foreach (var lib in librarys) {
-			string libPath = basePath + "/" + lib.name;
-			string libGodotPath = baseGodotPath + "/" + lib.name;
+			//List<Task> loader = new List<Task>();
+
+			Parallel.ForEach(libraries, (lib) => {
+				string libPath = libbasePath + "/" + lib.name;
+				string libGodotPath = libbaseGodotPath + "/" + lib.name;
 
 
-			// if (!Directory.Exists(libPath))
-			// 	Directory.CreateDirectory(libPath);
+				if (!Directory.Exists(libPath) && saveFiles)
+					Directory.CreateDirectory(libPath);
 
-			Task t = new Task(() => {
+				cancelation.ThrowIfCancellationRequested();
+
 				currentLibrary = lib.name;
 				lib.Open();
-				SaveFiles(lib, libPath, libGodotPath);
+				ImportFile(lib, libPath, libGodotPath, saveFiles, cancelation);
 				lib.Close();
 			});
-			t.Start();
 
-			loader.Add(t);
+			// foreach (var lib in libraries) {
+			// 	string libPath = libbasePath + "/" + lib.name;
+			// 	string libGodotPath = libbaseGodotPath + "/" + lib.name;
+
+
+			// 	if (!Directory.Exists(libPath) && saveFiles)
+			// 		Directory.CreateDirectory(libPath);
+
+			// 	cancelation.ThrowIfCancellationRequested();
+
+			// 	currentLibrary = lib.name;
+			// 	lib.Open();
+			// 	ImportFile(lib, libPath, libGodotPath, saveFiles, cancelation);
+			// 	lib.Close();
+			// 	//t.Start();
+
+			// 	//loader.Add(t);
+			// }
+
+			//Task.WaitAll(loader.ToArray());
 		}
-
-		Task.WaitAll(loader.ToArray());
 	}
 
 	/// <summary>
@@ -374,15 +389,19 @@ public class ATDGameLoader : Node2D {
 	/// <param name="lib">The GFXLibrary to save</param>
 	/// <param name="libPath">The absolute path to save the files to</param>
 	/// <param name="libGodotPath">The relative path to save the files to, in "res://" space</param>
-	private static void SaveFiles(GFXLibrary lib, string libPath, string libGodotPath) {
+	private static void ImportFile(GFXLibrary lib, string libPath, string libGodotPath, bool saveFiles = false, CancellationToken cancelation = default(CancellationToken)) {
 		Stopwatch getTexture = new Stopwatch();
 		Stopwatch fileExists = new Stopwatch();
 		Stopwatch takeOver = new Stopwatch();
 
 		foreach (GFXLibrary.GFXFile file in lib.files) {
+			cancelation.ThrowIfCancellationRequested();
+
 			string fileName = file.name.Trim('\0') + ".res";
 			string filePath = libPath + "/" + fileName;
 			string fileGodotPath = libGodotPath + "/" + fileName;
+
+			currentFile = fileName;
 
 			//currentFile = fileName;
 			//GD.Print(filePath);
@@ -393,18 +412,17 @@ public class ATDGameLoader : Node2D {
 			if (resource == null)
 				continue;
 
-			fileExists.Start();
-			if (isInEditor) {
-				if (!SystemFile.Exists(filePath)) {
-					ResourceSaver.Save(filePath, resource, (int)ResourceSaver.SaverFlags.Compress);
-					GD.Print($"Texture: {file.name.Trim('\n', '\t', '\0')} not found in the editor! Now adding...");
+			if (saveFiles) {
+				Error e = ResourceSaver.Save(filePath, resource, (int)ResourceSaver.SaverFlags.Compress);
+				if (e != 0) {
+					GD.Print($"Error: " + e.ToString());
 				}
+				//GD.Print($"Texture: {file.name.Trim('\n', '\t', '\0')} not found in the editor! Now adding...");
+			} else {
+				takeOver.Start();
+				resource.TakeOverPath(fileGodotPath);
+				takeOver.Stop();
 			}
-			fileExists.Stop();
-
-			takeOver.Start();
-			resource.TakeOverPath(fileGodotPath);
-			takeOver.Stop();
 		}
 
 		GD.Print($"Loaded {lib.name}! getTextures took {getTexture.ElapsedMilliseconds}ms, fileExists took {fileExists.ElapsedMilliseconds}ms, takeOver took {takeOver.ElapsedMilliseconds}ms,");

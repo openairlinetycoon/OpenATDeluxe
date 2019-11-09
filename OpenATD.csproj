@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="addons\builder\ManageTool.cs" />
+    <Compile Include="addons\builder\DockInterface.cs" />
     <Compile Include="src\AirportViewController.cs" />
     <Compile Include="src\AirportViewLoader.cs" />
     <Compile Include="src\ATDGameLoader.cs" />
