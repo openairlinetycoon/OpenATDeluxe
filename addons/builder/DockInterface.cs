@@ -61,8 +61,8 @@ public class DockInterface : Control {
 			gamePath.Text = (string)SettingsManager.GetSetting(ATDPathConfig, "");
 			EnterText(gamePath.Text);
 		} catch (Exception e) {
-			GD.Print(e.Message);
-			GD.Print(e.StackTrace);
+			// GD.Print(e.Message);
+			// GD.Print(e.StackTrace);
 		}
 
 
@@ -85,8 +85,8 @@ public class DockInterface : Control {
 				thread?.Abort();
 			}
 		} catch (Exception e) {
-			GD.Print(e.Message);
-			GD.Print(e.StackTrace);
+			// GD.Print(e.Message);
+			// GD.Print(e.StackTrace);
 		}
 	}
 
