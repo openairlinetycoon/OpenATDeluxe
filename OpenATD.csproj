@@ -42,7 +42,7 @@
       <HintPath>$(ProjectDir)\.mono\assemblies\GodotSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="GodotSharpEditor" Condition=" '$(Configuration)' == 'Tools' ">
+    <Reference Include="GodotSharpEditor">
       <HintPath>$(ProjectDir)\.mono\assemblies\GodotSharpEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -90,6 +90,14 @@
     <Compile Include="src\Smacker\Huffmantree.cs" />
     <Compile Include="src\Smacker\SmkDecoder.cs" />
     <Compile Include="src\Smacker\Util.cs" />
+    <Compile Include="addons\builder\ManageTool.cs" />
+    <Compile Include="addons\builder\DockInterface.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Tools' ">
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="I18N" />
+    <Reference Include="I18N.West" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

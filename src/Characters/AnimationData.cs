@@ -4,14 +4,31 @@ using Godot;
 
 public class AnimationData {
 	public string name;
-	public Dictionary<AnimationState, List<Texture>> textures;
+	public Dictionary<AnimationState, List<TextureRef>> textures;
+
+	public class TextureRef {
+		Texture texture;
+		public string path;
+
+		public TextureRef(string path) {
+			this.path = path;
+		}
+
+		public Texture GetTexture() {
+			if (texture == null) {
+				texture = (Texture)ResourceLoader.Load(path);
+			}
+
+			return texture;
+		}
+	}
 
 	public int speed;
 
 	private const string PathToClanFolder = "res://Images/gli/glclan/";
 
 	public AnimationData() {
-		textures = new Dictionary<AnimationState, List<Texture>>();
+		textures = new Dictionary<AnimationState, List<TextureRef>>();
 	}
 
 	public void AddSprites(string firstTextureName, int amount, AnimationState state) {
@@ -20,22 +37,22 @@ public class AnimationData {
 		if (firstTextureName.Contains("0"))
 			textureName = firstTextureName.Substr(0, firstTextureName.Length - 2); //Remove the base numbers, we create our own
 
-		File f = new File();
-		if (!f.FileExists(PathToClanFolder + firstTextureName + ".res"))
-			return;
+		// File f = new File();
+		// if (!f.FileExists(PathToClanFolder + firstTextureName + ".res"))
+		// 	return;
 
-		List<Texture> textureData = new List<Texture>();
+		List<TextureRef> textureData = new List<TextureRef>();
 
 		if (amount == -1) {
-			textureData.Add((Texture)ResourceLoader.Load(PathToClanFolder + firstTextureName + ".res"));
+			textureData.Add(new TextureRef(PathToClanFolder + firstTextureName + ".res"));
 		}
 
 		for (int i = 0; i < amount; i++) {
 			string p = PathToClanFolder + textureName + ((i + 1) < 10 ? "0" : "") + (i + 1) + ".res";
 
-			if (!f.FileExists(p))
-				continue;
-			textureData.Add((Texture)ResourceLoader.Load(p));
+			// if (!f.FileExists(p))
+			// 	continue;
+			textureData.Add(new TextureRef(p));
 		}
 
 		textures.Add(state, textureData);
@@ -45,10 +62,10 @@ public class AnimationData {
 		AddSprites(textureName, -1, state);
 	}
 
-	public AnimationData(string name, Dictionary<AnimationState, List<Texture>> sprites) {
-		this.name = name;
-		this.textures = sprites;
-	}
+	// public AnimationData(string name, Dictionary<AnimationState, List<Texture>> sprites) {
+	// 	this.name = name;
+	// 	this.textures = sprites;
+	// }
 }
 
 public enum AnimationState {

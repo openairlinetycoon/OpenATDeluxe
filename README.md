@@ -22,13 +22,17 @@ You can help by getting involved in active development of [things to do](https:/
 ## How to compile the Godot branch
 - Download Godot 3.1 Mono or later
 - Install Airline Tycoon Deluxe
-- Run the project in godot for the first time WITHOUT opening any scenes, point it to the directory of the at.exe and let it extract the game files.
+- Go to the Build Manager tab on the upper left corner
+- Enter the Airline Tycoon Deluxe path and hit "Extract Images" in the Images tab of the builder interface. Godot will now load all files. This will take a little while. You have to restart godot to see the new files, as godot does not update the explorer
 (The game images can't be posted on github due to copyright reasons. Thats why there are files missing inside the project. Opening scenes let's godot know that there are files missing and it will delete all references to those files. If we run the project before godot checks for files, all missing files will be added!)
 
 
 ## How to build the project
-- Not yet possible. We are working on a process to build release version. Stay tuned!
-- TODO: Add the texture cleaner programm...
+- Go to the Build Manager tab on the upper left corner
+- Go to the Build Management tab.
+- Click on Prepare Build. This will empty all of your image files in the Images folder.
+- You can now Export the project using the export feature of godot.
+(Don't forget to re extract all the image files)
 
 ## WIP Pictures
 All images are work in progress!

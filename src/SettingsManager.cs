@@ -69,7 +69,7 @@ public static class SettingsManager {
 											.ToArray();
 
 		foreach (var field in fields) {
-			((ISettingsValue)field.GetValue(null)).Load();
+			((ISettingsValue)field.GetValue(null))?.Load();
 		}
 	}
 
@@ -95,6 +95,7 @@ public static class SettingsManager {
 
 		if (!file.HasSectionKey(section, key)) {
 			SetSetting(name, @default);
+			return @default;
 		}
 		object value = file.GetValue(section, key, @default);
 		return value;
@@ -127,6 +128,13 @@ public class SettingsValue<T> : ISettingsValue {
 	}
 
 	public void Load() {
-		SetValue((T)SettingsManager.GetSetting(settingsName));
+		SetValue((T)SettingsManager.GetSetting(settingsName, GetDefault(typeof(T))));
+	}
+
+	public static object GetDefault(Type type) {
+		if (type.IsValueType) {
+			return Activator.CreateInstance(type);
+		}
+		return null;
 	}
 }

@@ -1,0 +1,150 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/builder/DockInterface.cs" type="Script" id=1]
+
+[node name="Build Manager" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Content" type="VSplitContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="Content"]
+margin_right = 1920.0
+margin_bottom = 31.0
+text = "Open Airline Tycoon Build Manager
+Version 0.1"
+autowrap = true
+
+[node name="Scroll" type="ScrollContainer" parent="Content"]
+margin_top = 43.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="TabContainer" type="TabContainer" parent="Content/Scroll"]
+margin_right = 1920.0
+margin_bottom = 1037.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Images" type="VBoxContainer" parent="Content/Scroll/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Label" type="Label" parent="Content/Scroll/TabContainer/Images"]
+margin_right = 1912.0
+margin_bottom = 14.0
+text = "Path to Airline Tycoon Deluxe:"
+
+[node name="GamePath" type="LineEdit" parent="Content/Scroll/TabContainer/Images"]
+margin_top = 18.0
+margin_right = 1912.0
+margin_bottom = 42.0
+text = "P:/Projekte/Major Games/BASE/ATD"
+placeholder_text = "Path to ATD..."
+
+[node name="Seperator" type="HSeparator" parent="Content/Scroll/TabContainer/Images"]
+margin_top = 46.0
+margin_right = 1912.0
+margin_bottom = 50.0
+
+[node name="BrokenPath" type="Label" parent="Content/Scroll/TabContainer/Images"]
+visible = false
+margin_top = 28.0
+margin_right = 1912.0
+margin_bottom = 42.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Given path not an ATD path!"
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="Content/Scroll/TabContainer/Images"]
+margin_top = 54.0
+margin_right = 1912.0
+margin_bottom = 99.0
+dragger_visibility = 1
+
+[node name="ExtractImages" type="Button" parent="Content/Scroll/TabContainer/Images/HSplitContainer2"]
+margin_right = 1912.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+size_flags_horizontal = 3
+text = "Extract Images"
+
+[node name="CancelImport" type="Button" parent="Content/Scroll/TabContainer/Images/HSplitContainer2"]
+visible = false
+margin_left = 962.0
+margin_right = 1912.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="CurrentlyLoading" type="Label" parent="Content/Scroll/TabContainer/Images"]
+visible = false
+margin_top = 77.0
+margin_right = 1912.0
+margin_bottom = 91.0
+text = "Currently loading: xxx"
+
+[node name="Build Management" type="VBoxContainer" parent="Content/Scroll/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Label" type="Label" parent="Content/Scroll/TabContainer/Build Management"]
+margin_right = 1912.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 0, 23 )
+focus_mode = 2
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Beware! This will delete all your Image files.
+You have to redo the import process when you are done with exporting"
+autowrap = true
+
+[node name="Backup" type="CheckBox" parent="Content/Scroll/TabContainer/Build Management"]
+margin_top = 35.0
+margin_right = 1912.0
+margin_bottom = 59.0
+text = "Create Backup"
+
+[node name="PrepareBuild" type="Button" parent="Content/Scroll/TabContainer/Build Management"]
+margin_top = 63.0
+margin_right = 1912.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 0, 45 )
+text = "Prepare Build"
+
+[node name="Seperator" type="HSeparator" parent="Content/Scroll/TabContainer/Build Management"]
+margin_top = 112.0
+margin_right = 1912.0
+margin_bottom = 116.0
+
+[node name="LabelReset" type="Label" parent="Content/Scroll/TabContainer/Build Management"]
+margin_top = 120.0
+margin_right = 1912.0
+margin_bottom = 143.0
+rect_min_size = Vector2( 0, 23 )
+focus_mode = 2
+text = "Reset this editor window:"
+autowrap = true
+
+[node name="Reset" type="Button" parent="Content/Scroll/TabContainer/Build Management"]
+margin_top = 147.0
+margin_right = 1912.0
+margin_bottom = 192.0
+rect_min_size = Vector2( 0, 45 )
+text = "Reset"
