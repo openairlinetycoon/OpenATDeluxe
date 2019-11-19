@@ -50,8 +50,8 @@ public class BaseCharacter : AnimatedSprite {
 			Frames.AddAnimation(keyPair.Key.ToString());
 			Animation = keyPair.Key.ToString();
 
-			foreach (Texture texture in keyPair.Value) {
-				Frames.AddFrame(keyPair.Key.ToString(), texture);
+			foreach (AnimationData.TextureRef texture in keyPair.Value) {
+				Frames.AddFrame(keyPair.Key.ToString(), texture.GetTexture());
 			}
 		}
 	}

@@ -38,7 +38,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "midi" )
+enabled=PoolStringArray( "builder", "midi" )
 
 [graphics]
 
