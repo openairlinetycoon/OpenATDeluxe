@@ -26,7 +26,6 @@ public class DockInterface : Control {
 	Label currentlyLoading;
 	Label brokenPath;
 	static bool isLoading;
-	private static Dictionary<string, List<GFXLibrary>> libraryFolders;
 
 	public override void _ExitTree() {
 		tokenS?.Cancel();
@@ -144,7 +143,6 @@ public class DockInterface : Control {
 			GD.Print(e.Message);
 			GD.Print(e.StackTrace);
 		}
-		libraryFolders?.Clear();
 		isLoading = false;
 	}
 
