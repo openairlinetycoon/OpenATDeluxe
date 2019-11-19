@@ -1,6 +1,9 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Directory = System.IO.Directory;
@@ -10,6 +13,8 @@ using Thread = System.Threading.Thread;
 
 [Tool]
 public class DockInterface : Control {
+	public bool isDocked;
+
 	private const string ATDPathConfig = "application/config/atd_path";
 	LineEdit gamePath;
 	static string path;
@@ -21,6 +26,7 @@ public class DockInterface : Control {
 	Label currentlyLoading;
 	Label brokenPath;
 	static bool isLoading;
+	private static Dictionary<string, List<GFXLibrary>> libraryFolders;
 
 	public override void _ExitTree() {
 		tokenS?.Cancel();
@@ -28,6 +34,7 @@ public class DockInterface : Control {
 	}
 
 	public override void _EnterTree() {
+
 		try {
 			GD.Print("Entered!");
 
@@ -53,7 +60,7 @@ public class DockInterface : Control {
 			currentlyLoading = (Label)GetNode("Content/Scroll/TabContainer/Images/CurrentlyLoading");
 			brokenPath = (Label)GetNode("Content/Scroll/TabContainer/Images/BrokenPath");
 
-			gamePath = (LineEdit)GetNode("Content/Scroll/TabContainer/Images/HSplitContainer/GamePath");
+			gamePath = (LineEdit)GetNode("Content/Scroll/TabContainer/Images/GamePath");
 			if (!gamePath.IsConnected("text_entered", this, nameof(EnterText))) {
 				gamePath.Connect("text_entered", this, nameof(EnterText));
 			}
@@ -75,14 +82,17 @@ public class DockInterface : Control {
 
 	public override void _Process(float delta) {
 		try {
+			if (currentlyLoading == null && isDocked) {
+				ResetButtonPressed();
+			}
+
 			importButton.Disabled = isLoading;
 			currentlyLoading.Hide();
 			cancelButton.Hide();
 			if (isLoading && currentlyLoading != null) {
-				currentlyLoading.Text = "Currently loading: " + ATDGameLoader.currentFile;
-			}
-			if (isLoading == false) {
-				thread?.Abort();
+				currentlyLoading.Text = "Loading" + (((OS.GetTicksMsec() / 500) % 3 == 0) ? "." : ((OS.GetTicksMsec() / 500) % 3 == 1) ? ".." : "...");
+				currentlyLoading.Show();
+				cancelButton.Show();
 			}
 		} catch (Exception e) {
 			// GD.Print(e.Message);
@@ -104,6 +114,9 @@ public class DockInterface : Control {
 	}
 
 	public void ImportImages() {
+		if (importButton == null)
+			return;
+
 		tokenS = new CancellationTokenSource();
 		importButton.Disabled = true;
 		cancelButton.Show();
@@ -119,18 +132,19 @@ public class DockInterface : Control {
 
 	private void ImportThread() {
 		CancellationToken token = tokenS.Token;
-
-
 		try {
 			ATDGameLoader.SetFolders(path);
 			ATDGameLoader.ImportImages(true, token);
-		} catch (AggregateException) {
-			GD.Print("Cancelled!");
+		} catch (AggregateException e) {
+			GD.Print("FATAL ERROR!");
+			GD.Print(e.Message);
+			GD.Print(e.StackTrace);
 		} catch (Exception e) {
+			GD.Print("FATAL ERROR 2!");
 			GD.Print(e.Message);
 			GD.Print(e.StackTrace);
 		}
-
+		libraryFolders?.Clear();
 		isLoading = false;
 	}
 
@@ -170,8 +184,6 @@ public class DockInterface : Control {
 
 	}
 
-
-
 	public static void Copy(string sourceDirectory, string targetDirectory) {
 		var diSource = new DirectoryInfo(sourceDirectory);
 		var diTarget = new DirectoryInfo(targetDirectory);
@@ -187,6 +199,7 @@ public class DockInterface : Control {
 			fi.CopyTo(Path.Combine(target.FullName, fi.Name), true);
 		}
 
+
 		// Copy each subdirectory using recursion.
 		foreach (DirectoryInfo diSourceSubDir in source.GetDirectories()) {
 			DirectoryInfo nextTargetSubDir =
@@ -194,4 +207,5 @@ public class DockInterface : Control {
 			CopyAll(diSourceSubDir, nextTargetSubDir);
 		}
 	}
+
 }

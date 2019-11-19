@@ -21,6 +21,7 @@ public class ATDGameLoader : Node2D {
 
 	static Dictionary<string, List<GFXLibrary>> libraryFolders;
 
+
 	[Export]
 	bool forceRebuild = false;
 	static bool isInEditor; //TODO:Refractor this to the game class!
@@ -29,10 +30,11 @@ public class ATDGameLoader : Node2D {
 
 	ResourceInteractiveLoader gameLoader;
 
-	static volatile string otherLoading;
-	static volatile string currentFolder;
-	static volatile string currentLibrary;
-	public static volatile string currentFile;
+	// static volatile string otherLoading;
+	// static volatile string currentFolder;
+	// static volatile string currentLibrary;
+	// public static volatile string currentFile;
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
@@ -130,8 +132,8 @@ public class ATDGameLoader : Node2D {
 
 	public override void _Process(float delta) {
 		//SetProcess(false);
-		loadInfoFiles.SetText("Loading: " + currentLibrary);
-		loadInfo.SetText("Loading " + otherLoading + (((OS.GetTicksMsec() / 500) % 3 == 0) ? "." : ((OS.GetTicksMsec() / 500) % 3 == 1) ? ".." : "..."));
+		//loadInfoFiles.SetText("Loading: " + currentLibrary);
+		loadInfo.SetText("Loading " + (((OS.GetTicksMsec() / 500) % 3 == 0) ? "." : ((OS.GetTicksMsec() / 500) % 3 == 1) ? ".." : "..."));
 		// 	
 		// //loadInfo.SetText("Loading: " + currentFolder + "/" + currentLibrary + "/" + currentFile);
 
@@ -205,7 +207,7 @@ public class ATDGameLoader : Node2D {
 		string soundFolder = FindFolder("sound") + "/";
 
 		exceptions.Add(TryAction(() => {
-			otherLoading = "Music";
+			//otherLoading = "Music";
 			string[] midFiles = System.IO.Directory.GetFiles(soundFolder, "*.mid");
 			string[] oggFiles = System.IO.Directory.GetFiles(soundFolder, "*.ogg");
 
@@ -218,17 +220,17 @@ public class ATDGameLoader : Node2D {
 		}));
 
 		exceptions.Add(TryAction(() => {
-			otherLoading = "Clan CSV";
+			//otherLoading = "Clan CSV";
 			ClanCSVFile clanFile = new ClanCSVFile(dataFolder + "clan.csv");
 		}));
 
 		exceptions.Add(TryAction(() => {
-			otherLoading = "Brick CSV";
+			//otherLoading = "Brick CSV";
 			CSVFileDecoder decoder = new CSVFileDecoder(dataFolder + "brick.csv");
 		}));
 
 		exceptions.Add(TryAction(() => {
-			otherLoading = "Settings";
+			//otherLoading = "Settings";
 			SettingsManager.LoadSavedData();
 		}));
 		foreach (Exception e in exceptions) {
@@ -236,7 +238,7 @@ public class ATDGameLoader : Node2D {
 				GD.Print("Error loading!\n" + e.Message + "\n" + e.StackTrace);
 		}
 
-		otherLoading = "";
+		//otherLoading = "";
 		otherDataLoaded = true;
 
 
@@ -327,6 +329,8 @@ public class ATDGameLoader : Node2D {
 	/// </summary>
 	/// <param name="packFiles">Should the files be packed into a .pck file</param>
 	public static void ImportImages(bool saveFiles = false, CancellationToken cancelation = default(CancellationToken)) {
+		GD.Print($"Thread started! ID: {Thread.CurrentThread.ManagedThreadId}, Name: {Thread.CurrentThread.Name}");
+
 		string basePath = ProjectSettings.GlobalizePath(ImagesPath); //Get an absolute Path to our project/executable folder
 		string baseGodotPath = ImagesPath;
 
@@ -352,32 +356,11 @@ public class ATDGameLoader : Node2D {
 
 				cancelation.ThrowIfCancellationRequested();
 
-				currentLibrary = lib.name;
-				lib.Open();
+				//currentLibrary = lib.name;
 				ImportFile(lib, libPath, libGodotPath, saveFiles, cancelation);
-				lib.Close();
 			});
 
-			// foreach (var lib in libraries) {
-			// 	string libPath = libbasePath + "/" + lib.name;
-			// 	string libGodotPath = libbaseGodotPath + "/" + lib.name;
-
-
-			// 	if (!Directory.Exists(libPath) && saveFiles)
-			// 		Directory.CreateDirectory(libPath);
-
-			// 	cancelation.ThrowIfCancellationRequested();
-
-			// 	currentLibrary = lib.name;
-			// 	lib.Open();
-			// 	ImportFile(lib, libPath, libGodotPath, saveFiles, cancelation);
-			// 	lib.Close();
-			// 	//t.Start();
-
-			// 	//loader.Add(t);
-			// }
-
-			//Task.WaitAll(loader.ToArray());
+			libraries.Clear();
 		}
 	}
 
@@ -391,8 +374,7 @@ public class ATDGameLoader : Node2D {
 	/// <param name="libGodotPath">The relative path to save the files to, in "res://" space</param>
 	private static void ImportFile(GFXLibrary lib, string libPath, string libGodotPath, bool saveFiles = false, CancellationToken cancelation = default(CancellationToken)) {
 		Stopwatch getTexture = new Stopwatch();
-		Stopwatch fileExists = new Stopwatch();
-		Stopwatch takeOver = new Stopwatch();
+		Stopwatch fileHandling = new Stopwatch();
 
 		foreach (GFXLibrary.GFXFile file in lib.files) {
 			cancelation.ThrowIfCancellationRequested();
@@ -401,30 +383,26 @@ public class ATDGameLoader : Node2D {
 			string filePath = libPath + "/" + fileName;
 			string fileGodotPath = libGodotPath + "/" + fileName;
 
-			currentFile = fileName;
-
 			//currentFile = fileName;
-			//GD.Print(filePath);
-			//GD.Print(fileGodotPath);
+
 			getTexture.Start();
 			Texture resource = file.GetTexture();
 			getTexture.Stop();
 			if (resource == null)
 				continue;
 
+			fileHandling.Start();
 			if (saveFiles) {
-				Error e = ResourceSaver.Save(filePath, resource, (int)ResourceSaver.SaverFlags.Compress);
+				Error e = ResourceSaver.Save(filePath, resource);
 				if (e != 0) {
-					GD.Print($"Error: " + e.ToString());
+					GD.Print(e.ToString());
 				}
-				//GD.Print($"Texture: {file.name.Trim('\n', '\t', '\0')} not found in the editor! Now adding...");
+				resource.Dispose();
 			} else {
-				takeOver.Start();
 				resource.TakeOverPath(fileGodotPath);
-				takeOver.Stop();
 			}
+			fileHandling.Stop();
 		}
-
-		GD.Print($"Loaded {lib.name}! getTextures took {getTexture.ElapsedMilliseconds}ms, fileExists took {fileExists.ElapsedMilliseconds}ms, takeOver took {takeOver.ElapsedMilliseconds}ms,");
+		GD.Print($"Loaded {lib.name}! getTextures took {getTexture.ElapsedMilliseconds}ms, fileHandling took {fileHandling.ElapsedMilliseconds}ms.");
 	}
 }

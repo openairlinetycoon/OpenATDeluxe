@@ -95,7 +95,7 @@ public class GFXLibrary {
 
 		bool disposeOfHandle = false;
 
-		if (handle == null) {
+		if (handle?.IsOpen() != true) {
 			Open();
 			disposeOfHandle = true;
 		}

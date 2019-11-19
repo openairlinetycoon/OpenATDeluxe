@@ -5,14 +5,15 @@ using System.Diagnostics;
 [Tool]
 public class ManageTool : EditorPlugin {
 	static ManageTool instance;
-	static Control dock;
+	static DockInterface dock;
 
 	public ManageTool() {
 		instance = this;
 	}
 
 	public override void _EnterTree() {
-		dock = (Control)GD.Load<PackedScene>("addons/builder/dock.tscn").Instance();
+		dock = (DockInterface)GD.Load<PackedScene>("addons/builder/dock.tscn").Instance();
+		dock.isDocked = true;
 		AddControlToDock(DockSlot.LeftUr, dock);
 	}
 
@@ -20,7 +21,8 @@ public class ManageTool : EditorPlugin {
 		instance.RemoveControlFromDocks(oldDock);
 		oldDock.QueueFree();
 
-		dock = (Control)GD.Load<PackedScene>("addons/builder/dock.tscn").Instance();
+		dock = (DockInterface)GD.Load<PackedScene>("addons/builder/dock.tscn").Instance();
+		dock.isDocked = true;
 		instance.AddControlToDock(DockSlot.LeftUr, dock);
 	}
 
