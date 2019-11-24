@@ -1,0 +1,19 @@
+name: Build Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    - name: Build with dotnet
+      run: |
+        wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1lJtvcU5oJcCg_impXrFQRcnX7iK9ZJ1Y' -O GodotSharp.dll -P .mono/assemblies
+        dotnet build --configuration Release
