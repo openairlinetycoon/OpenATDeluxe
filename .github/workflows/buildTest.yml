@@ -18,6 +18,6 @@ jobs:
       run: |
         mkdir .mono/assemblies/
         Invoke-WebRequest -OutFile .mono/assemblies/GodotSharp.dll 'https://docs.google.com/uc?export=download&id=1lJtvcU5oJcCg_impXrFQRcnX7iK9ZJ1Y'
-        Invoke-WebRequest -OutFile .mono/assemblies/GodotSharp.dll 'https://docs.google.com/uc?export=download&id=1OVJwdZeK3McGcHjtJktEApaalFaFP2Ym'
+        Invoke-WebRequest -OutFile .mono/assemblies/GodotSharpEditor.dll 'https://docs.google.com/uc?export=download&id=1OVJwdZeK3McGcHjtJktEApaalFaFP2Ym'
     - name: Build with dotnet
       run: dotnet build --configuration Release
