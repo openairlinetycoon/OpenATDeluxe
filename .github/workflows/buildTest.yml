@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-2016
 
     steps:
     - uses: actions/checkout@v1
@@ -13,7 +13,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
-    - name: Build with dotnet
+        
+    - name: Setup Godot
       run: |
-        wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1lJtvcU5oJcCg_impXrFQRcnX7iK9ZJ1Y' -O GodotSharp.dll -P .mono/assemblies
-        dotnet build --configuration Release
+        mkdir .mono/assemblies/
+        wget -OutFile .mono/assemblies/GodotSharp.dll 'https://docs.google.com/uc?export=download&id=1lJtvcU5oJcCg_impXrFQRcnX7iK9ZJ1Y'
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
