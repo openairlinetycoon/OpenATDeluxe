@@ -74,8 +74,8 @@ public class Bank : Node2D {
 			// 	.AddNode(noSelling);
 
 		}
-		loanAnims.mouseArea.onClick += () => DialogueSystem.StartDialogue(loanDialogue, "P2", "B2");
-		sharesAnims.mouseArea.onClick += () => DialogueSystem.StartDialogue(sharesDialogue, "P2", "BA");
+		loanAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(loanDialogue, "P2", "B2");
+		sharesAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(sharesDialogue, "P2", "BA");
 		//DialogueSystem.StartDialogue(shareDialogue, "P2", "BA");
 		string player = "PL2";
 
@@ -96,40 +96,60 @@ public class Bank : Node2D {
 
 
 		loanAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BF_Wait.smk", goals: new AnimationGoal(onTrigger: (g) => TriggerIdleAnimation(g, loanDialogue))));
+			SmkAnimation.CreateAnimation(baseNode, "BF_Wait.smk", goal: new AnimationGoal(onTrigger: (g) => TriggerIdleAnimation(g, loanDialogue))));
 		loanAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BF_Work.smk", goals: new AnimationGoal(finish: 0, cancel: 0)));
+			SmkAnimation.CreateAnimation(baseNode, "BF_Work.smk", goal: new AnimationGoal(finish: 0, cancel: 0)));
 		loanAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BF_Turn.smk", goals: new AnimationGoal(finish: 4, cancel: 4)));
+			SmkAnimation.CreateAnimation(baseNode, "BF_Turn.smk", goal: new AnimationGoalDialogueStart(finish: 4, cancel: 4)));
 		loanAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BF_TurnZ.smk", goals: new AnimationGoal(finish: 0)));
+			SmkAnimation.CreateAnimation(baseNode, "BF_TurnZ.smk", goal: new AnimationGoal(finish: 0)));
 		loanAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BF_RedeW.smk",
-			goals: new AnimationGoal(onTrigger: (g) => WhileListeningAnimHelper(g, loanDialogue, "B2", 6, 3))));
+			goal: new AnimationGoalListening(loanDialogue, "B2", 6, 3)));
 		loanAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BF_RedeK.smk",
-			goals: new AnimationGoal(finish: 4, onTrigger: (g) => WhileListeningAnimHelper(g, loanDialogue, "B2", 6, 3))));
+			goal: new AnimationGoalListening(loanDialogue, "B2", 6, 3) { finishID = 4 }));
 		loanAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BF_Rede.smk",
-			goals: new AnimationGoal(onTrigger: (g) => WhileTalkingAnimHelper(g, loanDialogue, "B2", 4, 3))));
+			goal: new AnimationGoalTalking(loanDialogue, "B2", 4, 3)));
+
+		// loanAnims.Add(
+		// 	SmkAnimation.CreateAnimation(baseNode, "BF_RedeW.smk",
+		// 	goals: new AnimationGoal(onTrigger: (g) => WhileListeningAnimHelper(g, loanDialogue, "B2", 6, 3))));
+		// loanAnims.Add(
+		// 	SmkAnimation.CreateAnimation(baseNode, "BF_RedeK.smk",
+		// 	goals: new AnimationGoal(finish: 4, onTrigger: (g) => WhileListeningAnimHelper(g, loanDialogue, "B2", 6, 3))));
+		// loanAnims.Add(
+		// 	SmkAnimation.CreateAnimation(baseNode, "BF_Rede.smk",
+		// 	goals: new AnimationGoal(onTrigger: (g) => WhileTalkingAnimHelper(g, loanDialogue, "B2", 4, 3))));
 
 		sharesAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BM_Wait.smk", goals: new AnimationGoal(onTrigger: (g) => TriggerIdleAnimation(g, sharesDialogue))));
+			SmkAnimation.CreateAnimation(baseNode, "BM_Wait.smk", goal: new AnimationGoal(onTrigger: (g) => TriggerIdleAnimation(g, sharesDialogue))));
 		sharesAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BM_Scrib.smk", goals: new AnimationGoal(finish: 0, cancel: 0)));
+			SmkAnimation.CreateAnimation(baseNode, "BM_Scrib.smk", goal: new AnimationGoal(finish: 0, cancel: 0)));
 		sharesAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BM_Turn.smk", goals: new AnimationGoal(finish: 4, cancel: 4)));
+			SmkAnimation.CreateAnimation(baseNode, "BM_Turn.smk", goal: new AnimationGoalDialogueStart(finish: 4, cancel: 4)));
 		sharesAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BM_TurnZ.smk", goals: new AnimationGoal(finish: 0)));
+			SmkAnimation.CreateAnimation(baseNode, "BM_TurnZ.smk", goal: new AnimationGoal(finish: 0)));
 		sharesAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BM_RedeW.smk",
-			goals: new AnimationGoal(onTrigger: (g) => WhileListeningAnimHelper(g, sharesDialogue, "BA", 6, 3))));
+			goal: new AnimationGoalListening(sharesDialogue, "BA", 6, 3)));
 		sharesAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BM_RedeK.smk",
-			goals: new AnimationGoal(finish: 4, onTrigger: (g) => WhileListeningAnimHelper(g, sharesDialogue, "BA", 6, 3))));
+			goal: new AnimationGoalListening(sharesDialogue, "BA", 6, 3) { finishID = 4 }));
 		sharesAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BM_Rede.smk",
-			goals: new AnimationGoal(onTrigger: (g) => WhileTalkingAnimHelper(g, sharesDialogue, "BA", 4, 3))));
+			goal: new AnimationGoalTalking(sharesDialogue, "BA", 4, 3)));
+
+		// sharesAnims.Add(
+		// 	SmkAnimation.CreateAnimation(baseNode, "BM_RedeW.smk",
+		// 	goals: new AnimationGoal(onTrigger: (g) => WhileListeningAnimHelper(g, sharesDialogue, "BA", 6, 3))));
+		// sharesAnims.Add(
+		// 	SmkAnimation.CreateAnimation(baseNode, "BM_RedeK.smk",
+		// 	goals: new AnimationGoal(finish: 4, onTrigger: (g) => WhileListeningAnimHelper(g, sharesDialogue, "BA", 6, 3))));
+		// sharesAnims.Add(
+		// 	SmkAnimation.CreateAnimation(baseNode, "BM_Rede.smk",
+		// 	goals: new AnimationGoal(onTrigger: (g) => WhileTalkingAnimHelper(g, sharesDialogue, "BA", 4, 3))));
 
 
 		loanAnims.Play(0);

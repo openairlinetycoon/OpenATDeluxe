@@ -42,6 +42,9 @@ public class AnimationList : List<SmkAnimation> {
 		if (item.goal.finish != null || item.goal.finishID != -1)
 			item.OnAnimationFinish += (item.goal.finish != null ? (Action)(() => Play(item.goal.finish)) : (() => Play(item.goal.finishID)));
 
+		if (item.goal.onFinish != null) {
+			item.OnAnimationFinish += item.goal.onFinish;
+		}
 	}
 
 	public void Play(SmkAnimation animation) {
@@ -106,6 +109,8 @@ public class AnimationGoal {
 	/// </summary>
 	public SmkAnimation finish;
 	public int finishID;
+	public Action onFinish;
+
 	/// <summary>
 	/// When a cancel message is recieved, go to this animation
 	/// </summary>
@@ -157,5 +162,87 @@ public class AnimationGoal {
 		this.finish = null;
 		this.cancel = null;
 		this.trigger = null;
+	}
+}
+
+public class AnimationGoalTalking : AnimationGoal {
+	/// <summary>
+	/// AnimationGoal for a talking animation. Will switch between a listening animation, this animation and back to a normal animation when the dialogue stopped
+	/// </summary>
+	/// <param name="currentDialogue">The dialogue to which this animation belongs to</param>
+	/// <param name="actor">The actor of this animation in the dialogue</param>
+	/// <param name="listeningID">The animation to play when the actor stops talking and listens instead</param>
+	/// <param name="dialogueStoppedID">The animation to play when the player stops the conversation</param>
+	public AnimationGoalTalking(Dialogue currentDialogue, string actor, int listeningID, int dialogueStoppedID) : base() {
+		onTrigger += (g) => WhileTalkingAnimHelper(g, currentDialogue, actor, listeningID, dialogueStoppedID);
+	}
+	private static bool WhileTalkingAnimHelper(AnimationGoal goal, Dialogue creditDialogue, string actor, int noTalkingID, int dialogueStoppedID) {
+		if (DialogueSystem.currentlyTalking != actor) {
+			goal.triggerID = noTalkingID;
+			return true;
+		}
+		if (DialogueSystem.currentDialogue != creditDialogue) {
+			goal.triggerID = dialogueStoppedID;
+			return true;
+		}
+
+		return false;
+	}
+
+
+}
+public class AnimationGoalListening : AnimationGoal {
+	/// <summary>
+	/// AnimationGoal for a listening animation. Will switch between a talking animation, this animation and back to a normal animation when the dialogue stopped
+	/// </summary>
+	/// <param name="currentDialogue">The dialogue to which this animation belongs to</param>
+	/// <param name="actor">The actor of this animation in the dialogue</param>
+	/// <param name="startTalkingID">The animation to play when the actor starts talking</param>
+	/// <param name="dialogueStoppedID">The animation to play when the player stops the conversation</param>
+	public AnimationGoalListening(Dialogue currentDialogue, string actor, int startTalkingID, int dialogueStoppedID) : base() {
+		onTrigger += (g) => WhileListeningAnimHelper(g, currentDialogue, actor, startTalkingID, dialogueStoppedID);
+	}
+
+	private static bool WhileListeningAnimHelper(AnimationGoal goal, Dialogue creditDialogue, string actor, int startTalkingID, int dialogueStoppedID) {
+		if (DialogueSystem.currentlyTalking == actor) {
+			goal.triggerID = startTalkingID;
+			return true;
+		}
+		if (DialogueSystem.currentDialogue != creditDialogue) {
+			goal.triggerID = dialogueStoppedID;
+			return true;
+		}
+
+		return false;
+	}
+}
+
+public class AnimationGoalDialogueStart : AnimationGoal {
+	private void StartDialogue() {
+		void Start() {
+			DialogueSystem.StartCurrentDialogue();
+			if (DialogueSystem.currentDialogue == null) {
+				throw new NullReferenceException("Trying to use a dialogue start Animation goal, without properly preparing the dialogue system! Please use DialogueSystem.PrepareDialogue(...) to prepare!");
+			}
+		}
+
+		onFinish = Start;
+	}
+
+	public AnimationGoalDialogueStart() {
+		StartDialogue();
+	}
+
+	public AnimationGoalDialogueStart(Func<AnimationGoal, bool> onTrigger) : base(onTrigger) {
+		StartDialogue();
+
+	}
+
+	public AnimationGoalDialogueStart(SmkAnimation finish = null, SmkAnimation cancel = null, SmkAnimation trigger = null, Func<AnimationGoal, bool> onTrigger = null) : base(finish, cancel, trigger, onTrigger) {
+		StartDialogue();
+	}
+
+	public AnimationGoalDialogueStart(int finish = -1, int cancel = -1, int trigger = -1, Func<AnimationGoal, bool> onTrigger = null) : base(finish, cancel, trigger, onTrigger) {
+		StartDialogue();
 	}
 }

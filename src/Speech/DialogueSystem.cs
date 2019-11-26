@@ -80,6 +80,15 @@ public class DialogueSystem : Node2D {
 		ReadNextNodeHead(dialogue);
 	}
 
+	public static void PrepareDialogue(Dialogue dialogue, string actor1, string actor2 = "") {
+		currentDialogue = dialogue;
+		currentDialogue.Start();
+	}
+
+	public static void StartCurrentDialogue() {
+		ReadNextNodeHead(currentDialogue);
+	}
+
 	private static void ReadNextNodeHead(Dialogue dialogue) {
 		if (IsDialogueActive == false) {
 			Speechbubble.Hide();
