@@ -19,21 +19,22 @@ public class Bank : Node2D {
 		loanAnims.CreateMouseArea(baseNode);
 		sharesAnims.CreateMouseArea(baseNode);
 
-
+		DialogueSystem.AddActor(new Actor("BA", (DialogueWindow)FindNode("BA")));
+		DialogueSystem.AddActor(new Actor("B2", (DialogueWindow)FindNode("B2")));
 
 		Dialogue loanDialogue = new Dialogue("Bank");
 		{
-			DialogueNode startCredit = new DialogueNode(109);
+			DialogueNode startLoan = new DialogueNode(109);
 			DialogueNodeReturning noNewLoan = new DialogueNodeReturning(120);
 			DialogueNodeReturning noReturningOfLoan = new DialogueNodeReturning(140);
 
-			loanDialogue.AddNode(startCredit)
+			loanDialogue.AddNode(startLoan)
 				.AddNode(noNewLoan)
 				.AddNode(noReturningOfLoan);
 
-			startCredit.AddOption(new DialogueOption(101, noNewLoan));
-			startCredit.AddOption(new DialogueOption(102, noReturningOfLoan));
-			startCredit.AddOption(new DialogueOptionReturning(103));
+			startLoan.AddOption(new DialogueOption(101, noNewLoan));
+			startLoan.AddOption(new DialogueOption(102, noReturningOfLoan));
+			startLoan.AddOption(new DialogueOptionReturning(103));
 		}
 
 		Dialogue sharesDialogue = new Dialogue("Bank");
@@ -74,7 +75,7 @@ public class Bank : Node2D {
 			// 	.AddNode(noSelling);
 
 		}
-		loanAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(loanDialogue, "P2", "B2");
+		loanAnims.mouseArea.onClick += () => { DialogueSystem.PrepareDialogue(loanDialogue, "P2", "B2"); DialogueSystem.StartWithOptions(); };
 		sharesAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(sharesDialogue, "P2", "BA");
 		//DialogueSystem.StartDialogue(shareDialogue, "P2", "BA");
 		string player = "PL2";
@@ -100,7 +101,7 @@ public class Bank : Node2D {
 		loanAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BF_Work.smk", goal: new AnimationGoal(finish: 0, cancel: 0)));
 		loanAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BF_Turn.smk", goal: new AnimationGoalDialogueStart(finish: 4, cancel: 4)));
+			SmkAnimation.CreateAnimation(baseNode, "BF_Turn.smk", goal: new AnimationGoal(finish: 4, cancel: 4)));
 		loanAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BF_TurnZ.smk", goal: new AnimationGoal(finish: 0)));
 		loanAnims.Add(

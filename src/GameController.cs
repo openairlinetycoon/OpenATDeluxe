@@ -14,7 +14,12 @@ public class GameController : Node2D {
 		TaskScheduler.UnobservedTaskException += (o, e) => HandleTaskException(o);
 	}
 
-	public static int playerID = 2;
+	public static int currentPlayerID = 2;
+	public static string CurrentPlayerTag {
+		get {
+			return "P" + currentPlayerID;
+		}
+	}
 
 	public void SetTaskbar(bool toggle) {
 		taskbar.SetVisible(toggle);

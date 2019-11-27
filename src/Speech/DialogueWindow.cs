@@ -17,6 +17,10 @@ public class DialogueWindow : Control {
 	public List<Control> lines;
 	public List<Control> linesDebug;
 
+	public TextureRect head;
+
+	Vector2 baseSize, basePosition, headPosition;
+
 	public string speechbubbleLinePrefab = "res://Prefabs/Speech/SpeechbubbleLinePrefab.tscn";
 
 	public override void _Ready() {
@@ -28,22 +32,43 @@ public class DialogueWindow : Control {
 
 		speechbubble = GetNode<HBoxContainer>("SpeechbubbleFlexible");
 		rightTexture = GetNode<NinePatchRect>("SpeechbubbleFlexible/RightSide/Flip/Texture");
+		head = GetNodeOrNull<TextureRect>("Head");
 
 		linePrefab = (PackedScene)ResourceLoader.Load(speechbubbleLinePrefab);
 
 		lines = new List<Control>();
 		linesDebug = new List<Control>();
 
+		baseSize = RectSize;
+		basePosition = RectPosition;
+
+		headPosition = head?.RectGlobalPosition ?? default(Vector2);
+
 		this.Update();
 		this.Hide();
 	}
 
 	public void OnContainerSizeChange() {
-		// container.Hide();
-		// container.Show();
+		Vector2 innerMargin = new Vector2(50, 10);
+		//Add padding:
+		speechbubble.RectPosition = lineContainer.RectPosition - innerMargin / 2;
+		speechbubble.RectSize = lineContainer.RectSize + innerMargin;
 
-		speechbubble.RectPosition = lineContainer.RectPosition - new Vector2(25, 5);
-		speechbubble.RectSize = lineContainer.RectSize + new Vector2(50, 10);
+		//Move to the right position, with the new margin in mind
+		RectSize = baseSize - innerMargin;
+		RectPosition = basePosition + innerMargin / 2;
+
+		//Move the Speechbubble down a bit when the box is bigger than normal 
+		//to mimmick the original behavior for longer player text. 
+		if (DialogueSystem.currentlyTalking == GameController.CurrentPlayerTag) {
+			float heightDifference = speechbubble.RectSize.y - 61;
+			heightDifference = Mathf.Min(heightDifference, 140);
+
+			RectPosition = RectPosition + new Vector2(0, heightDifference) / 2;
+		}
+
+		head?.SetGlobalPosition(headPosition);
+
 		//Force redraw and repositioning
 		speechbubble.Hide();
 		speechbubble.Show();
@@ -59,6 +84,11 @@ public class DialogueWindow : Control {
 
 		public void MouseEntered() {
 			MouseCursor.instance?.MouseEnter(this);
+
+			SoundPlayer p = SoundPlayer.CreatePlayer("/SOUND/change.raw", "effects", true, true);
+			p.VolumeDb = 12;
+			AddChild(p);
+			p.Play();
 		}
 		public void MouseExited() {
 			MouseCursor.instance?.MouseLeave(this);
@@ -127,6 +157,7 @@ public class DialogueWindow : Control {
 		lines.Clear();
 
 		HBoxContainer line = (HBoxContainer)linePrefab.Instance();
+		line.GetNode<Control>("Control").Visible = false;
 
 		Label textLabel = line.GetNode<Label>("Label");
 
@@ -193,13 +224,13 @@ public class DialogueWindow : Control {
 		}
 		lineContainer.Hide();
 		lineContainer.Show();
-		//Change to a prefab system to avoid https://github.com/godotengine/godot/issues/32470 :(
 	}
 	public void PrepareBubbleAnswerText(int optionIndex, int currentActor, Dialogue dialogue) {
 		ClearLines();
 
 		lines.Clear();
 		HBoxContainer line = (HBoxContainer)linePrefab.Instance();
+		line.GetNode<Control>("Control").Visible = false;
 
 		Label textLabel = line.GetNode<Label>("Label");
 

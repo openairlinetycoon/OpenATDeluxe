@@ -18,7 +18,7 @@ public class SoundPlayer : AudioStreamPlayer {
 	public string filePath;
 	AudioStreamSample audioFile = new AudioStreamSample();
 
-	public static SoundPlayer CreatePlayer(string file, string bus, bool use8BitEncoding = false) {
+	public static SoundPlayer CreatePlayer(string file, string bus, bool use8BitEncoding = false, bool oneShot = false) {
 		SoundPlayer player = new SoundPlayer();
 		if (!File.Exists(SoundPath + file)) {
 			throw (new System.IO.FileNotFoundException($"File: {SoundPath + file} not found!"));
@@ -30,6 +30,10 @@ public class SoundPlayer : AudioStreamPlayer {
 		player.Bus = bus;
 
 		player.filePath = file;
+
+		if (oneShot) {
+			player.OnSoundFinished += () => player.QueueFree();
+		}
 
 		return player;
 	}
@@ -61,7 +65,7 @@ public class SoundPlayer : AudioStreamPlayer {
 			}
 
 			SetAudioStream(filePath);
-			if (Autoplay) //Autoplay does not work natively, because there is was Audio Stream to play before we added it here
+			if (Autoplay) //Autoplay does not work natively, because there was no Audio Stream to play before we added it here
 				Play();
 		}
 	}

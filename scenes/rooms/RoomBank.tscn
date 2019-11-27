@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/Scenes/Bank.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://Images/gli/glberatr/BER92_04.res" type="Texture" id=13]
 [ext_resource path="res://src/Speech/DialogueSystem.cs" type="Script" id=14]
 [ext_resource path="res://Prefabs/Speech/Speechbubble.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Images/gli/glstd/XBLASE13.res" type="Texture" id=16]
+[ext_resource path="res://Images/gli/glstd/XBLASE11.res" type="Texture" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -73,7 +75,7 @@ shape = SubResource( 1 )
 [node name="Screen" type="AnimatedSprite" parent="Base"]
 position = Vector2( -194.358, -7.53902 )
 frames = SubResource( 2 )
-frame = 2
+frame = 1
 speed_scale = 0.15
 playing = true
 
@@ -84,15 +86,69 @@ position = Vector2( -343.338, 36.8621 )
 z_index = 16
 frames = SubResource( 3 )
 
-[node name="DialogueSystem2" type="Node2D" parent="."]
-position = Vector2( 0, -120 )
+[node name="DialogueSystem" type="Node2D" parent="."]
 script = ExtResource( 14 )
 
-[node name="Speechbubble" parent="DialogueSystem2" instance=ExtResource( 15 )]
-margin_left = 83.0
-margin_top = 812.0
-margin_right = 902.0
-margin_bottom = 875.0
+[node name="PL" parent="DialogueSystem" instance=ExtResource( 15 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 216.0
+margin_top = 820.0
+margin_right = 1584.0
+margin_bottom = 883.0
 mouse_filter = 2
+
+[node name="Head" type="TextureRect" parent="DialogueSystem/PL"]
+modulate = Color( 1, 1, 1, 0.780392 )
+anchor_bottom = 1.0
+margin_left = -12.8152
+margin_top = 23.1077
+margin_right = 2.18481
+margin_bottom = -22.8923
+texture = ExtResource( 16 )
+stretch_mode = 3
+
+[node name="BA" parent="DialogueSystem" instance=ExtResource( 15 )]
+margin_left = 140.0
+margin_top = 340.0
+margin_right = 1480.0
+margin_bottom = 403.0
+mouse_filter = 2
+
+[node name="Head" type="TextureRect" parent="DialogueSystem/BA"]
+modulate = Color( 1, 1, 1, 0.780392 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 410.0
+margin_top = 30.5
+margin_right = 427.0
+margin_bottom = 45.5
+texture = ExtResource( 17 )
+
+[node name="B2" parent="DialogueSystem" instance=ExtResource( 15 )]
+margin_left = -2.0
+margin_top = 300.0
+margin_right = 1580.0
+margin_bottom = 363.0
+mouse_filter = 2
+
+[node name="Head" type="TextureRect" parent="DialogueSystem/B2"]
+modulate = Color( 1, 1, 1, 0.780392 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -99.0
+margin_top = 30.5
+margin_right = -82.0
+margin_bottom = 45.5
+texture = ExtResource( 17 )
+
+[node name="BER92_01" type="Sprite" parent="DialogueSystem"]
+position = Vector2( 110, 850 )
+scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 10 )
 
 [editable path="Base/MouseColliderRoom2"]

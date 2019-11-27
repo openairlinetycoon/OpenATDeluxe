@@ -7,12 +7,22 @@ using System.Text.RegularExpressions;
 //using System.Threading.Tasks;
 using Environment = System.Environment;
 
+//TODO: Add skip function
 public class DialogueSystem : Node2D {
 	static DialogueSystem instance;
 	public static Queue<Action> dialogueCommandQueue = new Queue<Action>();
 
+	public static Dictionary<string, Actor> actors = new Dictionary<string, Actor>();
+
 	override public void _Ready() {
+		if (instance != null) {
+			instance = this;
+			return;
+		}
 		instance = this;
+
+
+		AddActor(new Actor(GameController.CurrentPlayerTag, (DialogueWindow)FindNode("PL")));
 	}
 
 	override public void _Process(float _dt) {
@@ -32,9 +42,15 @@ public class DialogueSystem : Node2D {
 
 	public static bool skipHead;
 
+	static DialogueWindow _speechbubble;
 	public static DialogueWindow Speechbubble {
 		get {
-			_speechbubble = _speechbubble ?? (DialogueWindow)instance.FindNode("Speechbubble");
+			if (_speechbubble != null)
+				_speechbubble.Hide();
+
+			_speechbubble = GetCurrentActorSpeechbubble();
+			_speechbubble.Show();
+
 			return _speechbubble;
 		}
 		set => _speechbubble = value;
@@ -49,8 +65,6 @@ public class DialogueSystem : Node2D {
 		Other,
 	}
 
-	private static DialogueWindow _speechbubble;
-
 	/**
 	** Dialogue:
 	** Actor says something -> Speechbubble for actor with node's own text
@@ -60,8 +74,30 @@ public class DialogueSystem : Node2D {
 	** Repeat
 	**/
 
+	public static void AddActor(Actor actor) {
+		actors.Add(actor.name, actor);
+	}
+
+	public static Actor GetCurrentActor() {
+		string actor = currentlyTalking;
+		if (!actors.ContainsKey(actor)) { //Fallback
+			actor = GameController.CurrentPlayerTag;
+			GD.Print($"No speechbubble found for actor: {currentlyTalking}! Using player actor instead");
+		}
+
+		return actors[actor];
+	}
+
+	public static DialogueWindow GetCurrentActorSpeechbubble() {
+		return GetCurrentActor().speechbubble;
+	}
+
+	public static string GetFullTrText(int id, Dialogue dialogue) {
+		return TranslationServer.Translate(dialogue.dialogueGroup + ">" + id);
+	}
+
 	/// <summary>
-	//NOT IMPLEMENTED YET!
+	/// NOT IMPLEMENTED YET!
 	/// </summary>
 	/// <param name="dialogueGroup">Like "Bank", or "Makl".
 	/// The first part of a localized string ("xxx>1000" - the xxx part).</param>
@@ -69,24 +105,33 @@ public class DialogueSystem : Node2D {
 	public static void StartDialogue(string dialogueGroup, int id) {
 
 	}
-	public static string GetFullTrText(int id, Dialogue dialogue) {
-		return TranslationServer.Translate(dialogue.dialogueGroup + ">" + id);
-	}
 
-	public static void StartDialogue(Dialogue dialogue, string actor1, string actor2 = "") {
+	public static void StartDialogue(Dialogue dialogue, string actor1, string actor2) {
+		if (currentDialogue != null)
+			return;
 		currentDialogue = dialogue;
 		currentDialogue.Start();
+
+		currentlyTalking = actor2;
 
 		ReadNextNodeHead(dialogue);
 	}
 
-	public static void PrepareDialogue(Dialogue dialogue, string actor1, string actor2 = "") {
+	public static void PrepareDialogue(Dialogue dialogue, string actor1, string actor2) {
+		if (currentDialogue != null)
+			return;
 		currentDialogue = dialogue;
 		currentDialogue.Start();
+
+		currentlyTalking = actor2;
 	}
 
 	public static void StartCurrentDialogue() {
 		ReadNextNodeHead(currentDialogue);
+	}
+	public static void StartWithOptions() {
+		currentlyTalking = GameController.CurrentPlayerTag; //We just assume, that only the player can pick options
+		Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
 	}
 
 	private static void ReadNextNodeHead(Dialogue dialogue) {
@@ -96,11 +141,11 @@ public class DialogueSystem : Node2D {
 			return;//TODO: Delete/Hide Speechbubble
 		}
 
+		StartDialogueHeadSpeech();
 		Speechbubble.Show();
 
 		Speechbubble.PrepareBubbleHeadText(0, dialogue);
 		state = DialogueStates.ReadingHead;
-		StartDialogueHeadSpeech();
 	}
 
 	public static List<string> GetInstruction(string text) {
@@ -111,7 +156,7 @@ public class DialogueSystem : Node2D {
 
 		foreach (Match m in Regex.Matches(text, pattern)) {
 			string actor = m.Groups[1].Value;
-			actor = actor.Replace("P1", $"P{GameController.playerID}"); //Player 1 is used as placeholder in the localization. We have to change that to the current player
+			actor = actor.Replace("P1", GameController.CurrentPlayerTag); //Player 1 is used as placeholder in the localization. We have to change that to the current player
 
 			instructions.Add(actor);
 		}
@@ -125,7 +170,7 @@ public class DialogueSystem : Node2D {
 		string actor = Regex.Match(text, pattern).Groups[1].Value;
 
 		//Player 1 is used as placeholder in the localization. We have to change that to the current player
-		actor = actor.Replace("P1", $"P{GameController.playerID}");
+		actor = actor.Replace("P1", GameController.CurrentPlayerTag);
 
 		return actor;
 	}
@@ -264,10 +309,10 @@ public class DialogueSystem : Node2D {
 
 		dialogueCommandQueue.Enqueue(
 			() => CreateSoundsAndExecuteOnFinish(instructions, currentFullText, () => {
-				currentlyTalking = "";
 				currentDialogue.CurrentNode.OnSpeechFinished();
 
 				state = DialogueStates.PickingOptions;
+				currentlyTalking = GameController.CurrentPlayerTag; //We just assume, that only the player can pick options
 				Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
 			}));
 		//Task.Run(() => WaitForSpeechToFinish(currentFullText, instructions));
@@ -283,7 +328,6 @@ public class DialogueSystem : Node2D {
 
 		dialogueCommandQueue.Enqueue(
 			() => CreateSoundsAndExecuteOnFinish(instructions, currentFullText, () => {
-				currentlyTalking = "";
 
 				currentDialogue.CurrentNode.OnSpeechFinished();
 				currentDialogue.SelectOption(optionIndex);
@@ -326,6 +370,16 @@ public class DialogueSystem : Node2D {
 	}
 
 
+}
+
+public struct Actor {
+	public string name;
+	public DialogueWindow speechbubble;
+
+	public Actor(string name, DialogueWindow speechbubble) {
+		this.name = name;
+		this.speechbubble = speechbubble;
+	}
 }
 
 

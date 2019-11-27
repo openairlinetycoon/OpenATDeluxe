@@ -38,7 +38,7 @@ public class Office : Node2D {
 		start.AddOption(new DialogueOption(102, noReturningOfLoan));
 		start.AddOption(new DialogueOptionReturning(103));
 
-		DialogueSystem.StartDialogue(test, "P1");
+		DialogueSystem.StartDialogue(test, "P1", "B2");
 		string player = "PL2";
 
 		playerAnims.Add(
