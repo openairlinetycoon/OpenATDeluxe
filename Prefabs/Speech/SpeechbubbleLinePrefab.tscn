@@ -10,6 +10,7 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="."]
+editor/display_folded = true
 margin_right = 30.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 30, 51 )
@@ -36,16 +37,19 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="."]
 margin_left = 34.0
-margin_right = 52.0
+margin_right = 1920.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 0, 24 )
 mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0.145098, 0.278431, 0.564706, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.254902 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 1
 text = "1."
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""

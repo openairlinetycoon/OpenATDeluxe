@@ -14,8 +14,7 @@ __meta__ = {
 }
 
 [node name="SpeechbubbleFlexible" type="HBoxContainer" parent="."]
-editor/display_folded = true
-modulate = Color( 1, 1, 1, 0.78 )
+modulate = Color( 1, 1, 1, 0.780392 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -40,6 +39,7 @@ __meta__ = {
 
 [node name="Texture" type="NinePatchRect" parent="SpeechbubbleFlexible/LeftSide"]
 material = ExtResource( 2 )
+use_parent_material = true
 margin_right = 994.0
 margin_bottom = 50.0
 grow_horizontal = 0
@@ -72,11 +72,10 @@ __meta__ = {
 margin_left = -33.0
 margin_right = 960.0
 margin_bottom = 50.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="Texture" type="NinePatchRect" parent="SpeechbubbleFlexible/RightSide/Flip"]
 material = ExtResource( 2 )
+use_parent_material = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
