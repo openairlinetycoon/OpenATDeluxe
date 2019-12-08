@@ -14,6 +14,8 @@ public class DialogueSystem : Node2D {
 
 	public static Dictionary<string, Actor> actors = new Dictionary<string, Actor>();
 
+	public static Action onDialogueStart;
+
 	override public void _Ready() {
 		if (instance != null) {
 			instance = this;
@@ -21,9 +23,11 @@ public class DialogueSystem : Node2D {
 		}
 		instance = this;
 
+		RoomManager.OnRoomExit += CleanActors;
 
-		AddActor(new Actor(GameController.CurrentPlayerTag, (DialogueWindow)FindNode("PL")));
+		AddPlayerActor();
 	}
+
 
 	override public void _Process(float _dt) {
 		if (dialogueCommandQueue?.Count != 0) {
@@ -75,6 +79,10 @@ public class DialogueSystem : Node2D {
 	**/
 
 	public static void AddActor(Actor actor) {
+		if (actors.ContainsKey(actor.name)) {
+			GD.Print($"{actor.name} is already added!");
+			return;
+		}
 		actors.Add(actor.name, actor);
 	}
 
@@ -86,6 +94,17 @@ public class DialogueSystem : Node2D {
 		}
 
 		return actors[actor];
+	}
+
+	private static void AddPlayerActor() {
+		AddActor(new Actor(GameController.CurrentPlayerTag, (DialogueWindow)instance.FindNode("PL")));
+	}
+	public static void CleanActors() {
+		if (instance == null)
+			return;
+
+		actors.Clear();
+		AddPlayerActor();
 	}
 
 	public static DialogueWindow GetCurrentActorSpeechbubble() {
@@ -107,12 +126,7 @@ public class DialogueSystem : Node2D {
 	}
 
 	public static void StartDialogue(Dialogue dialogue, string actor1, string actor2) {
-		if (currentDialogue != null)
-			return;
-		currentDialogue = dialogue;
-		currentDialogue.Start();
-
-		currentlyTalking = actor2;
+		PrepareDialogue(dialogue, actor1, actor2);
 
 		ReadNextNodeHead(dialogue);
 	}
@@ -120,8 +134,10 @@ public class DialogueSystem : Node2D {
 	public static void PrepareDialogue(Dialogue dialogue, string actor1, string actor2) {
 		if (currentDialogue != null)
 			return;
+
 		currentDialogue = dialogue;
 		currentDialogue.Start();
+		onDialogueStart?.Invoke();
 
 		currentlyTalking = actor2;
 	}
@@ -208,7 +224,7 @@ public class DialogueSystem : Node2D {
 					offset += replacementSpeech.Length - 1;
 					int wildcardPos = m.Index + offset;
 
-					aStringBuilder.Remove(wildcardPos, m.Groups[1].Length);//!Account for the actual size, not just %s -> e.g. %li 
+					aStringBuilder.Remove(wildcardPos, m.Groups[1].Length);
 					aStringBuilder.Insert(wildcardPos, values[index]);
 					offset += values[index].Length - m.Groups[1].Length;
 
@@ -218,7 +234,7 @@ public class DialogueSystem : Node2D {
 			} else {
 				int wildcardPos = m.Index + offset;
 
-				aStringBuilder.Remove(wildcardPos, m.Groups[1].Length);//!Account for the actual size, not just %s -> e.g. %li 
+				aStringBuilder.Remove(wildcardPos, m.Groups[1].Length);
 				aStringBuilder.Insert(wildcardPos, values[index]);
 				offset += values[index].Length - m.Groups[1].Length;
 			}
@@ -253,6 +269,8 @@ public class DialogueSystem : Node2D {
 	private static void CreateSoundsAndExecuteOnFinish(List<string> instructions, string currentFullText, Action onFinish) {
 		List<SoundPlayer> player = new List<SoundPlayer>();
 
+		onFinish += Speechbubble.OnStopTalking;
+
 		int index = 0;
 		foreach (string fileName in instructions) {
 			if (fileName == "*") {
@@ -281,8 +299,10 @@ public class DialogueSystem : Node2D {
 		//We make an exception to the last entry to call our onFinish method, instead of trying to play the non existant next voice line 
 		player[player.Count - 1].OnSoundFinished += () => { player[player.Count - 1].QueueFree(); onFinish.Invoke(); };
 
-		SoundPlayer soundPlayer = player.First();
+		SoundPlayer soundPlayer = player.FirstOrDefault();
 		soundPlayer?.Play();
+
+		Speechbubble.OnStartTalking();
 	}
 
 	private static void CompileTextAndInstructions(string[] wildcards, int textId, out string currentFullText, out List<string> instructions) {

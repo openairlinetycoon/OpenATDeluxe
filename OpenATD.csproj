@@ -90,6 +90,7 @@
     <Compile Include="src\Smacker\AnimationList.cs" />
     <Compile Include="src\Smacker\SmkAnimation.cs" />
     <Compile Include="src\Smacker\SmkPlayer.cs" />
+    <Compile Include="src\Speech\PlayerDialogueWindow.cs" />
     <Compile Include="src\Staircase.cs" />
     <Compile Include="src\Smacker\Smk.cs" />
     <Compile Include="src\Smacker\BitStream.cs" />
@@ -99,8 +100,7 @@
     <Compile Include="addons\builder\ManageTool.cs" />
     <Compile Include="addons\builder\DockInterface.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'Tools' ">
-  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Tools' " />
   <ItemGroup>
     <Reference Include="I18N" />
     <Reference Include="I18N.West" />

@@ -245,6 +245,13 @@ public class DialogueWindow : Control {
 		lineContainer.Show();
 	}
 
+	public virtual void OnStartTalking() {
+
+	}
+	public virtual void OnStopTalking() {
+
+	}
+
 	public static string CleanOffInstruction(string text) {
 		string pattern = @" ?\[\[([^\]]*)\]\]";
 		return Regex.Replace(text, pattern, "");

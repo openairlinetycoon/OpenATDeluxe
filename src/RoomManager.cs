@@ -14,6 +14,8 @@ public class RoomManager : Node2D {
 	public Godot.Collections.Array _rooms;
 	private static Dictionary<string, PackedScene> rooms;
 
+	public static Action OnRoomExit;
+
 	public override void _Ready() {
 		roomPosition = new Vector2(4330, 880);
 
@@ -63,6 +65,8 @@ public class RoomManager : Node2D {
 		//string fullPath = "res://scenes/rooms/" + newRoomName + ".tscn";
 		//File f = new File();
 		Debug.Assert(rooms.ContainsKey(newRoomName), "Room not found! Room: " + newRoomName);
+
+		OnRoomExit?.Invoke();
 
 		if (MouseCursor.instance != null)
 			MouseCursor.instance.Reset();
