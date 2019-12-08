@@ -95,7 +95,7 @@ public class Bank : Node2D {
 			return ret;
 		}
 
-
+		//Loans
 		loanAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BF_Wait.smk", goal: new AnimationGoal(onTrigger: (g) => TriggerIdleAnimation(g, loanDialogue))));
 		loanAnims.Add(
@@ -114,16 +114,7 @@ public class Bank : Node2D {
 			SmkAnimation.CreateAnimation(baseNode, "BF_Rede.smk",
 			goal: new AnimationGoalTalking(loanDialogue, "B2", 4, 3)));
 
-		// loanAnims.Add(
-		// 	SmkAnimation.CreateAnimation(baseNode, "BF_RedeW.smk",
-		// 	goals: new AnimationGoal(onTrigger: (g) => WhileListeningAnimHelper(g, loanDialogue, "B2", 6, 3))));
-		// loanAnims.Add(
-		// 	SmkAnimation.CreateAnimation(baseNode, "BF_RedeK.smk",
-		// 	goals: new AnimationGoal(finish: 4, onTrigger: (g) => WhileListeningAnimHelper(g, loanDialogue, "B2", 6, 3))));
-		// loanAnims.Add(
-		// 	SmkAnimation.CreateAnimation(baseNode, "BF_Rede.smk",
-		// 	goals: new AnimationGoal(onTrigger: (g) => WhileTalkingAnimHelper(g, loanDialogue, "B2", 4, 3))));
-
+		//Shares
 		sharesAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BM_Wait.smk", goal: new AnimationGoal(onTrigger: (g) => TriggerIdleAnimation(g, sharesDialogue))));
 		sharesAnims.Add(
@@ -142,45 +133,9 @@ public class Bank : Node2D {
 			SmkAnimation.CreateAnimation(baseNode, "BM_Rede.smk",
 			goal: new AnimationGoalTalking(sharesDialogue, "BA", 4, 3)));
 
-		// sharesAnims.Add(
-		// 	SmkAnimation.CreateAnimation(baseNode, "BM_RedeW.smk",
-		// 	goals: new AnimationGoal(onTrigger: (g) => WhileListeningAnimHelper(g, sharesDialogue, "BA", 6, 3))));
-		// sharesAnims.Add(
-		// 	SmkAnimation.CreateAnimation(baseNode, "BM_RedeK.smk",
-		// 	goals: new AnimationGoal(finish: 4, onTrigger: (g) => WhileListeningAnimHelper(g, sharesDialogue, "BA", 6, 3))));
-		// sharesAnims.Add(
-		// 	SmkAnimation.CreateAnimation(baseNode, "BM_Rede.smk",
-		// 	goals: new AnimationGoal(onTrigger: (g) => WhileTalkingAnimHelper(g, sharesDialogue, "BA", 4, 3))));
-
-
 		loanAnims.Play(0);
 		sharesAnims.Play(0);
 		GetTree().CallGroup("cancelable", "Cancel");
-	}
-
-	private static bool WhileTalkingAnimHelper(AnimationGoal goal, Dialogue creditDialogue, string actor, int noTalkingID, int dialogueStoppedID) {
-		if (DialogueSystem.currentlyTalking != actor) {
-			goal.triggerID = noTalkingID;
-			return true;
-		}
-		if (DialogueSystem.currentDialogue != creditDialogue) {
-			goal.triggerID = dialogueStoppedID;
-			return true;
-		}
-
-		return false;
-	}
-	private static bool WhileListeningAnimHelper(AnimationGoal goal, Dialogue creditDialogue, string actor, int startTalkingID, int dialogueStoppedID) {
-		if (DialogueSystem.currentlyTalking == actor) {
-			goal.triggerID = startTalkingID;
-			return true;
-		}
-		if (DialogueSystem.currentDialogue != creditDialogue) {
-			goal.triggerID = dialogueStoppedID;
-			return true;
-		}
-
-		return false;
 	}
 
 	override public void _Process(float delta) {
