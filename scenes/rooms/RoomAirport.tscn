@@ -511,11 +511,20 @@ z_index = 999
 z_as_relative = false
 
 [node name="Marketing" type="Node2D" parent="Interactables"]
+editor/display_folded = true
 position = Vector2( 3719.93, 222.181 )
 scale = Vector2( 4.44232, 7.28947 )
 
 [node name="MouseColliderRoom" parent="Interactables/Marketing" instance=ExtResource( 22 )]
 roomSceneName = "RoomMarketing"
+isStandardDoor = true
+
+[node name="Manager" type="Node2D" parent="Interactables"]
+position = Vector2( 5215.62, 222.181 )
+scale = Vector2( 4.44232, 7.28947 )
+
+[node name="MouseColliderRoom" parent="Interactables/Manager" instance=ExtResource( 22 )]
+roomSceneName = "RoomManager"
 isStandardDoor = true
 
 [node name="FLOffice" type="Node2D" parent="Interactables"]

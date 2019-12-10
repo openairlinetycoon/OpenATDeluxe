@@ -1,0 +1,55 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+
+public class Manager : BaseRoom {
+
+	AnimationList manager = new AnimationList();
+
+	public override void _Ready() {
+		base._Ready();
+
+		DialogueSystem.AddActor(new Actor("BO", (DialogueWindow)FindNode("BO")));
+
+		manager.basePosition = new Vector2(24, -136);
+		manager.CreateMouseArea(baseNode);
+
+
+		Dialogue managerDialogue = new Dialogue("Boss");
+		{
+			DialogueNode start = new DialogueNode(4000);
+
+			DialogueNodeReturning expansion = new DialogueNodeReturning(4114);
+			DialogueNode objectiveStart = new DialogueNode(4050);
+			DialogueNodeReturning objective = new DialogueNodeReturning(4060);
+			objectiveStart.AddFollowup(objective);
+
+			start.AddOption(new DialogueOption(4010, objectiveStart));
+			start.AddOption(new DialogueOption(4011, expansion));
+			start.AddOption(new DialogueOptionReturning(4012));
+
+			managerDialogue.AddNode(start);
+		}
+
+		manager.mouseArea.onClick += () => { DialogueSystem.PrepareDialogue(managerDialogue, "P2", "BO"); DialogueSystem.StartCurrentDialogue(); manager.Play(2); };
+
+		manager.Add(
+			SmkAnimation.CreateAnimation(baseNode, "BB_Wait.smk"));
+		manager.Add(
+			SmkAnimation.CreateAnimation(baseNode, "BB_Wait.smk",
+			goal: new AnimationGoalListening(managerDialogue, "BO", 2, 0)));
+		manager.Add(
+			SmkAnimation.CreateAnimation(baseNode, "BB_Base.smk",
+			goal: new AnimationGoalTalking(managerDialogue, "BO", 1, 0)));
+
+
+		manager.Play(0);
+	}
+
+	override public void _Process(float delta) {
+		manager.ProcessTrigger();
+	}
+
+	override public void Cancel() {
+	}
+}

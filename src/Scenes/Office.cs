@@ -2,14 +2,11 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Office : Node2D {
-	public Control baseNode;
+public class Office : BaseRoom {
 
 	AnimationList playerAnims = new AnimationList();
 	public override void _Ready() {
-		AddToGroup("cancelable");
-
-		baseNode = (Control)GetChild(0);
+		base._Ready();
 
 		Vector2 playerPos = new Vector2(-280, -90);
 
@@ -76,15 +73,13 @@ public class Office : Node2D {
 		//Phone return: 10
 
 		playerAnims.Play(0);
-
-		GetTree().CallGroup("cancelable", "Cancel");
 	}
 
 	override public void _Process(float delta) {
 		playerAnims.ProcessTrigger();
 	}
 
-	public void Cancel() {
+	override public void Cancel() {
 		playerAnims.Cancel();
 	}
 }

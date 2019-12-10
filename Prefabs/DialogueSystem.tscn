@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Speech/DialogueSystem.cs" type="Script" id=1]
 [ext_resource path="res://Images/gli/glberatr/BER92_01.res" type="Texture" id=2]
 [ext_resource path="res://Prefabs/Speech/Speechbubble.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Speech/PlayerDialogueWindow.cs" type="Script" id=4]
-[ext_resource path="res://Images/gli/glstd/XBLASE13.res" type="Texture" id=5]
 
 [node name="DialogueSystem" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,7 +14,6 @@ scale = Vector2( 2.5, 2.5 )
 texture = ExtResource( 2 )
 
 [node name="PL" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 216.0
@@ -26,12 +24,24 @@ mouse_filter = 2
 script = ExtResource( 4 )
 iconPath = NodePath("../PlayerIcon")
 
-[node name="Head" type="TextureRect" parent="PL"]
-modulate = Color( 1, 1, 1, 0.780392 )
-anchor_bottom = 1.0
-margin_left = -12.8152
-margin_top = 23.1077
-margin_right = 2.18481
-margin_bottom = -22.8923
-texture = ExtResource( 5 )
-stretch_mode = 3
+[node name="LeftSide" parent="PL/SpeechbubbleFlexible" index="0"]
+margin_right = 684.0
+margin_bottom = 63.0
+
+[node name="Texture" parent="PL/SpeechbubbleFlexible/LeftSide" index="0"]
+margin_right = 718.0
+margin_bottom = 63.0
+
+[node name="RightSide" parent="PL/SpeechbubbleFlexible" index="1"]
+margin_left = 684.0
+margin_right = 1368.0
+margin_bottom = 63.0
+
+[node name="Flip" parent="PL/SpeechbubbleFlexible/RightSide" index="0"]
+margin_right = 684.0
+margin_bottom = 63.0
+
+[node name="Texture" parent="PL/SpeechbubbleFlexible/RightSide/Flip" index="0"]
+rect_pivot_offset = Vector2( 358.5, 31.5 )
+
+[editable path="PL"]

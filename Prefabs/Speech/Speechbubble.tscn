@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Speech/DialogueWindow.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
 [ext_resource path="res://Images/gli/glstd/BLASE5.res" type="Texture" id=3]
 [ext_resource path="res://src/Speech/AutoSize.cs" type="Script" id=4]
+[ext_resource path="res://Prefabs/Speech/Head.tscn" type="PackedScene" id=5]
 
 [node name="Speechbubble" type="Control"]
 margin_right = 1920.0
@@ -106,3 +107,9 @@ alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Head" parent="." instance=ExtResource( 5 )]
+margin_left = 616.374
+margin_top = 23.5399
+margin_right = 633.374
+margin_bottom = 38.5399

@@ -2,15 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Bank : Node2D {
-	public Control baseNode;
+public class Bank : BaseRoom {
 
 	AnimationList loanAnims = new AnimationList();
 	AnimationList sharesAnims = new AnimationList();
 	public override void _Ready() {
-		AddToGroup("cancelable");
-
-		baseNode = (Control)GetChild(0);
+		base._Ready();
 
 		Vector2 playerPos = new Vector2(-280, -90);
 
@@ -75,10 +72,10 @@ public class Bank : Node2D {
 			// 	.AddNode(noSelling);
 
 		}
+
 		loanAnims.mouseArea.onClick += () => { DialogueSystem.PrepareDialogue(loanDialogue, "P2", "B2"); DialogueSystem.StartWithOptions(); };
 		sharesAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(sharesDialogue, "P2", "BA");
 		//DialogueSystem.StartDialogue(shareDialogue, "P2", "BA");
-		string player = "PL2";
 
 		bool alreadyFired = false;
 		bool TriggerIdleAnimation(AnimationGoal goal, Dialogue thisDialogue) {
@@ -135,7 +132,6 @@ public class Bank : Node2D {
 
 		loanAnims.Play(0);
 		sharesAnims.Play(0);
-		GetTree().CallGroup("cancelable", "Cancel");
 	}
 
 	override public void _Process(float delta) {
@@ -143,7 +139,7 @@ public class Bank : Node2D {
 		sharesAnims.ProcessTrigger();
 	}
 
-	public void Cancel() {
+	override public void Cancel() {
 		//creditAnims.Cancel();
 	}
 }

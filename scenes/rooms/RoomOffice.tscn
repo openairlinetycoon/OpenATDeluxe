@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Scenes/Office.cs" type="Script" id=1]
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
@@ -9,10 +9,6 @@
 [ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/Smacker/SmkAnimation.cs" type="Script" id=8]
 [ext_resource path="res://src/Resources/SoundPlayer.cs" type="Script" id=9]
-[ext_resource path="res://src/Speech/DialogueSystem.cs" type="Script" id=10]
-[ext_resource path="res://src/Speech/DialogueWindow.cs" type="Script" id=11]
-[ext_resource path="res://fonts/SpeechFont.tres" type="DynamicFont" id=12]
-[ext_resource path="res://Images/gli/glstd/BLASE5.res" type="Texture" id=13]
 
 [node name="RoomOffice" type="Node2D"]
 script = ExtResource( 1 )
@@ -85,67 +81,3 @@ autoplay = true
 script = ExtResource( 9 )
 loop = true
 filePath = "/video/Uhr.raw"
-
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="DialogueSystem" type="Node2D" parent="Node2D"]
-position = Vector2( 0, 1080 )
-script = ExtResource( 10 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Prefab" type="VBoxContainer" parent="Node2D/DialogueSystem"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 24.0
-margin_top = -305.43
-margin_right = 1896.0
-margin_bottom = -146.43
-grow_horizontal = 0
-grow_vertical = 0
-mouse_filter = 2
-size_flags_stretch_ratio = 0.0
-alignment = 2
-script = ExtResource( 11 )
-
-[node name="Label" type="Label" parent="Node2D/DialogueSystem/Prefab"]
-show_behind_parent = true
-margin_right = 1872.0
-margin_bottom = 159.0
-rect_min_size = Vector2( 0, 24 )
-custom_fonts/font = ExtResource( 12 )
-custom_colors/font_color = Color( 0.145098, 0.278431, 0.564706, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0.254902 )
-custom_constants/shadow_offset_x = 1
-custom_constants/shadow_offset_y = 1
-text = "Nice office, what do you do?
-I want security.
-Good bye"
-
-[node name="Speechbubble" type="NinePatchRect" parent="Node2D/DialogueSystem/Prefab/Label"]
-show_behind_parent = true
-material = ExtResource( 2 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -24.0
-margin_top = -12.0
-margin_right = 24.0
-margin_bottom = 12.0
-texture = ExtResource( 13 )
-region_rect = Rect2( 0, 0, 360, 56 )
-patch_margin_left = 27
-patch_margin_top = 23
-patch_margin_right = 33
-patch_margin_bottom = 24
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
-[node name="Lines" type="VBoxContainer" parent="Node2D/DialogueSystem/Prefab/Label"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -2.0
-margin_bottom = -2.0
-mouse_filter = 2
-custom_constants/separation = 0

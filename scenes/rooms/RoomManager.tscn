@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Scenes/Manager.cs" type="Script" id=1]
+[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
+[ext_resource path="res://Images/room/aufsicht/AUFSICHT.res" type="Texture" id=3]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Speech/Speechbubble.tscn" type="PackedScene" id=5]
+
+[node name="RoomOffice" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Base" type="Control" parent="."]
+material = ExtResource( 2 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 960.0
+margin_top = 540.0
+margin_right = 960.0
+margin_bottom = 540.0
+rect_scale = Vector2( 3, 2.25 )
+mouse_filter = 1
+
+[node name="roomSprite" type="Sprite" parent="Base"]
+position = Vector2( 0, -20 )
+texture = ExtResource( 3 )
+
+[node name="MouseColliderRoom" parent="Base" instance=ExtResource( 4 )]
+position = Vector2( -202.524, -106.841 )
+scale = Vector2( 5.31445, 9.63602 )
+isExitToAirport = true
+
+[node name="Node2D" type="Node2D" parent="Base"]
+position = Vector2( 83.6669, -117.037 )
+
+[node name="BO" parent="." instance=ExtResource( 5 )]
+margin_left = 459.168
+margin_top = 170.316
+margin_right = 1779.17
+margin_bottom = 220.316
+
+[node name="LeftSide" parent="BO/SpeechbubbleFlexible" index="0"]
+margin_right = 659.0
+
+[node name="Texture" parent="BO/SpeechbubbleFlexible/LeftSide" index="0"]
+margin_right = 693.0
+
+[node name="RightSide" parent="BO/SpeechbubbleFlexible" index="1"]
+margin_left = 659.0
+margin_right = 1319.0
+
+[node name="Flip" parent="BO/SpeechbubbleFlexible/RightSide" index="0"]
+margin_right = 660.0
+
+[node name="Texture" parent="BO/SpeechbubbleFlexible/RightSide/Flip" index="0"]
+rect_pivot_offset = Vector2( 346.5, 25 )
+
+[node name="Head" parent="BO" index="2"]
+margin_left = 179.298
+margin_right = 196.298
+
+[editable path="BO"]
