@@ -108,7 +108,7 @@ public class GFXLibrary {
 		int width = handle.Get32(); //Get image width in pixel
 		int height = handle.Get32(); //Get image height in pixel
 
-		byte[] colors = new byte[fileSize / 2 * 4];
+		byte[] colors = new byte[fileSize / 2 * 2];
 
 		handle.Seek(file.libraryOffset + 76); //Skip unneeded values
 
@@ -118,30 +118,24 @@ public class GFXLibrary {
 		for (int i = 0; i + 1 < fileSize; i += 2) {
 			int color = readColors[i] + (readColors[i + 1] << 8);//handle.Get16(); //Get a RGB565 color value
 
-
-			//Convert it to a RGB888 value
-			int r = ((color >> 11) & 0x1F);
-			int g = ((color >> 5) & 0x3F);
-			int b = (color & 0x1F);
+			int r, g, b;
 
 			r = ((((color >> 11) & 0x1F) * 527) + 23) >> 6;
 			g = ((((color >> 5) & 0x3F) * 259) + 33) >> 6;
 			b = (((color & 0x1F) * 527) + 23) >> 6;
 
-
-
-			colors[c] = (byte)r; //save
-			colors[c + 1] = (byte)g; //save
-			colors[c + 2] = (byte)b; //save
-
-			colors[c + 3] = 255;
+			int alpha = 255;
 
 			int alphaCutoff = 1;
 
 			if (r + b + g < alphaCutoff) //TODO Better transparency check needed! 
-				colors[c + 3] = 0;
-			//save
-			c += 4;
+				alpha = 0;
+
+			//Convert color to a RGB4444 value
+			colors[c] = (byte)((r & 0xF) << 4 | (g & 0xF)); //save
+			colors[c + 1] = (byte)((b & 0xF) << 4 | (alpha & 0xF)); //save
+
+			c += 2;
 		}
 		if (colors.Length == 0) {
 			if (disposeOfHandle)
@@ -156,10 +150,11 @@ public class GFXLibrary {
 			return null;
 		}
 
-		image.CreateFromData(width, height, false, Image.Format.Rgba8, colors);
+		image.CreateFromData(width, height, false, Image.Format.Rgba4444, colors);
 
 		ImageTexture texture = new ImageTexture();
-		texture.CreateFromImage(image);
+		texture.Create(width, height, Image.Format.Rgba4444, 0);
+		texture.SetData(image);
 		texture.Flags = (int)Texture.FlagsEnum.Filter;
 
 		image.Dispose();
@@ -211,74 +206,4 @@ public class GFXLibrary {
 
 		dataSize = f.Get32();
 	}
-
-	/*
-#define GFXHEADERSIZE 76
-#define DIMENSIONPOS 8
-#define FOOTERSIZE 14
-#define HEADERSIZE sizeof(dataHeader)
-#define FILEHEADERSIZE 17
-
-#pragma pack(push, 1)
-struct dataHeader { //68 Bytes
-	char header[5];
-	BYTE unknown[5];
-	__int32 archiveSize;
-	BYTE unknown2[20];
-	__int32 files;
-	__int32 info;//54
-	BYTE unknown3[21];
-	__int32 dataSize;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct fileHeader {
-	__int32 typeID;
-	bool isGFX;
-	char filename[8];
-	__int32 offset;
-};
-#pragma pack(pop)
-
-    void GFXLib::readData() {
-        FILE *file;
-        fopen_s(&file, fileName.c_str(), "rb");
-
-        long newHeaderPointer = 0;
-
-        dataHeader header;
-        memset(&header, 0, sizeof(dataHeader));
-
-        fread_s(&header, sizeof(header), sizeof(header), 1, file);
-
-
-        fileHeader headerFile;
-        for (int i = 0; i < header.files - 1; i++) {
-            fseek(file, HEADERSIZE + i * FILEHEADERSIZE, 0);
-
-
-            memset(&headerFile, 0, FILEHEADERSIZE);
-
-            int s = FILEHEADERSIZE;
-
-            int oldHeader = ftell(file);
-            int d = fread_s(&headerFile, FILEHEADERSIZE, FILEHEADERSIZE, 1, file);
-            newHeaderPointer = ftell(file);
-
-            int e = errno;
-            int ea = ferror(file);
-            int ef = feof(file);
-
-            GFXFile gfxFile = GFXFile();
-            gfxFile.name = headerFile.filename;
-            gfxFile.fileOffset = headerFile.offset;
-
-            files.insert(pair<string, GFXFile>(gfxFile.name, gfxFile));
-
-            //readGfxData(file, headerFile.offset);
-        }
-
-    }
-     */
 }
