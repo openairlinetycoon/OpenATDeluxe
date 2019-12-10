@@ -142,6 +142,17 @@ public class DialogueSystem : Node2D {
 		currentlyTalking = actor2;
 	}
 
+	public static void PrepareMonologue(Dialogue dialogue, string actor) {
+		if (currentDialogue != null)
+			return;
+
+		currentDialogue = dialogue;
+		currentDialogue.Start();
+		//onDialogueStart?.Invoke(); //!Make check for player speechbubble
+
+		currentlyTalking = actor;
+	}
+
 	public static void StartCurrentDialogue() {
 		ReadNextNodeHead(currentDialogue);
 	}
@@ -330,12 +341,28 @@ public class DialogueSystem : Node2D {
 		dialogueCommandQueue.Enqueue(
 			() => CreateSoundsAndExecuteOnFinish(instructions, currentFullText, () => {
 				currentDialogue.CurrentNode.OnSpeechFinished();
+				if (currentDialogue.CurrentNode.HasFollowup()) {
+					state = DialogueStates.ReadingHead;
+					currentDialogue.CurrentNode.GoToFollowup();
 
-				state = DialogueStates.PickingOptions;
-				currentlyTalking = GameController.CurrentPlayerTag; //We just assume, that only the player can pick options
-				Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
+					ReadNextNodeHead(currentDialogue);
+				} else {
+					ShowOptions();
+				}
 			}));
 		//Task.Run(() => WaitForSpeechToFinish(currentFullText, instructions));
+	}
+
+	private static void ShowOptions() {
+		if (IsDialogueActive == false) {
+			Speechbubble.Hide();
+
+			return;//TODO: Delete/Hide Speechbubble
+		}
+
+		state = DialogueStates.PickingOptions;
+		currentlyTalking = GameController.CurrentPlayerTag; //We just assume, that only the player can pick options
+		Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
 	}
 
 	private static void StartDialogueAnswerSpeech(int optionIndex) {
@@ -349,10 +376,14 @@ public class DialogueSystem : Node2D {
 		dialogueCommandQueue.Enqueue(
 			() => CreateSoundsAndExecuteOnFinish(instructions, currentFullText, () => {
 
+				bool noTalking = currentDialogue.CurrentNode.options[optionIndex] is DialogueOptionReturning;
 				currentDialogue.CurrentNode.OnSpeechFinished();
 				currentDialogue.SelectOption(optionIndex);
 
-				ReadNextNodeHead(currentDialogue);
+				if (noTalking)
+					ShowOptions();
+				else
+					ReadNextNodeHead(currentDialogue);
 			}));
 
 		//Task.Run(() => WaitForSpeechToFinish(currentFullText, instructions));

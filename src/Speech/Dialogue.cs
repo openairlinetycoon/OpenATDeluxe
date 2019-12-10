@@ -19,11 +19,18 @@ public class DialogueNode {
 
 	public List<DialogueOption> options = new List<DialogueOption>();
 
+	public DialogueNode followup;
+
 	protected Action onSpeechFinished, start;
 
 	public DialogueNode(int textId, params string[] wildcards) {
 		this.textId = textId;
 		this.wildcards = wildcards;
+	}
+
+	public void AddFollowup(DialogueNode node) {
+		followup = node;
+		returnable = false;
 	}
 
 	public virtual void Start(Dialogue master) {
@@ -41,6 +48,14 @@ public class DialogueNode {
 
 	public void PreventReturning() {
 		returnable = false;
+	}
+
+	public bool HasFollowup() {
+		return followup != null;
+	}
+
+	public void GoToFollowup() {
+		master.StartNode(followup);
 	}
 }
 
