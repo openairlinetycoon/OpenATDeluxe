@@ -331,24 +331,24 @@ public class ATDGameLoader : Node2D {
 	public static void ImportImages(bool saveFiles = false, CancellationToken cancelation = default(CancellationToken)) {
 		GD.Print($"Thread started! ID: {Thread.CurrentThread.ManagedThreadId}, Name: {Thread.CurrentThread.Name}");
 
-		string basePath = ProjectSettings.GlobalizePath(ImagesPath); //Get an absolute Path to our project/executable folder
-		string baseGodotPath = ImagesPath;
+		string basePath = ProjectSettings.GlobalizePath(ImagesPath).ToLowerInvariant(); //Get an absolute Path to our project/executable folder
+		string baseGodotPath = ImagesPath.ToLowerInvariant();
 
 		if (!Directory.Exists(basePath) && saveFiles)
 			Directory.CreateDirectory(basePath);
 
 		foreach (var folderKVP in libraryFolders) {
 			List<GFXLibrary> libraries = folderKVP.Value;
-			string libraryName = Directory.GetParent(folderKVP.Key + "/").Name;
+			string libraryName = (Directory.GetParent(folderKVP.Key + "/").Name).ToLowerInvariant();
 
-			string libbasePath = basePath + "/" + libraryName;
-			string libbaseGodotPath = baseGodotPath + "/" + libraryName;
+			string libbasePath = (basePath + "/" + libraryName).ToLowerInvariant();
+			string libbaseGodotPath = (baseGodotPath + "/" + libraryName).ToLowerInvariant();
 
 			//List<Task> loader = new List<Task>();
 
 			Parallel.ForEach(libraries, (lib) => {
-				string libPath = libbasePath + "/" + lib.name;
-				string libGodotPath = libbaseGodotPath + "/" + lib.name;
+				string libPath = (libbasePath + "/" + lib.name).ToLowerInvariant();
+				string libGodotPath = (libbaseGodotPath + "/" + lib.name).ToLowerInvariant();
 
 
 				if (!Directory.Exists(libPath) && saveFiles)
