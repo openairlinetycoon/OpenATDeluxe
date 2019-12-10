@@ -42,8 +42,10 @@ public class PlayerDialogueWindow : DialogueWindow {
 	}
 
 	override public void OnStartTalking() {
-		isTalking = true;
-		startTime = OS.GetTicksMsec() + mouthIntervall;
+		if (DialogueSystem.currentlyTalking == "P2") {
+			isTalking = true;
+			startTime = OS.GetTicksMsec() + mouthIntervall;
+		}
 	}
 
 	override public void OnStopTalking() {
