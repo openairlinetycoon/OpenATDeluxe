@@ -127,6 +127,7 @@ public class MouseCursor : Node2D {
 			//GD.Print(currentHover.Name);
 		}
 		if (e is InputEventMouseButton mouse) {
+			GameController.OnMouseClick(mouse);
 
 			if (mouse.IsPressed()) {
 				bool handled = false;

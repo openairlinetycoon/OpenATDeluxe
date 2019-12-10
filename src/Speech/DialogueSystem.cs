@@ -16,6 +16,8 @@ public class DialogueSystem : Node2D {
 
 	public static Action onDialogueStart;
 
+	private static SoundPlayer currentSound;
+
 	override public void _Ready() {
 		if (instance != null) {
 			instance = this;
@@ -24,6 +26,7 @@ public class DialogueSystem : Node2D {
 		instance = this;
 
 		RoomManager.OnRoomExit += CleanActors;
+		GameController.onSkip += Skip;
 
 		AddPlayerActor();
 	}
@@ -305,13 +308,13 @@ public class DialogueSystem : Node2D {
 
 		for (int i = 0; i < player.Count - 1; i++) {
 			int lambda = i; //lambdas store the variable, not the value on creation. We store the value here to reference it later
-			player[i].OnSoundFinished += () => { player[lambda].QueueFree(); player[lambda + 1].Play(); };
+			player[i].OnSoundFinished += () => { player[lambda].QueueFree(); currentSound = player[lambda + 1]; currentSound.Play(); };
 		}
 		//We make an exception to the last entry to call our onFinish method, instead of trying to play the non existant next voice line 
-		player[player.Count - 1].OnSoundFinished += () => { player[player.Count - 1].QueueFree(); onFinish.Invoke(); };
+		player[player.Count - 1].OnSoundFinished += () => { player[player.Count - 1].QueueFree(); currentSound = null; onFinish.Invoke(); };
 
-		SoundPlayer soundPlayer = player.FirstOrDefault();
-		soundPlayer?.Play();
+		currentSound = player.FirstOrDefault();
+		currentSound?.Play();
 
 		Speechbubble.OnStartTalking();
 	}
@@ -387,6 +390,10 @@ public class DialogueSystem : Node2D {
 			}));
 
 		//Task.Run(() => WaitForSpeechToFinish(currentFullText, instructions));
+	}
+
+	public static void Skip() {
+		currentSound?.Stop();
 	}
 
 

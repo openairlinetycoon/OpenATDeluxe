@@ -32,10 +32,46 @@ public class GameController : Node2D {
 	public static string[] playerCompanyNames = { "Sunshine Airways", "Falcon Lines", "Phönix Travel", "Honey Airlines" };
 	public static string[] playerNames = { "Tina Cortez", "Siggi Sorglos", "Igor Tuppolevsky", "Mario Zucchero" };
 
+	public static Action onSkip;
+
 	public override void _Ready() {
 		instance = this;
 		taskbar = GetNode<Control>(_taskbar);
 
 		RoomManager.ChangeRoom("RoomMainMenu", isAirport: false);
+		GetTree().Connect("screen_resized", this, "OnScreenSizeChanged");
+	}
+
+	public override void _UnhandledInput(InputEvent @event) {
+		if (@event is InputEventKey k) {
+			if (k.IsPressed() && k.Scancode == (int)KeyList.Space) {
+				onSkip?.Invoke();
+			}
+		}
+		if (@event is InputEventMouseButton m) {
+			OnMouseClick(m);
+		}
+	}
+
+	public static void OnMouseClick(InputEventMouseButton m) {
+		if (m.IsPressed() && m.ButtonIndex == (int)ButtonList.Left) {
+			onSkip?.Invoke();
+		}
+	}
+
+
+	public void OnScreenSizeChanged() {
+		//GetViewport().SetSizeOverride(true, new Vector2(OS.GetWindowSize().x, GetViewportRect().Size.y));
+		// Vector2 screenSize = OS.GetWindowSize();
+		// Viewport viewport = GetViewport();
+
+		// float scaleX = Mathf.Floor(screenSize.x / viewport.Size.x);
+		// float scaleY = Mathf.Floor(screenSize.y / viewport.Size.y);
+
+		// float scale = Mathf.Max(1, Mathf.Min(scaleX, scaleY));
+
+		// Vector2 diffHalf = ((screenSize - (viewport.Size * scale)) / 2).Floor();
+
+		// viewport.SetAttachToScreenRect(new Rect2(diffHalf, viewport.Size * scale));
 	}
 }
