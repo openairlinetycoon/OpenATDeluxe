@@ -211,11 +211,12 @@ public class ATDGameLoader : Node2D {
 			string[] midFiles = System.IO.Directory.GetFiles(soundFolder, "*.mid");
 			string[] oggFiles = System.IO.Directory.GetFiles(soundFolder, "*.ogg");
 
-			if (oggFiles.Length != 0) { //OGG Files are preferred, as there currently is only a buggy Midi player available
+			if (false) {//(oggFiles.Length != 0) {
 				MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Ogg);
 				MusicController.isOgg = true;
 			} else {
-				MusicController.musicFiles = Song.CreateFromFiles(oggFiles, Song.SongTypes.Mid);
+				MusicController.musicFiles = Song.CreateFromFiles(midFiles, Song.SongTypes.Mid);
+				MidiPlayer.Load();
 			}
 		}));
 

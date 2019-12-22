@@ -78,6 +78,8 @@
     <Compile Include="src\MusicController.cs" />
     <Compile Include="src\OneShotAction.cs" />
     <Compile Include="src\Resources\SoundPlayer.cs" />
+    <Compile Include="src\Midi\MidiPlayer.cs" />
+    <Compile Include="src\Midi\FluidSynthWrapper.cs" />
     <Compile Include="src\RoomManager.cs" />
     <Compile Include="src\Scenes\Office.cs" />
     <Compile Include="src\SettingsManager.cs" />

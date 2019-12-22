@@ -6,21 +6,21 @@ public class MusicController : Node {
 	public static MusicController instance;
 	public static Song[] musicFiles;
 	public static bool isOgg;
-	int currentSong = 7;
+	static int currentSong = 7;
 
 	public static bool isInMainMenu;
 
 	[Export]
 	public NodePath _midiPlayer;
-	Node midiPlayer;
+	static MidiPlayer midiPlayer;
 
 	[Export]
 	public NodePath _oggPlayer;
-	AudioStreamPlayer oggPlayer;
+	static AudioStreamPlayer oggPlayer;
 
 	public bool IsMidiPlaying {
 		get {
-			return (bool)midiPlayer.Get("playing");
+			return (bool)midiPlayer.IsPlaying;
 		}
 	}
 	// Declare member variables here. Examples:
@@ -35,7 +35,7 @@ public class MusicController : Node {
 			SetProcess(false);
 			return;
 		}
-		midiPlayer = GetNode(_midiPlayer);
+		midiPlayer = (MidiPlayer)GetNode(_midiPlayer);
 		oggPlayer = (AudioStreamPlayer)GetNode(_oggPlayer);
 	}
 
@@ -43,11 +43,10 @@ public class MusicController : Node {
 	public override void _Process(float delta) {
 		if (HasSongFinished()) {
 			NextSong();
-			PlaySong();
 		}
 	}
 
-	private void PlaySong() {
+	private static void PlaySong() {
 		string song = musicFiles[currentSong].name;
 		if ((song == "title" || song == "at2") && isInMainMenu == false) //is main menu song?
 			NextSong();
@@ -59,8 +58,7 @@ public class MusicController : Node {
 			oggPlayer.SetStream(musicFiles[currentSong].oggData);
 			oggPlayer.Play();
 		} else if (type == Song.SongTypes.Mid) {
-			midiPlayer.Call("set_file", musicFiles[currentSong]);
-			midiPlayer.Call("play", 0);
+			midiPlayer.Play(musicFiles[currentSong].path);
 		}
 	}
 
@@ -78,16 +76,17 @@ public class MusicController : Node {
 				currentSong = i;
 				PlaySong();
 			}
-
 		}
 	}
 
-	public void NextSong() {
+	public static void NextSong() {
 		currentSong++;
 
 		if (currentSong >= musicFiles.Length) {
 			currentSong = 0;
 		}
+
+		PlaySong();
 	}
 }
 
