@@ -184,7 +184,7 @@ public class GFXLibrary {
 			gfx.name = Encoding.UTF8.GetString(f.GetBuffer(8)); //Read the file name;
 			gfx.libraryOffset = f.Get32();
 
-
+			gfx.GetTexture();
 
 			files.Add(gfx);
 		}

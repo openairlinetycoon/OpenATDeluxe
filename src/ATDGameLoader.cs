@@ -274,7 +274,8 @@ public class ATDGameLoader : Node2D {
 	/// </summary>
 	private void LoadImages() {
 		SetProcess(true);
-
+		Stopwatch s = new Stopwatch();
+		s.Start();
 		SetFolders();
 
 		Debug.Assert(GetNode<Sprite>("Title") != null, "Invalid scene structure! Title child node missing!");
@@ -292,7 +293,9 @@ public class ATDGameLoader : Node2D {
 
 		//Write them to disk
 		ImportImages();
+		s.Stop();
 
+		GD.Print($"Time taken for load: {s.ElapsedMilliseconds}ms");
 		//Should only be needed when we are not in the editor, but adding it doesnt hurt us, even if the file isn't present
 		//bool s = ProjectSettings.LoadResourcePack(PackFile);
 	}
@@ -310,12 +313,20 @@ public class ATDGameLoader : Node2D {
 
 			//Load up all GFX files in the directory
 			string[] files = System.IO.Directory.GetFiles(folderName);
+			//Parallel.ForEach(files, (f) => {
 			foreach (string f in files) {
+				if (!f.EndsWith(".gli", StringComparison.OrdinalIgnoreCase))
+					continue;
+
+				//Stopwatch t = new Stopwatch();
+				//t.Start();
 				if (f.ToLower().EndsWith(".gli")) {
 					var lib = new GFXLibrary(folderName + "/" + System.IO.Path.GetFileName(f));
 					lib.GetFilesInLibrary();
 					folderGFXList.Add(lib);
 				}
+				//t.Stop();
+				//GD.Print($"Loaded {f}! Time taken: {t.ElapsedMilliseconds}ms");
 			}
 		}
 	}
@@ -403,6 +414,6 @@ public class ATDGameLoader : Node2D {
 			}
 			fileHandling.Stop();
 		}
-		GD.Print($"Loaded {lib.name}! getTextures took {getTexture.ElapsedMilliseconds}ms, fileHandling took {fileHandling.ElapsedMilliseconds}ms.");
+		//GD.Print($"Loaded {lib.name}! getTextures took {getTexture.ElapsedMilliseconds}ms, fileHandling took {fileHandling.ElapsedMilliseconds}ms.");
 	}
 }
