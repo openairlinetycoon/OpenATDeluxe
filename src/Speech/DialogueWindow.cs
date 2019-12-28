@@ -185,9 +185,6 @@ public class DialogueWindow : Control {
 
 	//TODO: Add positioning to dialogue actor
 	public void PrepareBubbleOptionsText(int currentActor, Dialogue dialogue) {
-		int lineCount = 1; //Start at 1 to compensate the first '\n' in the loop
-
-
 		ClearLines();
 
 		lines.Clear();

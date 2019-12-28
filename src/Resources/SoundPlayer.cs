@@ -17,6 +17,23 @@ public class SoundPlayer : AudioStreamPlayer {
 	[Export]
 	public string filePath;
 	AudioStreamSample audioFile = new AudioStreamSample();
+	ushort[] _shortData;
+	ushort[] shortData {
+		get {
+			if (_shortData == null) {
+				byte[] data = audioFile.GetData();
+
+				var size = data.Length / sizeof(UInt16);
+
+				_shortData = new UInt16[size];
+				for (var index = 0; index < size; index++) {
+					shortData[index] = BitConverter.ToUInt16(data, index * sizeof(UInt16));
+				}
+			}
+
+			return _shortData;
+		}
+	}
 
 	public static SoundPlayer CreatePlayer(string file, string bus, bool use8BitEncoding = false, bool oneShot = false) {
 		SoundPlayer player = new SoundPlayer();
@@ -75,5 +92,23 @@ public class SoundPlayer : AudioStreamPlayer {
 			started = false;
 			OnSoundFinished?.Invoke();
 		}
+	}
+
+	public bool IsTalking() {
+		int pos = (22050 * (int)(GetPlaybackPosition() * 1000)) / 1000 + 400;
+		if (pos + 1000 > shortData.Length)
+			return false;
+
+		const int audioThreshold = 512;
+		return shortData[pos] > audioThreshold
+		|| shortData[pos + 100] > audioThreshold
+		|| shortData[pos + 200] > audioThreshold
+		|| shortData[pos + 400] > audioThreshold
+		|| shortData[pos + 560] > audioThreshold
+		|| shortData[pos + 620] > audioThreshold
+		|| shortData[pos + 700] > audioThreshold
+		|| shortData[pos + 800] > audioThreshold
+		|| shortData[pos + 900] > audioThreshold
+		|| shortData[pos + 999] > audioThreshold;
 	}
 }

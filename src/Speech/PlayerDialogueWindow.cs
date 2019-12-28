@@ -73,13 +73,15 @@ public class PlayerDialogueWindow : DialogueWindow {
 			icon.ZIndex = 0;
 		}
 
-		if (isTalking) {
+		if (isTalking && DialogueSystem.currentSound?.IsTalking() == true) {
 			if (startTime < OS.GetTicksMsec()) {
 				startTime = OS.GetTicksMsec() + mouthIntervall;
 				int rID = ran.Next(0, 3);
 
 				icon.Texture = isTelephoneCall ? telephoneTalking[rID] : talking[rID];
 			}
+		} else {
+			icon.Texture = isTelephoneCall ? telephone : player;
 		}
 	}
 }

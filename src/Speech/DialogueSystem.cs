@@ -16,7 +16,7 @@ public class DialogueSystem : Node2D {
 
 	public static Action onDialogueStart;
 
-	private static SoundPlayer currentSound;
+	public static SoundPlayer currentSound;
 
 	override public void _Ready() {
 		if (instance != null) {
@@ -311,7 +311,7 @@ public class DialogueSystem : Node2D {
 			player[i].OnSoundFinished += () => { player[lambda].QueueFree(); currentSound = player[lambda + 1]; currentSound.Play(); };
 		}
 		//We make an exception to the last entry to call our onFinish method, instead of trying to play the non existant next voice line 
-		player[player.Count - 1].OnSoundFinished += () => { player[player.Count - 1].QueueFree(); currentSound = null; onFinish.Invoke(); };
+		player[player.Count - 1].OnSoundFinished += () => { player[player.Count - 1]?.QueueFree(); currentSound = null; onFinish?.Invoke(); };
 
 		currentSound = player.FirstOrDefault();
 		currentSound?.Play();

@@ -181,6 +181,10 @@ public class AnimationGoalTalking : AnimationGoal {
 			goal.triggerID = noTalkingID;
 			return true;
 		}
+		if (DialogueSystem.currentSound?.IsTalking() == false) {
+			goal.triggerID = noTalkingID;
+			return true;
+		}
 		if (DialogueSystem.currentDialogue != creditDialogue) {
 			goal.triggerID = dialogueStoppedID;
 			return true;
@@ -206,7 +210,7 @@ public class AnimationGoalListening : AnimationGoal {
 	private static bool WhileListeningAnimHelper(AnimationGoal goal, Dialogue creditDialogue, string actor, int startTalkingID, int dialogueStoppedID) {
 		if (DialogueSystem.currentlyTalking == actor) {
 			goal.triggerID = startTalkingID;
-			return true;
+			return DialogueSystem.currentSound?.IsTalking() == true;
 		}
 		if (DialogueSystem.currentDialogue != creditDialogue) {
 			goal.triggerID = dialogueStoppedID;
