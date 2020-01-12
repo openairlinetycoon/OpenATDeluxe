@@ -11,6 +11,8 @@ public class PlayerDialogueWindow : DialogueWindow {
 	public NodePath iconPath;
 	public Sprite icon;
 
+	public bool isDialoguePartner;
+
 	public bool isTalking;
 	public bool isTelephoneCall;
 	public float mouthIntervall = 0.1f * 1000, startTime;
@@ -42,7 +44,7 @@ public class PlayerDialogueWindow : DialogueWindow {
 	}
 
 	override public void OnStartTalking() {
-		if (DialogueSystem.currentlyTalking == "P2") {
+		if (DialogueSystem.currentlyTalking == GameController.CurrentPlayerTag) {
 			isTalking = true;
 			startTime = OS.GetTicksMsec() + mouthIntervall;
 		}

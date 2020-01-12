@@ -15,18 +15,19 @@ public class Manager : BaseRoom {
 		manager.CreateMouseArea(baseNode);
 
 
-		Dialogue managerDialogue = new Dialogue("Boss");
+		Dialogue managerDialogue = new Dialogue("Boss", nameof(managerDialogue));
 		{
 			DialogueNode start = new DialogueNode(4000);
 
 			DialogueNodeReturning expansion = new DialogueNodeReturning(4114);
-			DialogueNode objectiveStart = new DialogueNode(4050);
 			DialogueNodeReturning objective = new DialogueNodeReturning(4060);
+			DialogueNode objectiveStart = new DialogueNode(4050);
+
 			objectiveStart.AddFollowup(objective);
 
-			start.AddOption(new DialogueOption(4010, objectiveStart));
-			start.AddOption(new DialogueOption(4011, expansion));
-			start.AddOption(new DialogueOptionReturning(4012));
+			start.AddOptions(new DialogueOption(4010, objectiveStart),
+							 new DialogueOption(4011, expansion),
+							 new DialogueOptionReturning(4012));
 
 			managerDialogue.AddNode(start);
 		}

@@ -65,6 +65,8 @@
     <Compile Include="src\Speech\AdvisorSystem.cs" />
     <Compile Include="src\Speech\AutoSize.cs" />
     <Compile Include="src\Speech\Dialogue.cs" />
+    <Compile Include="src\Speech\DialogueNode.cs" />
+    <Compile Include="src\Speech\DialogueOption.cs" />
     <Compile Include="src\Speech\DialogueSystem.cs" />
     <Compile Include="src\Speech\DialogueWindow.cs" />
     <Compile Include="src\GameController.cs" />

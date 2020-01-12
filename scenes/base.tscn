@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://src/GameController.cs" type="Script" id=1]
 [ext_resource path="res://src/RoomManager.cs" type="Script" id=2]
@@ -46,6 +46,9 @@
 [ext_resource path="res://src/MusicController.cs" type="Script" id=44]
 [ext_resource path="res://addons/midi/MidiPlayer.gd" type="Script" id=45]
 [ext_resource path="res://addons/midi/icon.png" type="Texture" id=46]
+
+[sub_resource type="ViewportTexture" id=2]
+viewport_path = NodePath("CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelefoneManager/OtherTelephoneRoom")
 
 [sub_resource type="SpriteFrames" id=1]
 resource_local_to_scene = true
@@ -175,7 +178,18 @@ texture = ExtResource( 23 )
 [node name="DialogueSystem" parent="CanvasLayer/MarginContainer/Taskbar" instance=ExtResource( 24 )]
 scale = Vector2( 0.4, 0.4 )
 
-[node name="PlayerIcon" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem" index="0"]
+[node name="OtherTelephoneRoom" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelefoneManager" index="0"]
+gui_disable_input = true
+gui_snap_controls_to_pixels = false
+
+[node name="TextureRect" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelefoneManager" index="1"]
+mouse_filter = 2
+texture = SubResource( 2 )
+
+[node name="Light2D" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelefoneManager" index="2"]
+range_layer_max = 3
+
+[node name="PlayerIcon" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem" index="1"]
 material = ExtResource( 19 )
 
 [node name="Head" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/PL" index="2"]
@@ -190,6 +204,7 @@ margin_bottom = -21.4166
 texture = ExtResource( 25 )
 
 [node name="MouseController" type="Node2D" parent="CanvasLayer"]
+editor/display_folded = true
 material = ExtResource( 19 )
 position = Vector2( 761.252, 372.714 )
 scale = Vector2( 1.5, 1.5 )

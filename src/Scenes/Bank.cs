@@ -6,6 +6,10 @@ public class Bank : BaseRoom {
 
 	AnimationList loanAnims = new AnimationList();
 	AnimationList sharesAnims = new AnimationList();
+
+
+
+
 	public override void _Ready() {
 		base._Ready();
 
@@ -17,10 +21,10 @@ public class Bank : BaseRoom {
 		sharesAnims.CreateMouseArea(baseNode);
 
 		DialogueSystem.AddActor(new Actor("BA", (DialogueWindow)FindNode("BA")));
-		DialogueSystem.AddActor(new Actor("B2", (DialogueWindow)FindNode("B2")));
+		DialogueSystem.AddActor(new Actor("B2", (DialogueWindow)FindNode("B2"), 520));
 
-		Dialogue loanDialogue = new Dialogue("Bank");
-		{
+		Dialogue loanDialogue = new Dialogue("Bank", nameof(loanDialogue));
+		{ // loan
 			DialogueNode startLoan = new DialogueNode(109);
 			DialogueNodeReturning noNewLoan = new DialogueNodeReturning(120);
 			DialogueNodeReturning noReturningOfLoan = new DialogueNodeReturning(140);
@@ -29,12 +33,13 @@ public class Bank : BaseRoom {
 				.AddNode(noNewLoan)
 				.AddNode(noReturningOfLoan);
 
-			startLoan.AddOption(new DialogueOption(101, noNewLoan));
-			startLoan.AddOption(new DialogueOption(102, noReturningOfLoan));
-			startLoan.AddOption(new DialogueOptionReturning(103));
+			startLoan.AddOptions(new DialogueOption(101, noNewLoan),
+								 new DialogueOption(102, noReturningOfLoan),
+								 new DialogueOptionReturning(103));
 		}
 
-		Dialogue sharesDialogue = new Dialogue("Bank");
+		Dialogue sharesDialogue = new Dialogue("Bank", nameof(sharesDialogue));
+		// shares
 		{//keep them in scope, so that we don't use the wrong nodes from the prev. dialogue
 			DialogueNode startShare = new DialogueNode(900);
 
@@ -42,26 +47,30 @@ public class Bank : BaseRoom {
 			DialogueNodeReturning noShares = new DialogueNodeReturning(1200);
 			DialogueNodeReturning noSelling = new DialogueNodeReturning(1100);
 
-			startShare.AddOption(new DialogueOption(1000, buyShares));
-			startShare.AddOption(new DialogueOption(1001, noSelling));
-			startShare.AddOption(new DialogueOptionReturning(1005));
+			startShare.AddOptions(new DialogueOption(1000, buyShares),
+								  new DialogueOption(1001, noSelling),
+								  new DialogueOptionReturning(1005));
 
 			//buyShares 2000
 			DialogueNode okBuyAnother = new DialogueNode(2030) { returnable = false };
 
-			buyShares.AddOption(new DialogueOption(2010, okBuyAnother, GameController.playerCompanyNames[0], GameController.playerNames[0]));
-			buyShares.AddOption(new DialogueOption(2011, okBuyAnother, GameController.playerCompanyNames[1], GameController.playerNames[1]));
-			buyShares.AddOption(new DialogueOption(2012, okBuyAnother, GameController.playerCompanyNames[2], GameController.playerNames[2]));
-			buyShares.AddOption(new DialogueOption(2013, okBuyAnother, GameController.playerCompanyNames[3], GameController.playerNames[3]));
-			buyShares.AddOption(new DialogueOptionReturning(2014));
+			buyShares.AddOptions(
+				new DialogueOption(2010, okBuyAnother, GameController.playerCompanyNames[0], GameController.playerNames[0]),
+				new DialogueOption(2011, okBuyAnother, GameController.playerCompanyNames[1], GameController.playerNames[1]),
+				new DialogueOption(2012, okBuyAnother, GameController.playerCompanyNames[2], GameController.playerNames[2]),
+				new DialogueOption(2013, okBuyAnother, GameController.playerCompanyNames[3], GameController.playerNames[3]),
+				new DialogueOptionReturning(2014)
+			);
 
 			//okBuyAnother
 
-			okBuyAnother.AddOption(new DialogueOption(2020, okBuyAnother, GameController.playerCompanyNames[0], GameController.playerNames[0]));
-			okBuyAnother.AddOption(new DialogueOption(2021, okBuyAnother, GameController.playerCompanyNames[1], GameController.playerNames[1]));
-			okBuyAnother.AddOption(new DialogueOption(2022, okBuyAnother, GameController.playerCompanyNames[2], GameController.playerNames[2]));
-			okBuyAnother.AddOption(new DialogueOption(2023, okBuyAnother, GameController.playerCompanyNames[3], GameController.playerNames[3]));
-			okBuyAnother.AddOption(new DialogueOptionReturning(2024));
+			okBuyAnother.AddOptions(
+				new DialogueOption(2020, okBuyAnother, GameController.playerCompanyNames[0], GameController.playerNames[0]),
+				new DialogueOption(2021, okBuyAnother, GameController.playerCompanyNames[1], GameController.playerNames[1]),
+				new DialogueOption(2022, okBuyAnother, GameController.playerCompanyNames[2], GameController.playerNames[2]),
+				new DialogueOption(2023, okBuyAnother, GameController.playerCompanyNames[3], GameController.playerNames[3]),
+				new DialogueOptionReturning(2024)
+			);
 
 
 

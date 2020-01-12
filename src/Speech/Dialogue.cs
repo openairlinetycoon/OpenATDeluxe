@@ -2,119 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-/*
-    Needs:
-    -Branching on condition
 
-*/
-
-public class DialogueNode {
-	protected Dialogue master;
-
-	public int textId;
-
-	public string[] wildcards;
-
-	public bool returnable = true;
-
-	public List<DialogueOption> options = new List<DialogueOption>();
-
-	public DialogueNode followup;
-
-	protected Action onSpeechFinished, start;
-
-	public DialogueNode(int textId, params string[] wildcards) {
-		this.textId = textId;
-		this.wildcards = wildcards;
-	}
-
-	public void AddFollowup(DialogueNode node) {
-		followup = node;
-		returnable = false;
-	}
-
-	public virtual void Start(Dialogue master) {
-		this.master = master;
-
-		start?.Invoke();
-	}
-	public virtual void OnSpeechFinished() {
-		onSpeechFinished?.Invoke();
-	}
-
-	public void AddOption(DialogueOption option) {
-		options.Add(option);
-	}
-
-	public void PreventReturning() {
-		returnable = false;
-	}
-
-	public bool HasFollowup() {
-		return followup != null;
-	}
-
-	public void GoToFollowup() {
-		master.StartNode(followup);
-	}
-}
-
-public class DialogueNodeReturning : DialogueNode {
-	public DialogueNodeReturning(int textId, params string[] wildcards) : base(textId, wildcards) {
-		returnable = false;
-	}
-
-	new private void AddOption(DialogueOption option) { } //We don't allow options for returning nodes. That would confuse people
-
-	public override void OnSpeechFinished() {
-		base.OnSpeechFinished();
-
-		master.ReturnToPrevNode(); //We are done here... maybe. TODO: Check if the game returns to prev. node when they finished talking
-	}
-}
-
-public class DialogueOption {
-	public int textId;
-
-	public string[] wildcards;
-
-	DialogueNode destination;
-
-	public DialogueOption(int textId, DialogueNode destination, params string[] wildcards) {
-		this.textId = textId;
-		this.destination = destination;
-		this.wildcards = wildcards;
-	}
-
-	public virtual DialogueNode GetDestinationNode() {
-		return destination;
-	}
-}
-
-public class DialogueOptionReturning : DialogueOption {
-	public DialogueOptionReturning(int textId, params string[] wildcards) : base(textId, null, wildcards) {
-	}
-
-	override public DialogueNode GetDestinationNode() {
-		return null;
-	}
-}
-
-public class DialogueOptionConditioned : DialogueOption {
-	public Func<DialogueNode> condition;
-
-	public DialogueOptionConditioned(int textId, Func<DialogueNode> destinations, params string[] wildcards) : base(textId, null, wildcards) {
-		this.condition = destinations;
-	}
-
-	public override DialogueNode GetDestinationNode() {
-		throw new NotImplementedException();
-	}
-}
 
 public class Dialogue {
 	public string dialogueGroup;
-
+	public string id;
+	public bool enforceActors;
 	DialogueNode _currentNode;
 	public DialogueNode CurrentNode { get => _currentNode; private set => _currentNode = value; }
 	public int CurrentNodeIndex { get => nodes.IndexOf(_currentNode); }
@@ -123,8 +16,12 @@ public class Dialogue {
 	Stack<DialogueNode> dialogueStack = new Stack<DialogueNode>();
 	List<DialogueNode> nodes = new List<DialogueNode>();
 
-	public Dialogue(string dialogueGroup) {
+	public Dialogue(string dialogueGroup, string id, bool enforceActors = false) {
 		this.dialogueGroup = dialogueGroup;
+		this.id = id;
+		this.enforceActors = enforceActors;
+
+		DialogueSystem.RegisterDialogue(this, id);
 	}
 
 	/// <summary>
@@ -185,71 +82,4 @@ public class Dialogue {
 			StartNode(nextNode);
 		}
 	}
-
-
-	// class Option {
-	// 	int optionId;
-
-	// 	int leadsToId;
-	// 	Dialogue leadsToDialogue;
-
-	// 	Func<int> conditionalId;
-	// 	Func<Dialogue> conditionalDialogue;
-
-	// 	Action onPick;
-
-	// 	public bool isAReturningOption;
-
-	// 	public Option(int optionId, Func<int> conditionalId, Action onPick, bool isAReturningOption = true) {
-	// 		this.optionId = optionId;
-	// 		this.conditionalId = conditionalId;
-	// 		this.onPick = onPick;
-	// 		this.isAReturningOption = isAReturningOption;
-	// 	}
-
-	// 	public Option(int optionId, Func<Dialogue> conditionalDialogue) {
-	// 		this.optionId = optionId;
-	// 		this.conditionalDialogue = conditionalDialogue;
-	// 	}
-	// }
-
-
-	// /// <summary>
-	// /// 
-	// /// </summary>
-	// /// <param name="dialogueGroup">Like "Bank", or "Makl".
-	// /// The first part of a localized string ("xxx>1000" - the xxx part).</param>
-	// /// <param name="id">The id number of the dialogue option ("xxx>1000" - the number part)</param>
-	// public Dialogue(string dialogueGroup, int id) {
-
-	// }
-
-	// /// <summary>
-	// /// Add dialogue option, which just answers and then goes right back to this dialogue part
-	// /// </summary>
-	// /// <param name="id">String id for dialogue option</param>
-	// /// <param name="answer">String id for answer from dialogue partner</param>
-	// /// <param name="onPick">Gets called when we pick this option</param>
-	// public void AddAnswerOptionReturning(int id, int answer, Action onPick = null) {
-
-	// }
-
-	// public void AddAnswerOption(int id, Dialogue leadingTo) {
-
-	// }
-
-	// /// <summary>
-	// /// Returns to the previous option
-	// /// </summary>
-	// /// <param name="id"></param>
-	// public void AddAnswerOptionLeave(int id) {
-
-	// }
-
-	// public void AddConditionalAnswerOption(int id, Func<int> leadingTo, Action onPick = null) {
-
-	// }
-	// public void AddConditionalAnswerOption(int id, Func<Dialogue> leadingTo) {
-
-	// }
 }

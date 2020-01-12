@@ -116,6 +116,7 @@ public class SmkPlayer : Sprite {
 	}
 
 	public override void _Ready() {
+		base._Ready();
 		LoadSmacker();
 		PrewarmDecoder();
 		//BufferImages();
@@ -156,6 +157,8 @@ public class SmkPlayer : Sprite {
 	}
 
 	public override void _Process(float delta) {
+		base._Process(delta);
+
 		if (!isPlaying || !Visible)
 			return;
 
@@ -174,10 +177,9 @@ public class SmkPlayer : Sprite {
 				PrepareFrameImage();
 
 			Texture = buffer[currentFrame];
+
 		}
 	}
-
-
 }
 
 

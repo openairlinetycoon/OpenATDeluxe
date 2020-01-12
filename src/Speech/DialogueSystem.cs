@@ -17,6 +17,9 @@ public class DialogueSystem : Node2D {
 	public static Action onDialogueStart;
 
 	public static SoundPlayer currentSound;
+	public static Viewport otherRoomParent; //For telephone call
+	public static Node2D otherRoomHolder;
+	public static bool isTelephoneCall;
 
 	override public void _Ready() {
 		if (instance != null) {
@@ -24,6 +27,10 @@ public class DialogueSystem : Node2D {
 			return;
 		}
 		instance = this;
+
+		otherRoomParent = (Viewport)FindNode("OtherTelephoneRoom");
+		otherRoomHolder = ((Node2D)otherRoomParent.GetParent());
+		otherRoomHolder.Hide();
 
 		RoomManager.OnRoomExit += CleanActors;
 		GameController.onSkip += Skip;
@@ -38,6 +45,7 @@ public class DialogueSystem : Node2D {
 		}
 	}
 
+	public static Dictionary<string, Dialogue> registeredDialogues = new Dictionary<string, Dialogue>();
 	public static Dialogue currentDialogue;
 	public static bool IsDialogueActive {
 		get {
@@ -46,6 +54,8 @@ public class DialogueSystem : Node2D {
 	}
 
 	public static string currentlyTalking;
+
+	public static string actor1, actor2;
 
 	public static bool skipHead;
 
@@ -56,6 +66,8 @@ public class DialogueSystem : Node2D {
 				_speechbubble.Hide();
 
 			_speechbubble = GetCurrentActorSpeechbubble();
+			_speechbubble.GetParent().RemoveChild(_speechbubble);
+			instance.AddChild(_speechbubble);
 			_speechbubble.Show();
 
 			return _speechbubble;
@@ -118,14 +130,63 @@ public class DialogueSystem : Node2D {
 		return TranslationServer.Translate(dialogue.dialogueGroup + ">" + id);
 	}
 
+	public static void RegisterDialogue(Dialogue dialogue, string id) {
+		if (registeredDialogues.ContainsKey(id)) {
+			registeredDialogues.Remove(id);
+		}
+		registeredDialogues.Add(id, dialogue);
+	}
+
+	public static Node[] GetAllChildren(Node parent) {
+		List<Node> nodes = new List<Node>();
+
+		foreach (Node child in parent.GetChildren()) {
+			if (child.GetChildCount() != 0) {
+				GetAllChildrenRecursion(child, ref nodes);
+			}
+
+			nodes.Add(child);
+		}
+
+		return nodes.ToArray();
+	}
+
+	private static void GetAllChildrenRecursion(Node parent, ref List<Node> nodes) {
+		foreach (Node child in parent.GetChildren()) {
+			if (child.GetChildCount() != 0) {
+				GetAllChildrenRecursion(child, ref nodes);
+			}
+
+			nodes.Add(child);
+		}
+	}
+
+	public static void PrepareTelephoneCall() {
+		//Load Room to the base canvas with the light
+		foreach (Node2D child in otherRoomParent.GetChildren()) {
+			child.QueueFree();
+		}
+
+		Node2D newRoom = RoomManager.GetRoomInstance("RoomBank");
+		otherRoomParent.AddChild(newRoom);
+
+		isTelephoneCall = true;
+		StartDialogue("loanDialogue", "P2", "B2");
+
+		Vector2 pushForCorrectPosition = Vector2.Right * GetCurrentActor().horizontalPushForCall;
+		GetCurrentActorSpeechbubble().HeadPosition += pushForCorrectPosition;
+		newRoom.Position = pushForCorrectPosition;
+		otherRoomHolder.Show();
+	}
+
 	/// <summary>
 	/// NOT IMPLEMENTED YET!
 	/// </summary>
 	/// <param name="dialogueGroup">Like "Bank", or "Makl".
 	/// The first part of a localized string ("xxx>1000" - the xxx part).</param>
 	/// <param name="id">The id number of the dialogue option ("xxx>1000" - the number part)</param>
-	public static void StartDialogue(string dialogueGroup, int id) {
-
+	public static void StartDialogue(string dialogueId, string actor1, string actor2) {
+		StartDialogue(registeredDialogues[dialogueId], actor1, actor2);
 	}
 
 	public static void StartDialogue(Dialogue dialogue, string actor1, string actor2) {
@@ -134,15 +195,18 @@ public class DialogueSystem : Node2D {
 		ReadNextNodeHead(dialogue);
 	}
 
-	public static void PrepareDialogue(Dialogue dialogue, string actor1, string actor2) {
+	public static void PrepareDialogue(Dialogue dialogue, string actor, string answerActor) {
 		if (currentDialogue != null)
 			return;
+
+		actor1 = actor;
+		actor2 = answerActor;
 
 		currentDialogue = dialogue;
 		currentDialogue.Start();
 		onDialogueStart?.Invoke();
 
-		currentlyTalking = actor2;
+		currentlyTalking = answerActor;
 	}
 
 	public static void PrepareMonologue(Dialogue dialogue, string actor) {
@@ -201,6 +265,10 @@ public class DialogueSystem : Node2D {
 
 		//Player 1 is used as placeholder in the localization. We have to change that to the current player
 		actor = actor.Replace("P1", GameController.CurrentPlayerTag);
+
+		if (currentDialogue.enforceActors) {
+			actor = currentlyTalking == actor1 ? actor2 : actor1;
+		}
 
 		return actor;
 	}
@@ -412,6 +480,13 @@ public class DialogueSystem : Node2D {
 	public static void StopDialogue() {
 		currentDialogue = null;
 		dialogueCommandQueue.Clear();
+		if (isTelephoneCall) {
+			foreach (Node2D child in otherRoomParent.GetChildren()) {
+				child.QueueFree();
+			}
+		}
+		isTelephoneCall = false;
+		((Node2D)otherRoomHolder.GetParent()).Hide();
 	}
 
 
@@ -433,10 +508,12 @@ public class DialogueSystem : Node2D {
 public struct Actor {
 	public string name;
 	public DialogueWindow speechbubble;
+	public float horizontalPushForCall;
 
-	public Actor(string name, DialogueWindow speechbubble) {
+	public Actor(string name, DialogueWindow speechbubble, float horizontalPushForCall = 0) {
 		this.name = name;
 		this.speechbubble = speechbubble;
+		this.horizontalPushForCall = horizontalPushForCall;
 	}
 }
 

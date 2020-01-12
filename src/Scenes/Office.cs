@@ -22,21 +22,24 @@ public class Office : BaseRoom {
 			return ret;
 		}
 
-		Dialogue test = new Dialogue("Bank"); //Yes? - Start
-		DialogueNode start = new DialogueNode(109);
-		DialogueNodeReturning noNewLoan = new DialogueNodeReturning(120);
-		DialogueNodeReturning noReturningOfLoan = new DialogueNodeReturning(140);
+		DialogueSystem.PrepareTelephoneCall();
 
-		test.AddNode(start)
-			.AddNode(noNewLoan)
-			.AddNode(noReturningOfLoan);
+		// Dialogue test = new Dialogue("Bank"); //Yes? - Start
+		// DialogueNode start = new DialogueNode(109);
+		// DialogueNodeReturning noNewLoan = new DialogueNodeReturning(120);
+		// DialogueNodeReturning noReturningOfLoan = new DialogueNodeReturning(140);
 
-		start.AddOption(new DialogueOption(101, noNewLoan));
-		start.AddOption(new DialogueOption(102, noReturningOfLoan));
-		start.AddOption(new DialogueOptionReturning(103));
+		// test.AddNode(start)
+		// 	.AddNode(noNewLoan)
+		// 	.AddNode(noReturningOfLoan);
 
-		DialogueSystem.StartDialogue(test, "P1", "B2");
-		string player = "PL2";
+		// start.AddOptions(new DialogueOption(101, noNewLoan),
+		// 				 new DialogueOption(102, noReturningOfLoan),
+		// 				 new DialogueOptionReturning(103));
+
+		// DialogueSystem.StartDialogue(test, "P1", "B2");
+
+		string player = "PL" + GameController.currentPlayerID;
 
 		playerAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, player + "Wait.smk", goal: new AnimationGoal(onTrigger: TriggerIdleAnimation)));

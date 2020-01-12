@@ -23,6 +23,8 @@ public class DialogueWindow : Control {
 
 	public string speechbubbleLinePrefab = "res://Prefabs/Speech/SpeechbubbleLinePrefab.tscn";
 
+	public Vector2 HeadPosition { get => headPosition; set => headPosition = value; }
+
 	public override void _Ready() {
 		//textLabel = GetNode<Label>("Label");
 		lineContainer = GetNode<VBoxContainer>("Content");
@@ -42,7 +44,7 @@ public class DialogueWindow : Control {
 		baseSize = RectSize;
 		basePosition = RectPosition;
 
-		headPosition = head?.RectGlobalPosition ?? default(Vector2);
+		HeadPosition = head?.RectGlobalPosition ?? default(Vector2);
 
 		this.Update();
 		this.Hide();
@@ -67,7 +69,7 @@ public class DialogueWindow : Control {
 			RectPosition = RectPosition + new Vector2(0, heightDifference) / 2;
 		}
 
-		head?.SetGlobalPosition(headPosition);
+		head?.SetGlobalPosition(HeadPosition);
 
 		//Force redraw and repositioning
 		speechbubble.Hide();

@@ -56,15 +56,9 @@ public class RoomManager : Node2D {
 		// 	if (cam != null)
 		// 		roomPosition = cam.GetPosition();
 		// }
-
 		if (isAirport) {
 			newRoomName = "RoomAirport";
 		}
-
-
-		//string fullPath = "res://scenes/rooms/" + newRoomName + ".tscn";
-		//File f = new File();
-		Debug.Assert(rooms.ContainsKey(newRoomName), "Room not found! Room: " + newRoomName);
 
 		OnRoomExit?.Invoke();
 
@@ -76,7 +70,7 @@ public class RoomManager : Node2D {
 			child.QueueFree();
 		}
 
-		Node2D n = (Node2D)rooms[newRoomName].Instance();
+		Node2D n = GetRoomInstance(newRoomName);
 		instance.AddChild(n);
 
 		currentRoom = newRoomName;
@@ -86,8 +80,15 @@ public class RoomManager : Node2D {
 			GetCameraControllerInCurrentRoom()?.SetPosition(roomPosition);
 			PlayerCharacter.instance.SetPosition(roomPosition);
 		}
+	}
 
-		//instance.AddChild(n);
+	public static Node2D GetRoomInstance(string newRoomName) {
+		//string fullPath = "res://scenes/rooms/" + newRoomName + ".tscn";
+		//File f = new File();
+		Debug.Assert(rooms.ContainsKey(newRoomName), "Room not found! Room: " + newRoomName);
+
+		Node2D newRoom = (Node2D)rooms[newRoomName].Instance();
+		return newRoom;
 	}
 
 	private static CameraController GetCameraControllerInCurrentRoom() {
