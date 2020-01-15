@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://src/GameController.cs" type="Script" id=1]
 [ext_resource path="res://src/RoomManager.cs" type="Script" id=2]
@@ -41,8 +41,7 @@
 [ext_resource path="res://Images/gli/glbasis/CURSORL.res" type="Texture" id=39]
 [ext_resource path="res://Images/gli/glbasis/CURSORR.res" type="Texture" id=40]
 [ext_resource path="res://src/MusicController.cs" type="Script" id=41]
-[ext_resource path="res://addons/midi/MidiPlayer.gd" type="Script" id=42]
-[ext_resource path="res://addons/midi/icon.png" type="Texture" id=43]
+[ext_resource path="res://src/Midi/MidiPlayer.cs" type="Script" id=42]
 
 [sub_resource type="SpriteFrames" id=1]
 resource_local_to_scene = true
@@ -196,7 +195,7 @@ centered = false
 use_parent_material = true
 position = Vector2( -15.5213, -12.6841 )
 frames = SubResource( 1 )
-frame = 11
+frame = 10
 playing = true
 centered = false
 
@@ -215,17 +214,8 @@ script = ExtResource( 41 )
 _midiPlayer = NodePath("musicMid")
 _oggPlayer = NodePath("musicOgg")
 
-[node name="musicMid" type="AudioStreamPlayer" parent="MusicController"]
-bus = "music"
-script = ExtResource( 42 )
-__meta__ = {
-"_editor_icon": ExtResource( 43 )
-}
-max_polyphony = 10
-load_all_voices_from_soundfont = true
-no_reload_soundfont = true
-soundfont = "res://sound/Aspirin-Stereo.sf2"
-bus = "music"
-
 [node name="musicOgg" type="AudioStreamPlayer" parent="MusicController"]
 bus = "music"
+
+[node name="musicMid" type="Node2D" parent="MusicController"]
+script = ExtResource( 42 )

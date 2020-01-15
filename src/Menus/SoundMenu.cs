@@ -13,8 +13,8 @@ public class SoundMenu : IBaseMenu {
 					MenuItem.EntryType.HeaderBar
 				),
 				new MenuItem(
-					Tr("Misc>4131"), //Midi Music On/Off
-					MenuItem.EntryType.Link
+					Tr("Next Song"), //Midi Music On/Off
+					MenuItem.EntryType.Link,()=>MusicController.NextSong()
 				),
 				new MenuItem(
 					MenuItem.EntryType.Space
