@@ -8,7 +8,7 @@ public class AutoSize : NinePatchRect {
 		RectPivotOffset = RectSize / 2;
 	}
 	override public void _Draw() {
-		_Process(0);
-		base._Draw();
+		// _Process(0);
+		// base._Draw();
 	}
 }
