@@ -18,6 +18,8 @@ public class MouseAreaRoom : MouseArea {
 	public override void OnClick() {
 		//Change Room! -- No longer!
 		//RoomManager.ChangeRoom(roomSceneName, isExitToAirport);
+		if (GameController.canPlayerInteract == false)
+			return;
 
 		if (RoomManager.currentRoom == "RoomAirport") {
 
@@ -34,5 +36,7 @@ public class MouseAreaRoom : MouseArea {
 		} else {
 			RoomManager.ChangeRoom(roomSceneName, isExitToAirport);
 		}
+
+		Connect("", this, "", new Godot.Collections.Array(new int[] { 1 }));
 	}
 }

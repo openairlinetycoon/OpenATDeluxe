@@ -66,7 +66,7 @@ public class GFXLibrary {
 	public void GetFilesInLibrary() {
 		File f = new File();
 		try {
-			f.Open(pathToGFXFile, (int)File.ModeFlags.Read);
+			f.Open(pathToGFXFile, File.ModeFlags.Read);
 			//GD.Print("Reading: " + pathToGFXFile);
 			ReadHeader(f);
 			ReadFileHeaders(f);
@@ -82,12 +82,12 @@ public class GFXLibrary {
 
 	public void Open() {
 		handle = new File();
-		Error e = handle.Open(pathToGFXFile, (int)File.ModeFlags.Read);
+		Error e = handle.Open(pathToGFXFile, File.ModeFlags.Read);
 	}
 
 	public void Close() {
 		handle.Close();
-		handle.Dispose();
+		//handle.Dispose();
 	}
 
 	public Texture CreateTextureFromFile(GFXFile file) {
@@ -102,11 +102,11 @@ public class GFXLibrary {
 
 		handle.Seek(file.libraryOffset); // Go to the position of the gfx file in the library file
 
-		int a = handle.Get32(); //skip unused data - 76 in glbasis.gli
-		int fileSize = handle.Get32(); //size of file in bytes
+		int a = (int)handle.Get32(); //skip unused data - 76 in glbasis.gli
+		int fileSize = (int)handle.Get32(); //size of file in bytes
 
-		int width = handle.Get32(); //Get image width in pixel
-		int height = handle.Get32(); //Get image height in pixel
+		int width = (int)handle.Get32(); //Get image width in pixel
+		int height = (int)handle.Get32(); //Get image height in pixel
 
 		byte[] colors = new byte[fileSize / 2 * 4];
 
@@ -162,7 +162,7 @@ public class GFXLibrary {
 		texture.CreateFromImage(image);
 		texture.Flags = (int)Texture.FlagsEnum.Filter;
 
-		image.Dispose();
+		//image.Dispose();
 		if (disposeOfHandle)
 			handle.Close();
 
@@ -182,7 +182,7 @@ public class GFXLibrary {
 				continue;
 
 			gfx.name = Encoding.UTF8.GetString(f.GetBuffer(8)); //Read the file name;
-			gfx.libraryOffset = f.Get32();
+			gfx.libraryOffset = (int)f.Get32();
 
 			gfx.GetTexture();
 

@@ -48,7 +48,7 @@
 [ext_resource path="res://addons/midi/icon.png" type="Texture" id=46]
 
 [sub_resource type="ViewportTexture" id=2]
-viewport_path = NodePath("CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelefoneManager/OtherTelephoneRoom")
+viewport_path = NodePath("CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelephoneManager/OtherTelephoneRoom")
 
 [sub_resource type="SpriteFrames" id=1]
 resource_local_to_scene = true
@@ -178,16 +178,8 @@ texture = ExtResource( 23 )
 [node name="DialogueSystem" parent="CanvasLayer/MarginContainer/Taskbar" instance=ExtResource( 24 )]
 scale = Vector2( 0.4, 0.4 )
 
-[node name="OtherTelephoneRoom" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelefoneManager" index="0"]
-gui_disable_input = true
-gui_snap_controls_to_pixels = false
-
-[node name="TextureRect" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelefoneManager" index="1"]
-mouse_filter = 2
+[node name="TextureRect" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelephoneManager" index="1"]
 texture = SubResource( 2 )
-
-[node name="Light2D" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelefoneManager" index="2"]
-range_layer_max = 3
 
 [node name="PlayerIcon" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem" index="1"]
 material = ExtResource( 19 )
@@ -230,7 +222,7 @@ centered = false
 use_parent_material = true
 position = Vector2( -15.5213, -12.6841 )
 frames = SubResource( 1 )
-frame = 7
+frame = 9
 playing = true
 centered = false
 

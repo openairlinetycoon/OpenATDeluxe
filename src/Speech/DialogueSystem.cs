@@ -55,7 +55,7 @@ public class DialogueSystem : Node2D {
 
 	public static string currentlyTalking;
 
-	public static string actor1, actor2;
+	public static string actorA, actorB;
 
 	public static bool skipHead;
 
@@ -66,8 +66,6 @@ public class DialogueSystem : Node2D {
 				_speechbubble.Hide();
 
 			_speechbubble = GetCurrentActorSpeechbubble();
-			_speechbubble.GetParent().RemoveChild(_speechbubble);
-			instance.AddChild(_speechbubble);
 			_speechbubble.Show();
 
 			return _speechbubble;
@@ -92,6 +90,11 @@ public class DialogueSystem : Node2D {
 	** Performing action
 	** Repeat
 	**/
+
+	private static void SetCurrentDialogue(Dialogue dialogue) {
+		currentDialogue = dialogue;
+		GameController.canPlayerInteract = false;
+	}
 
 	public static void AddActor(Actor actor) {
 		if (actors.ContainsKey(actor.name)) {
@@ -122,14 +125,20 @@ public class DialogueSystem : Node2D {
 		AddPlayerActor();
 	}
 
-	public static DialogueWindow GetCurrentActorSpeechbubble() {
+	private static DialogueWindow GetCurrentActorSpeechbubble() {
 		return GetCurrentActor().speechbubble;
 	}
 
-	public static string GetFullTrText(int id, Dialogue dialogue) {
+	private static string GetFullTrText(int id, Dialogue dialogue) {
 		return TranslationServer.Translate(dialogue.dialogueGroup + ">" + id);
 	}
 
+	/// <summary>
+	/// Registers the Dialogue to the Dialogue System. This is needed to start the Dialogue with StartDialogue(string).
+	/// This function is called in the constructor of the Dialogue class and shouldn't be called again.
+	/// </summary>
+	/// <param name="dialogue">The dialogue to register</param>
+	/// <param name="id">A string identifying it.</param>
 	public static void RegisterDialogue(Dialogue dialogue, string id) {
 		if (registeredDialogues.ContainsKey(id)) {
 			registeredDialogues.Remove(id);
@@ -137,7 +146,7 @@ public class DialogueSystem : Node2D {
 		registeredDialogues.Add(id, dialogue);
 	}
 
-	public static Node[] GetAllChildren(Node parent) {
+	private static Node[] GetAllChildren(Node parent) {
 		List<Node> nodes = new List<Node>();
 
 		foreach (Node child in parent.GetChildren()) {
@@ -161,73 +170,110 @@ public class DialogueSystem : Node2D {
 		}
 	}
 
-	public static void PrepareTelephoneCall() {
+	/// <summary>
+	/// Prepares and starts a phone call. It instantiates the called room and starts the dialogue 
+	/// </summary>
+	/// <param name="dialogueRoom">The ID of the room. eg. "RoomBank" or "RoomCafe" - see the scenes/rooms folder</param>
+	/// <param name="dialogueName">The ID of the dialogue to start</param>
+	public static void StartTelephoneCall(string dialogueRoom, string dialogueName) {
 		//Load Room to the base canvas with the light
 		foreach (Node2D child in otherRoomParent.GetChildren()) {
 			child.QueueFree();
 		}
 
-		Node2D newRoom = RoomManager.GetRoomInstance("RoomBank");
+		Node2D newRoom = RoomManager.GetRoomInstance(dialogueRoom);
 		otherRoomParent.AddChild(newRoom);
 
 		isTelephoneCall = true;
-		StartDialogue("loanDialogue", "P2", "B2");
+		StartDialogue(dialogueName);
 
 		Vector2 pushForCorrectPosition = Vector2.Right * GetCurrentActor().horizontalPushForCall;
-		GetCurrentActorSpeechbubble().HeadPosition += pushForCorrectPosition;
+		DialogueWindow dialogueWindow = GetCurrentActorSpeechbubble();
+
+		dialogueWindow.HeadPosition += pushForCorrectPosition;
+		if (dialogueWindow.GetParent() != instance) {
+			dialogueWindow.GetParent().RemoveChild(dialogueWindow);
+			instance.AddChild(dialogueWindow);
+		}
+
 		newRoom.Position = pushForCorrectPosition;
 		otherRoomHolder.Show();
 	}
 
 	/// <summary>
-	/// NOT IMPLEMENTED YET!
+	/// Prepares everything for the Dialogue and begins to read its first Node head. It will not override an already running dialogue.
 	/// </summary>
-	/// <param name="dialogueGroup">Like "Bank", or "Makl".
-	/// The first part of a localized string ("xxx>1000" - the xxx part).</param>
-	/// <param name="id">The id number of the dialogue option ("xxx>1000" - the number part)</param>
-	public static void StartDialogue(string dialogueId, string actor1, string actor2) {
-		StartDialogue(registeredDialogues[dialogueId], actor1, actor2);
+	/// <param name="dialogueId">The ID of the dialogue to start</param>
+	public static void StartDialogue(string dialogueId) {
+		StartDialogue(registeredDialogues[dialogueId]);
 	}
 
-	public static void StartDialogue(Dialogue dialogue, string actor1, string actor2) {
-		PrepareDialogue(dialogue, actor1, actor2);
+	/// <summary>
+	/// Prepares everything for the Dialogue and begins to read its first Node head. It will not override an already running dialogue.
+	/// </summary>
+	/// <param name="dialogue">What dialogue to start</param>
+	public static void StartDialogue(Dialogue dialogue) {
+		if (currentDialogue != null) {
+			return;
+		}
+
+		PrepareDialogue(dialogue);
 
 		ReadNextNodeHead(dialogue);
 	}
 
-	public static void PrepareDialogue(Dialogue dialogue, string actor, string answerActor) {
+	/// <summary>
+	/// Defines the internal actors according to dialogue specification mars the dialogue as started. It also invokes the onDialogueStart of the dialogue. It will not prepare, when another dialogue is still running.
+	/// </summary>
+	/// <param name="dialogue">What dialogue to prepare</param>
+	public static void PrepareDialogue(Dialogue dialogue) {
 		if (currentDialogue != null)
 			return;
 
-		actor1 = actor;
-		actor2 = answerActor;
+		actorA = "P2";
+		actorB = dialogue.partnerID;
 
-		currentDialogue = dialogue;
+		SetCurrentDialogue(dialogue);
 		currentDialogue.Start();
 		onDialogueStart?.Invoke();
 
-		currentlyTalking = answerActor;
+		currentlyTalking = actorB;
 	}
 
-	public static void PrepareMonologue(Dialogue dialogue, string actor) {
+	public static void PrepareMonologue(Dialogue dialogue) {
 		if (currentDialogue != null)
 			return;
 
-		currentDialogue = dialogue;
+		actorA = "P2";
+		actorB = dialogue.partnerID;
+
+		SetCurrentDialogue(dialogue);
 		currentDialogue.Start();
 		//onDialogueStart?.Invoke(); //!Make check for player speechbubble
 
-		currentlyTalking = actor;
+		currentlyTalking = actorB;
 	}
 
+
+	/// <summary>
+	/// Starts the prepared dialogue.
+	/// </summary>
 	public static void StartCurrentDialogue() {
 		ReadNextNodeHead(currentDialogue);
 	}
+
+	/// <summary>
+	/// Skips the Node head of the dialogue and shows the options instead.
+	/// </summary>
 	public static void StartWithOptions() {
 		currentlyTalking = GameController.CurrentPlayerTag; //We just assume, that only the player can pick options
 		Speechbubble.PrepareBubbleOptionsText(0, currentDialogue);
 	}
 
+	/// <summary>
+	/// Starts the audio playback of the current node head and prepares its rendering
+	/// </summary>
+	/// <param name="dialogue">What dialogue to read</param>
 	private static void ReadNextNodeHead(Dialogue dialogue) {
 		if (IsDialogueActive == false) {
 			Speechbubble.Hide();
@@ -242,6 +288,10 @@ public class DialogueSystem : Node2D {
 		state = DialogueStates.ReadingHead;
 	}
 
+	/// <summary>
+	/// Scans the text for any instructions inside of [[*]]. Replaces all occurrences of "P1" with the currently player tag
+	/// </summary>
+	/// <returns>A list of all instructions in the text, without braces</returns>
 	public static List<string> GetInstruction(string text) {
 
 		string pattern = @"\[\[([^\]]*)\]\]";
@@ -258,6 +308,12 @@ public class DialogueSystem : Node2D {
 
 		return instructions;
 	}
+
+	/// <summary>
+	/// Gets the first talking actor of the text. Replaces "P1" with the current player tag.
+	/// </summary>
+	/// <param name="text"></param>
+	/// <returns>The actor ID</returns>
 	public static string GetInstructionActor(string text) {
 		string pattern = @"([\w]*)\\"; //B2
 
@@ -267,7 +323,7 @@ public class DialogueSystem : Node2D {
 		actor = actor.Replace("P1", GameController.CurrentPlayerTag);
 
 		if (currentDialogue.enforceActors) {
-			actor = currentlyTalking == actor1 ? actor2 : actor1;
+			actor = currentlyTalking == actorA ? actorB : actorA;
 		}
 
 		return actor;
@@ -348,6 +404,13 @@ public class DialogueSystem : Node2D {
 			return -1;
 		}
 	}
+
+	/// <summary>
+	/// Creates all necessary SoundPlayer for every given instruction and links the them together in a "playlist" for continuos playback
+	/// </summary>
+	/// <param name="instructions">A list of file path instructions. eg. "BA\\900" -> Bank stock person with voiceline 900</param>
+	/// <param name="currentFullText"></param>
+	/// <param name="onFinish"></param>
 	private static void CreateSoundsAndExecuteOnFinish(List<string> instructions, string currentFullText, Action onFinish) {
 		List<SoundPlayer> player = new List<SoundPlayer>();
 
@@ -479,14 +542,17 @@ public class DialogueSystem : Node2D {
 
 	public static void StopDialogue() {
 		currentDialogue = null;
+		GameController.canPlayerInteract = true;
+
 		dialogueCommandQueue.Clear();
 		if (isTelephoneCall) {
 			foreach (Node2D child in otherRoomParent.GetChildren()) {
 				child.QueueFree();
 			}
 		}
+
 		isTelephoneCall = false;
-		((Node2D)otherRoomHolder.GetParent()).Hide();
+		((Node2D)otherRoomHolder).Hide();
 	}
 
 

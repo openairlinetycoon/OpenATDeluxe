@@ -5,6 +5,9 @@ public class MouseArea : Area2D {
 	[Export]
 	public bool isExitToAirport = false;
 
+	[Export]
+	public bool ignoreInteractionLock = false;
+
 	public Action onClick;
 	public CollisionShape2D area;
 
@@ -31,6 +34,7 @@ public class MouseArea : Area2D {
 
 
 	public virtual void OnClick() {
-		onClick?.Invoke();
+		if (GameController.canPlayerInteract || ignoreInteractionLock)
+			onClick?.Invoke();
 	}
 }

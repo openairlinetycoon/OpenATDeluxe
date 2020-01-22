@@ -33,6 +33,7 @@ public class GameController : Node2D {
 	public static string[] playerNames = { "Tina Cortez", "Siggi Sorglos", "Igor Tuppolevsky", "Mario Zucchero" };
 
 	public static Action onSkip;
+	public static bool canPlayerInteract = true;
 
 	public override void _Ready() {
 		instance = this;

@@ -19,8 +19,8 @@ public class AirportViewController : Node2D {
 	override public void _Ready() {
 		instance = this;
 
-		escelators = (from e in _escelators select GetNode((NodePath)e)).ToArray();
-		roomEntrances = (from e in _escelators select GetNode((NodePath)e)).ToArray();
+		escelators = (from NodePath e in _escelators select GetNode((NodePath)e)).ToArray();
+		roomEntrances = (from NodePath e in _escelators select GetNode((NodePath)e)).ToArray();
 	}
 
 }

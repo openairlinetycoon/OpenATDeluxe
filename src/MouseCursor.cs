@@ -107,6 +107,16 @@ public class MouseCursor : Node2D {
 	public void ChangeMouseState(MouseState toState) {
 		currentState = toState;
 
+		if (GameController.canPlayerInteract == false) {
+			switch (toState) {
+				case MouseState.Exit:
+				case MouseState.MoveLeft:
+				case MouseState.MoveRight:
+					toState = MouseState.Normal;
+					break;
+			}
+		}
+
 		states.ForEach((s) => s.SetVisible(false));
 
 		//Moving overrides other modes!

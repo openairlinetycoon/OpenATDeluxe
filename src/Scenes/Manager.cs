@@ -15,7 +15,7 @@ public class Manager : BaseRoom {
 		manager.CreateMouseArea(baseNode);
 
 
-		Dialogue managerDialogue = new Dialogue("Boss", nameof(managerDialogue));
+		Dialogue managerDialogue = new Dialogue("Boss", nameof(managerDialogue), "BO");
 		{
 			DialogueNode start = new DialogueNode(4000);
 
@@ -32,7 +32,7 @@ public class Manager : BaseRoom {
 			managerDialogue.AddNode(start);
 		}
 
-		manager.mouseArea.onClick += () => { DialogueSystem.PrepareDialogue(managerDialogue, "P2", "BO"); DialogueSystem.StartCurrentDialogue(); manager.Play(2); };
+		manager.mouseArea.onClick += () => { DialogueSystem.StartDialogue(managerDialogue); manager.Play(2); };
 
 		manager.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BB_Wait.smk"));

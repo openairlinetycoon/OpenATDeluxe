@@ -408,7 +408,7 @@ public class ATDGameLoader : Node2D {
 				if (e != 0) {
 					GD.Print(e.ToString());
 				}
-				resource.Dispose();
+				//resource.Free();
 			} else {
 				resource.TakeOverPath(fileGodotPath);
 			}

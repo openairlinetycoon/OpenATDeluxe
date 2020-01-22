@@ -27,7 +27,7 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
-extents = Vector2( 20.5277, 15.7873 )
+extents = Vector2( 88.6572, 118.233 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 130.82, 109.005 )
@@ -75,10 +75,11 @@ limit_left = 0
 limit_top = 0
 limit_bottom = 0
 limit_smoothed = true
+drag_margin_h_enabled = true
 smoothing_enabled = true
 smoothing_speed = 2.0
-drag_margin_left = 0.98
-drag_margin_right = 0.98
+drag_margin_left = 0.9
+drag_margin_right = 0.9
 editor_draw_drag_margin = true
 script = ExtResource( 2 )
 speed = 300.0
@@ -95,7 +96,6 @@ position = Vector2( -154, -1151 )
 scale = Vector2( 2, 2 )
 
 [node name="Backdrop" type="Node2D" parent="Navigation2D/Base"]
-editor/display_folded = true
 __meta__ = {
 "_edit_lock_": true
 }
@@ -351,7 +351,6 @@ position = Vector2( 5097.28, 592.273 )
 texture = ExtResource( 8 )
 
 [node name="LeftWall" type="Node2D" parent="Navigation2D/Base"]
-editor/display_folded = true
 material = ExtResource( 4 )
 position = Vector2( 14.8861, -60.3373 )
 __meta__ = {
@@ -359,7 +358,6 @@ __meta__ = {
 }
 
 [node name="Floor" type="Node2D" parent="Navigation2D/Base/LeftWall"]
-editor/display_folded = true
 material = ExtResource( 4 )
 
 [node name="FLOOR_Z6" type="Sprite" parent="Navigation2D/Base/LeftWall/Floor"]
@@ -511,7 +509,6 @@ z_index = 999
 z_as_relative = false
 
 [node name="Marketing" type="Node2D" parent="Interactables"]
-editor/display_folded = true
 position = Vector2( 3719.93, 222.181 )
 scale = Vector2( 4.44232, 7.28947 )
 
@@ -540,11 +537,11 @@ position = Vector2( 6335.19, 498.466 )
 
 [node name="MouseColliderRoom2" parent="Interactables/Kiosk" instance=ExtResource( 22 )]
 position = Vector2( 0.54541, 2.06586 )
-scale = Vector2( 4.44232, 7.28947 )
 roomSceneName = "RoomKiosk"
+entranceOffset = Vector2( 0, 90 )
 
 [node name="CollisionShape2D" parent="Interactables/Kiosk/MouseColliderRoom2" index="0"]
-position = Vector2( -0.375977, -3.20771 )
+position = Vector2( -0.375977, -23.0024 )
 shape = SubResource( 1 )
 
 [node name="Bank" type="Node2D" parent="Interactables"]
@@ -553,7 +550,7 @@ position = Vector2( 5892.59, 510.157 )
 [node name="MouseCollider" type="Area2D" parent="Interactables/Bank"]
 script = ExtResource( 23 )
 roomSceneName = "RoomBank"
-isStandardDoor = true
+entranceOffset = Vector2( 0, 80 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Bank/MouseCollider"]
 position = Vector2( 0.0322266, -0.387146 )
@@ -615,6 +612,7 @@ position = Vector2( 5104.97, 471.351 )
 position = Vector2( -1.4751, -0.866486 )
 script = ExtResource( 23 )
 roomSceneName = "RoomArabAir"
+entranceOffset = Vector2( -90, 120 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/ArabAir/MouseCollider5"]
 position = Vector2( 2.10547, 6.3158 )
@@ -627,7 +625,7 @@ position = Vector2( 5469.54, 501.871 )
 position = Vector2( -0.956055, -0.453552 )
 script = ExtResource( 23 )
 roomSceneName = "RoomDutyFree"
-isStandardDoor = true
+entranceOffset = Vector2( 0, 110 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/DutyFree/MouseCollider6"]
 position = Vector2( 4, -22 )
@@ -640,6 +638,7 @@ position = Vector2( 7052.22, 463.699 )
 position = Vector2( 0.0302734, -0.566345 )
 script = ExtResource( 23 )
 roomSceneName = "RoomCafe"
+entranceOffset = Vector2( -200, 110 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Cafe/MouseCollider7"]
 position = Vector2( 12.3804, 9.28534 )
@@ -663,7 +662,7 @@ position = Vector2( 5281.61, 466.635 )
 position = Vector2( 4.10938, 0.922943 )
 script = ExtResource( 23 )
 roomSceneName = "RoomTerrorist"
-isStandardDoor = true
+entranceOffset = Vector2( 0, 110 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/Terrorist/MouseCollider9"]
 position = Vector2( -4.92676, 2.10526 )

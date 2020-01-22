@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class Dialogue {
 	public string dialogueGroup;
 	public string id;
+	public string partnerID;
 	public bool enforceActors;
 	DialogueNode _currentNode;
 	public DialogueNode CurrentNode { get => _currentNode; private set => _currentNode = value; }
@@ -16,9 +17,10 @@ public class Dialogue {
 	Stack<DialogueNode> dialogueStack = new Stack<DialogueNode>();
 	List<DialogueNode> nodes = new List<DialogueNode>();
 
-	public Dialogue(string dialogueGroup, string id, bool enforceActors = false) {
+	public Dialogue(string dialogueGroup, string id, string partnerID = "", bool enforceActors = false) {
 		this.dialogueGroup = dialogueGroup;
 		this.id = id;
+		this.partnerID = partnerID;
 		this.enforceActors = enforceActors;
 
 		DialogueSystem.RegisterDialogue(this, id);

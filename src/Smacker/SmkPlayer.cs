@@ -123,7 +123,7 @@ public class SmkPlayer : Sprite {
 	}
 
 	override public void _ExitTree() {
-		fileStream.Dispose();
+		fileStream.Close();
 	}
 
 	public void Play() {

@@ -23,7 +23,7 @@ public class Bank : BaseRoom {
 		DialogueSystem.AddActor(new Actor("BA", (DialogueWindow)FindNode("BA")));
 		DialogueSystem.AddActor(new Actor("B2", (DialogueWindow)FindNode("B2"), 520));
 
-		Dialogue loanDialogue = new Dialogue("Bank", nameof(loanDialogue));
+		Dialogue loanDialogue = new Dialogue("Bank", nameof(loanDialogue), "B2");
 		{ // loan
 			DialogueNode startLoan = new DialogueNode(109);
 			DialogueNodeReturning noNewLoan = new DialogueNodeReturning(120);
@@ -38,7 +38,7 @@ public class Bank : BaseRoom {
 								 new DialogueOptionReturning(103));
 		}
 
-		Dialogue sharesDialogue = new Dialogue("Bank", nameof(sharesDialogue));
+		Dialogue sharesDialogue = new Dialogue("Bank", nameof(sharesDialogue), "BA");
 		// shares
 		{//keep them in scope, so that we don't use the wrong nodes from the prev. dialogue
 			DialogueNode startShare = new DialogueNode(900);
@@ -82,8 +82,8 @@ public class Bank : BaseRoom {
 
 		}
 
-		loanAnims.mouseArea.onClick += () => { DialogueSystem.PrepareDialogue(loanDialogue, "P2", "B2"); DialogueSystem.StartWithOptions(); };
-		sharesAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(sharesDialogue, "P2", "BA");
+		loanAnims.mouseArea.onClick += () => { DialogueSystem.PrepareDialogue(loanDialogue); DialogueSystem.StartWithOptions(); };
+		sharesAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(sharesDialogue);
 		//DialogueSystem.StartDialogue(shareDialogue, "P2", "BA");
 
 		bool alreadyFired = false;

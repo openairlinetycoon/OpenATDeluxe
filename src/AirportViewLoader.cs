@@ -109,7 +109,7 @@ public class AirportViewLoader : Node {
 
 		foreach (string filePath in files) {
 			File f = new File();
-			f.Open(filePath, (int)File.ModeFlags.Read);
+			f.Open(filePath, File.ModeFlags.Read);
 
 			currentID = 0;
 			LoadLevelFile(f);
@@ -130,7 +130,7 @@ public class AirportViewLoader : Node {
 	}
 
 	private void LoadLevelFile(File f) {
-		int fileAmount = f.Get32();
+		int fileAmount = (int)f.Get32();
 		GD.Print("Files estimated: " + fileAmount);
 
 		f.Get32();
@@ -140,8 +140,8 @@ public class AirportViewLoader : Node {
 			id -= 0X10000000;
 
 
-			int x = f.Get32();
-			int y = f.Get32();
+			int x = (int)f.Get32();
+			int y = (int)f.Get32();
 			int par = f.Get8();
 
 			if (!bricks.ContainsKey(id))

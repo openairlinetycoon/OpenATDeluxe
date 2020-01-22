@@ -58,6 +58,7 @@ locale_filter=[ 1, [  ] ]
 
 [mono]
 
+unhandled_exception_policy=1
 profiler/args="default:alloc,output=output.mlpd"
 
 [other]

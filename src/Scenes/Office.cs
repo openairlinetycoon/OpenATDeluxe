@@ -22,7 +22,7 @@ public class Office : BaseRoom {
 			return ret;
 		}
 
-		DialogueSystem.PrepareTelephoneCall();
+		DialogueSystem.StartTelephoneCall("RoomBank", "loanDialogue");
 
 		// Dialogue test = new Dialogue("Bank"); //Yes? - Start
 		// DialogueNode start = new DialogueNode(109);
