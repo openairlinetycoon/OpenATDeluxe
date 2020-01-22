@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 
 [Tool]
 public class AutoSize : NinePatchRect {
