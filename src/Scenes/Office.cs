@@ -3,11 +3,15 @@ using System;
 using System.Collections.Generic;
 
 public class Office : BaseRoom {
+	[Export]
+	public NodePath telephoneListPath;
+	public ListElement telephoneList;
+
+	[Export]
+	public NodePath telephonePath;
 
 	AnimationList playerAnims = new AnimationList();
-	public override void _Ready() {
-		base._Ready();
-
+	public override void OnReady() {
 		Vector2 playerPos = new Vector2(-280, -90);
 
 		playerAnims.basePosition = playerPos;
@@ -22,22 +26,16 @@ public class Office : BaseRoom {
 			return ret;
 		}
 
-		DialogueSystem.StartTelephoneCall("RoomBank", "loanDialogue");
+		MouseArea telephone = (MouseArea)GetNode(telephonePath);
+		telephone.onClick += () => telephoneList.ShowElement();
 
-		// Dialogue test = new Dialogue("Bank"); //Yes? - Start
-		// DialogueNode start = new DialogueNode(109);
-		// DialogueNodeReturning noNewLoan = new DialogueNodeReturning(120);
-		// DialogueNodeReturning noReturningOfLoan = new DialogueNodeReturning(140);
-
-		// test.AddNode(start)
-		// 	.AddNode(noNewLoan)
-		// 	.AddNode(noReturningOfLoan);
-
-		// start.AddOptions(new DialogueOption(101, noNewLoan),
-		// 				 new DialogueOption(102, noReturningOfLoan),
-		// 				 new DialogueOptionReturning(103));
-
-		// DialogueSystem.StartDialogue(test, "P1", "B2");
+		telephoneList = (ListElement)GetNode(telephoneListPath);
+		telephoneList.itemsCloseList = true;
+		telephoneList.lines = new List<ListItem>(
+			new ListItem[] {
+				new ListItem("Bank - Darlehen", () => DialogueSystem.StartTelephoneCall("RoomBank", "loanDialogue")),
+				new ListItem("Bank - Aktien", () => DialogueSystem.StartTelephoneCall("RoomBank", "sharesDialogue")),
+			});
 
 		string player = "PL" + GameController.currentPlayerID;
 

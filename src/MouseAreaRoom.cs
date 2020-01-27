@@ -36,7 +36,5 @@ public class MouseAreaRoom : MouseArea {
 		} else {
 			RoomManager.ChangeRoom(roomSceneName, isExitToAirport);
 		}
-
-		Connect("", this, "", new Godot.Collections.Array(new int[] { 1 }));
 	}
 }

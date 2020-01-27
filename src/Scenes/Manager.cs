@@ -6,9 +6,7 @@ public class Manager : BaseRoom {
 
 	AnimationList manager = new AnimationList();
 
-	public override void _Ready() {
-		base._Ready();
-
+	public override void OnReady() {
 		DialogueSystem.AddActor(new Actor("BO", (DialogueWindow)FindNode("BO")));
 
 		manager.basePosition = new Vector2(24, -136);

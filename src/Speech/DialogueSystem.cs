@@ -79,6 +79,7 @@ public class DialogueSystem : Node2D {
 		ReadingHead,
 		PickingOptions,
 		ReadingPickedOption,
+		Prepared,
 		Other,
 	}
 
@@ -237,6 +238,8 @@ public class DialogueSystem : Node2D {
 		currentDialogue.Start();
 		onDialogueStart?.Invoke();
 
+		state = DialogueStates.Prepared;
+
 		currentlyTalking = actorB;
 	}
 
@@ -251,6 +254,8 @@ public class DialogueSystem : Node2D {
 		currentDialogue.Start();
 		//onDialogueStart?.Invoke(); //!Make check for player speechbubble
 
+		state = DialogueStates.Prepared;
+
 		currentlyTalking = actorB;
 	}
 
@@ -259,7 +264,8 @@ public class DialogueSystem : Node2D {
 	/// Starts the prepared dialogue.
 	/// </summary>
 	public static void StartCurrentDialogue() {
-		ReadNextNodeHead(currentDialogue);
+		if (state == DialogueStates.Prepared)
+			ReadNextNodeHead(currentDialogue);
 	}
 
 	/// <summary>
@@ -557,7 +563,7 @@ public class DialogueSystem : Node2D {
 
 
 	public static void SelectOption(int option) {
-		if (!IsDialogueActive)
+		if (!IsDialogueActive && state != DialogueStates.PickingOptions)
 			return;
 		GD.Print($"OPTION {option}");
 

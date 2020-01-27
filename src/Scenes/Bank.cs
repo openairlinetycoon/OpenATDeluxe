@@ -7,12 +7,7 @@ public class Bank : BaseRoom {
 	AnimationList loanAnims = new AnimationList();
 	AnimationList sharesAnims = new AnimationList();
 
-
-
-
-	public override void _Ready() {
-		base._Ready();
-
+	public override void OnReady() {
 		Vector2 playerPos = new Vector2(-280, -90);
 
 		loanAnims.basePosition = new Vector2(-142, -73);

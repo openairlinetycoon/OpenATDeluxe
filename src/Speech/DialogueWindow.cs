@@ -76,40 +76,6 @@ public class DialogueWindow : Control {
 		speechbubble.Show();
 	}
 
-	public class OptionLine : Control {
-		public int option;
-
-		public override void _Ready() {
-			Connect("mouse_entered", this, nameof(MouseEntered));
-			Connect("mouse_exited", this, nameof(MouseExited));
-		}
-
-		public void MouseEntered() {
-			MouseCursor.instance?.MouseEnter(this);
-
-			SoundPlayer p = SoundPlayer.CreatePlayer("/SOUND/change.raw", "effects", true, true);
-			p.VolumeDb = 12;
-			AddChild(p);
-			p.Play();
-		}
-		public void MouseExited() {
-			MouseCursor.instance?.MouseLeave(this);
-		}
-		public void OnClick() {
-			MouseCursor.instance?.ChangeMouseState(MouseCursor.MouseState.Normal);
-			DialogueSystem.SelectOption(option);
-		}
-
-		override public void _GuiInput(InputEvent e) {
-			if (e is InputEventMouseButton mouse) {
-
-				if (mouse.IsPressed()) {
-					OnClick();
-				}
-			}
-		}
-	}
-
 	// public Control AddLines(int numberOfLines, int option) {
 	// 	OptionLine newLine = new OptionLine();
 	// 	newLine.Name = "Line";
@@ -202,9 +168,10 @@ public class DialogueWindow : Control {
 			lineContainer.AddChild(line);
 			lines.Add(line);
 
-			OptionLine newLine = new OptionLine();
+			LineElement newLine = new LineElement();
 			newLine.Name = "Line";
-			newLine.option = optionIndex;
+			int opt = optionIndex;
+			newLine.onClick += () => DialogueSystem.SelectOption(opt);
 			newLine.MouseFilter = MouseFilterEnum.Pass;
 			newLine.RectMinSize = line.RectSize;
 			newLine.RectPosition = line.RectPosition;
