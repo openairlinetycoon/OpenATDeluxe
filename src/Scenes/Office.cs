@@ -28,14 +28,7 @@ public class Office : BaseRoom {
 
 		MouseArea telephone = (MouseArea)GetNode(telephonePath);
 		telephone.onClick += () => telephoneList.ShowElement();
-
 		telephoneList = (ListElement)GetNode(telephoneListPath);
-		telephoneList.itemsCloseList = true;
-		telephoneList.lines = new List<ListItem>(
-			new ListItem[] {
-				new ListItem("Bank - Darlehen", () => DialogueSystem.StartTelephoneCall("RoomBank", "loanDialogue")),
-				new ListItem("Bank - Aktien", () => DialogueSystem.StartTelephoneCall("RoomBank", "sharesDialogue")),
-			});
 
 		string player = "PL" + GameController.currentPlayerID;
 

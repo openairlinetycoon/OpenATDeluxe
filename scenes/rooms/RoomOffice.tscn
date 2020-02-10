@@ -11,7 +11,7 @@
 [ext_resource path="res://src/Resources/SoundPlayer.cs" type="Script" id=9]
 [ext_resource path="res://fonts/BlockFont.tres" type="DynamicFont" id=10]
 [ext_resource path="res://Images/gli/telefons/BLOCK.res" type="Texture" id=11]
-[ext_resource path="res://src/Elements/ListElement.cs" type="Script" id=12]
+[ext_resource path="res://src/Elements/Implementations/TelephoneList.cs" type="Script" id=12]
 
 [node name="RoomOffice" type="Node2D"]
 script = ExtResource( 1 )
@@ -66,7 +66,7 @@ scale = Vector2( 6.79051, 4.0173 )
 gravity = 0.0
 
 [node name="Telefone" parent="Base" instance=ExtResource( 7 )]
-position = Vector2( 136.572, 55.3823 )
+position = Vector2( 213.151, -73.2726 )
 rotation = 0.251526
 scale = Vector2( -6.89733, -2.26798 )
 gravity = 0.0
@@ -121,6 +121,56 @@ margin_bottom = 442.0
 custom_constants/separation = 0
 
 [node name="LinePrefab" type="Label" parent="Base/TelephoneList/Container/ListSort"]
+visible = false
+margin_right = 382.0
+margin_bottom = 26.0
+rect_clip_content = true
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.145098, 0.278431, 0.564706, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.254902 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "####TEXT####"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="TelephoneList2" type="Node2D" parent="Base"]
+visible = false
+scale = Vector2( 0.333333, 0.444444 )
+script = ExtResource( 12 )
+baseListItemPath = NodePath("Container/ListSort")
+linePrefabPath = NodePath("Container/ListSort/LinePrefab")
+
+[node name="Texture" type="Sprite" parent="Base/TelephoneList2"]
+scale = Vector2( 2.25, 2 )
+texture = ExtResource( 11 )
+
+[node name="Container" type="MarginContainer" parent="Base/TelephoneList2"]
+margin_left = -228.0
+margin_top = -211.0
+margin_right = 229.0
+margin_bottom = 231.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 7
+custom_constants/margin_left = 65
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ListSort" type="VBoxContainer" parent="Base/TelephoneList2/Container"]
+margin_left = 65.0
+margin_top = 7.0
+margin_right = 447.0
+margin_bottom = 442.0
+custom_constants/separation = 0
+
+[node name="LinePrefab" type="Label" parent="Base/TelephoneList2/Container/ListSort"]
 visible = false
 margin_right = 382.0
 margin_bottom = 26.0

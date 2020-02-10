@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class MouseArea : Area2D {
+public class MouseArea : Area2D, IInteractionLayer {
 	[Export]
 	public bool isExitToAirport = false;
 
@@ -10,6 +10,8 @@ public class MouseArea : Area2D {
 
 	public Action onClick;
 	public CollisionShape2D area;
+
+	public virtual int Layer => (int)BaseLayer.MouseArea;
 
 	public override void _Ready() {
 		if (GetChildCount() != 0)

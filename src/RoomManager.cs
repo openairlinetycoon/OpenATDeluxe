@@ -14,6 +14,8 @@ public class RoomManager : Node2D {
 	public Godot.Collections.Array _rooms;
 	private static Dictionary<string, PackedScene> rooms;
 
+	private static List<string> visitedRooms = new List<string>();
+
 	public static Action OnRoomExit;
 
 	public override void _Ready() {
@@ -29,6 +31,8 @@ public class RoomManager : Node2D {
 		//LoadRooms(); --FIXME: godot can't find the "res://scenes/rooms/" folder reliably
 
 		instance = this;
+
+		OnRoomExit += () => InteractionLayerManager.ResetLayers();
 	}
 
 
@@ -76,6 +80,10 @@ public class RoomManager : Node2D {
 		currentRoom = newRoomName;
 		currentRoomNode = n;
 
+		if (!visitedRooms.Contains(newRoomName)) {
+			visitedRooms.Add(newRoomName);
+		}
+
 		if (isAirport) {
 			GetCameraControllerInCurrentRoom()?.SetPosition(roomPosition);
 			PlayerCharacter.instance.SetPosition(roomPosition);
@@ -103,6 +111,10 @@ public class RoomManager : Node2D {
 		}
 
 		return null;
+	}
+
+	public static bool WasRoomVisited(string room) {
+		return visitedRooms.Contains(room);
 	}
 
 	//  // Called every frame. 'delta' is the elapsed time since the previous frame.

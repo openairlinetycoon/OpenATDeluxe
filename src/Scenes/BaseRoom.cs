@@ -3,14 +3,12 @@ using System;
 using System.Collections.Generic;
 
 public abstract class BaseRoom : Node2D {
-	public static bool wasVisited = false;
-
 	public Control baseNode;
+
 	public sealed override void _Ready() {
 		AddToGroup("cancelable");
 
 		baseNode = (Control)GetChild(0);
-		wasVisited = true;
 
 		OnReady();
 	}

@@ -29,6 +29,7 @@ public class ListElement : BaseElement {
 		baseListItem = (Control)GetNode(baseListItemPath);
 
 		linePrefab.Visible = false;
+		Visible = false;
 	}
 
 	public void ShowElement() {
@@ -53,6 +54,7 @@ public class ListElement : BaseElement {
 			}
 
 			lineText.Text = lines[i].text;
+			line.Visible = lines[i].visible;
 
 			LineElement element = new LineElement();
 			element.Name = "Line";
@@ -69,13 +71,30 @@ public class ListElement : BaseElement {
 			baseListItem.AddChild(line);
 		}
 
+		GameController.canPlayerInteract = false;
 		Show();
+	}
+
+	private new void Show() {
+		base.Show();
+	}
+
+	public void HideElement() {
+		Visible = false;
+
+		GameController.canPlayerInteract = true;
+	}
+
+	public int GetLayer() {
+		throw new NotImplementedException();
 	}
 }
 
 public class ListItem {
 	public string text;
 	public Action onClick;
+
+	public bool visible;
 
 	public ListItem(string text, Action onClick) {
 		this.text = text;

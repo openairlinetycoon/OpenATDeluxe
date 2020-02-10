@@ -94,7 +94,8 @@ public class DialogueSystem : Node2D {
 
 	private static void SetCurrentDialogue(Dialogue dialogue) {
 		currentDialogue = dialogue;
-		GameController.canPlayerInteract = false;
+		InteractionLayerManager.DisableAllLayersButOne((int)BaseLayer.Dialogue);
+		//GameController.canPlayerInteract = false;
 	}
 
 	public static void AddActor(Actor actor) {
@@ -548,7 +549,8 @@ public class DialogueSystem : Node2D {
 
 	public static void StopDialogue() {
 		currentDialogue = null;
-		GameController.canPlayerInteract = true;
+		InteractionLayerManager.EnableAllLayers();
+		//GameController.canPlayerInteract = true;
 
 		dialogueCommandQueue.Clear();
 		if (isTelephoneCall) {

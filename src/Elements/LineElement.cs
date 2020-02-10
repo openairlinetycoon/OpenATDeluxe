@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public class LineElement : Control {
+public class LineElement : Control, IInteractionLayer {
 	public Action onClick;
 	public Action onMouseEnter, onMouseLeave;
 
@@ -26,7 +26,7 @@ public class LineElement : Control {
 		onMouseLeave?.Invoke();
 	}
 	public void OnClick() {
-		MouseCursor.instance?.ChangeMouseState(MouseCursor.MouseState.Normal);
+		MouseCursor.instance?.ChangeMouseState(MouseCursor.MouseState.Normal, false);
 		onClick?.Invoke();
 	}
 
@@ -37,4 +37,6 @@ public class LineElement : Control {
 			}
 		}
 	}
+
+	public int Layer => (int)BaseLayer.Dialogue;
 }

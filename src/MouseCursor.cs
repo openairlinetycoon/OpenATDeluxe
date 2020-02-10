@@ -11,16 +11,20 @@ public class MouseCursor : Node2D {
 	List<Node2D> states = new List<Node2D>();
 
 	MouseState currentState;
-	Node currentHover; //The "object" we are currently hovering above
+	HoverStackItem currentHover; //The "object" we are currently hovering above
 	List<HoverStackItem> hovers = new List<HoverStackItem>();
 
 	public struct HoverStackItem {
 		public MouseState state;
 		public Node item;
 
+		public uint additionTime;
+
 		public HoverStackItem(MouseState state, Node item) {
 			this.state = state;
 			this.item = item;
+
+			this.additionTime = OS.GetTicksMsec();
 		}
 	}
 
@@ -58,23 +62,43 @@ public class MouseCursor : Node2D {
 	public void MouseEnter(Node other) {
 		MouseState state = MouseState.Hover;
 		if (other is MouseArea area) {
-			ChangeMouseState(state = (area.isExitToAirport ? MouseState.Exit : MouseState.Hover));
+			state = (area.isExitToAirport ? MouseState.Exit : MouseState.Hover);
 		} else {
-			ChangeMouseState(MouseState.Hover);
+			state = MouseState.Hover;//ChangeMouseState();
 		}
 
 		if (other != null) {
-			currentHover = other;
-			hovers.Add(new HoverStackItem(state, other));
+			HoverStackItem item = new HoverStackItem(state, other);
+			hovers.Add(item);
+			hovers = hovers.OrderByDescending((stackItem) => {
+				if (stackItem.item is IInteractionLayer l)
+					return l.Layer;
+				return 0;
+			}).ThenByDescending((stackItem) => stackItem.additionTime).ToList();
+
+			int index = hovers.IndexOf(item);
+			GD.Print($"MouseEnter new index of: {index} and it has a layer of {(other is IInteractionLayer layer ? layer.Layer : 0)}");
+
+			if (index != 0)
+				return;
+
+			currentHover = item;
 		}
+
+
+		ChangeMouseState(state);
 	}
 
 	public void MouseLeave(Node other) {
-		if (other is MouseArea area && area == currentHover) {
-		}
 
 		if (other != null)
 			hovers.Remove(hovers.Find((o) => o.item == other));
+		CleanHovers();
+
+		ChangeMouseState(currentHover.state);
+	}
+
+	private void CleanHovers() {
 		List<HoverStackItem> marked = new List<HoverStackItem>();
 		foreach (HoverStackItem i in hovers) {
 			if (IsInstanceValid(i.item) != true)
@@ -83,10 +107,19 @@ public class MouseCursor : Node2D {
 		foreach (HoverStackItem i in marked) {
 			hovers.Remove(i);
 		}
-		HoverStackItem next = hovers.LastOrDefault(); ;
-		currentHover = next.item;
 
-		ChangeMouseState(next.state);
+		HoverStackItem next = FindNextHoverableOrDefault();
+		currentHover = next;
+	}
+
+	public HoverStackItem FindNextHoverableOrDefault() {
+		foreach (HoverStackItem h in hovers) {
+			if (!InteractionLayerManager.IsLayerDisabled((h.item is IInteractionLayer l ? l.Layer : 0))) {
+				return h;
+			}
+		}
+
+		return default(HoverStackItem);
 	}
 
 	public int GetIndexRecursive(Node n, bool withZIndexAdded = false) {
@@ -104,7 +137,13 @@ public class MouseCursor : Node2D {
 	}
 
 
-	public void ChangeMouseState(MouseState toState) {
+	public void ChangeMouseState(MouseState toState, bool toCurrentHover = true) {
+		if (toCurrentHover && currentHover.item is IInteractionLayer l) {
+			if (InteractionLayerManager.IsLayerDisabled(l.Layer)) {
+				return;
+			}
+		}
+
 		currentState = toState;
 
 		if (GameController.canPlayerInteract == false) {
@@ -133,7 +172,7 @@ public class MouseCursor : Node2D {
 
 	public override void _Input(InputEvent e) {
 
-		if (currentHover != null) {
+		if (currentHover.item != null) {
 			//GD.Print(currentHover.Name);
 		}
 		if (e is InputEventMouseButton mouse) {
@@ -141,20 +180,21 @@ public class MouseCursor : Node2D {
 
 			if (mouse.IsPressed()) {
 				bool handled = false;
-				if (currentHover != null && movingCamera == 0 && IsInstanceValid(currentHover)) {
-					currentHover.Call("OnClick");
+				if (currentHover.item != null && movingCamera == 0 && IsInstanceValid(currentHover.item)) {
+					if (currentHover.item is IInteractionLayer l) {
+						if (InteractionLayerManager.IsLayerDisabled(l.Layer))
+							return;
+
+						GD.Print($"Layer: {l.Layer}");
+					}
+					currentHover.item.Call("OnClick");
 					handled = true;
-				} else if (PlayerCharacter.instance != null && RoomManager.currentRoom == "RoomAirport") {
+				} else if (PlayerCharacter.instance != null && RoomManager.currentRoom == "RoomAirport" && movingCamera == 0) {
 					//SET MOVING WAYPOINT
 					PlayerCharacter.instance.SetPath(CameraController.airportCamera.GetGlobalMousePosition());
 					handled = true;
 				}
-				//         if (currentTexture < lib.filesInLibrary) {
 
-				//             SetTexture (lib.files[currentTexture++].GetTexture());
-				//         } else {
-				//             currentTexture = 0;
-				//         }
 				if (handled)
 					GetTree().SetInputAsHandled();
 			}
@@ -164,13 +204,15 @@ public class MouseCursor : Node2D {
 	public void Reset() {
 		movingCamera = 0;
 		currentState = MouseState.Normal;
-		currentHover = null;
+		currentHover = default(HoverStackItem);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta) {
 		SetPosition(GetGlobalMousePosition());
 
-		ChangeMouseState(currentState);
+		CleanHovers();
+
+		ChangeMouseState(currentHover.item == null ? MouseState.Normal : currentHover.state);
 	}
 }

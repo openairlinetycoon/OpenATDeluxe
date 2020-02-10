@@ -10,6 +10,7 @@ public class MouseAreaRoom : MouseArea {
 	[Export]
 	public bool isStandardDoor;
 
+	override public int Layer => (int)BaseLayer.MouseAreaRoom;
 	public override void _Ready() {
 		base._Ready();
 
