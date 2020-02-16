@@ -196,6 +196,9 @@ margin_right = 4.18567
 margin_bottom = -21.4166
 texture = ExtResource( 25 )
 
+[node name="PLOffice" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem" index="3"]
+visible = true
+
 [node name="MouseController" type="Node2D" parent="CanvasLayer"]
 material = ExtResource( 19 )
 position = Vector2( 761.252, 372.714 )
@@ -222,7 +225,7 @@ centered = false
 use_parent_material = true
 position = Vector2( -15.5213, -12.6841 )
 frames = SubResource( 2 )
-frame = 1
+frame = 11
 playing = true
 centered = false
 
@@ -259,3 +262,5 @@ bus = "music"
 [editable path="CanvasLayer/MarginContainer/Taskbar/DialogueSystem"]
 
 [editable path="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/PL"]
+
+[editable path="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/PLOffice"]

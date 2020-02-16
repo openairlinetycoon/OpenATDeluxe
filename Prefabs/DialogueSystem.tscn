@@ -27,6 +27,9 @@ margin_right = 1920.0
 margin_bottom = 1080.0
 mouse_filter = 2
 texture = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Light2D" type="Light2D" parent="TelephoneManager"]
 position = Vector2( 960, 540 )
@@ -47,7 +50,6 @@ margin_left = 216.0
 margin_top = 820.0
 margin_right = 1584.0
 margin_bottom = 883.0
-mouse_filter = 2
 script = ExtResource( 5 )
 iconPath = NodePath("../PlayerIcon")
 
@@ -71,4 +73,41 @@ margin_bottom = 63.0
 [node name="Texture" parent="PL/SpeechbubbleFlexible/RightSide/Flip" index="0"]
 rect_pivot_offset = Vector2( 358.5, 31.5 )
 
+[node name="PLOffice" parent="." instance=ExtResource( 4 )]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 262.0
+margin_right = 1522.0
+margin_bottom = 325.0
+
+[node name="LeftSide" parent="PLOffice/SpeechbubbleFlexible" index="0"]
+margin_right = 736.0
+margin_bottom = 63.0
+
+[node name="Texture" parent="PLOffice/SpeechbubbleFlexible/LeftSide" index="0"]
+margin_right = 770.0
+margin_bottom = 63.0
+
+[node name="RightSide" parent="PLOffice/SpeechbubbleFlexible" index="1"]
+margin_left = 736.0
+margin_right = 1472.0
+margin_bottom = 63.0
+
+[node name="Flip" parent="PLOffice/SpeechbubbleFlexible/RightSide" index="0"]
+margin_right = 736.0
+margin_bottom = 63.0
+
+[node name="Texture" parent="PLOffice/SpeechbubbleFlexible/RightSide/Flip" index="0"]
+rect_pivot_offset = Vector2( 384.5, 31.5 )
+
+[node name="Head" parent="PLOffice" index="2"]
+margin_left = -265.0
+margin_top = 30.4516
+margin_right = -248.0
+margin_bottom = 45.4516
+
 [editable path="PL"]
+
+[editable path="PLOffice"]

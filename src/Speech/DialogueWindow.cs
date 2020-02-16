@@ -61,8 +61,9 @@ public class DialogueWindow : Control {
 		RectPosition = basePosition + innerMargin / 2;
 
 		//Move the Speechbubble down a bit when the box is bigger than normal 
-		//to mimmick the original behavior for longer player text. 
-		if (DialogueSystem.currentlyTalking == GameController.CurrentPlayerTag) {
+		//to mimic the original behavior for longer player text.
+		//Except when we are in our office, there we have a different speechbubble!
+		if (DialogueSystem.currentlyTalking == GameController.CurrentPlayerTag && RoomManager.currentRoom != "RoomOffice") {
 			float heightDifference = speechbubble.RectSize.y - 61;
 			heightDifference = Mathf.Min(heightDifference, 140);
 

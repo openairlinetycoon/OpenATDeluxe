@@ -44,6 +44,9 @@ public class PlayerDialogueWindow : DialogueWindow {
 	}
 
 	override public void OnStartTalking() {
+		if(RoomManager.currentRoom == "RoomOffice")
+			return;
+		
 		if (DialogueSystem.currentlyTalking == GameController.CurrentPlayerTag) {
 			isTalking = true;
 			startTime = OS.GetTicksMsec() + mouthIntervall;
@@ -59,7 +62,7 @@ public class PlayerDialogueWindow : DialogueWindow {
 		base._Process(delta);
 
 		Vector2 goal = basePosition;
-		if (DialogueSystem.currentDialogue == null) {
+		if (DialogueSystem.currentDialogue == null || RoomManager.currentRoom == "RoomOffice") {
 			goal = basePosition + movePosition;
 			if (icon.Position.DistanceTo(goal) <= 20) {
 				icon.Hide();

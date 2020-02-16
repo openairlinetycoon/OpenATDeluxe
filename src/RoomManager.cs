@@ -74,12 +74,13 @@ public class RoomManager : Node2D {
 			child.QueueFree();
 		}
 
+		currentRoom = newRoomName;
+		
 		Node2D n = GetRoomInstance(newRoomName);
 		instance.AddChild(n);
-
-		currentRoom = newRoomName;
+		
 		currentRoomNode = n;
-
+		
 		if (!visitedRooms.Contains(newRoomName)) {
 			visitedRooms.Add(newRoomName);
 		}

@@ -185,7 +185,7 @@ public class AnimationGoalTalking : AnimationGoal {
 			goal.triggerID = noTalkingID;
 			return true;
 		}
-		if (DialogueSystem.currentDialogue != creditDialogue) {
+		if (DialogueSystem.IsDialogueActive == false) {
 			goal.triggerID = dialogueStoppedID;
 			return true;
 		}
@@ -207,46 +207,56 @@ public class AnimationGoalListening : AnimationGoal {
 		onTrigger += (g) => WhileListeningAnimHelper(g, currentDialogue, actor, startTalkingID, dialogueStoppedID);
 	}
 
-	private static bool WhileListeningAnimHelper(AnimationGoal goal, Dialogue creditDialogue, string actor, int startTalkingID, int dialogueStoppedID) {
+	private static bool WhileListeningAnimHelper(AnimationGoal goal, Dialogue listeningDialogue, string actor, int startTalkingID, int dialogueStoppedID) {
+		if (DialogueSystem.IsDialogueActive == false) {
+			goal.triggerID = dialogueStoppedID;
+			return true;
+		}
+		
 		if (DialogueSystem.currentlyTalking == actor) {
 			goal.triggerID = startTalkingID;
 			return DialogueSystem.currentSound?.IsTalking() == true;
 		}
-		if (DialogueSystem.currentDialogue != creditDialogue) {
-			goal.triggerID = dialogueStoppedID;
-			return true;
-		}
-
+		
 		return false;
 	}
 }
 
 public class AnimationGoalDialogueStart : AnimationGoal {
-	private void StartDialogue() {
+	private bool startTelephone;
+
+	private void PrepareStartForDialogue() {
 		void Start() {
-			DialogueSystem.StartCurrentDialogue();
-			if (DialogueSystem.currentDialogue == null) {
-				throw new NullReferenceException("Trying to use a dialogue start Animation goal, without properly preparing the dialogue system! Please use DialogueSystem.PrepareDialogue(...) to prepare!");
+			if (DialogueSystem.isTelephoneCall && startTelephone) {
+				DialogueSystem.StartPreparedTelephoneCall();
+				return;
+			}else if(DialogueSystem.isTelephoneCall && startTelephone == false) {
+				return;
 			}
+			
+			DialogueSystem.StartCurrentDialogue();
+				
+			//throw new NullReferenceException("Trying to use a dialogue start Animation goal, without properly preparing the dialogue system! Please use DialogueSystem.PrepareDialogue(...) to prepare!");
 		}
 
 		onFinish = Start;
 	}
 
 	public AnimationGoalDialogueStart() {
-		StartDialogue();
+		PrepareStartForDialogue();
 	}
 
 	public AnimationGoalDialogueStart(Func<AnimationGoal, bool> onTrigger) : base(onTrigger) {
-		StartDialogue();
+		PrepareStartForDialogue();
 
 	}
 
 	public AnimationGoalDialogueStart(SmkAnimation finish = null, SmkAnimation cancel = null, SmkAnimation trigger = null, Func<AnimationGoal, bool> onTrigger = null) : base(finish, cancel, trigger, onTrigger) {
-		StartDialogue();
+		PrepareStartForDialogue();
 	}
 
-	public AnimationGoalDialogueStart(int finish = -1, int cancel = -1, int trigger = -1, Func<AnimationGoal, bool> onTrigger = null) : base(finish, cancel, trigger, onTrigger) {
-		StartDialogue();
+	public AnimationGoalDialogueStart(bool startTelephone = false, int finish = -1, int cancel = -1, int trigger = -1, Func<AnimationGoal, bool> onTrigger = null) : base(finish, cancel, trigger, onTrigger) {
+		this.startTelephone = startTelephone;
+		PrepareStartForDialogue();
 	}
 }

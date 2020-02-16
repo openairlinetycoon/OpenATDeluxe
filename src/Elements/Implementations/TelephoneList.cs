@@ -5,7 +5,10 @@ class TelephoneList : ListElement {
 	class TelephoneListItem : ListItem {
 		public TelephoneListItem(string translationID, string room, string dialogueID) : base("", null) {
 			text = Util.Tr(translationID);
-			onClick = () => DialogueSystem.StartTelephoneCall(room, dialogueID);
+			onClick = () => DialogueSystem.PrepareTelephoneCall(room, dialogueID);
+
+			if (RoomManager.currentRoom != "RoomOffice")
+				onClick += DialogueSystem.StartPreparedTelephoneCall;
 
 			if (RoomManager.WasRoomVisited(room)) {
 				visible = true;

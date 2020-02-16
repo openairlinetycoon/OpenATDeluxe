@@ -47,11 +47,7 @@ public class DialogueSystem : Node2D {
 
 	public static Dictionary<string, Dialogue> registeredDialogues = new Dictionary<string, Dialogue>();
 	public static Dialogue currentDialogue;
-	public static bool IsDialogueActive {
-		get {
-			return currentDialogue != null;
-		}
-	}
+	public static bool IsDialogueActive => currentDialogue != null;
 
 	public static string currentlyTalking;
 
@@ -98,18 +94,32 @@ public class DialogueSystem : Node2D {
 		//GameController.canPlayerInteract = false;
 	}
 
-	public static void AddActor(Actor actor) {
+	public static void AddActor(Actor actor, bool replaceExisting = true) {
 		if (actors.ContainsKey(actor.name)) {
-			GD.Print($"{actor.name} is already added!");
-			return;
+			if (replaceExisting) {
+				actors[actor.name] = actor;
+				return;
+			}else {
+				GD.Print($"{actor.name} is already added! Use \"OverriderActor(...)\" to replace it instead!");
+				return;
+			}
 		}
 		actors.Add(actor.name, actor);
 	}
 
+	public static void OverrideActor(Actor newActor) {
+		if (actors.ContainsKey(newActor.name)) {
+			actors[newActor.name] = newActor;
+			return;
+		}
+		
+		AddActor(newActor);
+	}
+
 	public static Actor GetCurrentActor() {
 		string actor = currentlyTalking;
-		if (!actors.ContainsKey(actor)) { //Fallback
-			actor = GameController.CurrentPlayerTag;
+		if (!actors.ContainsKey(actor)) {
+			actor = GameController.CurrentPlayerTag; //Fallback
 			GD.Print($"No speechbubble found for actor: {currentlyTalking}! Using player actor instead");
 		}
 
@@ -177,7 +187,7 @@ public class DialogueSystem : Node2D {
 	/// </summary>
 	/// <param name="dialogueRoom">The ID of the room. eg. "RoomBank" or "RoomCafe" - see the scenes/rooms folder</param>
 	/// <param name="dialogueName">The ID of the dialogue to start</param>
-	public static void StartTelephoneCall(string dialogueRoom, string dialogueName) {
+	public static void PrepareTelephoneCall(string dialogueRoom, string dialogueName) {
 		//Load Room to the base canvas with the light
 		foreach (Node2D child in otherRoomParent.GetChildren()) {
 			child.QueueFree();
@@ -187,7 +197,7 @@ public class DialogueSystem : Node2D {
 		otherRoomParent.AddChild(newRoom);
 
 		isTelephoneCall = true;
-		StartDialogue(dialogueName);
+		PrepareDialogue(registeredDialogues[dialogueName]);
 
 		Vector2 pushForCorrectPosition = Vector2.Right * GetCurrentActor().horizontalPushForCall;
 		DialogueWindow dialogueWindow = GetCurrentActorSpeechbubble();
@@ -199,6 +209,11 @@ public class DialogueSystem : Node2D {
 		}
 
 		newRoom.Position = pushForCorrectPosition;
+		otherRoomHolder.Hide();
+	}
+
+	public static void StartPreparedTelephoneCall() {
+		StartCurrentDialogue();
 		otherRoomHolder.Show();
 	}
 
@@ -549,6 +564,7 @@ public class DialogueSystem : Node2D {
 
 	public static void StopDialogue() {
 		currentDialogue = null;
+		currentlyTalking = "";
 		InteractionLayerManager.EnableAllLayers();
 		//GameController.canPlayerInteract = true;
 
