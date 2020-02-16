@@ -133,7 +133,6 @@ public class MenuScene : Node2D {
 	}
 
 	public void ChangeScene(IBaseMenu scene, bool klackerOnlyChanges = false) {
-
 		foreach (Control g in grid) {
 			CharacterItem characterItem = (g as CharacterItem);
 			characterItem.AssignedMenuItem = null;
@@ -148,7 +147,7 @@ public class MenuScene : Node2D {
 				g.GetChild(0)?.QueueFree();
 		}
 
-		MouseCursor.instance.ChangeMouseState(MouseCursor.MouseState.Normal, false);
+		MouseCursor.instance.Reset();
 
 		currentScene = scene;
 

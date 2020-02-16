@@ -13,6 +13,8 @@ public class Dialogue {
 	public DialogueNode CurrentNode { get => _currentNode; private set => _currentNode = value; }
 	public int CurrentNodeIndex { get => nodes.IndexOf(_currentNode); }
 
+	public DialogueNode onTelephoneNode;
+
 	// Used to return to previous dialogue nodes
 	Stack<DialogueNode> dialogueStack = new Stack<DialogueNode>();
 	List<DialogueNode> nodes = new List<DialogueNode>();
@@ -35,6 +37,10 @@ public class Dialogue {
 		nodes.Add(node);
 
 		return this;
+	}
+
+	public void AddOnTelephoneNode(DialogueNodeReturning onTelephoneNode) {
+		this.onTelephoneNode = onTelephoneNode;
 	}
 
 	/// <summary>
@@ -80,7 +86,9 @@ public class Dialogue {
 		DialogueNode nextNode = CurrentNode.options[id].GetDestinationNode();
 		if (CurrentNode.options[id] is DialogueOptionReturning) {
 			ReturnToPrevNode();
-		} else {
+		} else if (CurrentNode.options[id] is DialogueOptionTelephone && nextNode == null) {
+			StartNode(onTelephoneNode); //We skip to the default when we are calling and the option didn't specify a custom node
+		}else{
 			StartNode(nextNode);
 		}
 	}

@@ -20,6 +20,8 @@ public class Bank : BaseRoom {
 
 		Dialogue loanDialogue = new Dialogue("Bank", nameof(loanDialogue), "B2");
 		{ // loan
+			loanDialogue.AddOnTelephoneNode(new DialogueNodeReturning(150));
+			
 			DialogueNode startLoan = new DialogueNode(109);
 			DialogueNodeReturning noNewLoan = new DialogueNodeReturning(120);
 			DialogueNodeReturning noReturningOfLoan = new DialogueNodeReturning(140);
@@ -28,28 +30,29 @@ public class Bank : BaseRoom {
 				.AddNode(noNewLoan)
 				.AddNode(noReturningOfLoan);
 
-			startLoan.AddOptions(new DialogueOption(101, noNewLoan),
-								 new DialogueOption(102, noReturningOfLoan),
+			startLoan.AddOptions(new DialogueOptionTelephone(101, noNewLoan),
+								 new DialogueOptionTelephone(102, noReturningOfLoan),
 								 new DialogueOptionReturning(103));
 		}
 
-		Dialogue sharesDialogue = new Dialogue("Bank", nameof(sharesDialogue), "BA");
+		Dialogue stocksDialogue = new Dialogue("Bank", nameof(stocksDialogue), "BA");
 		// shares
 		{//keep them in scope, so that we don't use the wrong nodes from the prev. dialogue
-			DialogueNode startShare = new DialogueNode(900);
+			stocksDialogue.AddOnTelephoneNode(new DialogueNodeReturning(1200));
+			DialogueNode startStock = new DialogueNode(900);
 
-			DialogueNode buyShares = new DialogueNode(2000) { returnable = false };
-			DialogueNodeReturning noShares = new DialogueNodeReturning(1200);
+			DialogueNode buyStocks = new DialogueNode(2000) { returnable = false };
+			DialogueNodeReturning noStocks = new DialogueNodeReturning(1200);
 			DialogueNodeReturning noSelling = new DialogueNodeReturning(1100);
 
-			startShare.AddOptions(new DialogueOption(1000, buyShares),
-								  new DialogueOption(1001, noSelling),
+			startStock.AddOptions(new DialogueOptionTelephone(1000, buyStocks),
+								  new DialogueOptionTelephone(1001, noSelling),
 								  new DialogueOptionReturning(1005));
 
 			//buyShares 2000
 			DialogueNode okBuyAnother = new DialogueNode(2030) { returnable = false };
 
-			buyShares.AddOptions(
+			buyStocks.AddOptions(
 				new DialogueOption(2010, okBuyAnother, GameController.playerCompanyNames[0], GameController.playerNames[0]),
 				new DialogueOption(2011, okBuyAnother, GameController.playerCompanyNames[1], GameController.playerNames[1]),
 				new DialogueOption(2012, okBuyAnother, GameController.playerCompanyNames[2], GameController.playerNames[2]),
@@ -69,7 +72,7 @@ public class Bank : BaseRoom {
 
 
 
-			sharesDialogue.AddNode(startShare);
+			stocksDialogue.AddNode(startStock);
 			// 	.AddNode(buyShares)
 			// 	.AddNode(okBuyAnother)
 			// 	.AddNode(noShares)
@@ -78,7 +81,7 @@ public class Bank : BaseRoom {
 		}
 
 		loanAnims.mouseArea.onClick += () => { DialogueSystem.PrepareDialogue(loanDialogue); DialogueSystem.StartWithOptions(); };
-		sharesAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(sharesDialogue);
+		sharesAnims.mouseArea.onClick += () => DialogueSystem.PrepareDialogue(stocksDialogue);
 		//DialogueSystem.StartDialogue(shareDialogue, "P2", "BA");
 
 		bool alreadyFired = false;
@@ -117,7 +120,7 @@ public class Bank : BaseRoom {
 
 		//Shares
 		sharesAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BM_Wait.smk", goal: new AnimationGoal(onTrigger: (g) => TriggerIdleAnimation(g, sharesDialogue))));
+			SmkAnimation.CreateAnimation(baseNode, "BM_Wait.smk", goal: new AnimationGoal(onTrigger: (g) => TriggerIdleAnimation(g, stocksDialogue))));
 		sharesAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BM_Scrib.smk", goal: new AnimationGoal(finish: 0, cancel: 0)));
 		sharesAnims.Add(
@@ -126,13 +129,13 @@ public class Bank : BaseRoom {
 			SmkAnimation.CreateAnimation(baseNode, "BM_TurnZ.smk", goal: new AnimationGoal(finish: 0)));
 		sharesAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BM_RedeW.smk",
-			goal: new AnimationGoalListening(sharesDialogue, "BA", 6, 3)));
+			goal: new AnimationGoalListening(stocksDialogue, "BA", 6, 3)));
 		sharesAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BM_RedeK.smk",
-			goal: new AnimationGoalListening(sharesDialogue, "BA", 6, 3) { finishID = 4 }));
+			goal: new AnimationGoalListening(stocksDialogue, "BA", 6, 3) { finishID = 4 }));
 		sharesAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BM_Rede.smk",
-			goal: new AnimationGoalTalking(sharesDialogue, "BA", 4, 3)));
+			goal: new AnimationGoalTalking(stocksDialogue, "BA", 4, 3)));
 
 		loanAnims.Play(0);
 		sharesAnims.Play(0);

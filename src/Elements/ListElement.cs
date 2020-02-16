@@ -30,6 +30,12 @@ public class ListElement : BaseElement {
 
 		linePrefab.Visible = false;
 		Visible = false;
+		GameController.onUnhandledInput += OnUnhandledInput;
+	}
+
+	private void OnUnhandledInput()
+	{
+		if (Visible) HideElement();
 	}
 
 	public void ShowElement() {
@@ -71,7 +77,8 @@ public class ListElement : BaseElement {
 			baseListItem.AddChild(line);
 		}
 
-		GameController.canPlayerInteract = false;
+		//GameController.canPlayerInteract = false;
+		InteractionLayerManager.DisableAllLayersButOne(BaseLayer.Elements);
 		Show();
 	}
 
@@ -82,11 +89,12 @@ public class ListElement : BaseElement {
 	public void HideElement() {
 		Visible = false;
 
-		GameController.canPlayerInteract = true;
+		InteractionLayerManager.EnableAllLayers();
+		//GameController.canPlayerInteract = true;
 	}
 
-	public int GetLayer() {
-		throw new NotImplementedException();
+	public override void _ExitTree() {
+		GameController.onUnhandledInput -= OnUnhandledInput;
 	}
 }
 

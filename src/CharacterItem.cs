@@ -17,21 +17,17 @@ public class CharacterItem : Control {
 	}
 
 	public void MouseEntered() {
-		MouseCursor.instance.MouseEnter(null);
+		MouseCursor.instance.MouseEnter(this);
 	}
 	public void MouseExited() {
-		MouseCursor.instance.MouseLeave(null);
+		MouseCursor.instance.MouseLeave(this);
 	}
 
 
-	public override void _GuiInput(InputEvent e) {
-		InputEventMouseButton mouse = e as InputEventMouseButton;
-
-		if (mouse != null && AssignedMenuItem != null) {
-			if (mouse.Pressed && mouse.ButtonIndex == (int)ButtonList.Left) {
+	public void OnClick() {
+		if (AssignedMenuItem != null) {
 				AssignedMenuItem?.OnClick?.Invoke();
 				AssignedMenuItem?.OnClickSpecial?.Invoke(stringPosition);
-			}
 		}
 	}
 }

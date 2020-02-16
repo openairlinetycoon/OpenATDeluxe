@@ -33,7 +33,7 @@ public class DialogueSystem : Node2D {
 		otherRoomHolder.Hide();
 
 		RoomManager.OnRoomExit += CleanActors;
-		GameController.onSkip += Skip;
+		GameController.onUnhandledInput += Skip;
 
 		AddPlayerActor();
 	}
@@ -94,7 +94,7 @@ public class DialogueSystem : Node2D {
 
 	private static void SetCurrentDialogue(Dialogue dialogue) {
 		currentDialogue = dialogue;
-		InteractionLayerManager.DisableAllLayersButOne((int)BaseLayer.Dialogue);
+		InteractionLayerManager.DisableAllLayersButOne((int)BaseLayer.Elements);
 		//GameController.canPlayerInteract = false;
 	}
 

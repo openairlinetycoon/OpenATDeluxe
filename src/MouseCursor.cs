@@ -6,8 +6,6 @@ using System;
 public class MouseCursor : Node2D {
 	public static MouseCursor instance;
 
-	GFXLibrary lib;
-
 	List<Node2D> states = new List<Node2D>();
 
 	MouseState currentState;
@@ -139,7 +137,7 @@ public class MouseCursor : Node2D {
 
 	public void ChangeMouseState(MouseState toState, bool toCurrentHover = true) {
 		if (toCurrentHover && currentHover.item is IInteractionLayer l) {
-			if (InteractionLayerManager.IsLayerDisabled(l.Layer)) {
+			if (InteractionLayerManager.IsLayerDisabled(l)) {
 				return;
 			}
 		}
@@ -176,13 +174,13 @@ public class MouseCursor : Node2D {
 			//GD.Print(currentHover.Name);
 		}
 		if (e is InputEventMouseButton mouse) {
-			GameController.OnMouseClick(mouse);
+			//GameController.OnMouseClick(mouse);
 
 			if (mouse.IsPressed()) {
 				bool handled = false;
 				if (currentHover.item != null && movingCamera == 0 && IsInstanceValid(currentHover.item)) {
 					if (currentHover.item is IInteractionLayer l) {
-						if (InteractionLayerManager.IsLayerDisabled(l.Layer))
+						if (InteractionLayerManager.IsLayerDisabled(l))
 							return;
 
 						GD.Print($"Layer: {l.Layer}");
@@ -205,6 +203,7 @@ public class MouseCursor : Node2D {
 		movingCamera = 0;
 		currentState = MouseState.Normal;
 		currentHover = default(HoverStackItem);
+		hovers.Clear();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

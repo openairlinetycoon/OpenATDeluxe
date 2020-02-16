@@ -8,7 +8,7 @@ class TelephoneList : ListElement {
 			onClick = () => DialogueSystem.StartTelephoneCall(room, dialogueID);
 
 			if (RoomManager.WasRoomVisited(room)) {
-
+				visible = true;
 			}
 		}
 	}
@@ -18,7 +18,7 @@ class TelephoneList : ListElement {
 		this.lines = new List<ListItem>(
 			new ListItem[] {
 				new TelephoneListItem("Filo>2001", "RoomBank", "loanDialogue"),
-				new TelephoneListItem("Filo>2002", "RoomBank", "sharesDialogue"),
+				new TelephoneListItem("Filo>2002", "RoomBank", "stocksDialogue"),
 			});
 	}
 

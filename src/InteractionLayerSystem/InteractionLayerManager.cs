@@ -12,8 +12,8 @@ static class InteractionLayerManager {
 	public static List<int> disabledLayers;
 
 	public static int GetCurrentLayer(Node me) {
-
 		Node parent;
+		
 		while ((parent = me.GetParentOrNull<Node>()) != null) {
 			if (parent is IInteractionLayer layer) {
 				return layer.Layer;
@@ -51,6 +51,9 @@ static class InteractionLayerManager {
 
 		disabledLayers.Remove(currentLayer);
 	}
+	public static void DisableAllLayersButOne(BaseLayer currentLayer) {
+		DisableAllLayersButOne((int) currentLayer);
+	}
 
 	public static void DisableAllLayers() {
 		disabledLayers.Clear();
@@ -66,11 +69,29 @@ static class InteractionLayerManager {
 	public static bool IsLayerDisabled(int layer) {
 		return disabledLayers.Contains(layer);
 	}
+	
+	public static void EnableLayer(BaseLayer layer) {
+		disabledLayers.Remove((int)layer);
+	}
+
+	public static bool IsLayerDisabled(BaseLayer layer) {
+		return disabledLayers.Contains((int)layer);
+	}
+	
+	public static void EnableLayer(IInteractionLayer layer) {
+		disabledLayers.Remove(layer.Layer);
+	}
+
+	public static bool IsLayerDisabled(IInteractionLayer layer) {
+		return disabledLayers.Contains(layer.Layer);
+	}
+
+
 }
 
 public enum BaseLayer : int {
 	Default = 0,
 	MouseAreaRoom,
 	MouseArea,
-	Dialogue
+	Elements,
 }

@@ -32,7 +32,7 @@ public class GameController : Node2D {
 	public static string[] playerCompanyNames = { "Sunshine Airways", "Falcon Lines", "Phönix Travel", "Honey Airlines" };
 	public static string[] playerNames = { "Tina Cortez", "Siggi Sorglos", "Igor Tuppolevsky", "Mario Zucchero" };
 
-	public static Action onSkip;
+	public static Action onUnhandledInput;
 	public static bool canPlayerInteract = true;
 
 	public override void _Ready() {
@@ -46,7 +46,7 @@ public class GameController : Node2D {
 	public override void _UnhandledInput(InputEvent @event) {
 		if (@event is InputEventKey k) {
 			if (k.IsPressed() && k.Scancode == (int)KeyList.Space) {
-				onSkip?.Invoke();
+				onUnhandledInput?.Invoke();
 			}
 		}
 		if (@event is InputEventMouseButton m) {
@@ -56,7 +56,7 @@ public class GameController : Node2D {
 
 	public static void OnMouseClick(InputEventMouseButton m) {
 		if (m.IsPressed() && m.ButtonIndex == (int)ButtonList.Left) {
-			onSkip?.Invoke();
+			onUnhandledInput?.Invoke();
 		}
 	}
 

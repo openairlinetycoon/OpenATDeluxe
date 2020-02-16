@@ -26,7 +26,7 @@ public class LineElement : Control, IInteractionLayer {
 		onMouseLeave?.Invoke();
 	}
 	public void OnClick() {
-		MouseCursor.instance?.ChangeMouseState(MouseCursor.MouseState.Normal, false);
+		MouseExited();
 		onClick?.Invoke();
 	}
 
@@ -38,5 +38,5 @@ public class LineElement : Control, IInteractionLayer {
 		}
 	}
 
-	public int Layer => (int)BaseLayer.Dialogue;
+	public int Layer => (int)BaseLayer.Elements;
 }

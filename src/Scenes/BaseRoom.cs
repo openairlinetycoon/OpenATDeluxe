@@ -13,6 +13,10 @@ public abstract class BaseRoom : Node2D {
 		OnReady();
 	}
 
+	override public void _ExitTree() {
+		DialogueSystem.CleanActors();
+	}
+
 	/// <summary>
 	/// Substitute for a forced call to base._Ready() 
 	/// </summary>

@@ -5,7 +5,7 @@ public class DialogueOption {
 
 	public string[] wildcards;
 
-	DialogueNode destination;
+	protected DialogueNode destination;
 
 	public DialogueOption(int textId, DialogueNode destination, params string[] wildcards) {
 		this.textId = textId;
@@ -19,6 +19,7 @@ public class DialogueOption {
 }
 public class DialogueOptionReturning : DialogueOption {
 	public DialogueOptionReturning(int textId, params string[] wildcards) : base(textId, null, wildcards) {
+
 	}
 
 	override public DialogueNode GetDestinationNode() {
@@ -33,7 +34,33 @@ public class DialogueOptionConditioned : DialogueOption {
 		this.condition = destinations;
 	}
 
+	override public DialogueNode GetDestinationNode() {
+		return condition.Invoke();
+	}
+}
+
+public class DialogueOptionTelephoneConditioned : DialogueOption {
+	public Func<DialogueNode> condition;
+	DialogueNodeReturning onTelephone;
+
+	public DialogueOptionTelephoneConditioned(int textId, Func<DialogueNode> destinations, DialogueNodeReturning onTelephone = null, params string[] wildcards) : base(textId, null, wildcards) {
+		this.condition = destinations;
+		this.onTelephone = onTelephone;
+	}
+
+	override public DialogueNode GetDestinationNode() {
+		return DialogueSystem.isTelephoneCall ? onTelephone : condition.Invoke();
+	}
+}
+
+public class DialogueOptionTelephone : DialogueOption {
+	DialogueNodeReturning onTelephone;
+	
+	public DialogueOptionTelephone(int textId, DialogueNode destination, DialogueNodeReturning onTelephone = null, params string[] wildcards) : base(textId, destination, wildcards) {
+		this.onTelephone = onTelephone;
+	}
+
 	public override DialogueNode GetDestinationNode() {
-		throw new NotImplementedException();
+		return DialogueSystem.isTelephoneCall ? onTelephone : destination;
 	}
 }

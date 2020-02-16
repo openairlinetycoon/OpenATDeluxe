@@ -25,6 +25,7 @@ render_target_v_flip = true
 light_mask = 2
 margin_right = 1920.0
 margin_bottom = 1080.0
+mouse_filter = 2
 texture = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="TelephoneManager"]
