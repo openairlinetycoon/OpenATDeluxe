@@ -27,7 +27,7 @@ public class SoundPlayer : AudioStreamPlayer {
 
 				_shortData = new UInt16[size];
 				for (var index = 0; index < size; index++) {
-					shortData[index] = BitConverter.ToUInt16(data, index * sizeof(UInt16));
+					_shortData[index] = BitConverter.ToUInt16(data, index * sizeof(UInt16));
 				}
 			}
 
