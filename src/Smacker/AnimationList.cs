@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using Environment = Godot.Environment;
 
 public class AnimationList : List<SmkAnimation> {
 	public static Action OnCancelTrigger;
@@ -165,6 +166,39 @@ public class AnimationGoal {
 	}
 }
 
+public class AnimationGoalIdle : AnimationGoal {
+	/// <summary>
+	/// AnimationGoal for a idle animation. Will switch between some random animations, this animation and to a dialogue animation when a dialogue starts
+	/// </summary>
+	/// <param name="actor">The actor of this animation in any dialogue</param>
+	/// <param name="dialogueStartId">The animation to play when the player starts the conversation</param>
+	/// <param name="idleAnimationsIds">A list of animations which get played at random intervals</param>
+	public AnimationGoalIdle(string actor, int dialogueStartId, params int[] idleAnimationsIds) : base() {
+		onTrigger += (g) => IdleAnimHelper(g, actor, dialogueStartId, idleAnimationsIds);
+	}
+
+	private int randomInterval;
+	private int maxTimeBetweenIntervals = 10; //in seconds
+	private int minTimeBetweenIntervals = 2; //in seconds
+	
+	private bool IdleAnimHelper(AnimationGoal goal, string actor, int dialogueStartId, int[] idleAnimationsIds) {
+		if (DialogueSystem.IsDialogueActive && (DialogueSystem.actorA == actor || DialogueSystem.actorB == actor)) {
+			goal.triggerID = dialogueStartId;
+			return true;
+		}
+
+		if (idleAnimationsIds?.Length != 0 && randomInterval <= OS.GetTicksMsec()) {
+			goal.triggerID = idleAnimationsIds[GameController.r.Next(0, idleAnimationsIds.Length)];
+
+			randomInterval = (int)OS.GetTicksMsec() + 1000 * (int)(GameController.r.NextDouble() * maxTimeBetweenIntervals)+minTimeBetweenIntervals;
+			
+			return true;
+		}
+
+		return false;
+	}
+}
+
 public class AnimationGoalTalking : AnimationGoal {
 	/// <summary>
 	/// AnimationGoal for a talking animation. Will switch between a listening animation, this animation and back to a normal animation when the dialogue stopped
@@ -192,9 +226,8 @@ public class AnimationGoalTalking : AnimationGoal {
 
 		return false;
 	}
-
-
 }
+
 public class AnimationGoalListening : AnimationGoal {
 	/// <summary>
 	/// AnimationGoal for a listening animation. Will switch between a talking animation, this animation and back to a normal animation when the dialogue stopped

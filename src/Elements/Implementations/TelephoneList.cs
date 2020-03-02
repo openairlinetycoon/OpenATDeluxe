@@ -22,6 +22,8 @@ class TelephoneList : ListElement {
 			new ListItem[] {
 				new TelephoneListItem("Filo>2001", "RoomBank", "loanDialogue"),
 				new TelephoneListItem("Filo>2002", "RoomBank", "stocksDialogue"),
+				
+				new TelephoneListItem("Filo>2003", "RoomManager", "managerDialogue"),
 			});
 	}
 

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 public class GameController : Node2D {
 	public static GameController instance;
 
-	static GameController() {
-		void HandleTaskException(object e) {
-			Task t = e as Task;
-
-			GD.Print($"Unhandled exception in task!\n{t.Exception.InnerException.Message}\n{t.Exception.InnerException.StackTrace}");
-		}
-		TaskScheduler.UnobservedTaskException += (o, e) => HandleTaskException(o);
-	}
+	// static GameController() {
+	// 	void HandleTaskException(object e) {
+	// 		Task t = e as Task;
+	//
+	// 		GD.Print($"Unhandled exception in task!\n{t.Exception.InnerException.Message}\n{t.Exception.InnerException.StackTrace}");
+	// 	}
+	// 	TaskScheduler.UnobservedTaskException += (o, e) => HandleTaskException(o);
+	// }
 
 	public static int currentPlayerID = 2;
 	public static string CurrentPlayerTag {
@@ -35,6 +35,10 @@ public class GameController : Node2D {
 	public static Action onUnhandledInput;
 	public static bool canPlayerInteract = true;
 
+	public static Random r = new Random();
+
+	public static bool fastForward = false;
+
 	public override void _Ready() {
 		instance = this;
 		taskbar = GetNode<Control>(_taskbar);
@@ -45,8 +49,10 @@ public class GameController : Node2D {
 
 	public override void _UnhandledInput(InputEvent @event) {
 		if (@event is InputEventKey k) {
-			if (k.IsPressed() && k.Scancode == (int)KeyList.Space) {
-				onUnhandledInput?.Invoke();
+			fastForward = false;
+			if (k.Scancode == (int)KeyList.Space) {
+				//onUnhandledInput?.Invoke();
+				fastForward = k.Pressed;
 			}
 		}
 		if (@event is InputEventMouseButton m) {
@@ -60,6 +66,12 @@ public class GameController : Node2D {
 		}
 	}
 
+	override public void _Process(float delta) {
+		TimeScale = fastForward ? 20:1;
+
+	}
+
+	public static int TimeScale { get; set; }
 
 	public void OnScreenSizeChanged() {
 		//GetViewport().SetSizeOverride(true, new Vector2(OS.GetWindowSize().x, GetViewportRect().Size.y));

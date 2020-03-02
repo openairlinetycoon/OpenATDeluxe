@@ -30,10 +30,10 @@ public class Manager : BaseRoom {
 			managerDialogue.AddNode(start);
 		}
 
-		manager.mouseArea.onClick += () => { DialogueSystem.StartDialogue(managerDialogue); manager.Play(2); };
+		manager.mouseArea.onClick += () => { DialogueSystem.StartDialogue(managerDialogue); };
 
 		manager.Add(
-			SmkAnimation.CreateAnimation(baseNode, "BB_Wait.smk"));
+			SmkAnimation.CreateAnimation(baseNode, "BB_Wait.smk", goal: new AnimationGoalIdle("BO", 1)));
 		manager.Add(
 			SmkAnimation.CreateAnimation(baseNode, "BB_Wait.smk",
 			goal: new AnimationGoalListening(managerDialogue, "BO", 2, 0)));

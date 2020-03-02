@@ -111,6 +111,9 @@ public class BaseCharacter : AnimatedSprite {
 	}
 
 	override public void _Process(float delta) {
+		delta *= GameController.TimeScale;
+		SpeedScale = data.speed *GameController.TimeScale;
+		
 		Update();
 		if (path != null && path?.Count != 0) {
 			MoveOnPath(SpeedWalking * delta);

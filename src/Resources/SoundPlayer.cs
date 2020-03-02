@@ -91,6 +91,11 @@ public class SoundPlayer : AudioStreamPlayer {
 		if (!IsPlaying() && started) {
 			started = false;
 			OnSoundFinished?.Invoke();
+
+			if (loop) {
+				started = true;
+				Play();
+			}
 		}
 	}
 

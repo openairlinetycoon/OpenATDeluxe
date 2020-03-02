@@ -44,11 +44,14 @@ public class Office : BaseRoom {
 
 		//Idle: 0
 		playerAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, player + "Wait.smk", goal: new AnimationGoal(onTrigger: (goal)=> {
-				bool isTriggered = TriggerIdleAnimation(goal);
-				isTriggered = isTriggered | TriggerTelephoneAnimation(goal); //Order matters! The later this call, the higher the priority!
-				return isTriggered;
-			})));
+			SmkAnimation.CreateAnimation(baseNode, player + "Wait.smk",
+				goal: new AnimationGoalIdle(GameController.CurrentPlayerTag,7,1,2,3)
+			// 	goal: new AnimationGoal(onTrigger: (goal)=> {
+			// 	bool isTriggered = TriggerIdleAnimation(goal);
+			// 	isTriggered = isTriggered | TriggerTelephoneAnimation(goal); //Order matters! The later this call, the higher the priority!
+			// 	return isTriggered;
+			// })
+				));
 		
 		//Idle animation: 1
 		playerAnims.Add(
@@ -76,7 +79,8 @@ public class Office : BaseRoom {
 		
 		//Phone grab: 7
 		playerAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, player + "Telef.smk", goal: new AnimationGoalDialogueStart(true, finish: 8, cancel: 8)));
+			SmkAnimation.CreateAnimation(baseNode, player + "Telef.smk", audio: SoundPlayer.CreatePlayer($"/video/{player}telef.raw", "effects"),
+				goal: new AnimationGoalDialogueStart(true, finish: 8, cancel: 8)));
 		
 		//Phone wait: 8
 		playerAnims.Add(
@@ -90,7 +94,8 @@ public class Office : BaseRoom {
 		
 		//Phone return: 10
 		playerAnims.Add(
-			SmkAnimation.CreateAnimation(baseNode, player + "TeleZ.smk", goal: new AnimationGoal(finish: 0)));
+			SmkAnimation.CreateAnimation(baseNode, player + "TeleZ.smk", audio: SoundPlayer.CreatePlayer($"/video/{player}telez.raw", "effects"),
+				goal: new AnimationGoal(finish: 0)));
 		
 
 		playerAnims.Play(0);
