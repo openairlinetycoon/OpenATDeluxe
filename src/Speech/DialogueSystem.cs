@@ -523,7 +523,7 @@ public class DialogueSystem : Node2D {
 
 	private static void StartDialogueAnswerSpeech(int optionIndex) {
 		string[] wildcards = currentDialogue.CurrentNode.options[optionIndex].wildcards;
-		int textId = currentDialogue.CurrentNode.options[optionIndex].textId;
+		int textId = currentDialogue.CurrentNode.options[optionIndex].TextId;
 
 		string currentFullText;
 		List<string> instructions;
@@ -563,6 +563,8 @@ public class DialogueSystem : Node2D {
 	}
 
 	public static void StopDialogue() {
+		Speechbubble?.Hide();
+		
 		currentDialogue = null;
 		currentlyTalking = "";
 		InteractionLayerManager.EnableAllLayers();

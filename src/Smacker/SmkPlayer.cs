@@ -10,7 +10,7 @@ public class SmkPlayer : Sprite {
 
 	public bool isPlaying = true;
 
-	ImageTexture[] buffer;
+	protected ImageTexture[] buffer;
 
 	float fps;
 	float timeDelta;
@@ -52,7 +52,7 @@ public class SmkPlayer : Sprite {
 	/// The decoder needs to go through every frame to fully populate a palette.
 	/// the sequence would be heavily fragmented in the first run, if we don't do this.
 	/// </summary>
-	private void PrewarmDecoder() {
+	protected void PrewarmDecoder() {
 		int frames = (int)file.Header.NbFrames;
 		buffer = new ImageTexture[frames];
 
@@ -60,7 +60,6 @@ public class SmkPlayer : Sprite {
 			decoder.ReadNextFrame(true);
 		}
 		decoder.Reset();
-
 	}
 
 	/// <summary>
@@ -77,7 +76,7 @@ public class SmkPlayer : Sprite {
 		}
 	}
 
-	private void PrepareFrameImage() {
+	protected void PrepareFrameImage() {
 		decoder.ReadNextFrame();
 		buffer[currentFrame] = PrepareImageTexture();
 	}
@@ -94,8 +93,8 @@ public class SmkPlayer : Sprite {
 		return t;
 	}
 
-	Stream fileStream;
-	private void LoadSmacker(bool loadFileToMemory = true) {
+	protected Stream fileStream;
+	protected void LoadSmacker(bool loadFileToMemory = true) {
 		if (loadFileToMemory) {
 			//These files are not that big, so we can just load them into memory, to free the file
 			FileStream temp = new FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open);

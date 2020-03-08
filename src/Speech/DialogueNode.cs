@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Godot;
+
 /*
     Needs:
     -Branching on condition
@@ -50,6 +52,10 @@ public class DialogueNode {
 		}
 	}
 
+	public void AddEvent(Action onSpeechFinished) {
+		this.onSpeechFinished += onSpeechFinished;
+	}
+	
 	public void PreventReturning() {
 		returnable = false;
 	}
@@ -74,5 +80,19 @@ public class DialogueNodeReturning : DialogueNode {
 		base.OnSpeechFinished();
 
 		master.ReturnToPrevNode(); //We are done here... maybe. TODO: Check if the game returns to prev. node when they finished talking
+	}
+}
+
+public class DialogueNodeExit : DialogueNode {
+	public DialogueNodeExit(int textId, params string[] wildcards) : base(textId, wildcards) {
+		returnable = false;
+	}
+
+	new private void AddOption(DialogueOption option) { } //We don't allow options for returning nodes. That would confuse people
+
+	public override void OnSpeechFinished() {
+		base.OnSpeechFinished();
+
+		DialogueSystem.StopDialogue();
 	}
 }

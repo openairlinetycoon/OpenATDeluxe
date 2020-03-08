@@ -16,25 +16,6 @@ public class Office : BaseRoom {
 
 		playerAnims.basePosition = playerPos;
 
-		bool alreadyFired = false;
-		bool TriggerIdleAnimation(AnimationGoal goal) {
-			//If phonecall happens:
-			bool ret = !alreadyFired;
-			alreadyFired = true;
-			
-			if(ret)
-				goal.triggerID = 1;
-			
-			return ret;
-		}
-
-		bool TriggerTelephoneAnimation(AnimationGoal goal) {
-			bool ret = DialogueSystem.IsDialogueActive;
-			if(ret)
-				goal.triggerID = 7;
-			return ret;
-		}
-
 		MouseArea telephone = (MouseArea)GetNode(telephonePath);
 		telephone.onClick += () => telephoneList.ShowElement();
 		telephoneList = (ListElement)GetNode(telephoneListPath);
@@ -46,11 +27,6 @@ public class Office : BaseRoom {
 		playerAnims.Add(
 			SmkAnimation.CreateAnimation(baseNode, player + "Wait.smk",
 				goal: new AnimationGoalIdle(GameController.CurrentPlayerTag,7,1,2,3)
-			// 	goal: new AnimationGoal(onTrigger: (goal)=> {
-			// 	bool isTriggered = TriggerIdleAnimation(goal);
-			// 	isTriggered = isTriggered | TriggerTelephoneAnimation(goal); //Order matters! The later this call, the higher the priority!
-			// 	return isTriggered;
-			// })
 				));
 		
 		//Idle animation: 1

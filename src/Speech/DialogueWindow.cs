@@ -180,7 +180,7 @@ public class DialogueWindow : Control {
 			textLabel.AddChild(newLine);
 
 			//text += "* ";
-			text = GetFullCleanTrText(option.textId, dialogue, option.wildcards);
+			text = GetFullCleanTrText(option.TextId, dialogue, option.wildcards);
 			//text += '\n';
 			textLabel.CallDeferred("set_text", text);
 
@@ -204,7 +204,7 @@ public class DialogueWindow : Control {
 		lineContainer.AddChild(line);
 		lines.Add(line);
 
-		string text = GetFullCleanTrText(dialogue.CurrentNode.options[optionIndex].textId, dialogue, dialogue.CurrentNode.options[optionIndex].wildcards);
+		string text = GetFullCleanTrText(dialogue.CurrentNode.options[optionIndex].TextId, dialogue, dialogue.CurrentNode.options[optionIndex].wildcards);
 
 		textLabel.CallDeferred("set_text", text);
 

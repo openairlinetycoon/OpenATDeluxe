@@ -1,7 +1,8 @@
 using System;
 
 public class DialogueOption {
-	public int textId;
+	protected int textId;
+	public virtual int TextId => textId;
 
 	public string[] wildcards;
 
@@ -28,14 +29,26 @@ public class DialogueOptionReturning : DialogueOption {
 }
 
 public class DialogueOptionConditioned : DialogueOption {
-	public Func<DialogueNode> condition;
+	public Func<DialogueNode> conditionDestination;
+	public Func<int> conditionText;
+
+	override public int TextId {
+		get { return conditionText?.Invoke() ?? textId; }
+	}
 
 	public DialogueOptionConditioned(int textId, Func<DialogueNode> destinations, params string[] wildcards) : base(textId, null, wildcards) {
-		this.condition = destinations;
+		this.conditionDestination = destinations;
+	}
+	public DialogueOptionConditioned(Func<int> text, Func<DialogueNode> destinations, params string[] wildcards) : base(0, null, wildcards) {
+		this.conditionDestination = destinations;
+		this.conditionText = text;
+	}
+	public DialogueOptionConditioned(Func<int> text, DialogueNode destination, params string[] wildcards) : base(0, destination, wildcards) {
+		this.conditionText = text;
 	}
 
 	override public DialogueNode GetDestinationNode() {
-		return condition.Invoke();
+		return conditionDestination?.Invoke() ?? destination;
 	}
 }
 
