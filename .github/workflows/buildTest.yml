@@ -17,7 +17,9 @@ jobs:
     - name: Setup Godot
       run: |
         mkdir .mono/assemblies/Debug/
-        Invoke-WebRequest -OutFile .mono/assemblies/Debug/GodotSharp.dll 'https://docs.google.com/uc?export=download&id=1lJtvcU5oJcCg_impXrFQRcnX7iK9ZJ1Y'
-        Invoke-WebRequest -OutFile .mono/assemblies/Debug/GodotSharpEditor.dll 'https://docs.google.com/uc?export=download&id=1OVJwdZeK3McGcHjtJktEApaalFaFP2Ym'
+        Invoke-WebRequest -OutFile ass.zip 'https://downloads.tuxfamily.org/godotengine/3.2/mono/Godot_v3.2-stable_mono_win64.zip'
+        Expand-Archive -Path .\ass.zip -DestinationPath "godot"
+        Move "godot\Godot_v3.2-stable_mono_win64\GodotSharp\Api\Debug\" ".mono/assemblies/Debug/"
+        Move "godot\Godot_v3.2-stable_mono_win64\GodotSharp\Api\Release\" ".mono/assemblies/Release/"
     - name: Build with dotnet
       run: dotnet build --configuration Tools
