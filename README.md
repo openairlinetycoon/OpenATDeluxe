@@ -17,14 +17,16 @@ You can help by getting involved in active development of [things to do](https:/
 - Data import is 90% finished [#5](https://github.com/openairlinetycoon/OpenATDeluxe/issues/5)
 - The airport is implemented
 - The player character is implemented
+- All of the gameplay is still missing
 
 ## Todo
 - See [board](https://github.com/openairlinetycoon/OpenATDeluxe/projects/1)
 
 ## How to compile the Godot branch
-- Download Godot 3.1 Mono or later
+- Download Godot 3.2 Mono or later
 - Install Airline Tycoon Deluxe and download this repository
-- Go to the Build Manager tab on the upper left corner of godot
+- Build the project in godot ("Build" in the top right corner in godot)
+- Go to the new Build Manager tab on the upper left corner of godot
 - Enter the Airline Tycoon Deluxe path and hit "Extract Images" in the Images tab of the builder interface. Godot will now load all files. This will take a little while. You have to restart godot to see the new files, as godot does not update the explorer
 
 (The game images can't be posted on github due to copyright reasons. Thats why there are files missing inside the project. Opening scenes let's godot know that there are files missing and it will delete all references to those files. If we run the project before godot checks for files, all missing files will be added!)
