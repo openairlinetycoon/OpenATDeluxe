@@ -8,6 +8,7 @@ public class Cafe : BaseRoom {
 	//SAVED
 	public static bool hasMetRick = false;
 	
+	//STILL WIP - will be finished when missions are implemented - rick depends on those!
 	public override void OnReady() {
 		Vector2 rickPos = new Vector2(-229, -91);
 		rickAnims.basePosition = rickPos;
