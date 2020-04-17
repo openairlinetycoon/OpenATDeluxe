@@ -1,5 +1,7 @@
 ![Imgur](https://i.imgur.com/9eLVJQ5.png)
 
+
+![](https://github.com/openairlinetycoon/OpenATDeluxe/workflows/Build%20Test/badge.svg)
 # OpenATDeluxe
 This is the repository of the Open Source remake of Airline Tycoon Deluxe.
 It will add support for Full HD resolution, and native support for platforms like Windows (10), Linux and OSx.
