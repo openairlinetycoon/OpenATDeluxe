@@ -58,7 +58,7 @@ public class DialogueSystem : Node2D {
 	static DialogueWindow _speechbubble;
 	public static DialogueWindow Speechbubble {
 		get {
-			if (_speechbubble != null)
+			if (IsInstanceValid(_speechbubble))
 				_speechbubble.Hide();
 
 			_speechbubble = GetCurrentActorSpeechbubble();
@@ -497,6 +497,10 @@ public class DialogueSystem : Node2D {
 		dialogueCommandQueue.Enqueue(
 			() => CreateSoundsAndExecuteOnFinish(instructions, currentFullText, () => {
 				currentDialogue.CurrentNode.OnSpeechFinished();
+				
+				if(currentDialogue?.CurrentNode == null)
+					return; //We could stop the current dialogue as a side effect from the OnSpeechFinish(), that's why we leave
+				
 				if (currentDialogue.CurrentNode.HasFollowup()) {
 					state = DialogueStates.ReadingHead;
 					currentDialogue.CurrentNode.GoToFollowup();
