@@ -4,8 +4,7 @@ using System.Text;
 using BinaryWriter = System.IO.BinaryWriter;
 using MemoryStream = System.IO.MemoryStream;
 
-public class BaseFileDecoder {
-	protected string filePath;
+public class BaseFileDecoder : ATFile {
 	protected string fileData;
 
 	public const string xtRLEMagic = "xtRLE";
@@ -18,9 +17,7 @@ public class BaseFileDecoder {
 		xtRLE,
 	}
 
-	public BaseFileDecoder(string _filePath) {
-		filePath = _filePath;
-
+	public BaseFileDecoder(string _filePath) : base(_filePath) {
 		File f = new File();
 		Error e = f.Open(filePath, File.ModeFlags.Read);
 

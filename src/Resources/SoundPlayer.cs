@@ -38,7 +38,7 @@ public class SoundPlayer : AudioStreamPlayer {
 	public static SoundPlayer CreatePlayer(string file, string bus, bool use8BitEncoding = false, bool oneShot = false) {
 		SoundPlayer player = new SoundPlayer();
 		if (!File.Exists(SoundPath + file)) {
-			throw (new System.IO.FileNotFoundException($"File: {SoundPath + file} not found!"));
+			ATFile.FindFile(file);
 		}
 
 		player.use8BitEncoding = use8BitEncoding;

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/ATDGameLoader.cs" type="Script" id=1]
+[ext_resource path="res://fonts/BlockFont.tres" type="DynamicFont" id=2]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,12 +16,12 @@ margin_top = 388.863
 margin_right = 1239.0
 margin_bottom = 710.863
 popup_exclusive = true
-window_title = "Verzeichnis wählen"
+window_title = "Open a Directory"
 dialog_text = "Select Path"
 mode = 2
 access = 2
-current_dir = "C:/Jonas/OpenATDeluxeGit"
-current_path = "C:/Jonas/OpenATDeluxeGit/"
+current_dir = "P:/Projekte/Major Games/OpenATD"
+current_path = "P:/Projekte/Major Games/OpenATD/"
 
 [node name="DirectoryInvalid" type="AcceptDialog" parent="."]
 anchor_left = 0.5
@@ -31,22 +32,27 @@ margin_left = 731.76
 margin_top = 511.715
 margin_right = 1178.76
 margin_bottom = 569.715
+window_title = "Warnung!"
 resizable = true
 dialog_text = "\"INVALID PATH CHOSEN, CAN'T FIND glbasis.gli IN SUBFOLDER gli!\""
 
 [node name="LoadInfo" type="Label" parent="."]
-anchor_right = 1.0
+anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 261.299
-margin_top = 1036.08
-margin_right = 318.299
-margin_bottom = 1050.08
+margin_left = 12.2802
+margin_top = 1027.49
+margin_right = 86.2802
+margin_bottom = 1053.49
 rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0.290196, 0.92549, 0, 1 )
 custom_colors/font_color_shadow = Color( 0.0313726, 0.137255, 0.027451, 1 )
 text = "Loading.."
 align = 3
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="LoadInfoFiles" type="Label" parent="."]
 anchor_right = 1.0

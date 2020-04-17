@@ -95,9 +95,14 @@ public class SmkPlayer : Sprite {
 
 	protected Stream fileStream;
 	protected void LoadSmacker(bool loadFileToMemory = true) {
+		string filePath = GFXLibrary.pathToAirlineTycoonD + fileName;
+		if (!System.IO.File.Exists(filePath)) {
+			filePath = ATFile.FindFile(System.IO.Path.GetFileName(fileName));
+		}
+
 		if (loadFileToMemory) {
 			//These files are not that big, so we can just load them into memory, to free the file
-			FileStream temp = new FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open);
+			FileStream temp = new FileStream(filePath, System.IO.FileMode.Open);
 			using (temp) {
 				//create new MemoryStream object
 				fileStream = new MemoryStream();
@@ -106,7 +111,7 @@ public class SmkPlayer : Sprite {
 				temp.Read(((MemoryStream)fileStream).GetBuffer(), 0, (int)temp.Length);
 			}
 		} else {
-			fileStream = new FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open);
+			fileStream = new FileStream(filePath, System.IO.FileMode.Open);
 		}
 		file = SmackerFile.OpenFromStream(fileStream);
 		decoder = file.Decoder;

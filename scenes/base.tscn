@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://src/GameController.cs" type="Script" id=1]
 [ext_resource path="res://src/RoomManager.cs" type="Script" id=2]
@@ -24,7 +24,6 @@
 [ext_resource path="res://Images/gli/glstd/STATLIN0.res" type="Texture" id=22]
 [ext_resource path="res://Images/gli/glstd/LOGO1.res" type="Texture" id=23]
 [ext_resource path="res://Prefabs/DialogueSystem.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Images/gli/glstd/XBLASE13.res" type="Texture" id=25]
 [ext_resource path="res://src/MouseCursor.cs" type="Script" id=26]
 [ext_resource path="res://Images/gli/glbasis/CURSOR.res" type="Texture" id=27]
 [ext_resource path="res://Images/gli/glbasis/CURSORH.res" type="Texture" id=28]
@@ -47,10 +46,7 @@
 [ext_resource path="res://addons/midi/MidiPlayer.gd" type="Script" id=45]
 [ext_resource path="res://addons/midi/icon.png" type="Texture" id=46]
 
-[sub_resource type="ViewportTexture" id=1]
-viewport_path = NodePath("CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelephoneManager/OtherTelephoneRoom")
-
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 resource_local_to_scene = true
 animations = [ {
 "frames": [ ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ) ],
@@ -62,16 +58,16 @@ animations = [ {
 [node name="Game" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 1 )
-_taskbar = NodePath("CanvasLayer/MarginContainer/Taskbar")
+_taskbar = NodePath("UI/MarginContainer/Taskbar")
 
 [node name="Scene" type="Node2D" parent="."]
 script = ExtResource( 2 )
 _rooms = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 2.5, 2.5 )
@@ -81,18 +77,18 @@ custom_constants/margin_top = 0
 custom_constants/margin_left = 0
 custom_constants/margin_bottom = 0
 
-[node name="Taskbar" type="Control" parent="CanvasLayer/MarginContainer"]
+[node name="Taskbar" type="Control" parent="UI/MarginContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
 mouse_filter = 1
 
-[node name="background" type="ColorRect" parent="CanvasLayer/MarginContainer/Taskbar"]
+[node name="background" type="ColorRect" parent="UI/MarginContainer/Taskbar"]
 margin_top = 392.0
 margin_right = 638.0
 margin_bottom = 432.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer/Taskbar"]
+[node name="GridContainer" type="GridContainer" parent="UI/MarginContainer/Taskbar"]
 margin_left = 247.0
 margin_top = 413.0
 margin_right = 609.423
@@ -104,137 +100,114 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
+[node name="Control" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
 
-[node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control"]
+[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control"]
 position = Vector2( 29.2245, -1.19644 )
 texture = ExtResource( 18 )
 
-[node name="Control2" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
+[node name="Control2" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
 margin_left = 60.0
 margin_right = 60.0
 
-[node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control2"]
+[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control2"]
 position = Vector2( 29.2245, -1.19644 )
 texture = ExtResource( 18 )
 
-[node name="Control3" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
+[node name="Control3" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
 margin_left = 120.0
 margin_right = 120.0
 
-[node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control3"]
+[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control3"]
 position = Vector2( 29.2245, -1.19644 )
 texture = ExtResource( 18 )
 
-[node name="Control4" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
+[node name="Control4" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
 margin_left = 180.0
 margin_right = 180.0
 
-[node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control4"]
+[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control4"]
 position = Vector2( 29.2245, -1.19644 )
 texture = ExtResource( 18 )
 
-[node name="Control6" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
+[node name="Control6" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
 margin_left = 240.0
 margin_right = 240.0
 
-[node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control6"]
+[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control6"]
 position = Vector2( 29.2245, -1.19644 )
 texture = ExtResource( 18 )
 
-[node name="Control7" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
+[node name="Control7" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
 margin_left = 300.0
 margin_right = 300.0
 
-[node name="STATLIN5" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control7"]
+[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control7"]
 position = Vector2( 29.2245, -1.19644 )
 texture = ExtResource( 18 )
 
-[node name="Control5" type="Control" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer"]
+[node name="Control5" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
 margin_left = 360.0
 margin_right = 360.0
 
-[node name="STATLIN6" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control5"]
+[node name="STATLIN6" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control5"]
 material = ExtResource( 19 )
 position = Vector2( 15.1812, -1.22086 )
 texture = ExtResource( 20 )
 
-[node name="STAT01" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar/GridContainer/Control5"]
+[node name="STAT01" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control5"]
 material = ExtResource( 19 )
 position = Vector2( 11.6365, 9.1442 )
 texture = ExtResource( 21 )
 
-[node name="STATLIN0" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar"]
+[node name="STATLIN0" type="Sprite" parent="UI/MarginContainer/Taskbar"]
 material = ExtResource( 19 )
 position = Vector2( 124, 411.779 )
 texture = ExtResource( 22 )
 
-[node name="LOGO1" type="Sprite" parent="CanvasLayer/MarginContainer/Taskbar"]
+[node name="LOGO1" type="Sprite" parent="UI/MarginContainer/Taskbar"]
 position = Vector2( 38.3176, 411.779 )
 texture = ExtResource( 23 )
 
-[node name="DialogueSystem" parent="CanvasLayer/MarginContainer/Taskbar" instance=ExtResource( 24 )]
+[node name="DialogueSystem" parent="UI/MarginContainer/Taskbar" instance=ExtResource( 24 )]
 scale = Vector2( 0.4, 0.4 )
 
-[node name="TelephoneManager" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem" index="0"]
-z_index = -10
-
-[node name="TextureRect" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/TelephoneManager" index="1"]
-texture = SubResource( 1 )
-
-[node name="PlayerIcon" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem" index="1"]
-material = ExtResource( 19 )
-
-[node name="Head" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/PL" index="2"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 1.0
-margin_left = -12.8143
-margin_top = 24.5834
-margin_right = 4.18567
-margin_bottom = -21.4166
-texture = ExtResource( 25 )
-
-[node name="PLOffice" parent="CanvasLayer/MarginContainer/Taskbar/DialogueSystem" index="3"]
-visible = true
-
-[node name="MouseController" type="Node2D" parent="CanvasLayer"]
+[node name="MouseController" type="Node2D" parent="UI"]
 material = ExtResource( 19 )
 position = Vector2( 761.252, 372.714 )
 scale = Vector2( 1.5, 1.5 )
 z_index = 999
 script = ExtResource( 26 )
 
-[node name="Normal" type="Sprite" parent="CanvasLayer/MouseController"]
+[node name="Normal" type="Sprite" parent="UI/MouseController"]
 use_parent_material = true
 texture = ExtResource( 27 )
 centered = false
 
-[node name="Hover" type="Sprite" parent="CanvasLayer/MouseController"]
+[node name="Hover" type="Sprite" parent="UI/MouseController"]
 use_parent_material = true
 texture = ExtResource( 28 )
 centered = false
 
-[node name="Load" type="Sprite" parent="CanvasLayer/MouseController"]
+[node name="Load" type="Sprite" parent="UI/MouseController"]
 use_parent_material = true
 texture = ExtResource( 29 )
 centered = false
 
-[node name="Exit" type="AnimatedSprite" parent="CanvasLayer/MouseController"]
+[node name="Exit" type="AnimatedSprite" parent="UI/MouseController"]
 use_parent_material = true
 position = Vector2( -15.5213, -12.6841 )
-frames = SubResource( 2 )
-frame = 11
+frames = SubResource( 1 )
+frame = 4
 playing = true
 centered = false
 
-[node name="MoveLeft" type="Sprite" parent="CanvasLayer/MouseController"]
+[node name="MoveLeft" type="Sprite" parent="UI/MouseController"]
 use_parent_material = true
 position = Vector2( 15.9929, 0.0537262 )
 texture = ExtResource( 42 )
 
-[node name="MoveRight" type="Sprite" parent="CanvasLayer/MouseController"]
+[node name="MoveRight" type="Sprite" parent="UI/MouseController"]
 use_parent_material = true
 position = Vector2( -15.5659, 0.0537109 )
 texture = ExtResource( 43 )
@@ -258,9 +231,3 @@ bus = "music"
 
 [node name="musicOgg" type="AudioStreamPlayer" parent="MusicController"]
 bus = "music"
-
-[editable path="CanvasLayer/MarginContainer/Taskbar/DialogueSystem"]
-
-[editable path="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/PL"]
-
-[editable path="CanvasLayer/MarginContainer/Taskbar/DialogueSystem/PLOffice"]
