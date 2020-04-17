@@ -19,7 +19,8 @@ jobs:
         mkdir .mono/assemblies/Debug/
         Invoke-WebRequest -OutFile ass.zip 'https://downloads.tuxfamily.org/godotengine/3.2/mono/Godot_v3.2-stable_mono_win64.zip'
         Expand-Archive -Path .\ass.zip -DestinationPath "godot"
+        Dir
         Move "godot\Godot_v3.2-stable_mono_win64\GodotSharp\Api\Debug\" ".mono/assemblies/Debug/"
         Move "godot\Godot_v3.2-stable_mono_win64\GodotSharp\Api\Release\" ".mono/assemblies/Release/"
     - name: Build with dotnet
-      run: dotnet build
+      run: dotnet build --configuration Tools -v d
