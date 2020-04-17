@@ -94,12 +94,13 @@ public class BaseCharacter : AnimatedSprite {
 	public Staircase GetNearestStaircase(bool isShiftingUp) {
 		float minDistance = Mathf.Inf;
 		Staircase closest = null;
-		Vector2 globalPos = GetGlobalPosition();
+		Vector2 globalPos = GetGlobalPosition();//mainGoal;//GetGlobalPosition();
 		foreach (Staircase s in staircases) {
 			if (s.isUpstairs && !isShiftingUp)
 				continue;
 
-			float dist = globalPos.DistanceTo(s.GlobalPosition);
+			float dist = globalPos.DistanceTo(s.GlobalPosition); //(s.GlobalPosition.x - mainGoal.x);//globalPos.DistanceTo(s.GlobalPosition);
+			dist *= Mathf.Sign(dist);
 			if (dist < minDistance) {
 				minDistance = dist;
 				closest = s;
@@ -110,6 +111,9 @@ public class BaseCharacter : AnimatedSprite {
 	}
 
 	override public void _Process(float delta) {
+		delta *= GameController.TimeScale;
+		SpeedScale = data.speed *GameController.TimeScale;
+		
 		Update();
 		if (path != null && path?.Count != 0) {
 			MoveOnPath(SpeedWalking * delta);

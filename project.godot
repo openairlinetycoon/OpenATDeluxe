@@ -19,18 +19,37 @@ config/name="OpenATD"
 run/main_scene="res://scenes/load.tscn"
 config/project_settings_override="settings.cfg"
 config/icon="res://icon.png"
-config/atd_path="P:\\Projekte\\Major Games\\BASE\\ATD"
+config/atd_path="P:/Projekte/Major Games/BASE/ATD"
+
+[audio]
+
+bus2vol=-4
+bus6vol=-18
+bus5vol=-32
+bus3vol=-25
+bus4vol=-4
 
 [display]
 
 window/size/width=1920
 window/size/height=1080
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [editor_plugins]
 
 enabled=PoolStringArray( "builder", "midi" )
+
+[graphics]
+
+transparency=true
+passenger=false
+shadow=false
+thoughts=true
+blind=true
+roomDetails=false
+scrolling=true
+planes=false
 
 [locale]
 
@@ -39,9 +58,24 @@ locale_filter=[ 1, [  ] ]
 
 [mono]
 
+unhandled_exception_policy=1
 profiler/args="default:alloc,output=output.mlpd"
+
+[other]
+
+secretary=true
+advisor=false
+autosave=true
+fax=false
+realNames=true
+textBubbles=false
+summary=true
+gameStartToday=true
+roundNumbers=false
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

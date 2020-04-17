@@ -29,17 +29,46 @@ public class GFXLibrary {
 
 		public int isGFX;
 
+		public int width, height;
+
 		//The position offset of the file in the original GFX file
 		public int libraryOffset;
 
+		public byte[] _colors;
+
 		Texture texture;
 
-		public Texture GetTexture() {
+		public void PrepareTexture() {
+			parent.FillFileData(this);
+		}
 
+		public Texture GetTexture() {
 			if (texture == null) {
-				texture = parent.CreateTextureFromFile(this);
+
+				texture = CreateImageTexture();
 			}
 
+			return texture;
+		}
+
+		public ImageTexture CreateImageTexture() {
+			if (_colors == null) {
+				return null;
+			}
+			if (_colors.Length == 0) {
+				//GD.PrintErr("Empty Texture! GFX: " + file.name);
+				return null;
+			}
+			if (_colors.Length != width * height * 4) {
+				//GD.PrintErr("Wrong Texture Size! GFX: " + file.name);
+				return null;
+			}
+			Image image = new Image();
+			image.CreateFromData(width, height, false, Image.Format.Rgba8, _colors);
+
+			ImageTexture texture = new ImageTexture();
+			texture.CreateFromImage(image);
+			texture.Flags = (int)Texture.FlagsEnum.Filter;
 			return texture;
 		}
 	}
@@ -49,7 +78,7 @@ public class GFXLibrary {
 	public long dataSize; // I dunno
 
 	public List<GFXFile> files = new List<GFXFile>(); //A list with all GFX files inside the given GFX Library file
-	string pathToGFXFile;
+	public string pathToGFXFile;
 
 	public const int GFXHeaderSize = 67; //Bytes - Size of the GFXLibrary file Header
 	public const int FileHeaderSize = 17; //Bytes - Size of an individual File Header
@@ -64,9 +93,10 @@ public class GFXLibrary {
 
 
 	public void GetFilesInLibrary() {
-		File f = new File();
+		Open();
+		File f = handle;
 		try {
-			f.Open(pathToGFXFile, (int)File.ModeFlags.Read);
+			f.Open(pathToGFXFile, File.ModeFlags.Read);
 			//GD.Print("Reading: " + pathToGFXFile);
 			ReadHeader(f);
 			ReadFileHeaders(f);
@@ -82,17 +112,15 @@ public class GFXLibrary {
 
 	public void Open() {
 		handle = new File();
-		Error e = handle.Open(pathToGFXFile, (int)File.ModeFlags.Read);
+		Error e = handle.Open(pathToGFXFile, File.ModeFlags.Read);
 	}
 
 	public void Close() {
 		handle.Close();
-		handle.Dispose();
+		//handle.Dispose();
 	}
 
-	public Texture CreateTextureFromFile(GFXFile file) {
-		Image image = new Image();
-
+	public void FillFileData(GFXFile file) {
 		bool disposeOfHandle = false;
 
 		if (handle?.IsOpen() != true) {
@@ -102,11 +130,11 @@ public class GFXLibrary {
 
 		handle.Seek(file.libraryOffset); // Go to the position of the gfx file in the library file
 
-		int a = handle.Get32(); //skip unused data - 76 in glbasis.gli
-		int fileSize = handle.Get32(); //size of file in bytes
+		int a = (int)handle.Get32(); //skip unused data - 76 in glbasis.gli
+		int fileSize = (int)handle.Get32(); //size of file in bytes
 
-		int width = handle.Get32(); //Get image width in pixel
-		int height = handle.Get32(); //Get image height in pixel
+		int width = (int)handle.Get32(); //Get image width in pixel
+		int height = (int)handle.Get32(); //Get image height in pixel
 
 		byte[] colors = new byte[fileSize / 2 * 4];
 
@@ -147,27 +175,26 @@ public class GFXLibrary {
 			if (disposeOfHandle)
 				handle.Close();
 			//GD.PrintErr("Empty Texture! GFX: " + file.name);
-			return null;
+			return;
 		}
 		if (colors.Length != width * height * 4) {
 			if (disposeOfHandle)
 				handle.Close();
 			//GD.PrintErr("Wrong Texture Size! GFX: " + file.name);
-			return null;
+			return;
 		}
 
-		image.CreateFromData(width, height, false, Image.Format.Rgba8, colors);
+		file._colors = colors;
+		file.height = height;
+		file.width = width;
 
-		ImageTexture texture = new ImageTexture();
-		texture.CreateFromImage(image);
-		texture.Flags = (int)Texture.FlagsEnum.Filter;
-
-		image.Dispose();
+		//image.Dispose();
 		if (disposeOfHandle)
 			handle.Close();
 
-		return texture;
+		return;
 	}
+
 
 	private void ReadFileHeaders(File f) {
 		for (int i = 0; i < filesInLibrary; i++) {
@@ -182,9 +209,9 @@ public class GFXLibrary {
 				continue;
 
 			gfx.name = Encoding.UTF8.GetString(f.GetBuffer(8)); //Read the file name;
-			gfx.libraryOffset = f.Get32();
+			gfx.libraryOffset = (int)f.Get32();
 
-
+			gfx.PrepareTexture();
 
 			files.Add(gfx);
 		}

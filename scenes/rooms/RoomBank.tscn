@@ -1,13 +1,19 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/bank/BANK.res" type="Texture" id=2]
-[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Images/room/bank/MONI01.res" type="Texture" id=4]
-[ext_resource path="res://Images/room/bank/MONI02.res" type="Texture" id=5]
-[ext_resource path="res://Images/room/bank/MONI03.res" type="Texture" id=6]
-[ext_resource path="res://Images/room/bank/MONI04.res" type="Texture" id=7]
-[ext_resource path="res://Images/room/bank/MONI05.res" type="Texture" id=8]
+[ext_resource path="res://src/Scenes/Bank.cs" type="Script" id=1]
+[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=2]
+[ext_resource path="res://Images/room/bank/BANK.res" type="Texture" id=3]
+[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Images/room/bank/MONI01.res" type="Texture" id=5]
+[ext_resource path="res://Images/room/bank/MONI02.res" type="Texture" id=6]
+[ext_resource path="res://Images/room/bank/MONI03.res" type="Texture" id=7]
+[ext_resource path="res://Images/room/bank/MONI04.res" type="Texture" id=8]
+[ext_resource path="res://Images/room/bank/MONI05.res" type="Texture" id=9]
+[ext_resource path="res://Images/gli/glberatr/BER92_01.res" type="Texture" id=10]
+[ext_resource path="res://Images/gli/glberatr/BER92_02.res" type="Texture" id=11]
+[ext_resource path="res://Images/gli/glberatr/BER92_03.res" type="Texture" id=12]
+[ext_resource path="res://Images/gli/glberatr/BER92_04.res" type="Texture" id=13]
+[ext_resource path="res://Prefabs/Speech/Speechbubble.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -15,33 +21,45 @@ extents = Vector2( 21.9167, 8.34528 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 9.0
+} ]
+
 [node name="RoomKiosk" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="Base" type="Control" parent="."]
-material = ExtResource( 1 )
+material = ExtResource( 2 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 960.0
-margin_top = 540.0
-margin_right = 960.0
-margin_bottom = 540.0
+margin_left = 980.0
+margin_top = 550.0
+margin_right = 980.0
+margin_bottom = 550.0
 rect_scale = Vector2( 2.5, 2.5 )
 mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="roomSprite" type="Sprite" parent="Base"]
 position = Vector2( -75.529, -2.43213 )
 scale = Vector2( 0.990909, 0.990909 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
-[node name="MouseColliderRoom2" parent="Base" instance=ExtResource( 3 )]
+[node name="MouseColliderRoom2" parent="Base" instance=ExtResource( 4 )]
 position = Vector2( -254.784, -29.7827 )
 scale = Vector2( 5.31445, 9.63602 )
 z_index = 1
@@ -54,8 +72,85 @@ shape = SubResource( 1 )
 [node name="Screen" type="AnimatedSprite" parent="Base"]
 position = Vector2( -194.358, -7.53902 )
 frames = SubResource( 2 )
-frame = 4
+frame = 2
 speed_scale = 0.15
 playing = true
 
+[node name="Screen2" type="AnimatedSprite" parent="Base"]
+visible = false
+use_parent_material = true
+position = Vector2( -343.338, 36.8621 )
+z_index = 16
+frames = SubResource( 3 )
+
+[node name="BA" parent="." instance=ExtResource( 14 )]
+margin_left = 140.0
+margin_top = 340.0
+margin_right = 1480.0
+margin_bottom = 403.0
+mouse_filter = 2
+
+[node name="LeftSide" parent="BA/SpeechbubbleFlexible" index="0"]
+margin_right = 670.0
+margin_bottom = 63.0
+
+[node name="Texture" parent="BA/SpeechbubbleFlexible/LeftSide" index="0"]
+margin_right = 704.0
+margin_bottom = 63.0
+
+[node name="RightSide" parent="BA/SpeechbubbleFlexible" index="1"]
+margin_left = 670.0
+margin_right = 1340.0
+margin_bottom = 63.0
+
+[node name="Flip" parent="BA/SpeechbubbleFlexible/RightSide" index="0"]
+margin_right = 670.0
+margin_bottom = 63.0
+
+[node name="Texture" parent="BA/SpeechbubbleFlexible/RightSide/Flip" index="0"]
+rect_pivot_offset = Vector2( 351.5, 31.5 )
+
+[node name="Head" parent="BA" index="2"]
+margin_left = 440.0
+margin_top = 29.5792
+margin_right = 457.0
+margin_bottom = 44.5792
+
+[node name="B2" parent="." instance=ExtResource( 14 )]
+margin_left = 50.0
+margin_top = 300.0
+margin_right = 1510.0
+margin_bottom = 363.0
+mouse_filter = 2
+
+[node name="LeftSide" parent="B2/SpeechbubbleFlexible" index="0"]
+margin_right = 730.0
+margin_bottom = 63.0
+
+[node name="Texture" parent="B2/SpeechbubbleFlexible/LeftSide" index="0"]
+margin_right = 764.0
+margin_bottom = 63.0
+
+[node name="RightSide" parent="B2/SpeechbubbleFlexible" index="1"]
+margin_left = 730.0
+margin_right = 1460.0
+margin_bottom = 63.0
+
+[node name="Flip" parent="B2/SpeechbubbleFlexible/RightSide" index="0"]
+margin_right = 730.0
+margin_bottom = 63.0
+
+[node name="Texture" parent="B2/SpeechbubbleFlexible/RightSide/Flip" index="0"]
+rect_pivot_offset = Vector2( 381.5, 31.5 )
+
+[node name="Head" parent="B2" index="2"]
+margin_left = -129.0
+margin_top = 30.5
+margin_right = -112.0
+margin_bottom = 45.5
+
 [editable path="Base/MouseColliderRoom2"]
+
+[editable path="BA"]
+
+[editable path="B2"]

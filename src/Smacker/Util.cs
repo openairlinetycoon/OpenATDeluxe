@@ -31,7 +31,7 @@
 using System;
 using System.IO;
 
-public class Util {
+public class SmkUtil {
 	// read in a LE word
 	public static ushort ReadWord(Stream fs) {
 		return ((ushort)(fs.ReadByte() | (fs.ReadByte() << 8)));

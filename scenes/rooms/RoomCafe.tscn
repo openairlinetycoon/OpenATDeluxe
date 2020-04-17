@@ -1,14 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
 [ext_resource path="res://Images/room/rick/RICK.res" type="Texture" id=2]
 [ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Speech/Speechbubble.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Scenes/Cafe.cs" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
 extents = Vector2( 11.5644, 22.2309 )
 
 [node name="RoomCafe" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="Base" type="Control" parent="."]
 material = ExtResource( 1 )
@@ -22,6 +25,9 @@ margin_right = 960.0
 margin_bottom = 540.0
 rect_scale = Vector2( 2.5, 2.5 )
 mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="RICK" type="Sprite" parent="Base"]
 position = Vector2( -68.6022, 0 )
@@ -38,4 +44,32 @@ isExitToAirport = true
 position = Vector2( -11.8915, 5.11935 )
 shape = SubResource( 1 )
 
+[node name="RI" parent="." instance=ExtResource( 4 )]
+margin_left = 149.0
+margin_top = 218.0
+margin_right = 1564.0
+margin_bottom = 268.0
+
+[node name="LeftSide" parent="RI/SpeechbubbleFlexible" index="0"]
+margin_right = 707.0
+
+[node name="Texture" parent="RI/SpeechbubbleFlexible/LeftSide" index="0"]
+margin_right = 741.0
+
+[node name="RightSide" parent="RI/SpeechbubbleFlexible" index="1"]
+margin_left = 707.0
+margin_right = 1415.0
+
+[node name="Flip" parent="RI/SpeechbubbleFlexible/RightSide" index="0"]
+margin_right = 708.0
+
+[node name="Texture" parent="RI/SpeechbubbleFlexible/RightSide/Flip" index="0"]
+rect_pivot_offset = Vector2( 370.5, 25 )
+
+[node name="Head" parent="RI" index="2"]
+margin_left = -342.628
+margin_right = -325.628
+
 [editable path="Base/MouseColliderRoom2"]
+
+[editable path="RI"]

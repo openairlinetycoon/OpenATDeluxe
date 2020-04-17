@@ -9,7 +9,7 @@ public class SmkAnimation : SmkPlayer {
 
 	public AnimationGoal goal;
 
-	public static SmkAnimation CreateAnimation(Node parent, string name, Vector2 position = default(Vector2), AnimationGoal goals = default(AnimationGoal), SoundPlayer audio = null, string folder = "/video/") {
+	public static SmkAnimation CreateAnimation(Node parent, string name, Vector2 position = default(Vector2), AnimationGoal goal = default(AnimationGoal), SoundPlayer audio = null, string folder = "/video/") {
 		SmkAnimation smkAnimation = new SmkAnimation();
 
 		smkAnimation.fileName = folder + name;
@@ -26,8 +26,8 @@ public class SmkAnimation : SmkPlayer {
 			audio.use8BitEncoding = true;
 		}
 
-		smkAnimation.goal = goals;
-		if (goals == null) {
+		smkAnimation.goal = goal;
+		if (goal == null) {
 			smkAnimation.goal = new AnimationGoal();
 		}
 
@@ -42,7 +42,7 @@ public class SmkAnimation : SmkPlayer {
 		base._Ready();
 
 		if (audio == null) {
-			audio = (SoundPlayer)GetChildren().FirstOrDefault((a) => a is SoundPlayer);
+			//audio = (SoundPlayer)GetChildren();//((a) => a is SoundPlayer);
 			//TODO: Utilize a pooling system, to prevent longer sounds from being cut off, when the animation finishes earlier
 			SetAudio();
 		}

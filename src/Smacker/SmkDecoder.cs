@@ -167,7 +167,7 @@ public class SmackerDecoder {
 		Stream s = File.Stream;
 		Color[] OldPallette = new Color[256];
 		Array.Copy(CurrentPalette, OldPallette, CurrentPalette.Length);
-		int size = (int)Util.ReadByte(s);
+		int size = (int)SmkUtil.ReadByte(s);
 		//For some dark reason we need to mask out the lower two bits
 		size = size * 4 - 1;
 		if (size == -1)
@@ -230,7 +230,7 @@ public class SmackerDecoder {
 
 		int i = 0, count = 0;
 		while ((i < 255) && (size > 0)) {
-			int current = (int)Util.ReadByte(s);
+			int current = (int)SmkUtil.ReadByte(s);
 			size--;
 
 			if ((current & 0x80) == 0x80) {
@@ -247,7 +247,7 @@ public class SmackerDecoder {
 
 				count = (current & 0x3F) + 1;
 
-				int offset = (int)Util.ReadByte(s);
+				int offset = (int)SmkUtil.ReadByte(s);
 				size--;
 
 				if (i + count > 256 || offset + count > 256 || (offset < i && offset + count > i)) {
@@ -258,7 +258,7 @@ public class SmackerDecoder {
 
 				i += count;
 			} else {
-				CurrentPalette[i] = Color.FromArgb(smackerMap[current], smackerMap[(int)Util.ReadByte(s) & 0x3F], smackerMap[(int)Util.ReadByte(s) & 0x3F]);
+				CurrentPalette[i] = Color.FromArgb(smackerMap[current], smackerMap[(int)SmkUtil.ReadByte(s) & 0x3F], smackerMap[(int)SmkUtil.ReadByte(s) & 0x3F]);
 				size -= 2;
 				i++;
 			}

@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://fonts/SpeechFont.tres" type="DynamicFont" id=1]
+
+[node name="Prefab" type="HBoxContainer"]
+margin_right = 1920.0
+margin_bottom = 51.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+editor/display_folded = true
+margin_right = 30.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 30, 51 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dot" type="Label" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 12.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 0, 24 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.145098, 0.278431, 0.564706, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.254902 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "*"
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 34.0
+margin_right = 1920.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 0, 24 )
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.145098, 0.278431, 0.564706, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.254902 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "1."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}

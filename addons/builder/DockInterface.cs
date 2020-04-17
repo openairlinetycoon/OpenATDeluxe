@@ -121,9 +121,7 @@ public class DockInterface : Control {
 		cancelButton.Show();
 		currentlyLoading.Show();
 		isLoading = true;
-		thread = new Thread(ImportThread);
-		thread.Name = "ImporterThread";
-		thread.Start();
+		ImportThread();
 		//Godot.Thread thread = new Godot.Thread();
 		//thread.Start(this, nameof(ImportThread));
 
@@ -132,8 +130,9 @@ public class DockInterface : Control {
 	private void ImportThread() {
 		CancellationToken token = tokenS.Token;
 		try {
-			ATDGameLoader.SetFolders(path);
-			ATDGameLoader.ImportImages(true, token);
+			ATDataLoader.LoadImageData();
+			ATDataLoader.CreateImageResources();
+			ATDataLoader.SaveAllLoadedResources();
 		} catch (AggregateException e) {
 			GD.Print("FATAL ERROR!");
 			GD.Print(e.Message);

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Images/gli/glstd/XBLASE11.res" type="Texture" id=1]
+
+[node name="Head" type="TextureRect"]
+modulate = Color( 1, 1, 1, 0.780392 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 410.0
+margin_top = 30.5
+margin_right = 427.0
+margin_bottom = 45.5
+texture = ExtResource( 1 )

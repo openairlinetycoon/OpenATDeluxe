@@ -98,26 +98,26 @@ public class SmackerFile {
 		int i;
 
 		/* read and check header */
-		smk.Signature = Util.ReadDWord(s);
-		if (smk.Signature != Util.MakeTag('S', 'M', 'K', '2') && smk.Signature != Util.MakeTag('S', 'M', 'K', '4'))
+		smk.Signature = SmkUtil.ReadDWord(s);
+		if (smk.Signature != SmkUtil.MakeTag('S', 'M', 'K', '2') && smk.Signature != SmkUtil.MakeTag('S', 'M', 'K', '4'))
 			throw new InvalidDataException("Not an SMK stream");
 
-		smk.Width = Util.ReadDWord(s);
-		smk.Height = Util.ReadDWord(s);
-		smk.NbFrames = Util.ReadDWord(s);
-		smk.Pts_Inc = (int)Util.ReadDWord(s);
+		smk.Width = SmkUtil.ReadDWord(s);
+		smk.Height = SmkUtil.ReadDWord(s);
+		smk.NbFrames = SmkUtil.ReadDWord(s);
+		smk.Pts_Inc = (int)SmkUtil.ReadDWord(s);
 		smk.Fps = CalcFps(smk);
-		smk.Flags = Util.ReadDWord(s);
+		smk.Flags = SmkUtil.ReadDWord(s);
 		for (i = 0; i < 7; i++)
-			smk.AudioSize[i] = Util.ReadDWord(s);
-		smk.TreesSize = Util.ReadDWord(s);
-		smk.NMap_Size = Util.ReadDWord(s);
-		smk.MClr_Size = Util.ReadDWord(s);
-		smk.Full_Size = Util.ReadDWord(s);
-		smk.Type_Size = Util.ReadDWord(s);
+			smk.AudioSize[i] = SmkUtil.ReadDWord(s);
+		smk.TreesSize = SmkUtil.ReadDWord(s);
+		smk.NMap_Size = SmkUtil.ReadDWord(s);
+		smk.MClr_Size = SmkUtil.ReadDWord(s);
+		smk.Full_Size = SmkUtil.ReadDWord(s);
+		smk.Type_Size = SmkUtil.ReadDWord(s);
 		for (i = 0; i < 7; i++)
-			smk.AudioRate[i] = Util.ReadDWord(s); ;
-		smk.Dummy = Util.ReadDWord(s);
+			smk.AudioRate[i] = SmkUtil.ReadDWord(s); ;
+		smk.Dummy = SmkUtil.ReadDWord(s);
 
 		/* setup data */
 		if (smk.NbFrames > 0xFFFFFF)
@@ -148,15 +148,15 @@ public class SmackerFile {
 		file.FrameSizes = new UInt32[nbFrames];
 		file.FrameTypes = new byte[nbFrames];
 
-		file.IsV4 = (file.Header.Signature != Util.MakeTag('S', 'M', 'K', '2'));
+		file.IsV4 = (file.Header.Signature != SmkUtil.MakeTag('S', 'M', 'K', '2'));
 
 		/* read frame info */
 
 		for (i = 0; i < nbFrames; i++) {
-			file.FrameSizes[i] = Util.ReadDWord(s);
+			file.FrameSizes[i] = SmkUtil.ReadDWord(s);
 		}
 		for (i = 0; i < nbFrames; i++) {
-			file.FrameTypes[i] = Util.ReadByte(s);
+			file.FrameTypes[i] = SmkUtil.ReadByte(s);
 		}
 		//The rest of the header is a bitstream
 		BitStream m = new BitStream(s);

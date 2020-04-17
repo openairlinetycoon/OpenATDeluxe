@@ -10,6 +10,7 @@ public class MouseAreaRoom : MouseArea {
 	[Export]
 	public bool isStandardDoor;
 
+	override public int Layer => (int)BaseLayer.MouseAreaRoom;
 	public override void _Ready() {
 		base._Ready();
 
@@ -18,6 +19,8 @@ public class MouseAreaRoom : MouseArea {
 	public override void OnClick() {
 		//Change Room! -- No longer!
 		//RoomManager.ChangeRoom(roomSceneName, isExitToAirport);
+		if (GameController.canPlayerInteract == false)
+			return;
 
 		if (RoomManager.currentRoom == "RoomAirport") {
 

@@ -4,8 +4,7 @@ using System.Text;
 using BinaryWriter = System.IO.BinaryWriter;
 using MemoryStream = System.IO.MemoryStream;
 
-public class BaseFileDecoder {
-	protected string filePath;
+public class BaseFileDecoder : ATFile {
 	protected string fileData;
 
 	public const string xtRLEMagic = "xtRLE";
@@ -18,11 +17,9 @@ public class BaseFileDecoder {
 		xtRLE,
 	}
 
-	public BaseFileDecoder(string _filePath) {
-		filePath = _filePath;
-
+	public BaseFileDecoder(string _filePath) : base(_filePath) {
 		File f = new File();
-		Error e = f.Open(filePath, (int)File.ModeFlags.Read);
+		Error e = f.Open(filePath, File.ModeFlags.Read);
 
 		if (e != Error.Ok) {
 			throw new ArgumentException("Error opening file: " + filePath + " - Error " + e.ToString());
@@ -44,7 +41,7 @@ public class BaseFileDecoder {
 
 		switch (method) {
 			case (DecodingMethod.None):
-				data = fileIn.GetBuffer(fileIn.GetLen());
+				data = fileIn.GetBuffer((int)fileIn.GetLen());
 				break;
 			case (DecodingMethod.xtRLE):
 				data = DecodeXTRLE(fileIn);
@@ -77,7 +74,7 @@ public class BaseFileDecoder {
 		byte[] data;
 
 		fileIn.Seek(10); //Skip header
-		int finalSize = fileIn.Get32(); //Get file size
+		int finalSize = (int)fileIn.Get32(); //Get file size
 
 		data = null;
 

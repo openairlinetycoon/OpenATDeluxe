@@ -10,7 +10,7 @@ public class SmkPlayer : Sprite {
 
 	public bool isPlaying = true;
 
-	ImageTexture[] buffer;
+	protected ImageTexture[] buffer;
 
 	float fps;
 	float timeDelta;
@@ -52,7 +52,7 @@ public class SmkPlayer : Sprite {
 	/// The decoder needs to go through every frame to fully populate a palette.
 	/// the sequence would be heavily fragmented in the first run, if we don't do this.
 	/// </summary>
-	private void PrewarmDecoder() {
+	protected void PrewarmDecoder() {
 		int frames = (int)file.Header.NbFrames;
 		buffer = new ImageTexture[frames];
 
@@ -60,7 +60,6 @@ public class SmkPlayer : Sprite {
 			decoder.ReadNextFrame(true);
 		}
 		decoder.Reset();
-
 	}
 
 	/// <summary>
@@ -77,7 +76,7 @@ public class SmkPlayer : Sprite {
 		}
 	}
 
-	private void PrepareFrameImage() {
+	protected void PrepareFrameImage() {
 		decoder.ReadNextFrame();
 		buffer[currentFrame] = PrepareImageTexture();
 	}
@@ -94,11 +93,16 @@ public class SmkPlayer : Sprite {
 		return t;
 	}
 
-	Stream fileStream;
-	private void LoadSmacker(bool loadFileToMemory = true) {
+	protected Stream fileStream;
+	protected void LoadSmacker(bool loadFileToMemory = true) {
+		string filePath = GFXLibrary.pathToAirlineTycoonD + fileName;
+		if (!System.IO.File.Exists(filePath)) {
+			filePath = ATFile.FindFile(System.IO.Path.GetFileName(fileName));
+		}
+
 		if (loadFileToMemory) {
 			//These files are not that big, so we can just load them into memory, to free the file
-			FileStream temp = new FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open);
+			FileStream temp = new FileStream(filePath, System.IO.FileMode.Open);
 			using (temp) {
 				//create new MemoryStream object
 				fileStream = new MemoryStream();
@@ -107,7 +111,7 @@ public class SmkPlayer : Sprite {
 				temp.Read(((MemoryStream)fileStream).GetBuffer(), 0, (int)temp.Length);
 			}
 		} else {
-			fileStream = new FileStream(GFXLibrary.pathToAirlineTycoonD + fileName, System.IO.FileMode.Open);
+			fileStream = new FileStream(filePath, System.IO.FileMode.Open);
 		}
 		file = SmackerFile.OpenFromStream(fileStream);
 		decoder = file.Decoder;
@@ -116,13 +120,14 @@ public class SmkPlayer : Sprite {
 	}
 
 	public override void _Ready() {
+		base._Ready();
 		LoadSmacker();
 		PrewarmDecoder();
 		//BufferImages();
 	}
 
 	override public void _ExitTree() {
-		fileStream.Dispose();
+		fileStream.Close();
 	}
 
 	public void Play() {
@@ -144,7 +149,20 @@ public class SmkPlayer : Sprite {
 		Visible = false;
 	}
 
+	public int GetWidth() {
+		if (buffer[currentFrame] == null)
+			PrepareFrameImage();
+		return buffer[currentFrame].GetWidth();
+	}
+	public int GetHeight() {
+		if (buffer[currentFrame] == null)
+			PrepareFrameImage();
+		return buffer[currentFrame].GetHeight();
+	}
+
 	public override void _Process(float delta) {
+		base._Process(delta);
+
 		if (!isPlaying || !Visible)
 			return;
 
@@ -163,10 +181,9 @@ public class SmkPlayer : Sprite {
 				PrepareFrameImage();
 
 			Texture = buffer[currentFrame];
+
 		}
 	}
-
-
 }
 
 

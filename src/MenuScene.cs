@@ -133,7 +133,6 @@ public class MenuScene : Node2D {
 	}
 
 	public void ChangeScene(IBaseMenu scene, bool klackerOnlyChanges = false) {
-
 		foreach (Control g in grid) {
 			CharacterItem characterItem = (g as CharacterItem);
 			characterItem.AssignedMenuItem = null;
@@ -148,7 +147,7 @@ public class MenuScene : Node2D {
 				g.GetChild(0)?.QueueFree();
 		}
 
-		MouseCursor.instance.ChangeMouseState(MouseCursor.MouseState.Normal);
+		MouseCursor.instance.Reset();
 
 		currentScene = scene;
 
@@ -369,8 +368,7 @@ public class SliderItem : MenuItem {
 		text = "------- ";
 		text = text.Remove(position, 1).Insert(position, "~");
 
-		OnClickSpecial += (pos) =>
-		{
+		OnClickSpecial += (pos) => {
 			pos = Mathf.Clamp(pos, 0, 6);
 			int newVolume = pos == 0 ? -80 : ConvertRange(0, 6, rangeStart, rangeEnd, pos);
 
@@ -401,8 +399,7 @@ public class SwitchItem : MenuItem {
 	public SwitchItem(string onText, string offText, Func<bool> getValue, Action<bool> setValue) : base(onText, EntryType.Link, false) {
 
 		text = getValue() ? onText : offText;
-		OnClick = () =>
-		{
+		OnClick = () => {
 			setValue(!getValue());
 
 			text = getValue() ? onText : offText;

@@ -14,6 +14,10 @@ public class RoomManager : Node2D {
 	public Godot.Collections.Array _rooms;
 	private static Dictionary<string, PackedScene> rooms;
 
+	private static List<string> visitedRooms = new List<string>();
+
+	public static Action OnRoomExit;
+
 	public override void _Ready() {
 		roomPosition = new Vector2(4330, 880);
 
@@ -27,6 +31,8 @@ public class RoomManager : Node2D {
 		//LoadRooms(); --FIXME: godot can't find the "res://scenes/rooms/" folder reliably
 
 		instance = this;
+
+		OnRoomExit += () => InteractionLayerManager.ResetLayers();
 	}
 
 
@@ -54,15 +60,11 @@ public class RoomManager : Node2D {
 		// 	if (cam != null)
 		// 		roomPosition = cam.GetPosition();
 		// }
-
 		if (isAirport) {
 			newRoomName = "RoomAirport";
 		}
 
-
-		//string fullPath = "res://scenes/rooms/" + newRoomName + ".tscn";
-		//File f = new File();
-		Debug.Assert(rooms.ContainsKey(newRoomName), "Room not found! Room: " + newRoomName);
+		OnRoomExit?.Invoke();
 
 		if (MouseCursor.instance != null)
 			MouseCursor.instance.Reset();
@@ -72,18 +74,30 @@ public class RoomManager : Node2D {
 			child.QueueFree();
 		}
 
-		Node2D n = (Node2D)rooms[newRoomName].Instance();
-		instance.AddChild(n);
-
 		currentRoom = newRoomName;
+		
+		Node2D n = GetRoomInstance(newRoomName);
+		instance.AddChild(n);
+		
 		currentRoomNode = n;
+		
+		if (!visitedRooms.Contains(newRoomName)) {
+			visitedRooms.Add(newRoomName);
+		}
 
 		if (isAirport) {
 			GetCameraControllerInCurrentRoom()?.SetPosition(roomPosition);
 			PlayerCharacter.instance.SetPosition(roomPosition);
 		}
+	}
 
-		//instance.AddChild(n);
+	public static Node2D GetRoomInstance(string newRoomName) {
+		//string fullPath = "res://scenes/rooms/" + newRoomName + ".tscn";
+		//File f = new File();
+		Debug.Assert(rooms.ContainsKey(newRoomName), "Room not found! Room: " + newRoomName);
+
+		Node2D newRoom = (Node2D)rooms[newRoomName].Instance();
+		return newRoom;
 	}
 
 	private static CameraController GetCameraControllerInCurrentRoom() {
@@ -100,9 +114,7 @@ public class RoomManager : Node2D {
 		return null;
 	}
 
-	//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-	//  public override void _Process(float delta)
-	//  {
-	//      
-	//  }
+	public static bool WasRoomVisited(string room) {
+		return visitedRooms.Contains(room);
+	}
 }
