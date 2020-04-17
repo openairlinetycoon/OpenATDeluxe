@@ -16,7 +16,7 @@ jobs:
         
     - name: Setup Godot
       run: |
-        mkdir .mono/assemblies/Release/
+        mkdir .mono/assemblies/Tools/
         Invoke-WebRequest -OutFile .mono/assemblies/Tools/GodotSharp.dll 'https://docs.google.com/uc?export=download&id=1lJtvcU5oJcCg_impXrFQRcnX7iK9ZJ1Y'
         Invoke-WebRequest -OutFile .mono/assemblies/Tools/GodotSharpEditor.dll 'https://docs.google.com/uc?export=download&id=1OVJwdZeK3McGcHjtJktEApaalFaFP2Ym'
     - name: Build with dotnet
