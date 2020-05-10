@@ -45,7 +45,9 @@ public class ATDGameLoader : Node2D {
 	public static bool IsOriginalGamePath(string dir) {
 		try {
 			if (!Directory.Exists(dir))
-				return false;
+				throw new System.IO.DirectoryNotFoundException(dir);
+
+			GFXLibrary.pathToAirlineTycoonD = dir;
 
 			ATFile.FindFolder("room");
 			ATFile.FindFile("glbasis.gli");
