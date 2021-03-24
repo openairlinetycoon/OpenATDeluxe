@@ -25,6 +25,8 @@ public class MouseAreaRoom : MouseArea {
 		if (RoomManager.currentRoom == "RoomAirport") {
 
 			PlayerCharacter.instance.SetPath(ToGlobal(entranceOffset));
+			PlayerCharacter.instance.IsRunning = MouseCursor.instance?.WasDoubleClick ?? false;
+
 			Action<BaseCharacter> changeRoom = null;
 			changeRoom = (c) => {
 				PlayerCharacter.instance.OnGoalReached -= changeRoom;

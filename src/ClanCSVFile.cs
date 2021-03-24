@@ -51,7 +51,7 @@ public class ClanCSVFile : CSVFileDecoder {
 				//Texture names for walking and running begin at index 13 - "Direction;...;Amount" repeat until 34
 				int startingPoint = 13;
 
-				for (int i = 0; i < 7 * 3; i += 3) { //Loops through all cardinal directions of animation both for running and walking
+				for (int i = 0; i <= 7 * 3; i += 3) { //Loops through all cardinal directions of animation both for running and walking
 					anim.AddSprites(
 						firstTextureName: values[startingPoint + i + 1],
 						amount: Convert.ToInt32(values[startingPoint + i + 2]),
