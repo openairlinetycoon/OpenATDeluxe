@@ -6,8 +6,9 @@ public class BaseCharacter : AnimatedSprite {
 	[Export]
 	public int type;
 
-	public const int SpeedWalking = 200, SpeedRunning = 400;
+	public const int SpeedWalking = 200, SpeedRunning = 600;
 	public bool isInAnimation;
+	public bool IsRunning { get; set; }
 
 	List<Staircase> staircases;
 
@@ -19,6 +20,7 @@ public class BaseCharacter : AnimatedSprite {
 	public Vector2 currentGoal;
 	public bool shiftsFloor; //Does the player goe from one height level to the other
 	const int ShiftHeight = 410; //Guesstimation for the heigth
+	private const int RunningAnimationStartIndex = 4;
 
 
 	public Action<BaseCharacter> OnPathFinished, OnGoalReached;
@@ -115,10 +117,15 @@ public class BaseCharacter : AnimatedSprite {
 		SpeedScale = data.speed *GameController.TimeScale;
 		
 		Update();
-		if (path != null && path?.Count != 0) {
-			MoveOnPath(SpeedWalking * delta);
-		} else {
-			Animation = ((AnimationState)((int)AnimationState.NStanding + dir)).ToString();
+		if (path != null && path?.Count != 0)
+		{
+			var speed = IsRunning ? SpeedRunning : SpeedWalking;
+			MoveOnPath(speed * delta);
+		} 
+		else
+		{
+			var nonRunningDir = dir - (dir >= RunningAnimationStartIndex ? RunningAnimationStartIndex : 0);
+			Animation = ((AnimationState)((int)AnimationState.NStanding + nonRunningDir)).ToString();
 		}
 	}
 
@@ -145,7 +152,9 @@ public class BaseCharacter : AnimatedSprite {
 		}
 
 		if (path.Count == 0) {
-			if (currentGoal == mainGoal) {
+			if (currentGoal == mainGoal)
+			{
+				IsRunning = false;
 				OnGoalReached?.Invoke(this);
 			}
 			OnPathFinished?.Invoke(this);
@@ -164,6 +173,11 @@ public class BaseCharacter : AnimatedSprite {
 	public void SetViewDir(Vector2 direction) {
 		float angle = Mathf.Atan2(direction.y, direction.x) - 1.5708f;
 		dir = Mathf.RoundToInt(4 * angle / (2 * Mathf.Pi) + 4) % 4;
+
+		if (IsRunning)
+		{
+			dir += RunningAnimationStartIndex;
+		}
 
 		Animation = ((AnimationState)dir).ToString();
 	}

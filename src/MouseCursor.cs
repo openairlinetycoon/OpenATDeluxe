@@ -5,6 +5,7 @@ using System;
 
 public class MouseCursor : Node2D {
 	public static MouseCursor instance;
+	public bool WasDoubleClick { get; set; }
 
 	List<Node2D> states = new List<Node2D>();
 
@@ -175,6 +176,7 @@ public class MouseCursor : Node2D {
 		}
 		if (e is InputEventMouseButton mouse) {
 			//GameController.OnMouseClick(mouse);
+			WasDoubleClick = mouse.Doubleclick;
 
 			if (mouse.IsPressed()) {
 				bool handled = false;
@@ -190,6 +192,7 @@ public class MouseCursor : Node2D {
 				} else if (PlayerCharacter.instance != null && RoomManager.currentRoom == "RoomAirport" && movingCamera == 0) {
 					//SET MOVING WAYPOINT
 					PlayerCharacter.instance.SetPath(CameraController.airportCamera.GetGlobalMousePosition());
+					PlayerCharacter.instance.IsRunning = mouse.Doubleclick;
 					handled = true;
 				}
 
