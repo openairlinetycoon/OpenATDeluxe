@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public abstract class BaseRoom : Node2D {
+public abstract partial class BaseRoom : Node2D {
 	public Control baseNode;
 
 	public sealed override void _Ready() {

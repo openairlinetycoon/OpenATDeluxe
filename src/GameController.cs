@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
-public class GameController : Node2D {
+public partial class GameController : Node2D {
 	public static GameController instance;
 
 	// static GameController() {
@@ -21,8 +21,9 @@ public class GameController : Node2D {
 		}
 	}
 
-	public void SetTaskbar(bool toggle) {
-		taskbar.SetVisible(toggle);
+	public static void ToggleTaskbar(bool toggle) {
+		canPlayerInteract = toggle;
+		instance.taskbar.Visible = toggle;
 	}
 
 	[Export]
@@ -44,29 +45,27 @@ public class GameController : Node2D {
 		taskbar = GetNode<Control>(_taskbar);
 
 		RoomManager.ChangeRoom("RoomMainMenu", isAirport: false);
-		GetTree().Connect("screen_resized", this, "OnScreenSizeChanged");
+		GetTree().Root.SizeChanged += OnScreenSizeChanged;
 	}
 
-	public override void _UnhandledInput(InputEvent @event) {
-		if (@event is InputEventKey k) {
-			fastForward = false;
-			if (k.Scancode == (int)KeyList.Space) {
-				//onUnhandledInput?.Invoke();
-				fastForward = k.Pressed;
-			}
-		}
-		if (@event is InputEventMouseButton m) {
-			OnMouseClick(m);
+public override void _UnhandledInput(InputEvent @event) {
+	if (@event is InputEventKey k) {
+		fastForward = false;
+		if (k.Keycode == Key.Space) {
+			//onUnhandledInput?.Invoke();
+			fastForward = k.Pressed;
 		}
 	}
-
-	public static void OnMouseClick(InputEventMouseButton m) {
-		if (m.IsPressed() && m.ButtonIndex == (int)ButtonList.Left) {
-			onUnhandledInput?.Invoke();
-		}
+	if (@event is InputEventMouseButton m) {
+		OnMouseClick(m);
 	}
+}
 
-	override public void _Process(float delta) {
+public static void OnMouseClick(InputEventMouseButton m) {
+	if (m.IsPressed() && m.ButtonIndex == MouseButton.Left) {
+		onUnhandledInput?.Invoke();
+	}
+}	override public void _Process(double delta) {
 		TimeScale = fastForward ? 20:1;
 
 	}

@@ -6,20 +6,16 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[  ]
-_global_script_class_icons={
-
-}
+config_version=5
 
 [application]
 
 config/name="OpenATD"
 run/main_scene="res://scenes/load.tscn"
 config/project_settings_override="settings.cfg"
+config/features=PackedStringArray("4.4", "C#")
 config/icon="res://icon.png"
-config/atd_path="P:/Projekte/Major Games/BASE/ATD"
+config/atd_path="C:\\Jonas\\Airline Tycoon Deluxe"
 
 [audio]
 
@@ -31,14 +27,17 @@ bus4vol=-4
 
 [display]
 
-window/size/width=1920
-window/size/height=1080
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/mode="viewport"
-window/stretch/aspect="keep"
+
+[dotnet]
+
+project/assembly_name="OpenATD"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "builder", "midi" )
+enabled=PackedStringArray("res://addons/builder/plugin.cfg", "res://addons/midi/plugin.cfg")
 
 [graphics]
 
@@ -53,8 +52,8 @@ planes=false
 
 [locale]
 
-translations=PoolStringArray( "res://localization/localization.de.translation", "res://localization/localization.en.translation", "res://localization/localization.es.translation", "res://localization/localization.fr.translation", "res://localization/localization.it.translation", "res://localization/localization.nl.translation", "res://localization/localization.pt.translation", "res://localization/localization.pt_BR.translation" )
-locale_filter=[ 1, [  ] ]
+translations=PackedStringArray("res://localization/localization.de.translation", "res://localization/localization.en.translation", "res://localization/localization.es.translation", "res://localization/localization.fr.translation", "res://localization/localization.it.translation", "res://localization/localization.nl.translation", "res://localization/localization.pt.translation", "res://localization/localization.pt_BR.translation")
+locale_filter=[1, []]
 
 [mono]
 
@@ -75,7 +74,7 @@ roundNumbers=false
 
 [rendering]
 
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_environment="res://default_env.tres"
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
-environment/default_clear_color=Color( 0, 0, 0, 1 )
-environment/default_environment="res://default_env.tres"

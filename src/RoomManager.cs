@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public class RoomManager : Node2D {
+public partial class RoomManager : Node2D {
 	public static RoomManager instance;
 	public static string currentRoom;
 	public static Node2D currentRoomNode;
@@ -40,12 +40,11 @@ public class RoomManager : Node2D {
 	/// Load every Room in preparation
 	/// </summary>
 	private static void LoadRooms() {
-		Directory d = new Directory();
-		Error error = d.Open("res://scenes/rooms");
+		DirAccess d = DirAccess.Open("res://scenes/rooms");
 
-		Debug.Assert(error == Error.Ok, "Error opening the rooms folder! Error: " + error);
+		Debug.Assert(d != null, "Error opening the rooms folder!");
 
-		d.ListDirBegin(true, true);
+		d.ListDirBegin();
 		string file;
 
 		while ((file = d.GetNext()) != "") {
@@ -86,8 +85,11 @@ public class RoomManager : Node2D {
 		}
 
 		if (isAirport) {
-			GetCameraControllerInCurrentRoom()?.SetPosition(roomPosition);
-			PlayerCharacter.instance.SetPosition(roomPosition);
+			CameraController cam = GetCameraControllerInCurrentRoom();
+			if (cam != null) {
+				cam.Position = roomPosition;
+			}
+			PlayerCharacter.instance.Position = roomPosition;
 		}
 	}
 
@@ -96,7 +98,7 @@ public class RoomManager : Node2D {
 		//File f = new File();
 		Debug.Assert(rooms.ContainsKey(newRoomName), "Room not found! Room: " + newRoomName);
 
-		Node2D newRoom = (Node2D)rooms[newRoomName].Instance();
+		Node2D newRoom = (Node2D)rooms[newRoomName].Instantiate();
 		return newRoom;
 	}
 

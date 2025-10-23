@@ -8,15 +8,13 @@
 	@return	smf
 """
 func read_file( path:String ):
-	var f:File = File.new( )
-
-	if not f.file_exists( path ):
+	if not FileAccess.file_exists( path ):
 		print( "file %s is not found" % path )
 		breakpoint
 
-	f.open( path, f.READ )
+	var f = FileAccess.open( path, FileAccess.READ )
 	var stream:StreamPeerBuffer = StreamPeerBuffer.new( )
-	stream.set_data_array( f.get_buffer( f.get_len( ) ) )
+	stream.set_data_array( f.get_buffer( f.get_length( ) ) )
 	stream.big_endian = true
 	f.close( )
 
@@ -24,10 +22,10 @@ func read_file( path:String ):
 
 """
 	配列から読み込み
-	@param	data	PoolByteArray
+	@param	data	PackedByteArray
 	@return	smf
 """
-func read_data( data:PoolByteArray ):
+func read_data( data:PackedByteArray ):
 	var stream:StreamPeerBuffer = StreamPeerBuffer.new( )
 	stream.set_data_array( data )
 	stream.big_endian = true

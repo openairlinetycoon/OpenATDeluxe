@@ -24,43 +24,43 @@ const drum_track_bank:int = 128
 # Export
 
 # 最大発音数
-export (int, 0, 128) var max_polyphony:int = 64
+@export var max_polyphony:int = 64 # (int, 0, 128)
 # ファイル
-export (String, FILE, "*.mid") var file:String = "" setget set_file
+@export var file:String = "": set = set_file
 # 再生中か？
-export (bool) var playing:bool = false
+@export var playing: bool = false
 # ミュートチャンネル
-export (Array) var channel_mute:Array = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+@export var channel_mute: Array = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
 # 再生速度
-export (float) var play_speed:float = 1.0
+@export var play_speed: float = 1.0
 # 音量
-export (float, -1000, 0) var volume_db:float = -20.0 setget set_volume_db
+@export var volume_db:float = -20.0: set = set_volume_db
 # キーシフト
-export (int) var key_shift:int = 0
+@export var key_shift: int = 0
 # ループフラグ
-export (bool) var loop:bool = false
+@export var loop: bool = false
 # ループ開始位置
-export (float) var loop_start:float = 0
+@export var loop_start: float = 0
 # 全ての音をサウンドフォントから読むか？
-export (bool) var load_all_voices_from_soundfont:bool = false
+@export var load_all_voices_from_soundfont: bool = false
 # サウンドフォントの再読み込みを行わない
-export (bool) var no_reload_soundfont:bool = false
+@export var no_reload_soundfont: bool = false
 # サウンドフォント
-export (String, FILE, "*.sf2") var soundfont:String = ""
+@export var soundfont:String = "" # (String, FILE, "*.sf2")
 # mix_target same as AudioStreamPlayer's one
-export (int, "MIX_TARGET_STEREO", "MIX_TARGET_SURROUND", "MIX_TARGET_CENTER") var mix_target:int = AudioStreamPlayer.MIX_TARGET_STEREO
+@export var mix_target:int = AudioStreamPlayer.MIX_TARGET_STEREO # (int, "MIX_TARGET_STEREO", "MIX_TARGET_SURROUND", "MIX_TARGET_CENTER")
 # bus same as AudioStreamPlayer's one
-export (String) var bus:String = "Master"
+@export var bus: String = "Master"
 
 # -----------------------------------------------------------------------------
 # 変数
 
 # MIDIデータ
-var smf_data = null setget set_smf_data
+var smf_data = null: set = set_smf_data
 # MIDIトラックデータ smf_dataを再生用に加工したデータが入る
 var track_status = null
 # 現在のテンポ
-var tempo:float = 120 setget set_tempo
+var tempo:float = 120: set = set_tempo
 # 秒 -> タイムベース変換係数
 var seconds_to_timebase:float = 2.3
 # タイムベース -> 秒変換係数
@@ -142,7 +142,7 @@ func _prepare_to_play( ):
 	# 発音機
 	if self.audio_stream_players.size( ) == 0:
 		for i in range( self.max_polyphony ):
-			var audio_stream_player = ADSR.instance( )
+			var audio_stream_player = ADSR.instantiate( )
 			audio_stream_player.mix_target = self.mix_target
 			audio_stream_player.bus = self.bus
 			self.add_child( audio_stream_player )

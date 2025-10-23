@@ -1,15 +1,15 @@
 using Godot;
 using System;
 
-public class PlayerDialogueWindow : DialogueWindow {
-	public Texture player;
-	public Texture[] talking = new Texture[3];
-	public Texture telephone;
-	public Texture[] telephoneTalking = new Texture[3];
+public partial class PlayerDialogueWindow : DialogueWindow {
+	public Texture2D player;
+	public Texture2D[] talking = new Texture2D[3];
+	public Texture2D telephone;
+	public Texture2D[] telephoneTalking = new Texture2D[3];
 
 	[Export]
 	public NodePath iconPath;
-	public Sprite icon;
+	public Sprite2D icon;
 
 	public bool isDialoguePartner;
 
@@ -24,18 +24,18 @@ public class PlayerDialogueWindow : DialogueWindow {
 	override public void _Ready() {
 		base._Ready();
 
-		icon = GetNode<Sprite>(iconPath);
+		icon = GetNode<Sprite2D>(iconPath);
 		basePosition = icon.Position;
 
-		player = (Texture)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_01.res");
-		talking[0] = (Texture)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_02.res");
-		talking[1] = (Texture)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_03.res");
-		talking[2] = (Texture)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_04.res");
+		player = (Texture2D)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_01.res");
+		talking[0] = (Texture2D)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_02.res");
+		talking[1] = (Texture2D)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_03.res");
+		talking[2] = (Texture2D)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_04.res");
 
-		telephone = (Texture)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_05.res");
-		telephoneTalking[0] = (Texture)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_06.res");
-		telephoneTalking[1] = (Texture)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_07.res");
-		telephoneTalking[2] = (Texture)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_08.res");
+		telephone = (Texture2D)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_05.res");
+		telephoneTalking[0] = (Texture2D)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_06.res");
+		telephoneTalking[1] = (Texture2D)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_07.res");
+		telephoneTalking[2] = (Texture2D)GD.Load($"res://Images/gli/glberatr/BER9{GameController.currentPlayerID}_08.res");
 
 		DialogueSystem.onDialogueStart += () => {
 			//icon.Position = basePosition;
@@ -49,7 +49,7 @@ public class PlayerDialogueWindow : DialogueWindow {
 		
 		if (DialogueSystem.currentlyTalking == GameController.CurrentPlayerTag) {
 			isTalking = true;
-			startTime = OS.GetTicksMsec() + mouthIntervall;
+			startTime = Time.GetTicksMsec() + mouthIntervall;
 		}
 	}
 
@@ -58,7 +58,7 @@ public class PlayerDialogueWindow : DialogueWindow {
 		icon.Texture = isTelephoneCall ? telephone : player;
 	}
 
-	override public void _Process(float delta) {
+	override public void _Process(double delta) {
 		base._Process(delta);
 
 		Vector2 goal = basePosition;
@@ -72,15 +72,15 @@ public class PlayerDialogueWindow : DialogueWindow {
 		}
 
 		if (icon.Position.DistanceTo(goal) > 20) {
-			icon.Position = icon.Position.LinearInterpolate(goal, delta * 4).Round();
+			icon.Position = icon.Position.Lerp(goal, (float)(delta * 4)).Round();
 			icon.ZIndex = -1;
 		} else {
 			icon.ZIndex = 0;
 		}
 
 		if (isTalking && DialogueSystem.currentSound?.IsTalking() == true) {
-			if (startTime < OS.GetTicksMsec()) {
-				startTime = OS.GetTicksMsec() + mouthIntervall;
+			if (startTime < Time.GetTicksMsec()) {
+				startTime = Time.GetTicksMsec() + mouthIntervall;
 				int rID = ran.Next(0, 3);
 
 				icon.Texture = isTelephoneCall ? telephoneTalking[rID] : talking[rID];

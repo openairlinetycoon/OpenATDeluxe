@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Environment = Godot.Environment;
 
-public class AnimationList : List<SmkAnimation> {
+public partial class AnimationList : List<SmkAnimation> {
 	public static Action OnCancelTrigger;
 
 	public Vector2 basePosition;
@@ -103,7 +103,7 @@ public class AnimationList : List<SmkAnimation> {
 }
 
 
-public class AnimationGoal {
+public partial class AnimationGoal {
 	/// <summary>
 	/// When a animation is done, go to this animation:
 	/// When null -> loop until other criterea are set.      
@@ -166,7 +166,7 @@ public class AnimationGoal {
 	}
 }
 
-public class AnimationGoalIdle : AnimationGoal {
+public partial class AnimationGoalIdle : AnimationGoal {
 	/// <summary>
 	/// AnimationGoal for a idle animation. Will switch between some random animations, this animation and to a dialogue animation when a dialogue starts
 	/// </summary>
@@ -187,10 +187,10 @@ public class AnimationGoalIdle : AnimationGoal {
 			return true;
 		}
 
-		if (idleAnimationsIds?.Length != 0 && randomInterval <= OS.GetTicksMsec()) {
+		if (idleAnimationsIds?.Length != 0 && randomInterval <= (long)Time.GetTicksMsec()) {
 			goal.triggerID = idleAnimationsIds[GameController.r.Next(0, idleAnimationsIds.Length)];
 
-			randomInterval = (int)OS.GetTicksMsec() + 1000 * (int)(GameController.r.NextDouble() * maxTimeBetweenIntervals)+minTimeBetweenIntervals;
+			randomInterval = (int)Time.GetTicksMsec() + 1000 * (int)(GameController.r.NextDouble() * maxTimeBetweenIntervals)+minTimeBetweenIntervals;
 			
 			return true;
 		}
@@ -199,7 +199,7 @@ public class AnimationGoalIdle : AnimationGoal {
 	}
 }
 
-public class AnimationGoalTalking : AnimationGoal {
+public partial class AnimationGoalTalking : AnimationGoal {
 	/// <summary>
 	/// AnimationGoal for a talking animation. Will switch between a listening animation, this animation and back to a normal animation when the dialogue stopped
 	/// </summary>
@@ -228,7 +228,7 @@ public class AnimationGoalTalking : AnimationGoal {
 	}
 }
 
-public class AnimationGoalListening : AnimationGoal {
+public partial class AnimationGoalListening : AnimationGoal {
 	/// <summary>
 	/// AnimationGoal for a listening animation. Will switch between a talking animation, this animation and back to a normal animation when the dialogue stopped
 	/// </summary>
@@ -255,7 +255,7 @@ public class AnimationGoalListening : AnimationGoal {
 	}
 }
 
-public class AnimationGoalDialogueStart : AnimationGoal {
+public partial class AnimationGoalDialogueStart : AnimationGoal {
 	private bool startTelephone;
 
 	private void PrepareStartForDialogue() {

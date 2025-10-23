@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class MouseAreaRoom : MouseArea {
+public partial class MouseAreaRoom : MouseArea {
 	[Export]
 	public string roomSceneName = "";
 

@@ -1,8 +1,8 @@
-[gd_resource type="DynamicFont" load_steps=2 format=2]
+[gd_resource type="FontVariation" load_steps=2 format=3]
 
-[ext_resource path="res://fonts/KOMTXTI_.ttf" type="DynamicFontData" id=1]
+[ext_resource type="FontFile" path="res://fonts/KOMTXTI_.ttf" id="1"]
 
 [resource]
-size = 40
-use_filter = true
-font_data = ExtResource( 1 )
+base_font = ExtResource("1")
+spacing_glyph = 0
+spacing_space = 0

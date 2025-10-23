@@ -1,8 +1,8 @@
+@tool
 """
 	Godot MIDI Player Plugin by arlez80 (Yui Kinomoto)
 """
 
-tool
 extends EditorPlugin
 
 func _enter_tree( ):
@@ -11,11 +11,11 @@ func _enter_tree( ):
 func _exit_tree( ):
 	self.remove_custom_type( "GodotMIDIPlayer" )
 
-func has_main_screen():
+func _has_main_screen():
 	return true
 
-func make_visible( visible:bool ):
+func _make_visible( visible:bool ):
 	pass
 
-func get_plugin_name( ):
+func _get_plugin_name( ):
 	return "Godot MIDI Player"

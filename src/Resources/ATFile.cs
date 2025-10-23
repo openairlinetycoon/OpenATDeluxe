@@ -1,7 +1,8 @@
+using System;
 using System.IO;
 using System.Linq;
 
-public class ATFile {
+public partial class ATFile {
 	protected string filePath;
 
 	public ATFile(string _filePath, bool searchForFile = true) {
@@ -27,11 +28,17 @@ public class ATFile {
 		string fileName = Path.GetFileName(file);
 
 		string searchPath = GFXLibrary.pathToAirlineTycoonD;
+		if (string.IsNullOrEmpty(searchPath)) {
+			throw new InvalidOperationException("ATD path is not configured. Please set GFXLibrary.pathToAirlineTycoonD before calling this method.");
+		}
 		return Directory.GetFiles(searchPath, fileName, System.IO.SearchOption.AllDirectories).First();
 	}
 
 	public static string FindFolder(string folderName) {
 		string basePath = GFXLibrary.pathToAirlineTycoonD;
+		if (string.IsNullOrEmpty(basePath)) {
+			throw new InvalidOperationException("ATD path is not configured. Please set GFXLibrary.pathToAirlineTycoonD before calling this method.");
+		}
 		return Directory.GetDirectories(basePath, folderName, System.IO.SearchOption.AllDirectories).First();
 	}
 }

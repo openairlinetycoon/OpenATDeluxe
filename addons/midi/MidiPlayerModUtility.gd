@@ -43,3 +43,13 @@ func _convert_pattern_data( patterns ):
 			"events": events
 		}],
 	}
+
+"""
+	MODのサンプルデータをサウンドバンクに変換
+	@param	samples	MODサンプル
+	@return	Bank data
+"""
+func _convert_sample_data( samples ):
+	# TODO: Implement sample data conversion
+	push_warning( "MOD sample data conversion not yet implemented" )
+	return {}

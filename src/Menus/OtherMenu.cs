@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class OtherMenu : IBaseMenu {
+public partial class OtherMenu : IBaseMenu {
 	private static List<MenuItem> items = new List<MenuItem>() {
 				new MenuItem(
 					Tr("Misc>4030"),

@@ -2,21 +2,21 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public class AnimationData {
+public partial class AnimationData {
 	public string name;
 	public Dictionary<AnimationState, List<TextureRef>> textures;
 
-	public class TextureRef {
-		Texture texture;
+	public partial class TextureRef {
+		Texture2D texture;
 		public string path;
 
 		public TextureRef(string path) {
 			this.path = path;
 		}
 
-		public Texture GetTexture() {
+		public Texture2D GetTexture() {
 			if (texture == null) {
-				texture = (Texture)ResourceLoader.Load(path);
+				texture = (Texture2D)ResourceLoader.Load(path);
 			}
 
 			return texture;

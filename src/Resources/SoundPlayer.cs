@@ -4,7 +4,7 @@ using File = System.IO.File;
 
 //TODO: Add pooling system to minimize GC
 
-public class SoundPlayer : AudioStreamPlayer {
+public partial class SoundPlayer : AudioStreamPlayer {
 	public readonly static string SoundPath = GFXLibrary.pathToAirlineTycoonD;
 
 	public Action OnSoundFinished;
@@ -16,12 +16,12 @@ public class SoundPlayer : AudioStreamPlayer {
 
 	[Export]
 	public string filePath;
-	AudioStreamSample audioFile = new AudioStreamSample();
+	Godot.AudioStreamWav audioFile = new Godot.AudioStreamWav();
 	ushort[] _shortData;
 	ushort[] shortData {
 		get {
 			if (_shortData == null) {
-				byte[] data = audioFile.GetData();
+				byte[] data = audioFile.Data;
 
 				var size = data.Length / sizeof(UInt16);
 
@@ -57,18 +57,18 @@ public class SoundPlayer : AudioStreamPlayer {
 
 	private void SetAudioStream(string file) {
 		byte[] data = File.ReadAllBytes(SoundPath + file);
-		audioFile.SetData(data);
+		audioFile.Data = data;
 		if (use8BitEncoding) {
 			audioFile.MixRate = 44100;
 		} else {
 			audioFile.MixRate = 22050;
-			audioFile.Format = AudioStreamSample.FormatEnum.Format16Bits;
+			audioFile.Format = Godot.AudioStreamWav.FormatEnum.Format16Bits;
 		}
 
 		Stream = audioFile;
 	}
 
-	new public void Play(int fromPosition = 0) {
+	public new void Play(float fromPosition = 0) {
 		base.Play(fromPosition);
 
 		started = true;
@@ -87,7 +87,7 @@ public class SoundPlayer : AudioStreamPlayer {
 		}
 	}
 
-	override public void _Process(float delta) {
+		public override void _Process(double delta) {
 		if (!IsPlaying() && started) {
 			started = false;
 			OnSoundFinished?.Invoke();

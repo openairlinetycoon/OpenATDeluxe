@@ -1,6 +1,6 @@
 using System;
 
-public class DialogueOption {
+public partial class DialogueOption {
 	protected int textId;
 	public virtual int TextId => textId;
 
@@ -18,7 +18,7 @@ public class DialogueOption {
 		return destination;
 	}
 }
-public class DialogueOptionReturning : DialogueOption {
+public partial class DialogueOptionReturning : DialogueOption {
 	public DialogueOptionReturning(int textId, params string[] wildcards) : base(textId, null, wildcards) {
 
 	}
@@ -28,7 +28,7 @@ public class DialogueOptionReturning : DialogueOption {
 	}
 }
 
-public class DialogueOptionConditioned : DialogueOption {
+public partial class DialogueOptionConditioned : DialogueOption {
 	public Func<DialogueNode> conditionDestination;
 	public Func<int> conditionText;
 
@@ -52,7 +52,7 @@ public class DialogueOptionConditioned : DialogueOption {
 	}
 }
 
-public class DialogueOptionTelephoneConditioned : DialogueOption {
+public partial class DialogueOptionTelephoneConditioned : DialogueOption {
 	public Func<DialogueNode> condition;
 	DialogueNodeReturning onTelephone;
 
@@ -66,7 +66,7 @@ public class DialogueOptionTelephoneConditioned : DialogueOption {
 	}
 }
 
-public class DialogueOptionTelephone : DialogueOption {
+public partial class DialogueOptionTelephone : DialogueOption {
 	DialogueNodeReturning onTelephone;
 	
 	public DialogueOptionTelephone(int textId, DialogueNode destination, DialogueNodeReturning onTelephone = null, params string[] wildcards) : base(textId, destination, wildcards) {

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.IO;
 
-public class SmkPlayer : Sprite {
+public partial class SmkPlayer : Sprite2D {
 	[Export]
 	public string fileName;
 
@@ -83,13 +83,9 @@ public class SmkPlayer : Sprite {
 
 	private ImageTexture PrepareImageTexture() {
 
-		Image image = new Image();
-
-
-		image.CreateFromData((int)file.Header.Width, (int)file.Header.Height, false, Image.Format.Rgba8, decoder.RGBAData);
+		Image image = Image.CreateFromData((int)file.Header.Width, (int)file.Header.Height, false, Image.Format.Rgba8, decoder.RGBAData);
 		image.PremultiplyAlpha();
-		ImageTexture t = new ImageTexture();
-		t.CreateFromImage(image);
+		ImageTexture t = ImageTexture.CreateFromImage(image);
 		return t;
 	}
 
@@ -160,13 +156,13 @@ public class SmkPlayer : Sprite {
 		return buffer[currentFrame].GetHeight();
 	}
 
-	public override void _Process(float delta) {
+	public override void _Process(double delta) {
 		base._Process(delta);
 
 		if (!isPlaying || !Visible)
 			return;
 
-		currentTimeDelta += delta;
+		currentTimeDelta += (float)delta;
 		if (currentTimeDelta > timeDelta) {
 			currentTimeDelta = 0;
 			currentFrame++;

@@ -1,13 +1,13 @@
 using System;
 using Godot;
 
-public class LineElement : Control, IInteractionLayer {
+public partial class LineElement : Control, IInteractionLayer {
 	public Action onClick;
 	public Action onMouseEnter, onMouseLeave;
 
 	public override void _Ready() {
-		Connect("mouse_entered", this, nameof(MouseEntered));
-		Connect("mouse_exited", this, nameof(MouseExited));
+		Connect("mouse_entered", new Callable(this, nameof(MouseEntered)));
+		Connect("mouse_exited", new Callable(this, nameof(MouseExited)));
 	}
 
 	public void MouseEntered() {

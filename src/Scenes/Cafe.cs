@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Cafe : BaseRoom {
+public partial class Cafe : BaseRoom {
 	AnimationList rickAnims = new AnimationList();
 
 	//SAVED
@@ -14,7 +14,7 @@ public class Cafe : BaseRoom {
 		rickAnims.basePosition = rickPos;
 		rickAnims.CreateMouseArea(baseNode);
 		
-		DialogueSystem.AddActor(new Actor("RI",(DialogueWindow)FindNode("RI")));
+		DialogueSystem.AddActor(new Actor("RI", GetNode<DialogueWindow>("RI")));
 		
 		Dialogue rickDialogue = new Dialogue("Rick","rickDialogue","RI");
 		{
@@ -61,7 +61,7 @@ public class Cafe : BaseRoom {
 		rickAnims.Play(0);
 
 	}
-	override public void _Process(float delta) {
+	override public void _Process(double delta) {
 		rickAnims.ProcessTrigger();
 	}
 	public override void Cancel() {

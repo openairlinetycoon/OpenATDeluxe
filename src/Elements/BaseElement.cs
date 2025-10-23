@@ -1,8 +1,8 @@
 using Godot;
 
-public abstract class BaseElement : Node2D {
+public abstract partial class BaseElement : Node2D {
 	public abstract void OnReady();
-	public Texture texture;
+	public Texture2D texture;
 
 	public sealed override void _Ready() {
 		OnReady();

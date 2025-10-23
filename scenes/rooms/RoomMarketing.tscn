@@ -1,140 +1,228 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=39 format=3 uid="uid://d0d32owvuynx7"]
 
-[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/werbung/WERBUNG.res" type="Texture" id=2]
-[ext_resource path="res://Images/room/werbung/WERBUNG2.res" type="Texture" id=3]
-[ext_resource path="res://Images/room/werbung/SPRATZL0.res" type="Texture" id=4]
-[ext_resource path="res://Images/room/werbung/SPRATZL1.res" type="Texture" id=5]
-[ext_resource path="res://Images/room/werbung/SPRATZL2.res" type="Texture" id=6]
-[ext_resource path="res://Images/room/werbung/SPRATZL3.res" type="Texture" id=7]
-[ext_resource path="res://Images/room/werbung/SPRATZL4.res" type="Texture" id=8]
-[ext_resource path="res://Images/room/werbung/BOY_01.res" type="Texture" id=9]
-[ext_resource path="res://Images/room/werbung/BOY_02.res" type="Texture" id=10]
-[ext_resource path="res://Images/room/werbung/BOY_03.res" type="Texture" id=11]
-[ext_resource path="res://Images/room/werbung/SCREEN01.res" type="Texture" id=12]
-[ext_resource path="res://Images/room/werbung/SCREEN02.res" type="Texture" id=13]
-[ext_resource path="res://Images/room/werbung/SCREEN03.res" type="Texture" id=14]
-[ext_resource path="res://Images/room/werbung/SCREEN04.res" type="Texture" id=15]
-[ext_resource path="res://Images/room/werbung/SCREEN05.res" type="Texture" id=16]
-[ext_resource path="res://Images/room/werbung/SCREEN06.res" type="Texture" id=17]
-[ext_resource path="res://Images/room/werbung/CAFE01.res" type="Texture" id=18]
-[ext_resource path="res://Images/room/werbung/CAFE02.res" type="Texture" id=19]
-[ext_resource path="res://Images/room/werbung/CAFE03.res" type="Texture" id=20]
-[ext_resource path="res://Images/room/werbung/CAFE04.res" type="Texture" id=21]
-[ext_resource path="res://Images/room/werbung/CAFE05.res" type="Texture" id=22]
-[ext_resource path="res://Images/room/werbung/CAFE06.res" type="Texture" id=23]
-[ext_resource path="res://Images/room/werbung/CAFE07.res" type="Texture" id=24]
-[ext_resource path="res://Images/room/werbung/CAFE08.res" type="Texture" id=25]
-[ext_resource path="res://Images/room/werbung/CAFE09.res" type="Texture" id=26]
-[ext_resource path="res://Images/room/werbung/CAFE10.res" type="Texture" id=27]
-[ext_resource path="res://Images/room/werbung/CAFE11.res" type="Texture" id=28]
-[ext_resource path="res://Images/room/werbung/CAFE12.res" type="Texture" id=29]
-[ext_resource path="res://Images/room/werbung/CAFE13.res" type="Texture" id=30]
-[ext_resource path="res://Images/room/werbung/CAFE14.res" type="Texture" id=31]
-[ext_resource path="res://Images/room/werbung/CAFE15.res" type="Texture" id=32]
-[ext_resource path="res://Prefabs/MouseCollider.tscn" type="PackedScene" id=33]
-[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=34]
+[ext_resource type="Material" path="res://materials/cutoutPreMult.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://b7c2elndktnga" path="res://Images/room/werbung/WERBUNG.res" id="2"]
+[ext_resource type="Texture2D" uid="uid://bj0nfhum7yr55" path="res://Images/room/werbung/WERBUNG2.res" id="3"]
+[ext_resource type="Texture2D" uid="uid://bfu50lw4xj0ar" path="res://Images/room/werbung/SPRATZL0.res" id="4"]
+[ext_resource type="Texture2D" uid="uid://41lyrab4wr03" path="res://Images/room/werbung/SPRATZL1.res" id="5"]
+[ext_resource type="Texture2D" uid="uid://dbabw12lccqol" path="res://Images/room/werbung/SPRATZL2.res" id="6"]
+[ext_resource type="Texture2D" uid="uid://bxxo058rwrbv7" path="res://Images/room/werbung/SPRATZL3.res" id="7"]
+[ext_resource type="Texture2D" uid="uid://cosn0ah7kwj4w" path="res://Images/room/werbung/SPRATZL4.res" id="8"]
+[ext_resource type="Texture2D" uid="uid://dvvt4bbcnee8x" path="res://Images/room/werbung/BOY_01.res" id="9"]
+[ext_resource type="Texture2D" uid="uid://b45qk8avjoymk" path="res://Images/room/werbung/BOY_02.res" id="10"]
+[ext_resource type="Texture2D" uid="uid://bv4t8rjrkv5wu" path="res://Images/room/werbung/BOY_03.res" id="11"]
+[ext_resource type="Texture2D" uid="uid://bu2n67huaerwq" path="res://Images/room/werbung/SCREEN01.res" id="12"]
+[ext_resource type="Texture2D" uid="uid://dqdu4rmrfsp8n" path="res://Images/room/werbung/SCREEN02.res" id="13"]
+[ext_resource type="Texture2D" uid="uid://bs4yp5ym7gn3o" path="res://Images/room/werbung/SCREEN03.res" id="14"]
+[ext_resource type="Texture2D" uid="uid://ejgsak0y3pyi" path="res://Images/room/werbung/SCREEN04.res" id="15"]
+[ext_resource type="Texture2D" uid="uid://cotdme6psbd7r" path="res://Images/room/werbung/SCREEN05.res" id="16"]
+[ext_resource type="Texture2D" uid="uid://6fhvkt2v3ukm" path="res://Images/room/werbung/SCREEN06.res" id="17"]
+[ext_resource type="Texture2D" uid="uid://bgej64ff58hmu" path="res://Images/room/werbung/CAFE01.res" id="18"]
+[ext_resource type="Texture2D" uid="uid://bi8qjng51qwjy" path="res://Images/room/werbung/CAFE02.res" id="19"]
+[ext_resource type="Texture2D" uid="uid://cjrl8ba7wtvnk" path="res://Images/room/werbung/CAFE03.res" id="20"]
+[ext_resource type="Texture2D" uid="uid://0tw7mo5110y5" path="res://Images/room/werbung/CAFE04.res" id="21"]
+[ext_resource type="Texture2D" uid="uid://dko1mua4aoj1w" path="res://Images/room/werbung/CAFE05.res" id="22"]
+[ext_resource type="Texture2D" uid="uid://b17xgxcw6dryh" path="res://Images/room/werbung/CAFE06.res" id="23"]
+[ext_resource type="Texture2D" uid="uid://cc0u24w81wkk5" path="res://Images/room/werbung/CAFE07.res" id="24"]
+[ext_resource type="Texture2D" uid="uid://lidegfxdwcbd" path="res://Images/room/werbung/CAFE08.res" id="25"]
+[ext_resource type="Texture2D" uid="uid://djcuhfa6y7dp7" path="res://Images/room/werbung/CAFE09.res" id="26"]
+[ext_resource type="Texture2D" uid="uid://ep5y3i2uhqxp" path="res://Images/room/werbung/CAFE10.res" id="27"]
+[ext_resource type="Texture2D" uid="uid://b3ojq7lhnu85o" path="res://Images/room/werbung/CAFE11.res" id="28"]
+[ext_resource type="Texture2D" uid="uid://btkdk0ig3ftqp" path="res://Images/room/werbung/CAFE12.res" id="29"]
+[ext_resource type="Texture2D" uid="uid://bob8h1f2uhl24" path="res://Images/room/werbung/CAFE13.res" id="30"]
+[ext_resource type="Texture2D" uid="uid://cfq3qrodn3t6u" path="res://Images/room/werbung/CAFE14.res" id="31"]
+[ext_resource type="Texture2D" uid="uid://wll4tfxqsybx" path="res://Images/room/werbung/CAFE15.res" id="32"]
+[ext_resource type="PackedScene" path="res://Prefabs/MouseCollider.tscn" id="33"]
+[ext_resource type="PackedScene" path="res://Prefabs/MouseColliderRoom.tscn" id="34"]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id="1"]
 resource_local_to_scene = true
-animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id="2"]
 resource_local_to_scene = true
-animations = [ {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 4.0
-} ]
+}]
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id="3"]
 resource_local_to_scene = true
-animations = [ {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 6.0
-} ]
+}]
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id="4"]
 resource_local_to_scene = true
-animations = [ {
-"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ) ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
 [node name="RoomMarketing" type="Node2D"]
 
 [node name="Base" type="Control" parent="."]
-material = ExtResource( 1 )
+material = ExtResource("1")
+layout_mode = 3
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 960.0
-margin_top = 540.0
-margin_right = 960.0
-margin_bottom = 540.0
-rect_scale = Vector2( 2.5, 2.5 )
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.5, 2.5)
 mouse_filter = 1
 
-[node name="roomSprite" type="Sprite" parent="Base"]
+[node name="roomSprite" type="Sprite2D" parent="Base"]
 use_parent_material = true
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 
-[node name="WERBUNG0" type="Sprite" parent="Base"]
+[node name="WERBUNG0" type="Sprite2D" parent="Base"]
 visible = false
-position = Vector2( 247.5, -117.5 )
-texture = ExtResource( 3 )
+position = Vector2(247.5, -117.5)
+texture = ExtResource("3")
 
-[node name="Sparks" type="AnimatedSprite" parent="Base"]
+[node name="Sparks" type="AnimatedSprite2D" parent="Base"]
 use_parent_material = true
-position = Vector2( 88.1566, -120.766 )
-frames = SubResource( 1 )
-playing = true
+position = Vector2(88.1566, -120.766)
+sprite_frames = SubResource("1")
+autoplay = "default"
 
-[node name="Arm" type="AnimatedSprite" parent="Base"]
+[node name="Arm" type="AnimatedSprite2D" parent="Base"]
 use_parent_material = true
-position = Vector2( 166, -81 )
-frames = SubResource( 2 )
-frame = 2
-playing = true
+position = Vector2(166, -81)
+sprite_frames = SubResource("2")
+autoplay = "default"
 centered = false
 
-[node name="Screen" type="AnimatedSprite" parent="Base"]
+[node name="Screen" type="AnimatedSprite2D" parent="Base"]
 use_parent_material = true
-position = Vector2( -33.0332, -143.15 )
-frames = SubResource( 3 )
-frame = 3
-playing = true
+position = Vector2(-33.0332, -143.15)
+sprite_frames = SubResource("3")
+autoplay = "default"
 centered = false
 
-[node name="Coffee" type="AnimatedSprite" parent="Base"]
+[node name="Coffee" type="AnimatedSprite2D" parent="Base"]
 use_parent_material = true
-position = Vector2( -144.019, -145.899 )
-frames = SubResource( 4 )
+position = Vector2(-144.019, -145.899)
+sprite_frames = SubResource("4")
 frame = 7
-playing = true
 
 [node name="MouseHover" type="Node2D" parent="Base"]
-position = Vector2( -224.92, 71.7058 )
+position = Vector2(-224.92, 71.7058)
 rotation = 0.417069
 
-[node name="MouseCollider" parent="Base/MouseHover" instance=ExtResource( 33 )]
+[node name="MouseCollider" parent="Base/MouseHover" instance=ExtResource("33")]
 gravity = 0.0
 
 [node name="Exit" type="Node2D" parent="Base"]
-position = Vector2( -307.367, -43.1694 )
+position = Vector2(-307.367, -43.1694)
 rotation = 0.138399
-scale = Vector2( 6.21718, 19.3335 )
+scale = Vector2(6.21718, 19.3335)
 
-[node name="MouseColliderRoom" parent="Base/Exit" instance=ExtResource( 34 )]
+[node name="MouseColliderRoom" parent="Base/Exit" instance=ExtResource("34")]
 isExitToAirport = true

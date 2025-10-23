@@ -93,13 +93,13 @@ const sample_mode_loop_ends_by_key_depression = 3
 	@return	smf
 """
 func read_file( path:String ):
-	var f:File = File.new( )
+	var f = FileAccess.open( path, FileAccess.READ )
 
-	if f.open( path, f.READ ) != OK:
+	if f == null:
 		push_error( "error: cant read file %s" % path )
 		breakpoint
 	var stream:StreamPeerBuffer = StreamPeerBuffer.new( )
-	stream.set_data_array( f.get_buffer( f.get_len( ) ) )
+	stream.set_data_array( f.get_buffer( f.get_length( ) ) )
 	stream.big_endian = false
 	f.close( )
 
@@ -107,10 +107,10 @@ func read_file( path:String ):
 
 """
 	配列から読み込み
-	@param	data	PoolByteArray
+	@param	data	PackedByteArray
 	@return	smf
 """
-func read_data( data:PoolByteArray ):
+func read_data( data:PackedByteArray ):
 	var stream:StreamPeerBuffer = StreamPeerBuffer.new( )
 	stream.set_data_array( data )
 	stream.big_endian = false
@@ -258,7 +258,7 @@ func _read_sdta( stream:StreamPeerBuffer ):
 	self._check_header( chunk.stream, "sdta" )
 
 	var smpl = self._read_chunk( chunk.stream, "smpl" )
-	var smpl_bytes:PoolByteArray = smpl.stream.get_partial_data( smpl.size )[1]
+	var smpl_bytes:PackedByteArray = smpl.stream.get_partial_data( smpl.size )[1]
 
 	var sm24_bytes = null
 	if 0 < chunk.stream.get_available_bytes( ):

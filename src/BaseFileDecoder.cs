@@ -4,12 +4,18 @@ using System.Text;
 using BinaryWriter = System.IO.BinaryWriter;
 using MemoryStream = System.IO.MemoryStream;
 
-public class BaseFileDecoder : ATFile {
+public partial class BaseFileDecoder : ATFile {
 	protected string fileData;
 
 	public const string xtRLEMagic = "xtRLE";
 	protected const int KEY_ONE_XTRLE = 0xa5;
 	protected const int KEY_TWO_XTRLE = 0x00;
+	
+	static BaseFileDecoder() {
+		// Register the code pages provider to enable Windows-1252 encoding
+		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+	}
+	
 	protected static Encoding BaseEncoding => Encoding.GetEncoding(1252);
 
 	public enum DecodingMethod {
@@ -18,11 +24,10 @@ public class BaseFileDecoder : ATFile {
 	}
 
 	public BaseFileDecoder(string _filePath) : base(_filePath) {
-		File f = new File();
-		Error e = f.Open(filePath, File.ModeFlags.Read);
+		Godot.FileAccess f = Godot.FileAccess.Open(filePath, Godot.FileAccess.ModeFlags.Read);
 
-		if (e != Error.Ok) {
-			throw new ArgumentException("Error opening file: " + filePath + " - Error " + e.ToString());
+		if (f == null) {
+			throw new ArgumentException("Error opening file: " + filePath);
 		}
 
 		byte[] data = ReadFile(f);
@@ -34,14 +39,14 @@ public class BaseFileDecoder : ATFile {
 	/// </summary>
 	/// <param name="fileIn">An already opened file</param>
 	/// <returns>Returns the decrypted file ready to be filled in a document.</returns>
-	public byte[] ReadFile(File fileIn) {
+	public byte[] ReadFile(Godot.FileAccess fileIn) {
 		DecodingMethod method = IsXTRLE(fileIn);
 
 		byte[] data = null;
 
 		switch (method) {
 			case (DecodingMethod.None):
-				data = fileIn.GetBuffer((int)fileIn.GetLen());
+				data = fileIn.GetBuffer((int)fileIn.GetLength());
 				break;
 			case (DecodingMethod.xtRLE):
 				data = DecodeXTRLE(fileIn);
@@ -56,7 +61,7 @@ public class BaseFileDecoder : ATFile {
 	/// </summary>
 	/// <param name="fileIn">An already opened file</param>
 	/// <returns>If file is an xtRLE file: DecodingMethod.xtRLE; if not DecodingMethod.None</returns>
-	private static DecodingMethod IsXTRLE(File fileIn) {
+	private static DecodingMethod IsXTRLE(Godot.FileAccess fileIn) {
 		string magic = Encoding.UTF8.GetString(fileIn.GetBuffer(xtRLEMagic.Length));
 		DecodingMethod method = (xtRLEMagic == magic) ? DecodingMethod.xtRLE : DecodingMethod.None;
 		fileIn.Seek(0); //Go back to the start of the file
@@ -70,7 +75,7 @@ public class BaseFileDecoder : ATFile {
 	/// </summary>
 	/// <param name="fileIn">An already opened file</param>
 	/// <returns>Returns the decrypted xtRLE file in a byte[]</returns>
-	private byte[] DecodeXTRLE(File fileIn) {
+	private byte[] DecodeXTRLE(Godot.FileAccess fileIn) {
 		byte[] data;
 
 		fileIn.Seek(10); //Skip header

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using File = System.IO.File;
 using System.Text;
 
-public class LocalizationManager {
+public partial class LocalizationManager {
 	public static LocalizationManager instance;
 
 	public List<LocalizationStack> stacks;
@@ -74,7 +74,7 @@ public class LocalizationManager {
 		}
 	}
 
-	public class Export {
+	public partial class Export {
 		private string _id;
 		private string _de; //German
 		private string _pt_BR;
@@ -136,16 +136,16 @@ public class LocalizationManager {
 				//Order of "if"s is important! A ">" string can be in a ">>" string but not vice verca!
 				string line = lineMessy.TrimEnd('\r');
 
-				if (line.BeginsWith("//")) //Skip comments
+				if (line.StartsWith("//")) //Skip comments
 					continue;
 				if (line.Length < 2) //Skip empty lines
 					continue;
-				if (line.BeginsWith("  x")) { //Missing translation
+				if (line.StartsWith("  x")) { //Missing translation
 					currentStack.RemoveString(currentString.id);
 					continue;
 				}
 
-				if (line.BeginsWith(">>")) { //New string!
+				if (line.StartsWith(">>")) { //New string!
 					string idS = line.Substring(2);
 					idS = idS.Split(' ', '/')[0];
 					int.TryParse(idS, out int id);
@@ -166,13 +166,13 @@ public class LocalizationManager {
 					continue;
 				}
 
-				if (line.BeginsWith(">")) { //New stack!
+				if (line.StartsWith(">")) { //New stack!
 					currentStack = new LocalizationStack(line.Substring(1));
 					locData.Add(currentStack);
 					continue;
 				}
 
-				if (line.BeginsWith("  ")) { //New string entry!
+				if (line.StartsWith("  ")) { //New string entry!
 					currentString.AddString(line);
 				}
 			}
@@ -184,7 +184,7 @@ public class LocalizationManager {
 
 }
 
-public class LocalizationStack {
+public partial class LocalizationStack {
 	public string name;
 
 	public Dictionary<int, LocalizedString> strings;

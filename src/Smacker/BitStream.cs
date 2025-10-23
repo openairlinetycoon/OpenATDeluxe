@@ -36,7 +36,7 @@ using System.IO;
 /// <summary>
 /// A utility class for reading groups of bits from a stream
 /// </summary>
-public class BitStream {
+public partial class BitStream {
 	private Stream mStream;
 	private int mCurrentByte;
 	private int mCurrentBit;

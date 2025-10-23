@@ -1,19 +1,19 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenATD", "OpenATD.csproj", "{EB6F2C3D-C58E-4665-A0D8-7C60E762879D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenATD", "OpenATD.csproj", "{403023F5-1001-44C8-9267-B190A5AB4F30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
-	Release|Any CPU = Release|Any CPU
-	Tools|Any CPU = Tools|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EB6F2C3D-C58E-4665-A0D8-7C60E762879D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB6F2C3D-C58E-4665-A0D8-7C60E762879D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB6F2C3D-C58E-4665-A0D8-7C60E762879D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB6F2C3D-C58E-4665-A0D8-7C60E762879D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB6F2C3D-C58E-4665-A0D8-7C60E762879D}.Tools|Any CPU.ActiveCfg = Tools|Any CPU
-		{EB6F2C3D-C58E-4665-A0D8-7C60E762879D}.Tools|Any CPU.Build.0 = Tools|Any CPU
+		{403023F5-1001-44C8-9267-B190A5AB4F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{403023F5-1001-44C8-9267-B190A5AB4F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{403023F5-1001-44C8-9267-B190A5AB4F30}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{403023F5-1001-44C8-9267-B190A5AB4F30}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{403023F5-1001-44C8-9267-B190A5AB4F30}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{403023F5-1001-44C8-9267-B190A5AB4F30}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

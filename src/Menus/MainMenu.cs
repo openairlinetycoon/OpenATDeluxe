@@ -11,11 +11,11 @@ public struct MainMenu : IBaseMenu {
 					"",
 					MenuItem.EntryType.HeaderBar),
 
-				new MenuItem(
-					"# "+Tr("NewG>501"), // # Free Game
-					MenuItem.EntryType.Link) {OnClick = ()=>{
-						RoomManager.ChangeRoom("", true);
-						GameController.instance.SetTaskbar(true);}},
+			new MenuItem(
+				"# "+Tr("NewG>501"), // # Free Game
+				MenuItem.EntryType.Link) {OnClick = ()=>{
+					RoomManager.ChangeRoom("", true);
+					GameController.ToggleTaskbar(true);}},
 				new MenuItem(
 					Tr("NewG>515"),//Campaigns
 					MenuItem.EntryType.LinkBlocked),

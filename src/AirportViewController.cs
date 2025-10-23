@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Container for airport relevant objects like escelators or room entrances
 /// </summary>
-public class AirportViewController : Node2D {
+public partial class AirportViewController : Node2D {
 	public static AirportViewController instance;
 
 	[Export]
@@ -19,8 +19,8 @@ public class AirportViewController : Node2D {
 	override public void _Ready() {
 		instance = this;
 
-		escelators = (from NodePath e in _escelators select GetNode((NodePath)e)).ToArray();
-		roomEntrances = (from NodePath e in _escelators select GetNode((NodePath)e)).ToArray();
+		escelators = (from Variant e in _escelators select GetNode(e.As<NodePath>())).ToArray();
+		roomEntrances = (from Variant e in _roomEntrances select GetNode(e.As<NodePath>())).ToArray();
 	}
 
 }

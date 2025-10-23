@@ -6,7 +6,7 @@ using SDirectory = System.IO.Directory;
 using SPath = System.IO.Path;
 using System.Threading.Tasks;
 
-public class ATDataLoader {
+public partial class ATDataLoader {
 
 	static List<GFXLibrary> libraries = new List<GFXLibrary>();
 	static List<Resource> resources = new List<Resource>();
@@ -47,7 +47,7 @@ public class ATDataLoader {
 				if (!f.EndsWith(".gli", StringComparison.OrdinalIgnoreCase))
 					return;
 
-				var lib = new GFXLibrary(folderName + "/" + System.IO.Path.GetFileName(f));
+				var lib = new GFXLibrary(folderName + "/" + SPath.GetFileName(f));
 				lib.GetFilesInLibrary();
 				libraries.Add(lib);
 
@@ -62,7 +62,7 @@ public class ATDataLoader {
 
 			foreach (var file in lib.files) {
 				string path = godotPath + file.name.Trim('\0') + ".res";
-				Texture resource = file.GetTexture();
+				Texture2D resource = file.GetTexture();
 				resource?.TakeOverPath(path);
 				resources.Add(resource);
 			}
@@ -88,7 +88,7 @@ public class ATDataLoader {
 				SDirectory.CreateDirectory(SPath.GetDirectoryName(path));
 			}
 
-			Error e = ResourceSaver.Save(path, r);
+			Error e = ResourceSaver.Save(r, path);
 			if (e != 0) {
 				GD.Print(e.ToString());
 			}

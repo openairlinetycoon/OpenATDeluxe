@@ -1,228 +1,252 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=46 format=3 uid="uid://curgsfycntlih"]
 
-[ext_resource path="res://src/GameController.cs" type="Script" id=1]
-[ext_resource path="res://src/RoomManager.cs" type="Script" id=2]
-[ext_resource path="res://scenes/rooms/RoomAirport.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/rooms/RoomAirTravel.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/rooms/RoomArabAir.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/rooms/RoomBank.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/rooms/RoomCafe.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/rooms/RoomCargo.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/rooms/RoomDutyFree.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/rooms/RoomKiosk.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/rooms/RoomLastMinute.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/rooms/RoomMarketing.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/rooms/RoomMuseum.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/rooms/RoomOffice.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/rooms/RoomTerrorist.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/rooms/RoomMainMenu.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/rooms/RoomManager.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Images/gli/glstd/STATLIN5.res" type="Texture" id=18]
-[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=19]
-[ext_resource path="res://Images/gli/glstd/STATLIN6.res" type="Texture" id=20]
-[ext_resource path="res://Images/gli/glstd/STAT01.res" type="Texture" id=21]
-[ext_resource path="res://Images/gli/glstd/STATLIN0.res" type="Texture" id=22]
-[ext_resource path="res://Images/gli/glstd/LOGO1.res" type="Texture" id=23]
-[ext_resource path="res://Prefabs/DialogueSystem.tscn" type="PackedScene" id=24]
-[ext_resource path="res://src/MouseCursor.cs" type="Script" id=26]
-[ext_resource path="res://Images/gli/glbasis/CURSOR.res" type="Texture" id=27]
-[ext_resource path="res://Images/gli/glbasis/CURSORH.res" type="Texture" id=28]
-[ext_resource path="res://Images/gli/glbasis/CURSORS.res" type="Texture" id=29]
-[ext_resource path="res://Images/gli/glbasis/EXIT01.res" type="Texture" id=30]
-[ext_resource path="res://Images/gli/glbasis/EXIT02.res" type="Texture" id=31]
-[ext_resource path="res://Images/gli/glbasis/EXIT03.res" type="Texture" id=32]
-[ext_resource path="res://Images/gli/glbasis/EXIT04.res" type="Texture" id=33]
-[ext_resource path="res://Images/gli/glbasis/EXIT05.res" type="Texture" id=34]
-[ext_resource path="res://Images/gli/glbasis/EXIT06.res" type="Texture" id=35]
-[ext_resource path="res://Images/gli/glbasis/EXIT07.res" type="Texture" id=36]
-[ext_resource path="res://Images/gli/glbasis/EXIT08.res" type="Texture" id=37]
-[ext_resource path="res://Images/gli/glbasis/EXIT09.res" type="Texture" id=38]
-[ext_resource path="res://Images/gli/glbasis/EXIT10.res" type="Texture" id=39]
-[ext_resource path="res://Images/gli/glbasis/EXIT11.res" type="Texture" id=40]
-[ext_resource path="res://Images/gli/glbasis/EXIT12.res" type="Texture" id=41]
-[ext_resource path="res://Images/gli/glbasis/CURSORL.res" type="Texture" id=42]
-[ext_resource path="res://Images/gli/glbasis/CURSORR.res" type="Texture" id=43]
-[ext_resource path="res://src/MusicController.cs" type="Script" id=44]
-[ext_resource path="res://addons/midi/MidiPlayer.gd" type="Script" id=45]
-[ext_resource path="res://addons/midi/icon.png" type="Texture" id=46]
+[ext_resource type="Script" uid="uid://cx646rlmwcsdg" path="res://src/GameController.cs" id="1"]
+[ext_resource type="Script" uid="uid://blk7dumpf42ab" path="res://src/RoomManager.cs" id="2"]
+[ext_resource type="PackedScene" uid="uid://cgfp4rtkqkud8" path="res://scenes/rooms/RoomAirport.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b8eff7m2enh7m" path="res://scenes/rooms/RoomAirTravel.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://rv4hi600oapd" path="res://scenes/rooms/RoomArabAir.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://c05sjeyllsn3p" path="res://scenes/rooms/RoomBank.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://bxhctjhyyl07b" path="res://scenes/rooms/RoomCafe.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://c2pvlj70afp0e" path="res://scenes/rooms/RoomCargo.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://cc7wyegi8jt8" path="res://scenes/rooms/RoomDutyFree.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://tpvfccph4nw7" path="res://scenes/rooms/RoomKiosk.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://xhx3c7ai1gew" path="res://scenes/rooms/RoomLastMinute.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://d0d32owvuynx7" path="res://scenes/rooms/RoomMarketing.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://caus0tny4r1hh" path="res://scenes/rooms/RoomMuseum.tscn" id="13"]
+[ext_resource type="PackedScene" uid="uid://ck11xyat6yyqp" path="res://scenes/rooms/RoomOffice.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://y83tnvu16ncs" path="res://scenes/rooms/RoomTerrorist.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://b5244tahq05n" path="res://scenes/rooms/RoomMainMenu.tscn" id="16"]
+[ext_resource type="PackedScene" uid="uid://dthbrtk1lrcx4" path="res://scenes/rooms/RoomManager.tscn" id="17"]
+[ext_resource type="Texture2D" uid="uid://bbpxj3tsaymn7" path="res://Images/gli/glstd/STATLIN5.res" id="18"]
+[ext_resource type="Material" path="res://materials/cutoutPreMult.tres" id="19"]
+[ext_resource type="Texture2D" uid="uid://kdy0brs7ntrc" path="res://Images/gli/glstd/STATLIN6.res" id="20"]
+[ext_resource type="Texture2D" uid="uid://dbio1awh2yd4u" path="res://Images/gli/glstd/STAT01.res" id="21"]
+[ext_resource type="Texture2D" uid="uid://mibuj7a35at0" path="res://Images/gli/glstd/STATLIN0.res" id="22"]
+[ext_resource type="Texture2D" uid="uid://dgo7ps400v0d3" path="res://Images/gli/glstd/LOGO1.res" id="23"]
+[ext_resource type="PackedScene" path="res://Prefabs/DialogueSystem.tscn" id="24"]
+[ext_resource type="Script" uid="uid://dt4nybng2rjc1" path="res://src/MouseCursor.cs" id="26"]
+[ext_resource type="Texture2D" uid="uid://b54srn87rhyqs" path="res://Images/gli/glbasis/CURSOR.res" id="27"]
+[ext_resource type="Texture2D" uid="uid://m1da552y21uf" path="res://Images/gli/glbasis/CURSORH.res" id="28"]
+[ext_resource type="Texture2D" uid="uid://3f7rmjsvhbb7" path="res://Images/gli/glbasis/CURSORS.res" id="29"]
+[ext_resource type="Texture2D" uid="uid://782b7jh2o7o3" path="res://Images/gli/glbasis/EXIT01.res" id="30"]
+[ext_resource type="Texture2D" uid="uid://duwsl83i45d06" path="res://Images/gli/glbasis/EXIT02.res" id="31"]
+[ext_resource type="Texture2D" uid="uid://x72clfttq0px" path="res://Images/gli/glbasis/EXIT03.res" id="32"]
+[ext_resource type="Texture2D" uid="uid://b2w4lo3y00gkx" path="res://Images/gli/glbasis/EXIT04.res" id="33"]
+[ext_resource type="Texture2D" uid="uid://dhp8xffk7fkq6" path="res://Images/gli/glbasis/EXIT05.res" id="34"]
+[ext_resource type="Texture2D" uid="uid://dqlqscwgqi04n" path="res://Images/gli/glbasis/EXIT06.res" id="35"]
+[ext_resource type="Texture2D" uid="uid://c8w773fbppu8x" path="res://Images/gli/glbasis/EXIT07.res" id="36"]
+[ext_resource type="Texture2D" uid="uid://d07ced8libuvq" path="res://Images/gli/glbasis/EXIT08.res" id="37"]
+[ext_resource type="Texture2D" uid="uid://bfd8nbmqtsjxg" path="res://Images/gli/glbasis/EXIT09.res" id="38"]
+[ext_resource type="Texture2D" uid="uid://dldiipv6lhv3v" path="res://Images/gli/glbasis/EXIT10.res" id="39"]
+[ext_resource type="Texture2D" uid="uid://kktkj4jpemwq" path="res://Images/gli/glbasis/EXIT11.res" id="40"]
+[ext_resource type="Texture2D" uid="uid://crjnavh3yguwy" path="res://Images/gli/glbasis/EXIT12.res" id="41"]
+[ext_resource type="Texture2D" uid="uid://c2qjymuxwltqa" path="res://Images/gli/glbasis/CURSORL.res" id="42"]
+[ext_resource type="Texture2D" uid="uid://djxf35cb3j3jn" path="res://Images/gli/glbasis/CURSORR.res" id="43"]
+[ext_resource type="Script" uid="uid://c4yjcjihoojh7" path="res://src/MusicController.cs" id="44"]
+[ext_resource type="Script" uid="uid://c7ry6g18nod1e" path="res://addons/midi/MidiPlayer.gd" id="45"]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id="1"]
 resource_local_to_scene = true
-animations = [ {
-"frames": [ ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ) ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 10.0
-} ]
+}]
 
 [node name="Game" type="Node2D"]
-pause_mode = 1
-script = ExtResource( 1 )
+process_mode = 1
+script = ExtResource("1")
 _taskbar = NodePath("UI/MarginContainer/Taskbar")
 
 [node name="Scene" type="Node2D" parent="."]
-script = ExtResource( 2 )
-_rooms = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ]
+script = ExtResource("2")
+_rooms = [ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15"), ExtResource("16"), ExtResource("17")]
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_scale = Vector2( 2.5, 2.5 )
-mouse_filter = 1
-custom_constants/margin_right = 0
-custom_constants/margin_top = 0
-custom_constants/margin_left = 0
-custom_constants/margin_bottom = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2.5, 2.5)
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="Taskbar" type="Control" parent="UI/MarginContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
+layout_mode = 2
 mouse_filter = 1
 
 [node name="background" type="ColorRect" parent="UI/MarginContainer/Taskbar"]
-margin_top = 392.0
-margin_right = 638.0
-margin_bottom = 432.0
-color = Color( 0, 0, 0, 1 )
+layout_mode = 0
+offset_top = 392.0
+offset_right = 638.0
+offset_bottom = 432.0
+color = Color(0, 0, 0, 1)
 
 [node name="GridContainer" type="GridContainer" parent="UI/MarginContainer/Taskbar"]
-margin_left = 247.0
-margin_top = 413.0
-margin_right = 609.423
-margin_bottom = 413.0
+layout_mode = 0
+offset_left = 247.0
+offset_top = 413.0
+offset_right = 609.423
+offset_bottom = 413.0
 grow_horizontal = 2
-custom_constants/hseparation = 60
+theme_override_constants/h_separation = 60
 columns = 8
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Control" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
+layout_mode = 2
 
-[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control"]
-position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 18 )
+[node name="STATLIN5" type="Sprite2D" parent="UI/MarginContainer/Taskbar/GridContainer/Control"]
+position = Vector2(29.2245, -1.19644)
+texture = ExtResource("18")
 
 [node name="Control2" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
-margin_left = 60.0
-margin_right = 60.0
+layout_mode = 2
 
-[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control2"]
-position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 18 )
+[node name="STATLIN5" type="Sprite2D" parent="UI/MarginContainer/Taskbar/GridContainer/Control2"]
+position = Vector2(29.2245, -1.19644)
+texture = ExtResource("18")
 
 [node name="Control3" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
-margin_left = 120.0
-margin_right = 120.0
+layout_mode = 2
 
-[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control3"]
-position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 18 )
+[node name="STATLIN5" type="Sprite2D" parent="UI/MarginContainer/Taskbar/GridContainer/Control3"]
+position = Vector2(29.2245, -1.19644)
+texture = ExtResource("18")
 
 [node name="Control4" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
-margin_left = 180.0
-margin_right = 180.0
+layout_mode = 2
 
-[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control4"]
-position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 18 )
+[node name="STATLIN5" type="Sprite2D" parent="UI/MarginContainer/Taskbar/GridContainer/Control4"]
+position = Vector2(29.2245, -1.19644)
+texture = ExtResource("18")
 
 [node name="Control6" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
-margin_left = 240.0
-margin_right = 240.0
+layout_mode = 2
 
-[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control6"]
-position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 18 )
+[node name="STATLIN5" type="Sprite2D" parent="UI/MarginContainer/Taskbar/GridContainer/Control6"]
+position = Vector2(29.2245, -1.19644)
+texture = ExtResource("18")
 
 [node name="Control7" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
-margin_left = 300.0
-margin_right = 300.0
+layout_mode = 2
 
-[node name="STATLIN5" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control7"]
-position = Vector2( 29.2245, -1.19644 )
-texture = ExtResource( 18 )
+[node name="STATLIN5" type="Sprite2D" parent="UI/MarginContainer/Taskbar/GridContainer/Control7"]
+position = Vector2(29.2245, -1.19644)
+texture = ExtResource("18")
 
 [node name="Control5" type="Control" parent="UI/MarginContainer/Taskbar/GridContainer"]
-margin_left = 360.0
-margin_right = 360.0
+layout_mode = 2
 
-[node name="STATLIN6" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control5"]
-material = ExtResource( 19 )
-position = Vector2( 15.1812, -1.22086 )
-texture = ExtResource( 20 )
+[node name="STATLIN6" type="Sprite2D" parent="UI/MarginContainer/Taskbar/GridContainer/Control5"]
+material = ExtResource("19")
+position = Vector2(15.1812, -1.22086)
+texture = ExtResource("20")
 
-[node name="STAT01" type="Sprite" parent="UI/MarginContainer/Taskbar/GridContainer/Control5"]
-material = ExtResource( 19 )
-position = Vector2( 11.6365, 9.1442 )
-texture = ExtResource( 21 )
+[node name="STAT01" type="Sprite2D" parent="UI/MarginContainer/Taskbar/GridContainer/Control5"]
+material = ExtResource("19")
+position = Vector2(11.6365, 9.1442)
+texture = ExtResource("21")
 
-[node name="STATLIN0" type="Sprite" parent="UI/MarginContainer/Taskbar"]
-material = ExtResource( 19 )
-position = Vector2( 124, 411.779 )
-texture = ExtResource( 22 )
+[node name="STATLIN0" type="Sprite2D" parent="UI/MarginContainer/Taskbar"]
+material = ExtResource("19")
+position = Vector2(124, 411.779)
+texture = ExtResource("22")
 
-[node name="LOGO1" type="Sprite" parent="UI/MarginContainer/Taskbar"]
-position = Vector2( 38.3176, 411.779 )
-texture = ExtResource( 23 )
+[node name="LOGO1" type="Sprite2D" parent="UI/MarginContainer/Taskbar"]
+position = Vector2(38.3176, 411.779)
+texture = ExtResource("23")
 
-[node name="DialogueSystem" parent="UI/MarginContainer/Taskbar" instance=ExtResource( 24 )]
-scale = Vector2( 0.4, 0.4 )
+[node name="DialogueSystem" parent="UI/MarginContainer/Taskbar" instance=ExtResource("24")]
+scale = Vector2(0.4, 0.4)
 
 [node name="MouseController" type="Node2D" parent="UI"]
-material = ExtResource( 19 )
-position = Vector2( 761.252, 372.714 )
-scale = Vector2( 1.5, 1.5 )
 z_index = 999
-script = ExtResource( 26 )
+material = ExtResource("19")
+position = Vector2(761.252, 372.714)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("26")
 
-[node name="Normal" type="Sprite" parent="UI/MouseController"]
+[node name="Normal" type="Sprite2D" parent="UI/MouseController"]
 use_parent_material = true
-texture = ExtResource( 27 )
+texture = ExtResource("27")
 centered = false
 
-[node name="Hover" type="Sprite" parent="UI/MouseController"]
+[node name="Hover" type="Sprite2D" parent="UI/MouseController"]
 use_parent_material = true
-texture = ExtResource( 28 )
+texture = ExtResource("28")
 centered = false
 
-[node name="Load" type="Sprite" parent="UI/MouseController"]
+[node name="Load" type="Sprite2D" parent="UI/MouseController"]
 use_parent_material = true
-texture = ExtResource( 29 )
+texture = ExtResource("29")
 centered = false
 
-[node name="Exit" type="AnimatedSprite" parent="UI/MouseController"]
+[node name="Exit" type="AnimatedSprite2D" parent="UI/MouseController"]
 use_parent_material = true
-position = Vector2( -15.5213, -12.6841 )
-frames = SubResource( 1 )
+position = Vector2(-15.5213, -12.6841)
+sprite_frames = SubResource("1")
 frame = 4
-playing = true
 centered = false
 
-[node name="MoveLeft" type="Sprite" parent="UI/MouseController"]
+[node name="MoveLeft" type="Sprite2D" parent="UI/MouseController"]
 use_parent_material = true
-position = Vector2( 15.9929, 0.0537262 )
-texture = ExtResource( 42 )
+position = Vector2(15.9929, 0.0537262)
+texture = ExtResource("42")
 
-[node name="MoveRight" type="Sprite" parent="UI/MouseController"]
+[node name="MoveRight" type="Sprite2D" parent="UI/MouseController"]
 use_parent_material = true
-position = Vector2( -15.5659, 0.0537109 )
-texture = ExtResource( 43 )
+position = Vector2(-15.5659, 0.0537109)
+texture = ExtResource("43")
 
 [node name="MusicController" type="Node2D" parent="."]
-script = ExtResource( 44 )
+script = ExtResource("44")
 _midiPlayer = NodePath("musicMid")
 _oggPlayer = NodePath("musicOgg")
 
 [node name="musicMid" type="AudioStreamPlayer" parent="MusicController"]
+max_polyphony = 10
 bus = "music"
-script = ExtResource( 45 )
-__meta__ = {
-"_editor_icon": ExtResource( 46 )
-}
+script = ExtResource("45")
 max_polyphony = 10
 load_all_voices_from_soundfont = true
 no_reload_soundfont = true
@@ -230,4 +254,4 @@ soundfont = "res://sound/Aspirin-Stereo.sf2"
 bus = "music"
 
 [node name="musicOgg" type="AudioStreamPlayer" parent="MusicController"]
-bus = "music"
+bus = &"music"

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class SoundMenu : IBaseMenu {
+public partial class SoundMenu : IBaseMenu {
 	private static List<MenuItem> items = new List<MenuItem>() {
 				new MenuItem(
 					Tr("Misc>4120"),

@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 
 [Tool]
-public class ManageTool : EditorPlugin {
+public partial class ManageTool : EditorPlugin {
 	static ManageTool instance;
 	static DockInterface dock;
 
@@ -12,7 +12,7 @@ public class ManageTool : EditorPlugin {
 	}
 
 	public override void _EnterTree() {
-		dock = (DockInterface)GD.Load<PackedScene>("addons/builder/dock.tscn").Instance();
+		dock = (DockInterface)GD.Load<PackedScene>("addons/builder/dock.tscn").Instantiate();
 		dock.isDocked = true;
 		AddControlToDock(DockSlot.LeftUr, dock);
 	}
@@ -21,7 +21,7 @@ public class ManageTool : EditorPlugin {
 		instance.RemoveControlFromDocks(oldDock);
 		oldDock.QueueFree();
 
-		dock = (DockInterface)GD.Load<PackedScene>("addons/builder/dock.tscn").Instance();
+		dock = (DockInterface)GD.Load<PackedScene>("addons/builder/dock.tscn").Instantiate();
 		dock.isDocked = true;
 		instance.AddControlToDock(DockSlot.LeftUr, dock);
 	}
@@ -32,4 +32,3 @@ public class ManageTool : EditorPlugin {
 		// Initialization of the plugin goes here
 	}
 }
-

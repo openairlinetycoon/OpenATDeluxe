@@ -1,88 +1,142 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=25 format=3 uid="uid://y83tnvu16ncs"]
 
-[ext_resource path="res://materials/cutoutPreMult.tres" type="Material" id=1]
-[ext_resource path="res://Images/room/sabotage/SABOTAGE.res" type="Texture" id=2]
-[ext_resource path="res://Prefabs/MouseColliderRoom.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Images/room/sabotage/RAUCH00.res" type="Texture" id=4]
-[ext_resource path="res://Images/room/sabotage/RAUCH01.res" type="Texture" id=5]
-[ext_resource path="res://Images/room/sabotage/RAUCH02.res" type="Texture" id=6]
-[ext_resource path="res://Images/room/sabotage/RAUCH03.res" type="Texture" id=7]
-[ext_resource path="res://Images/room/sabotage/RAUCH04.res" type="Texture" id=8]
-[ext_resource path="res://Images/room/sabotage/RAUCH05.res" type="Texture" id=9]
-[ext_resource path="res://Images/room/sabotage/RAUCH06.res" type="Texture" id=10]
-[ext_resource path="res://Images/room/sabotage/RAUCH07.res" type="Texture" id=11]
-[ext_resource path="res://Images/room/sabotage/RAUCH08.res" type="Texture" id=12]
-[ext_resource path="res://Images/room/sabotage/RAUCH09.res" type="Texture" id=13]
-[ext_resource path="res://Images/room/sabotage/RAUCH10.res" type="Texture" id=14]
-[ext_resource path="res://Images/room/sabotage/AUGE00.res" type="Texture" id=15]
-[ext_resource path="res://Images/room/sabotage/AUGE01.res" type="Texture" id=16]
-[ext_resource path="res://Images/room/sabotage/AUGE02.res" type="Texture" id=17]
-[ext_resource path="res://Images/room/sabotage/AUGE03.res" type="Texture" id=18]
-[ext_resource path="res://Images/room/sabotage/AUGE04.res" type="Texture" id=19]
-[ext_resource path="res://Images/room/sabotage/AUGE05.res" type="Texture" id=20]
-[ext_resource path="res://Images/room/sabotage/AUGE06.res" type="Texture" id=21]
+[ext_resource type="Material" path="res://materials/cutoutPreMult.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://dyi7kmi5ehnqg" path="res://Images/room/sabotage/SABOTAGE.res" id="2"]
+[ext_resource type="PackedScene" path="res://Prefabs/MouseColliderRoom.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://eommo0ot1dvf" path="res://Images/room/sabotage/RAUCH00.res" id="4"]
+[ext_resource type="Texture2D" uid="uid://buqalo0rjt5s4" path="res://Images/room/sabotage/RAUCH01.res" id="5"]
+[ext_resource type="Texture2D" uid="uid://buc5eotutswya" path="res://Images/room/sabotage/RAUCH02.res" id="6"]
+[ext_resource type="Texture2D" uid="uid://dhukylanfexwu" path="res://Images/room/sabotage/RAUCH03.res" id="7"]
+[ext_resource type="Texture2D" uid="uid://bg6flmybnw65s" path="res://Images/room/sabotage/RAUCH04.res" id="8"]
+[ext_resource type="Texture2D" uid="uid://b14033gh31oi2" path="res://Images/room/sabotage/RAUCH05.res" id="9"]
+[ext_resource type="Texture2D" uid="uid://bf20ta5uatbni" path="res://Images/room/sabotage/RAUCH06.res" id="10"]
+[ext_resource type="Texture2D" uid="uid://dtwxo13bs4bcn" path="res://Images/room/sabotage/RAUCH07.res" id="11"]
+[ext_resource type="Texture2D" uid="uid://d0frsj8x8j3f4" path="res://Images/room/sabotage/RAUCH08.res" id="12"]
+[ext_resource type="Texture2D" uid="uid://cd6vd4j7syljx" path="res://Images/room/sabotage/RAUCH09.res" id="13"]
+[ext_resource type="Texture2D" uid="uid://ccd8buvv5oa0n" path="res://Images/room/sabotage/RAUCH10.res" id="14"]
+[ext_resource type="Texture2D" uid="uid://bydm3mi4jx10m" path="res://Images/room/sabotage/AUGE00.res" id="15"]
+[ext_resource type="Texture2D" uid="uid://dg4tw6yw80e2y" path="res://Images/room/sabotage/AUGE01.res" id="16"]
+[ext_resource type="Texture2D" uid="uid://v0yn4cp6k7dw" path="res://Images/room/sabotage/AUGE02.res" id="17"]
+[ext_resource type="Texture2D" uid="uid://dbm7s62c6hohu" path="res://Images/room/sabotage/AUGE03.res" id="18"]
+[ext_resource type="Texture2D" uid="uid://bin6xyojk5a6l" path="res://Images/room/sabotage/AUGE04.res" id="19"]
+[ext_resource type="Texture2D" uid="uid://xj6crekvlhdb" path="res://Images/room/sabotage/AUGE05.res" id="20"]
+[ext_resource type="Texture2D" uid="uid://b3m4gbr57u7q4" path="res://Images/room/sabotage/AUGE06.res" id="21"]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id="1"]
 resource_local_to_scene = true
-extents = Vector2( 12.2634, 15.3919 )
+size = Vector2(24.5268, 30.7838)
 
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+[sub_resource type="SpriteFrames" id="2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 10.0
-} ]
+}]
 
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
+[sub_resource type="SpriteFrames" id="3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 7.0
-} ]
+}]
 
 [node name="RoomMuseum" type="Node2D"]
 
 [node name="Base" type="Control" parent="."]
-material = ExtResource( 1 )
+material = ExtResource("1")
+layout_mode = 3
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 960.0
-margin_top = 540.0
-margin_right = 960.0
-margin_bottom = 540.0
-rect_scale = Vector2( 2.5, 2.5 )
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 540.0
+scale = Vector2(2.5, 2.5)
 mouse_filter = 1
 
-[node name="SABOTAGE" type="Sprite" parent="Base"]
-position = Vector2( -68.6022, 0 )
-scale = Vector2( 0.981818, 0.981818 )
-texture = ExtResource( 2 )
+[node name="SABOTAGE" type="Sprite2D" parent="Base"]
+position = Vector2(-68.6022, 0)
+scale = Vector2(0.981818, 0.981818)
+texture = ExtResource("2")
 
-[node name="MouseColliderRoom2" parent="Base" instance=ExtResource( 3 )]
-position = Vector2( -254.784, -48.916 )
-scale = Vector2( 5.31445, 9.63602 )
+[node name="MouseColliderRoom2" parent="Base" instance=ExtResource("3")]
 z_index = 1
+position = Vector2(-254.784, -48.916)
+scale = Vector2(5.31445, 9.63602)
 isExitToAirport = true
 
 [node name="CollisionShape2D" parent="Base/MouseColliderRoom2" index="0"]
-position = Vector2( 2.21127, 11.7157 )
-shape = SubResource( 1 )
+position = Vector2(2.21127, 11.7157)
+shape = SubResource("1")
 
-[node name="Flame" type="AnimatedSprite" parent="Base"]
-position = Vector2( -37.0306, 91.1803 )
-frames = SubResource( 2 )
+[node name="Flame" type="AnimatedSprite2D" parent="Base"]
+position = Vector2(-37.0306, 91.1803)
+sprite_frames = SubResource("2")
 frame = 2
-playing = true
 
-[node name="Eye" type="AnimatedSprite" parent="Base"]
-position = Vector2( -342.512, -160.567 )
-frames = SubResource( 3 )
+[node name="Eye" type="AnimatedSprite2D" parent="Base"]
+position = Vector2(-342.512, -160.567)
+sprite_frames = SubResource("3")
 frame = 2
 speed_scale = 0.2
-playing = true
 
 [editable path="Base/MouseColliderRoom2"]

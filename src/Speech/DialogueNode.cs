@@ -8,7 +8,7 @@ using Godot;
 
 */
 
-public class DialogueNode {
+public partial class DialogueNode {
 	protected Dialogue master;
 
 	public int textId;
@@ -69,7 +69,7 @@ public class DialogueNode {
 	}
 }
 
-public class DialogueNodeReturning : DialogueNode {
+public partial class DialogueNodeReturning : DialogueNode {
 	public DialogueNodeReturning(int textId, params string[] wildcards) : base(textId, wildcards) {
 		returnable = false;
 	}
@@ -83,7 +83,7 @@ public class DialogueNodeReturning : DialogueNode {
 	}
 }
 
-public class DialogueNodeExit : DialogueNode {
+public partial class DialogueNodeExit : DialogueNode {
 	public DialogueNodeExit(int textId, params string[] wildcards) : base(textId, wildcards) {
 		returnable = false;
 	}

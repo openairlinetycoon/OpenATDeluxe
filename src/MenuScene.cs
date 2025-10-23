@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-public class MenuScene : Node2D {
+public partial class MenuScene : Node2D {
 	public static MenuScene instance;
 
 	[Export]
@@ -40,7 +40,7 @@ public class MenuScene : Node2D {
 		textGrid = GetNode<GridContainer>(_textGrid);
 		klackerPlayer = GetNode<AudioStreamPlayer>(_klackerPlayer);
 
-		GameController.instance?.SetTaskbar(false);
+		GameController.ToggleTaskbar(false);
 
 		PopulateGrid();
 		PopulateExceptions();
@@ -94,7 +94,7 @@ public class MenuScene : Node2D {
 
 				string output = CheckExceptions(text[x]);
 
-				Sprite s = CreateTextSprite(scene[line], output);
+				Sprite2D s = CreateTextSprite(scene[line], output);
 
 				int xPos = x, yPos = line - lineSkips;
 				switch (scene[line].type) {
@@ -132,15 +132,15 @@ public class MenuScene : Node2D {
 		Task.Run(PlayKlackers);
 	}
 
-	public void ChangeScene(IBaseMenu scene, bool klackerOnlyChanges = false) {
+	public void ChangeSceneToFile(IBaseMenu scene, bool klackerOnlyChanges = false) {
 		foreach (Control g in grid) {
 			CharacterItem characterItem = (g as CharacterItem);
 			characterItem.AssignedMenuItem = null;
 			characterItem.character = "";
 
-			if (characterItem.IsConnected("mouse_entered", g, "MouseEntered")) {
-				characterItem.Disconnect("mouse_entered", g, "MouseEntered");
-				characterItem.Disconnect("mouse_exited", g, "MouseExited");
+			if (characterItem.IsConnected("mouse_entered", new Callable(g, "MouseEntered"))) {
+				characterItem.Disconnect("mouse_entered", new Callable(g, "MouseEntered"));
+				characterItem.Disconnect("mouse_exited", new Callable(g, "MouseExited"));
 			}
 
 			if (g.GetChildCount() == 1)
@@ -154,7 +154,7 @@ public class MenuScene : Node2D {
 		PrepareMenuScene(scene, klackerOnlyChanges);
 	}
 
-	private async Task AnimateText(MenuItem item, Sprite text, char current) {
+	private async Task AnimateText(MenuItem item, Sprite2D text, char current) {
 		int turns = 0;
 		int maxTurns = 5 + r.Next(-2, 5);
 
@@ -167,26 +167,32 @@ public class MenuScene : Node2D {
 
 			if (!IsInstanceValid(text))
 				return;
-			text.Texture = (Texture)ResourceLoader.Load(GetFilePath(output, item.TypeFace));
-
+			
+			Texture2D texture = (Texture2D)ResourceLoader.Load(GetFilePath(output, item.TypeFace));
+			CallDeferred("_SetTexture", text, texture);
 			await Task.Delay(60);
 		}
 
 
-		if (IsInstanceValid(text))
-			text.Texture = (Texture)ResourceLoader.Load(GetFilePath(CheckExceptions(current), item.TypeFace));
+		if (IsInstanceValid(text)) {
+			Texture2D finalTexture = (Texture2D)ResourceLoader.Load(GetFilePath(CheckExceptions(current), item.TypeFace));
+			CallDeferred("_SetTexture", text, finalTexture);
+		}
+	}
+
+	private void _SetTexture(Sprite2D sprite, Texture2D texture) {
+		if (IsInstanceValid(sprite))
+			sprite.Texture = texture;
 	}
 
 	private async Task PlayKlackers() {
 		if (!klackersEnabled)
 			return;
 
-		AudioStreamSample[] audioFiles = new AudioStreamSample[3];
-		audioFiles[0] = new AudioStreamSample();
-		audioFiles[1] = new AudioStreamSample();
-		audioFiles[2] = new AudioStreamSample();
-
-		List<AudioStreamPlayer> oneShotAudios = new List<AudioStreamPlayer>();
+	AudioStreamWav[] audioFiles = new AudioStreamWav[3];
+	audioFiles[0] = new AudioStreamWav();
+	audioFiles[1] = new AudioStreamWav();
+	audioFiles[2] = new AudioStreamWav();		List<AudioStreamPlayer> oneShotAudios = new List<AudioStreamPlayer>();
 
 		byte[] data = System.IO.File.ReadAllBytes(SoundPath + "Klack0.raw");
 		audioFiles[0].SetData(data);
@@ -200,30 +206,33 @@ public class MenuScene : Node2D {
 		audioFiles[2].SetData(data);
 		audioFiles[2].MixRate = 44100;
 
-		klackerPlayer.SetStream(audioFiles[0]);
+		CallDeferred("_SetupAndPlayAudio", klackerPlayer, audioFiles[0]);
 
 		Task t = Task.WhenAll(klackerTasks);
 
 
 
-		while (!t.IsCompleted) {
-			AudioStreamPlayer p = new AudioStreamPlayer();
-			oneShotAudios.Add(p);
-			AddChild(p);
-			p.SetStream(audioFiles[r.Next(0, 2)]);
-			p.Play();
-			p.SetBus("soundFX");
-			await Task.Delay(60);
-		}
-
-		foreach (var player in oneShotAudios) {
-			player.QueueFree();
-		}
+	while (!t.IsCompleted) {
+		AudioStreamPlayer p = new AudioStreamPlayer();
+		oneShotAudios.Add(p);
+		AudioStreamWav selectedStream = audioFiles[r.Next(0, 2)];
+		CallDeferred(MethodName.AddChild, p);
+		CallDeferred("_SetupAndPlayAudio", p, selectedStream);
+		await Task.Delay(60);
+	}		foreach (var player in oneShotAudios) {
+		player.CallDeferred("queue_free");
 	}
+}
 
-	private static bool IsLetterInAlphabet(char letter) {
-		return letter > CharA && letter < CharZ;
-	}
+private void _SetupAndPlayAudio(AudioStreamPlayer p, AudioStreamWav stream) {
+	p.SetStream(stream);
+	p.Play();
+	p.SetBus("soundFX");
+}
+
+private static bool IsLetterInAlphabet(char letter) {
+	return letter > CharA && letter < CharZ;
+}
 
 	private string CheckExceptions(char input) {
 		string output = input.ToString();
@@ -251,18 +260,18 @@ public class MenuScene : Node2D {
 
 	public Control CreateControl() {
 		CharacterItem c = new CharacterItem();
-		c.RectMinSize = new Vector2(16, 22);
+		c.CustomMinimumSize = new Vector2(16, 22);
 
 		textGrid.AddChild(c);
 		c.SetOwner(textGrid);
 		return c;
 	}
-	public Sprite CreateTextSprite(MenuItem item, string character) {
-		Sprite s = new Sprite();
-		s.Name = character;
-		s.Centered = false;
-		s.Texture = (Texture)ResourceLoader.Load(GetFilePath(character, item.TypeFace));
-		return s;
+	public Sprite2D CreateTextSprite(MenuItem item, string character) {
+	Sprite2D s = new Sprite2D();
+	s.Name = character;
+	s.Centered = false;
+	s.Texture = (Texture2D)ResourceLoader.Load(GetFilePath(character, item.TypeFace));
+	return s;
 	}
 
 	private static string GetFilePath(string character, string typeFace) {
@@ -270,11 +279,11 @@ public class MenuScene : Node2D {
 	}
 
 	override public void _ExitTree() {
-		GameController.instance.SetTaskbar(true);
+		GameController.ToggleTaskbar(true);
 	}
 }
 
-public class MenuItem {
+public partial class MenuItem {
 	public string text;
 	public string TypeFace {
 		get {
@@ -348,7 +357,7 @@ public class MenuItem {
 }
 
 
-public class SliderItem : MenuItem {
+public partial class SliderItem : MenuItem {
 	public static int ConvertRange(
 		int originalStart, int originalEnd, // original range
 		int newStart, int newEnd, // desired range
@@ -377,12 +386,12 @@ public class SliderItem : MenuItem {
 			text = "------- ";
 			text = text.Remove(pos, 1).Insert(pos, "~");
 
-			MenuScene.instance.ChangeScene(MenuScene.instance.currentScene, klackerOnlyChanges);
+			MenuScene.instance.ChangeSceneToFile(MenuScene.instance.currentScene, klackerOnlyChanges);
 		};
 	}
 }
 
-public class MenuChangeItem : MenuItem {
+public partial class MenuChangeItem : MenuItem {
 	public IBaseMenu sceneToChangeTo;
 
 	public MenuChangeItem(string text, IBaseMenu newMenu) : base(text, EntryType.Link, false) {
@@ -390,10 +399,10 @@ public class MenuChangeItem : MenuItem {
 
 		sceneToChangeTo = newMenu;
 
-		OnClick = () => MenuScene.instance.ChangeScene(sceneToChangeTo, klackerOnlyChanges);
+		OnClick = () => MenuScene.instance.ChangeSceneToFile(sceneToChangeTo, klackerOnlyChanges);
 	}
 }
-public class SwitchItem : MenuItem {
+public partial class SwitchItem : MenuItem {
 	public IBaseMenu sceneToChangeTo;
 
 	public SwitchItem(string onText, string offText, Func<bool> getValue, Action<bool> setValue) : base(onText, EntryType.Link, false) {
@@ -404,7 +413,7 @@ public class SwitchItem : MenuItem {
 
 			text = getValue() ? onText : offText;
 
-			MenuScene.instance.ChangeScene(MenuScene.instance.currentScene, true);
+			MenuScene.instance.ChangeSceneToFile(MenuScene.instance.currentScene, true);
 		};
 	}
 	public SwitchItem(string onText, string offText, SettingsValue<bool> setting) : this(onText, offText, setting.GetValue, setting.SetValue) { }

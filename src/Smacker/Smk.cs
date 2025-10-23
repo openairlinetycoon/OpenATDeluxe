@@ -32,7 +32,7 @@
 using System;
 using System.IO;
 
-public class SmackerFile {
+public partial class SmackerFile {
 	private SmackerHeader header;
 
 	public SmackerHeader Header {
@@ -196,7 +196,7 @@ public class SmackerFile {
 	}
 }
 
-public class SmackerHeader {
+public partial class SmackerHeader {
 	/* Smacker file header */
 	public UInt32 Signature;
 	public UInt32 Width, Height;

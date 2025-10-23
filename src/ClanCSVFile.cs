@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class ClanCSVFile : CSVFileDecoder {
+public partial class ClanCSVFile : CSVFileDecoder {
 	public static ClanCSVFile instance;
 	Dictionary<int /* type */, Dictionary<string, AnimationData>> animations; //TODO: PLEASE HELP ME! THIS IS TORTUE TO LOOK AT!
 

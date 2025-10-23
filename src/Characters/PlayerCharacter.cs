@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class PlayerCharacter : BaseCharacter {
+public partial class PlayerCharacter : BaseCharacter {
 	public static PlayerCharacter instance;
 
 	[Export]

@@ -6,11 +6,13 @@
 This is the repository of the Open Source remake of Airline Tycoon Deluxe.
 It will add support for Full HD resolution, and native support for platforms like Windows (10), Linux and OSx.
 
+This is the continuation of the project from the previous developer with a migration to Godot 4.4, was mostly done via AI tools as it would of been way too tedious to do by hand.
+
 ## Contributing
 
 Join our [Discord](https://discord.gg/epPf384)!
 
-You can help by getting involved in active development of [things to do](https://github.com/openairlinetycoon/OpenATDeluxe/projects/1), by suggesting new features, reporting bugs of the original game, or by bug-testing the game in its current state. Thanks in advance !
+You can help by getting involved in active development by suggesting new features, reporting bugs of the original game, or by bug-testing the game in its current state. Thanks in advance!
 
 ## Progress
 - Game rooms are nearly all added [#10](https://github.com/openairlinetycoon/OpenATDeluxe/issues/10)
@@ -19,11 +21,9 @@ You can help by getting involved in active development of [things to do](https:/
 - The player character is implemented
 - All of the gameplay is still missing
 
-## Todo
-- See [board](https://github.com/openairlinetycoon/OpenATDeluxe/projects/1)
 
 ## How to compile the Godot branch
-- Download Godot 3.2 Mono or later
+- Download Godot 4.4 Mono or later
 - Install Airline Tycoon Deluxe and download this repository
 - Build the project in godot ("Build" in the top right corner in godot)
 - Go to the new Build Manager tab on the upper left corner of godot

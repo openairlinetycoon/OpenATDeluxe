@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class MusicController : Node {
+public partial class MusicController : Node {
 	public static MusicController instance;
 	public static Song[] musicFiles;
 	public static bool isOgg;
@@ -40,7 +40,7 @@ public class MusicController : Node {
 	}
 
 	//  Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(float delta) {
+	public override void _Process(double delta) {
 		if (HasSongFinished()) {
 			NextSong();
 			PlaySong();
@@ -59,7 +59,7 @@ public class MusicController : Node {
 			oggPlayer.SetStream(musicFiles[currentSong].oggData);
 			oggPlayer.Play();
 		} else if (type == Song.SongTypes.Mid) {
-			midiPlayer.Call("set_file", musicFiles[currentSong]);
+			midiPlayer.Call("set_file", musicFiles[currentSong].path);
 			midiPlayer.Call("play", 0);
 		}
 	}
@@ -91,7 +91,7 @@ public class MusicController : Node {
 	}
 }
 
-public class Song {
+public partial class Song {
 	public string path, name;
 
 	public enum SongTypes {
@@ -101,7 +101,7 @@ public class Song {
 
 	public SongTypes type;
 
-	public AudioStreamOGGVorbis oggData;
+	public AudioStreamOggVorbis oggData;
 
 	public Song(string path, SongTypes songType) {
 		this.path = path;
@@ -124,8 +124,7 @@ public class Song {
 	}
 
 	void CreateOggResource() {
-		oggData = new AudioStreamOGGVorbis();
-		oggData.SetData(System.IO.File.ReadAllBytes(path));
+		oggData = AudioStreamOggVorbis.LoadFromFile(path);
 	}
 
 	public static Song[] CreateFromFiles(string[] files, SongTypes songType) {

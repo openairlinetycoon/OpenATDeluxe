@@ -1,6 +1,6 @@
 using Godot;
 
-public class CharacterItem : Control {
+public partial class CharacterItem : Control {
 	private MenuItem assignedMenuItem;
 	public string character = "";
 	public int stringPosition = 0;
@@ -10,8 +10,8 @@ public class CharacterItem : Control {
 		set {
 			assignedMenuItem = value;
 			if (value?.OnClick != null || value?.OnClickSpecial != null) {
-				Connect("mouse_entered", this, nameof(MouseEntered));
-				Connect("mouse_exited", this, nameof(MouseExited));
+				Connect("mouse_entered", new Callable(this, nameof(MouseEntered)));
+				Connect("mouse_exited", new Callable(this, nameof(MouseExited)));
 			}
 		}
 	}

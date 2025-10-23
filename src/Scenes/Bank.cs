@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Bank : BaseRoom {
+public partial class Bank : BaseRoom {
 
 	AnimationList loanAnims = new AnimationList();
 	AnimationList sharesAnims = new AnimationList();
@@ -15,10 +15,8 @@ public class Bank : BaseRoom {
 		loanAnims.CreateMouseArea(baseNode);
 		sharesAnims.CreateMouseArea(baseNode);
 
-		DialogueSystem.AddActor(new Actor("BA", (DialogueWindow)FindNode("BA")));
-		DialogueSystem.AddActor(new Actor("B2", (DialogueWindow)FindNode("B2"), 520));
-
-		Dialogue loanDialogue = new Dialogue("Bank", nameof(loanDialogue), "B2");
+	DialogueSystem.AddActor(new Actor("BA", GetNode<DialogueWindow>("BA")));
+	DialogueSystem.AddActor(new Actor("B2", GetNode<DialogueWindow>("B2"), 520));		Dialogue loanDialogue = new Dialogue("Bank", nameof(loanDialogue), "B2");
 		{ // loan
 			loanDialogue.AddOnTelephoneNode(new DialogueNodeReturning(150));
 			
@@ -141,7 +139,7 @@ public class Bank : BaseRoom {
 		sharesAnims.Play(0);
 	}
 
-	override public void _Process(float delta) {
+	override public void _Process(double delta) {
 		loanAnims.ProcessTrigger();
 		sharesAnims.ProcessTrigger();
 	}

@@ -62,7 +62,7 @@ func play( from_position:float = 0.0 ):
 	self.using_timer = 0.0
 	self.current_volume_db = self.ads_state[0].volume_db
 	self.stream.mix_rate = self.mix_rate
-	.play( from_position )
+	super.play( from_position )
 	self._update_volume( )
 
 func start_release( ):
@@ -114,5 +114,5 @@ func _update_volume( ):
 	self.volume_db = self.current_volume_db + self.note_volume_db + self.maximum_volume_db
 
 func change_channel_volume( base_volume_db:float, channel ):
-	self.note_volume_db = linear2db( float( channel.volume * channel.expression ) * ( float( self.velocity ) / 127.0 ) )
+	self.note_volume_db = linear_to_db( float( channel.volume * channel.expression ) * ( float( self.velocity ) / 127.0 ) )
 	self.maximum_volume_db = base_volume_db

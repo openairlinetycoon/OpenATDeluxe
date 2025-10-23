@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using Environment = System.Environment;
 
 //TODO: Add skip function
-public class DialogueSystem : Node2D {
+public partial class DialogueSystem : Node2D {
 	static DialogueSystem instance;
 	public static Queue<Action> dialogueCommandQueue = new Queue<Action>();
 
@@ -17,7 +17,7 @@ public class DialogueSystem : Node2D {
 	public static Action onDialogueStart;
 
 	public static SoundPlayer currentSound;
-	public static Viewport otherRoomParent; //For telephone call
+	public static SubViewport otherRoomParent; //For telephone call
 	public static Node2D otherRoomHolder;
 	public static bool isTelephoneCall;
 
@@ -28,18 +28,16 @@ public class DialogueSystem : Node2D {
 		}
 		instance = this;
 
-		otherRoomParent = (Viewport)FindNode("OtherTelephoneRoom");
-		otherRoomHolder = ((Node2D)otherRoomParent.GetParent());
-		otherRoomHolder.Hide();
-
-		RoomManager.OnRoomExit += CleanActors;
+	otherRoomParent = GetNode<SubViewport>("TelephoneManager/OtherTelephoneRoom");
+	otherRoomHolder = ((Node2D)otherRoomParent.GetParent());
+	otherRoomHolder.Hide();		RoomManager.OnRoomExit += CleanActors;
 		GameController.onUnhandledInput += Skip;
 
 		AddPlayerActor();
 	}
 
 
-	override public void _Process(float _dt) {
+	override public void _Process(double _dt) {
 		if (dialogueCommandQueue?.Count != 0) {
 			dialogueCommandQueue.Dequeue().Invoke();
 		}
@@ -127,7 +125,7 @@ public class DialogueSystem : Node2D {
 	}
 
 	private static void AddPlayerActor() {
-		AddActor(new Actor(GameController.CurrentPlayerTag, (DialogueWindow)instance.FindNode("PL")));
+		AddActor(new Actor(GameController.CurrentPlayerTag, instance.GetNode<DialogueWindow>("PL")));
 	}
 	public static void CleanActors() {
 		if (instance == null)
@@ -417,13 +415,11 @@ public class DialogueSystem : Node2D {
 		int IsPlayer(string playerName) {
 			playerName = playerName.TrimStart(' ');
 			for (int i = 0; i < GameController.playerCompanyNames.Length; i++) {
-				string player = GameController.playerCompanyNames[i];
+			string player = GameController.playerCompanyNames[i];
 
-				if (playerName.BeginsWith(player))
-					return i + 1;
-			}
-
-			return -1;
+			if (playerName.StartsWith(player))
+				return i + 1;
+		}			return -1;
 		}
 	}
 
@@ -475,7 +471,15 @@ public class DialogueSystem : Node2D {
 	private static void CompileTextAndInstructions(string[] wildcards, int textId, out string currentFullText, out List<string> instructions) {
 		currentFullText = GetFullTrText(textId, currentDialogue);
 		instructions = GetInstruction(currentFullText);
-		currentlyTalking = GetInstructionActor(instructions[0]);
+		
+		// Safety check: if no instructions found, use current actor or fallback
+		if (instructions.Count > 0) {
+			currentlyTalking = GetInstructionActor(instructions[0]);
+		} else {
+			// Fallback to actorB if no instructions found
+			currentlyTalking = string.IsNullOrEmpty(currentlyTalking) ? actorB : currentlyTalking;
+			GD.PushWarning($"No instructions found in dialogue text ID {textId}. Using fallback actor: {currentlyTalking}");
+		}
 
 		if (wildcards != null) {
 			currentFullText = FillWildcards(currentFullText, wildcards);

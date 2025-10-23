@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Staircase : Node2D {
+public partial class Staircase : Node2D {
 	[Export]
 	public bool isUpstairs;
 

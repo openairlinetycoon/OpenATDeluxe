@@ -32,7 +32,7 @@
 using System;
 using System.IO;
 
-public class SmackerDecoder {
+public partial class SmackerDecoder {
 	public struct Color {
 		public byte r;
 		public byte g;

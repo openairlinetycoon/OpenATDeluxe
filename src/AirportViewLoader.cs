@@ -3,12 +3,12 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-using Directory = System.IO.Directory;
-using File = Godot.File;
-using Path = System.IO.Path;
+using DirAccess = System.IO.Directory;
+using SystemFile = System.IO.File;
+using Path3D = System.IO.Path;
 using System.Text;
 
-public class AirportViewLoader : Node {
+public partial class AirportViewLoader : Node {
 	// Declare member variables here. Examples:
 	// private int a = 2;
 	// private string b = "text";
@@ -64,7 +64,7 @@ public class AirportViewLoader : Node {
 				BrickInfo info = new BrickInfo();
 
 				info.path = FindFile(fileName);
-				info.name = Path.GetFileNameWithoutExtension(info.path);
+				info.name = Path3D.GetFileNameWithoutExtension(info.path);
 				info.xOffset = Convert.ToInt32(values[8]);
 				info.yOffset = Convert.ToInt32(values[9]);
 				info.zIndex = Convert.ToInt32(values[5]);
@@ -76,13 +76,13 @@ public class AirportViewLoader : Node {
 	}
 
 	public string FindFile(string name) {
-		return Directory.GetFiles(ProjectSettings.GlobalizePath("res://Images/gli") + "/", name + ".*", System.IO.SearchOption.AllDirectories).FirstOrDefault();
+		return DirAccess.GetFiles(ProjectSettings.GlobalizePath("res://Images/gli") + "/", name + ".*", System.IO.SearchOption.AllDirectories).FirstOrDefault();
 	}
 
 	public void CreateSprite(long id, int x, int y, int par) {
 		currentID++;
 
-		Sprite s = new Sprite();
+		Sprite2D s = new Sprite2D();
 		_baseScene.AddChild(s);
 		s.SetOwner(_baseScene);
 
@@ -96,7 +96,7 @@ public class AirportViewLoader : Node {
 		if (par != 0)
 			s.Visible = false;
 
-		s.SetTexture(ResourceLoader.Load<Texture>(bricks[id].path));
+		s.SetTexture(ResourceLoader.Load<Texture2D>(bricks[id].path));
 	}
 
 	public override void _Ready() {
@@ -104,22 +104,21 @@ public class AirportViewLoader : Node {
 
 		PrepareBricks();
 
-		string[] files = Directory.GetFiles(basePath + "/misc/",
+		string[] files = DirAccess.GetFiles(basePath + "/misc/",
 			"*.dat");
 
 		foreach (string filePath in files) {
-			File f = new File();
-			f.Open(filePath, File.ModeFlags.Read);
+			Godot.FileAccess f = Godot.FileAccess.Open(filePath, Godot.FileAccess.ModeFlags.Read);
 
 			currentID = 0;
 			LoadLevelFile(f);
 
-			_baseScene.Name = Path.GetFileNameWithoutExtension(filePath);
+			_baseScene.Name = Path3D.GetFileNameWithoutExtension(filePath);
 
 			PackedScene save = new PackedScene();
 			save.Pack(_baseScene);
 
-			ResourceSaver.Save("res://scenes/airportPartsImport/" + _baseScene.Name + ".tscn", save);
+			ResourceSaver.Save(save, "res://scenes/airportPartsImport/" + _baseScene.Name + ".tscn");
 			foreach (Node n in _baseScene.GetChildren()) {
 				_baseScene.RemoveChild(n);
 				n.QueueFree();
@@ -129,7 +128,7 @@ public class AirportViewLoader : Node {
 		}
 	}
 
-	private void LoadLevelFile(File f) {
+	private void LoadLevelFile(Godot.FileAccess f) {
 		int fileAmount = (int)f.Get32();
 		GD.Print("Files estimated: " + fileAmount);
 

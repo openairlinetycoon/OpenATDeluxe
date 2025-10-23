@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
-using File = Godot.File;
+using File = System.IO.File;
 
-public class CSVFileDecoder : BaseFileDecoder {
+public partial class CSVFileDecoder : BaseFileDecoder {
 	public CSVFileDecoder(string _filePath) : base(_filePath) {
 
 	}

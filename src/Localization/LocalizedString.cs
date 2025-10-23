@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class LocalizedString {
+public partial class LocalizedString {
 	public int id;
 	public Dictionary<Language, string> strings;
 
@@ -24,11 +24,11 @@ public class LocalizedString {
 			return;
 		}
 
-		if (data.Substring(1).BeginsWith("::")) { //Data can be for every language!
-			Enum.TryParse(data.Substr(0, 1), out Language l);
-			//B
+	if (data.Substring(1).StartsWith("::")) { //Data can be for every language!
+		Enum.TryParse(data.Substr(0, 1), out Language l);
+		//B
 
-			strings.Add(l, data.Substring(3));
+		strings.Add(l, data.Substring(3));
 		} else {
 			for (int l = 0; l <= (int)Language.D; l++) {
 				strings.Add((Language)l, data);

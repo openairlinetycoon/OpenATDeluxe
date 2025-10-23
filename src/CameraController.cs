@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class CameraController : Camera2D {
+public partial class CameraController : Camera2D {
 	[Export]
 	public float speed;
 	float width = 1920;
@@ -14,29 +14,31 @@ public class CameraController : Camera2D {
 	}
 
 
-	public override void _Process(float delta) {
-		//SetPosition(GetViewport().GetMousePosition());
 
-		float offset = GetViewport().GetMousePosition().x - width / 2;
-		float p = 100 / (width / 2) * offset;
-		int side = Math.Sign(p);
-		p *= side;
 
-		if (p / 100 >= DragMarginLeft) {
-			MouseCursor.instance.movingCamera = side;
-		} else {
-			MouseCursor.instance.movingCamera = 0;
-			side = 0;
-		}
+public override void _Process(double delta) {
+	//Position = GetViewport().GetMousePosition();
 
-		SetPosition(GetGlobalMousePosition() + new Vector2(speed * (Input.IsMouseButtonPressed(1) ? 2 : 1), 0) * side);
+	float offset = GetViewport().GetMousePosition().X - width / 2;
+	float p = 100 / (width / 2) * offset;
+	int side = Math.Sign(p);
+	p *= side;
+
+	if (p / 100 >= DragLeftMargin) {
+		MouseCursor.instance.movingCamera = side;
+	} else {
+		MouseCursor.instance.movingCamera = 0;
+		side = 0;
 	}
 
-	public Vector2 _GetPosition() {
-		return GetPosition();
-	}
+	Position += new Vector2(speed * (float)delta * (Input.IsMouseButtonPressed(MouseButton.Right) ? 2 : 1), 0) * side;
+}
 
-	public void _SetPosition(Vector2 pos) {
-		SetPosition(pos);
-	}
+public Vector2 _GetPosition() {
+	return Position;
+}
+
+public void _SetPosition(Vector2 pos) {
+	Position = pos;
+}
 }

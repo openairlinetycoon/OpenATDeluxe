@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public class ListElement : BaseElement {
+public partial class ListElement : BaseElement {
 	public List<ListItem> lines;
 
 	[Export]
@@ -52,22 +52,20 @@ public class ListElement : BaseElement {
 
 			line.Name = $"Item {i}";
 
-			Label lineText;
-			if (line is Label l) {
-				lineText = l;
-			} else {
-				lineText = (Label)line.FindNode("Text");
-			}
-
-			lineText.Text = lines[i].text;
+		Label lineText;
+		if (line is Label l) {
+			lineText = l;
+		} else {
+			lineText = line.GetNode<Label>("Text");
+		}			lineText.Text = lines[i].text;
 			line.Visible = lines[i].visible;
 
 			LineElement element = new LineElement();
 			element.Name = "Line";
 			element.onClick += lines[i].onClick;
 			element.MouseFilter = Control.MouseFilterEnum.Pass;
-			element.RectMinSize = line.RectSize;
-			element.RectPosition = line.RectPosition;
+			element.CustomMinimumSize = line.Size;
+			element.Position = line.Position;
 
 			if (itemsCloseList) {
 				element.onClick += Hide;
@@ -98,7 +96,7 @@ public class ListElement : BaseElement {
 	}
 }
 
-public class ListItem {
+public partial class ListItem {
 	public string text;
 	public Action onClick;
 

@@ -2,12 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Manager : BaseRoom {
+public partial class Manager : BaseRoom {
 
 	AnimationList manager = new AnimationList();
 
 	public override void OnReady() {
-		DialogueSystem.AddActor(new Actor("BO", (DialogueWindow)FindNode("BO")));
+		DialogueSystem.AddActor(new Actor("BO", GetNode<DialogueWindow>("BO")));
 
 		manager.basePosition = new Vector2(24, -136);
 		manager.CreateMouseArea(baseNode);
@@ -45,7 +45,7 @@ public class Manager : BaseRoom {
 		manager.Play(0);
 	}
 
-	override public void _Process(float delta) {
+	override public void _Process(double delta) {
 		manager.ProcessTrigger();
 	}
 

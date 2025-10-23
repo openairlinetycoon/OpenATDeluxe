@@ -29,7 +29,7 @@
 //
 
 
-public class Huffmantree {
+public partial class Huffmantree {
 	protected internal class Node {
 		//"0"- branch
 		private Node left;
@@ -158,7 +158,7 @@ public class Huffmantree {
 
 }
 
-public class BigHuffmanTree : Huffmantree {
+public partial class BigHuffmanTree : Huffmantree {
 
 	/// <summary>
 	/// Decodes a value using this tree based on the next bits in the specified stream

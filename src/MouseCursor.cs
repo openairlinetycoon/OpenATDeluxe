@@ -3,10 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-public class MouseCursor : Node2D {
+public partial class MouseCursor : Node2D {
 	public static MouseCursor instance;
 
 	List<Node2D> states = new List<Node2D>();
+	AnimatedSprite2D exitAnimatedSprite;
 
 	MouseState currentState;
 	HoverStackItem currentHover; //The "object" we are currently hovering above
@@ -16,13 +17,13 @@ public class MouseCursor : Node2D {
 		public MouseState state;
 		public Node item;
 
-		public uint additionTime;
+		public ulong additionTime;
 
 		public HoverStackItem(MouseState state, Node item) {
 			this.state = state;
 			this.item = item;
 
-			this.additionTime = OS.GetTicksMsec();
+			this.additionTime = Time.GetTicksMsec();
 		}
 	}
 
@@ -37,6 +38,10 @@ public class MouseCursor : Node2D {
 
 	public int movingCamera = 0;
 
+	// Double-tap detection variables
+	private ulong lastClickTime = 0;
+	private const ulong doubleTapThreshold = 300; // milliseconds
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		instance = this;
@@ -50,11 +55,14 @@ public class MouseCursor : Node2D {
 		states.Add(GetNode<Node2D>("MoveLeft"));
 		states.Add(GetNode<Node2D>("MoveRight"));
 
+		// Get reference to Exit AnimatedSprite2D
+		exitAnimatedSprite = GetNode<AnimatedSprite2D>("Exit");
+
 		ChangeMouseState(MouseState.Normal);
 		// if (lib.files.Count > 0) {
 		//     SetTexture (lib.files[0].GetTexture());
 		// }
-		Input.SetMouseMode(Input.MouseMode.Hidden);
+		Input.MouseMode = Input.MouseModeEnum.Hidden;
 	}
 
 	public void MouseEnter(Node other) {
@@ -154,15 +162,27 @@ public class MouseCursor : Node2D {
 			}
 		}
 
-		states.ForEach((s) => s.SetVisible(false));
+		states.ForEach((s) => s.Visible = false);
 
 		//Moving overrides other modes!
 		if (movingCamera == 0) {
-			states[(int)toState].SetVisible(true);
+			states[(int)toState].Visible = true;
+			
+			// Play animation for Exit state
+			if (toState == MouseState.Exit && exitAnimatedSprite != null) {
+				exitAnimatedSprite.Play("default");
+			} else if (exitAnimatedSprite != null) {
+				exitAnimatedSprite.Stop();
+			}
 		} else {
 			MouseState moveState = movingCamera == 1 ? MouseState.MoveRight : MouseState.MoveLeft;
 
-			states[(int)moveState].SetVisible(true);
+			states[(int)moveState].Visible = true;
+			
+			// Stop exit animation if we're moving camera
+			if (exitAnimatedSprite != null) {
+				exitAnimatedSprite.Stop();
+			}
 		}
 	}
 
@@ -176,8 +196,14 @@ public class MouseCursor : Node2D {
 		if (e is InputEventMouseButton mouse) {
 			//GameController.OnMouseClick(mouse);
 
-			if (mouse.IsPressed()) {
+			if (mouse.IsPressed() && mouse.ButtonIndex == MouseButton.Left) {
 				bool handled = false;
+				
+				// Check for double-tap
+				ulong currentTime = Time.GetTicksMsec();
+				bool isDoubleTap = (currentTime - lastClickTime) < doubleTapThreshold;
+				lastClickTime = currentTime;
+
 				if (currentHover.item != null && movingCamera == 0 && IsInstanceValid(currentHover.item)) {
 					if (currentHover.item is IInteractionLayer l) {
 						if (InteractionLayerManager.IsLayerDisabled(l))
@@ -189,12 +215,13 @@ public class MouseCursor : Node2D {
 					handled = true;
 				} else if (PlayerCharacter.instance != null && RoomManager.currentRoom == "RoomAirport" && movingCamera == 0) {
 					//SET MOVING WAYPOINT
-					PlayerCharacter.instance.SetPath(CameraController.airportCamera.GetGlobalMousePosition());
+					Vector2 targetPosition = CameraController.airportCamera.GetGlobalMousePosition();
+					PlayerCharacter.instance.SetPath(targetPosition, isDoubleTap);
 					handled = true;
 				}
 
 				if (handled)
-					GetTree().SetInputAsHandled();
+					GetViewport().SetInputAsHandled();
 			}
 		}
 	}
@@ -207,8 +234,8 @@ public class MouseCursor : Node2D {
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(float delta) {
-		SetPosition(GetGlobalMousePosition());
+	public override void _Process(double delta) {
+		Position = GetGlobalMousePosition();
 
 		CleanHovers();
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 
-public class Dialogue {
+public partial class Dialogue {
 	public string dialogueGroup;
 	public string id;
 	public string partnerID;

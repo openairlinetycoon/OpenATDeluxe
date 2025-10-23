@@ -159,18 +159,18 @@ func _read_soundfont_preset_compose_sample( sf, preset ):
 			var end_loop:int = ibag.sample.end_loop + ibag.sample_end_loop_offset
 			var mix_rate:float = ibag.sample.sample_rate * pow( 2.0, ( pbag.coarse_tune + ibag.coarse_tune ) / 12.0 ) * pow( 2.0, ( pbag.fine_tune + ibag.sample.pitch_correction + ibag.fine_tune ) / 1200.0 )
 
-			var ass:AudioStreamSample = AudioStreamSample.new( )
-			var wave:PoolByteArray = sample_base.subarray( start * 2, end * 2 - 1 )
+			var ass:AudioStreamWAV = AudioStreamWAV.new( )
+			var wave:PackedByteArray = sample_base.subarray( start * 2, end * 2 - 1 )
 			ass.data = wave
-			ass.format = AudioStreamSample.FORMAT_16_BITS
+			ass.format = AudioStreamWAV.FORMAT_16_BITS
 			ass.mix_rate = int( mix_rate )
 			ass.stereo = false #bag.sample.sample_type != SoundFont.sample_link_mono_sample
 			ass.loop_begin = start_loop - start
 			ass.loop_end = end_loop - start
 			if ibag.sample_modes == SoundFont.sample_mode_no_loop or ibag.sample_modes == SoundFont.sample_mode_unused_no_loop:
-				ass.loop_mode = AudioStreamSample.LOOP_DISABLED
+				ass.loop_mode = AudioStreamWAV.LOOP_DISABLED
 			else:
-				ass.loop_mode = AudioStreamSample.LOOP_FORWARD
+				ass.loop_mode = AudioStreamWAV.LOOP_FORWARD
 			var key_range = ibag.key_range
 			if pbag.key_range != null:
 				key_range = pbag.key_range

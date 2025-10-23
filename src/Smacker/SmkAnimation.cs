@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public class SmkAnimation : SmkPlayer {
+public partial class SmkAnimation : SmkPlayer {
 	public SmkAnimation onFinish, onCancel, onTrigger;
 
 	public SoundPlayer audio;
